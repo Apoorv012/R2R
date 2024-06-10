@@ -16,6 +16,7 @@ We need to have a comple of spots to eat cheap enough
 implement play denial in help
 move npcs a bit up
 move enemies a little bit down
+Fade out music if playing while changing road
 
 
 [DONE]

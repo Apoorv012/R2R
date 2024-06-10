@@ -102,8 +102,6 @@ public partial class Help : Node, IGame {
 	[Export] AudioStream Work1Sound, Work2Sound, Work3Sound, WorkoutSound, WashSound;
 	[Export] public AudioStream[] FNo, MNo, FYes, MYes, FDisgust, MDisgust, FApproval, MApproval;
 
-	[ExportGroup("Debug")]
-
 	readonly List<NPC> NPCs = new();
 
 	#endregion Properties *****************************************************************************
@@ -229,7 +227,6 @@ public partial class Help : Node, IGame {
 
 		ResetAllValues();
 
-
     doActionDelta = .5f;
     GlobalMessage.Text = "";
     // Cleanup spawned items
@@ -254,7 +251,6 @@ public partial class Help : Node, IGame {
     Background1.Position = new(974, 306 - City.Position.Y);
 
 
-    ResetHelp(14, -1700, 5000); // FIMXE AAA
 		ResetPlayer();
 		SpawnItems();
   }
@@ -2982,7 +2978,7 @@ public partial class Help : Node, IGame {
 	
 	/* 5 */	"*Click to close the map, or use Ctrl, Enter, or A on the Controller.",
 
-	/* 6 */	"If you look at the bottom of your screen, you will see that you have some statistics*.\nFor example you are starting to get tirsty.\nThere is a fountain just here, more to the left.\nMove under it and then go up to drink.",
+	/* 6 */	"If you look at the bottom of your screen, you will see that you have some statistics*.\nFor example you are starting to get thirsty.\nThere is a fountain just here, more to the left.\nMove under it and then go up to drink.",
 
 	/* 7 */	"Now you are good with drinks, but you may want also some food.\n*Move on the right and you will find a hot dog shop (remember that you can move fast with Shift or B).\nThe cost is exactly $1 so you can pay for it.\nYou need to sustain yourself (food, drink, and rest) to avoid to die.",
 

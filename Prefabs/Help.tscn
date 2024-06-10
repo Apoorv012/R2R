@@ -670,6 +670,7 @@ texture = ExtResource("156_r8a07")
 
 [node name="HR_People" type="Node2D" parent="City/HelpRoad"]
 z_index = 60
+position = Vector2(0, 5)
 
 [node name="HR_Lights" type="Node2D" parent="City/HelpRoad"]
 z_index = 80

@@ -3908,7 +3908,7 @@ public partial class Game : Node, IGame {
 
 	void ShowIntro(double delta) {
 		introTextScrollPos -= delta * 40;
-		if (introTextScrollPos < -2500) introTextScrollPos = 400;
+		if (introTextScrollPos < -3100) introTextScrollPos = 400;
 		IntroText.Position = new(0, (float)introTextScrollPos);
 		if (doActionDelta > 0) {
 			doActionDelta -= delta;

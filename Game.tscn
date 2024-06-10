@@ -1,4 +1,4 @@
-[gd_scene load_steps=321 format=3 uid="uid://bdflk6ud0jrdt"]
+[gd_scene load_steps=326 format=3 uid="uid://bdflk6ud0jrdt"]
 
 [ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="1_hj6uc"]
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_u838r"]
@@ -275,6 +275,11 @@
 [ext_resource type="AudioStream" uid="uid://bvsl61bx3ttsl" path="res://Sounds/Music/Win music BGO.ogg" id="261_bm57o"]
 [ext_resource type="Texture2D" uid="uid://c4hh6uey0i65d" path="res://Graphics/Player/VictoryDance.png" id="261_njoyj"]
 [ext_resource type="Material" uid="uid://8jjsv8ukiqi7" path="res://Graphics/FireworksMaterial.tres" id="267_cjldn"]
+[ext_resource type="Texture2D" uid="uid://t2vxdm25vwrq" path="res://Graphics/Intro/SlicEnDicE.png" id="267_ynn2y"]
+[ext_resource type="Texture2D" uid="uid://celsrn72207xg" path="res://Graphics/Intro/BGOllie.png" id="268_x5qpp"]
+[ext_resource type="Texture2D" uid="uid://buy8pjfj8dkjm" path="res://Graphics/Intro/BatMilku.png" id="272_r4lsp"]
+[ext_resource type="Texture2D" uid="uid://dt8ulecadgt0s" path="res://Graphics/Intro/J0nathan550.png" id="273_lrx3g"]
+[ext_resource type="Texture2D" uid="uid://db6yg2dcriey4" path="res://Graphics/Intro/CheekyCommodoreGamer.png" id="274_sxkv6"]
 
 [sub_resource type="Gradient" id="Gradient_vjce0"]
 interpolation_mode = 2
@@ -7207,9 +7212,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -4.0
-offset_top = 36.0
+offset_top = -2364.0
 offset_right = -4.0
-offset_bottom = 2507.0
+offset_bottom = 736.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/default_color = Color(1, 0.976471, 0, 1)
@@ -7238,15 +7243,20 @@ Remastered version done by          [color=#0080ff][b]CPU[/b][/color] of        
 Using          [color=#0080ff][b]Godot[/b][/color] 4.2.2
 Language:          [color=#0080ff][b]C#[/b][/color]
 Sound Effects: [color=#0080ff][b]CPU[/b][/color]
-In game Musics: [color=#0080ff][b]SliceNDice[/b][/color]
-Wictory Musics: [color=#0080ff][b]BG Ollie[/b][/color]
-Graphics: [color=#0080ff][b]CPU[/b][/color] using          [color=#0080ff][b]GIMP[/b][/color]
-Thanks to [color=#0080ff][b]Blah[/b][/color] for blah blah
+In game Musics:             [color=#0080ff][b]SlicEnDicE[/b][/color]
+Victory Music:              [color=#0080ff][b]BG Ollie[/b][/color]
+Graphics: [color=#0080ff][b]CPU[/b][/color] using           [color=#0080ff][b]GIMP[/b][/color]
+Thanks to            [color=#0080ff][b]Bat Milku[/b][/color],            [color=#0080ff][b]J0nathan550[/b][/color], and 
+... for testing the game
+Thanks to            [color=#0080ff][b]Cheeky Commodore Gamer[/b][/color] for
+presenting and reviewing this game.
 
 [i]Goal of the game[/i]
 You start with nothing in the city of Perfection.
-Make money, get food, drink, rest, and improve your appereance and your education until you reach one milion $.
-Beware af the bad guys!
+Make money, get food, drink, rest, and improve your appereance and education, and work until you reach one milion $.
+And beware af the bad guys.
+
+Enjoy!
 "
 scroll_active = false
 shortcut_keys_enabled = false
@@ -7270,6 +7280,15 @@ offset_right = 816.0
 offset_bottom = 1256.0
 texture = ExtResource("152_j7ma7")
 
+[node name="UnitedProgramming" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+layout_mode = 0
+offset_left = 1021.0
+offset_top = 1172.0
+offset_right = 1109.0
+offset_bottom = 1260.0
+texture = ExtResource("153_h76qt")
+expand_mode = 1
+
 [node name="CSharp" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
 offset_left = 271.0
@@ -7279,12 +7298,30 @@ offset_bottom = 1477.0
 texture = ExtResource("156_t3nna")
 expand_mode = 1
 
+[node name="SlicEnDicE" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+layout_mode = 0
+offset_left = 423.0
+offset_top = 1613.0
+offset_right = 515.0
+offset_bottom = 1705.0
+texture = ExtResource("267_ynn2y")
+expand_mode = 1
+
+[node name="BGOllie" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+layout_mode = 0
+offset_left = 384.0
+offset_top = 1718.0
+offset_right = 476.0
+offset_bottom = 1810.0
+texture = ExtResource("268_x5qpp")
+expand_mode = 1
+
 [node name="GIMP" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
 offset_left = 535.0
-offset_top = 1609.0
+offset_top = 1828.0
 offset_right = 627.0
-offset_bottom = 1701.0
+offset_bottom = 1920.0
 texture = ExtResource("155_gw0qo")
 expand_mode = 1
 
@@ -7297,13 +7334,40 @@ offset_bottom = 1367.0
 texture = ExtResource("154_1wdf4")
 expand_mode = 1
 
-[node name="UnitedProgramming" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+[node name="BatMilku" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
-offset_left = 1021.0
-offset_top = 1172.0
-offset_right = 1109.0
-offset_bottom = 1260.0
-texture = ExtResource("153_h76qt")
+offset_left = 265.0
+offset_top = 1939.0
+offset_right = 357.0
+offset_bottom = 2031.0
+texture = ExtResource("272_r4lsp")
+expand_mode = 1
+
+[node name="J0nathan" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+layout_mode = 0
+offset_left = 689.0
+offset_top = 1941.0
+offset_right = 781.0
+offset_bottom = 2033.0
+texture = ExtResource("273_lrx3g")
+expand_mode = 1
+
+[node name="CheekyCommodoreGamer" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+layout_mode = 0
+offset_left = 267.0
+offset_top = 2131.0
+offset_right = 359.0
+offset_bottom = 2223.0
+texture = ExtResource("274_sxkv6")
+expand_mode = 1
+
+[node name="OSG?" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+layout_mode = 0
+offset_left = -286.0
+offset_top = 2378.0
+offset_right = -194.0
+offset_bottom = 2470.0
+texture = ExtResource("154_1wdf4")
 expand_mode = 1
 
 [node name="Highlight0" type="TextureRect" parent="UI/CanvasLayer Intro"]
@@ -7447,6 +7511,7 @@ libraries = {
 }
 
 [node name="CanvasLayer Win" type="CanvasLayer" parent="UI"]
+visible = false
 
 [node name="Win!" type="Label" parent="UI/CanvasLayer Win"]
 anchors_preset = 8
