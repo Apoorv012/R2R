@@ -19,7 +19,7 @@ Using **Godot** 4.2.2 Mono version and **C#** on Visual Studio.
 
 Sound Effects: **CPU**
 
-Musics: **SliceNDice**
+In game Musics: **SliceNDice**, Wictory music **BG Ollie** (This music is from another C64 game.)
 
 Graphics: **CPU** using **GIMP**
 
