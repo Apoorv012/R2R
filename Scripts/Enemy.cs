@@ -2,7 +2,7 @@ using Godot;
 
 namespace R2R;
 public partial class Enemy : AnimatedSprite2D {
-  Game game;
+  IGame game;
 	RandomNumberGenerator rnd = new();
 	bool goingLeft;
 	Vector2 direction;
@@ -11,7 +11,7 @@ public partial class Enemy : AnimatedSprite2D {
 	bool completedAction = false;
 	bool fleeing = false;
 	double catchTime = 0;
-	internal void Spawn(Game game, EnemyType enemyType) {
+	internal void Spawn(IGame game, EnemyType enemyType) {
 		this.game = game;
 		type = enemyType;
 		if (rnd.Randf() < .5f) goingLeft = true;
@@ -67,7 +67,9 @@ public partial class Enemy : AnimatedSprite2D {
 		if (Speed == 0) return;
 		GlobalPosition += (float)(Speed * delta) * direction;
 
-		if (goingLeft && GlobalPosition.X < -144) {
+		bool won = game.Won;
+
+    if (goingLeft && GlobalPosition.X < -144) {
 			game.EnemyGone();
 			Speed = 0;
 		}
@@ -95,30 +97,18 @@ public partial class Enemy : AnimatedSprite2D {
 
 
 		// After a while we should stop and go back (but depends on the type, policemens may just continue ignoring you)
-		if (Mathf.Abs(GlobalPosition.X - game.Player.GlobalPosition.X) < 50 && game.status != Game.Status.Win) {
-			if (game.sleepingOnBench) {
+		if (Mathf.Abs(GlobalPosition.X - game.iPlayer.GlobalPosition.X) < 50 && !won) {
+			if (game.iSleepingOnBench) {
 				game.JailTime("You were jailed because sleeping on bench is illegal");
 				game.EnemyGone();
 			}
-			if (game.currentRoad == game.TopBoulevard) {
-				int bad = 0;
-				if (game.clothes == Clothes.Rags) bad++;
-				if (game.totalSmell > 80) bad++;
-				if (game.beard > 80) bad++;
-				if (bad >= 2) {
-					game.JailTime("You were too stinky to walk on Top Boluvard!");
-					game.EnemyGone();
-				}
+			if (game.IsTopBoulevard()) {
+				game.JailTime("You were too stinky to walk on Top Boluvard!");
+				game.EnemyGone();
 			}
-			if (game.currentRoad == game.NorthRoad) {
-				int bad = 0;
-				if (game.clothes == Clothes.Rags) bad++;
-				if (game.totalSmell > 80) bad++;
-				if (game.beard > 80) bad++;
-				if (bad == 3) {
-					game.JailTime("You were too stinky to walk on North Road!");
-					game.EnemyGone();
-				}
+			if (game.IsNorthRoad()) {
+				game.JailTime("You were too stinky to walk on North Road!");
+				game.EnemyGone();
 			}
 		}
 	}
@@ -128,7 +118,7 @@ public partial class Enemy : AnimatedSprite2D {
 		if (!Visible) return;
 		// Consume its time to live, when it is completed, make it disappear when the player is away
 		drunkGuyTime -= delta;
-		if (drunkGuyTime < 0 && game.Player.GlobalPosition.DistanceSquaredTo(GlobalPosition) > 2000) {
+		if (drunkGuyTime < 0 && game.iPlayer.GlobalPosition.DistanceSquaredTo(GlobalPosition) > 2000) {
 			game.SpawnBottlesForDrunkGuy();
 			drunkGuyTime = rnd.RandfRange(80, 200);
 			return;
@@ -167,7 +157,7 @@ public partial class Enemy : AnimatedSprite2D {
 
 
     // After a while we should stop and go back (but depends on the type, policemens may just continue ignoring you)
-    if (!completedAction && Mathf.Abs(GlobalPosition.X - game.Player.GlobalPosition.X) < 50) {
+    if (!completedAction && Mathf.Abs(GlobalPosition.X - game.iPlayer.GlobalPosition.X) < 50) {
 			completedAction = true;
 			// Is the player in an unreacheable status?
 			if (game.IsPlayerReacheable()) {

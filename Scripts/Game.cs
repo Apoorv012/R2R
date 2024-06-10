@@ -5,7 +5,7 @@ using System.Runtime.Intrinsics.X86;
 
 namespace R2R;
 
-public partial class Game : Node {
+public partial class Game : Node, IGame {
 	#region Properties *****************************************************************************
 	[ExportGroup("Player")]
 	[Export] public Node2D Player;
@@ -119,9 +119,9 @@ public partial class Game : Node {
 	[Export] Sprite2D DumpDog, BoneForDog;
 	[Export] NinePatchRect NPCBalloon1, NPCBalloon2;
 	[Export] Label NPCBalloonTxt1, NPCBalloonTxt2;
-  [Export] Enemy DrunkGuy;
+	[Export] Enemy DrunkGuy;
 
-  [ExportGroup("Sounds")]
+	[ExportGroup("Sounds")]
 	[Export] AudioStreamPlayer MusicPlayer, SoundPlayer, PlayerPlayer, NPCPlayer;
 	[Export] AudioStream MusicC64, MusicDisco, MusicBroken, MusicOrchestra, MusicDance, MusicRock;
 	[Export] AudioStream StepSound1, StepSound2, PickupSound, NoSound, SuccessSound, FailureSound;
@@ -131,7 +131,6 @@ public partial class Game : Node {
 	[Export] public AudioStream[] FNo, MNo, FYes, MYes, FDisgust, MDisgust, FApproval, MApproval;
 
 	[ExportGroup("Debug")]
-	//	[Export] public Label Debug; // FIXME remove
 
 	readonly List<NPC> NPCs = new();
 
@@ -246,7 +245,7 @@ public partial class Game : Node {
 	#endregion Variables **************************************************************
 
 	public override void _Ready() {
-    Error err = config.Load("user://R2R.cfg");
+		Error err = config.Load("user://R2R.cfg");
 		if (err == Error.Ok) {
 			// Fetch the data for each section.
 			int vol = (int)config.GetValue("Sounds", "MusicVolume");
@@ -263,7 +262,7 @@ public partial class Game : Node {
 			winHeight = (int)config.GetValue("Graphics", "WinHeight", 1080);
 			int maxFPS = (int)config.GetValue("Graphics", "MaxFPS", 2);
 			DropDownFPS.Selected = maxFPS;
-      Engine.MaxFps = maxFPS switch {
+			Engine.MaxFps = maxFPS switch {
 				0 => 0,
 				1 => 144,
 				2 => 60,
@@ -271,7 +270,7 @@ public partial class Game : Node {
 				4 => 30,
 				_ => 0
 			};
-      if (DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Windowed && winWidth != 0) {
+			if (DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Windowed && winWidth != 0) {
 				DisplayServer.WindowSetSize(new(winWidth, winHeight), 0);
 			}
 			DropDownFullscreen.Selected = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Windowed ? 1 : 0;
@@ -319,13 +318,13 @@ public partial class Game : Node {
 				_ => "Kamyshin",
 			};
 
-      Hat.Visible = (bool)config.GetValue("Game", "UseHatForPlayer", true);
+			Hat.Visible = (bool)config.GetValue("Game", "UseHatForPlayer", true);
 			UsePlayerHatCB.SetPressedNoSignal(Hat.Visible);
 			UseCustomMusicCB.SetPressedNoSignal((bool)config.GetValue("Game", "UseCustomMusic", false));
-    }
+		}
 
 
-    foreach (var hl in HighlightOpts) hl.Visible = false;
+		foreach (var hl in HighlightOpts) hl.Visible = false;
 		PanelOptions.Visible = false;
 
 		foreach (var item in Tickets) item.Visible = false;
@@ -344,9 +343,9 @@ public partial class Game : Node {
 
 		ResetAllValues();
 
-    DrunkGuy.Spawn(this, EnemyType.DrunkGuy);
+		DrunkGuy.Spawn(this, EnemyType.DrunkGuy);
 
-    firstStart = false;
+		firstStart = false;
 		OptionsPlayButton.Text = "Start";
 		OptionsContinueButton.Disabled = true;
 		SetStatus(Status.Intro);
@@ -375,9 +374,9 @@ public partial class Game : Node {
 				WinPanel.Visible = false;
 				WinAnim.Active = false;
 				doActionDelta = .5f;
-        OptionsPlayButton.Text = "Restart";
-        OptionsContinueButton.Disabled = false;
-        break;
+				OptionsPlayButton.Text = "Restart";
+				OptionsContinueButton.Disabled = false;
+				break;
 			case Status.Playing:
 				break;
 			case Status.Dying:
@@ -401,8 +400,39 @@ public partial class Game : Node {
 		}
 	}
 
+	public bool Won => status == Status.Win;
 
-	private void ResetAllValues() {
+	public bool IsTopBoulevard() {
+		if (currentRoad != TopBoulevard) return false;
+		int bad = 0;
+		if (clothes == Clothes.Rags) bad++;
+		if (totalSmell > 80) bad++;
+		if (beard > 80) bad++;
+		return (bad >= 2);
+	}
+	public bool IsNorthRoad() {
+		if (currentRoad != NorthRoad) return false;
+		int bad = 0;
+		if (clothes == Clothes.Rags) bad++;
+		if (totalSmell > 80) bad++;
+		if (beard > 80) bad++;
+		return (bad >= 2);
+	}
+
+	public bool iSleepingOnBench => sleepingOnBench;
+
+
+  public Node2D iPlayer => Player;
+	public AudioStream[] iFNo => FNo;
+	public AudioStream[] iMNo => MNo;
+	public AudioStream[] iFYes => FYes;
+	public AudioStream[] iMYes => MYes;
+	public AudioStream[] iFDisgust => FDisgust;
+	public AudioStream[] iMDisgust => MDisgust;
+	public AudioStream[] iFApproval => FApproval;
+	public AudioStream[] iMApproval => MApproval;
+
+  private void ResetAllValues() {
 		dayNum = 1;
 		dayTime = 8 / 24.0; // 0 .. 1
 		waitUntil = -1;
@@ -432,9 +462,9 @@ public partial class Game : Node {
 		beard = 60;
 		education = 0;
 		pbEducation.Value = 0;
-		money = 500;
+		money = 0;
 		investedMoney = 0;
-		hasATM = true; // FIXME
+		hasATM = false;
 		hasRazor = false;
     hasSoap = 0;
     hasBroom = false;
@@ -570,6 +600,10 @@ public partial class Game : Node {
 			SwitchFullscreen();
 			SaveOptions();
 		}
+
+		if (Input.IsActionJustPressed("Z")) {
+      SetStatus(Status.Win);
+    }
 
 		if (globalMessageTimeout > 0) {
 			globalMessageTimeout -= delta;
@@ -2839,7 +2873,8 @@ public partial class Game : Node {
 		Eye.Visible = false;
 		Legs.Visible = true;
 		Beard.Frame = Beardlevel(BeardLevels.Walk);
-		Player.Visible = true;
+    Beard.Visible = true;
+    Player.Visible = true;
 		BroomPlayer.Visible = false;
 		HandBrooming.Visible = false;
 		SoundPlayer.Stop();
@@ -3197,7 +3232,7 @@ public partial class Game : Node {
 		else Pickup(PickableItem.Banknote);
 	}
 
-	internal void AddDogPoop(float xPos) {
+	public void AddDogPoop(float xPos) {
 		NPCPlayer.Stream = FartSound;
 		NPCPlayer.Play();
 		var item = ItemPrefabs[PrefabPoop].Instantiate() as Pickable;

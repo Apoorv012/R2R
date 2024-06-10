@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://bdxp57b2cmofb"]
+[gd_scene load_steps=125 format=3 uid="uid://bdxp57b2cmofb"]
 
 [ext_resource type="Script" path="res://Scripts/Help.cs" id="1_b67vp"]
 [ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="2_gwmqf"]
@@ -23,15 +23,26 @@
 [ext_resource type="PackedScene" uid="uid://dy35ljuwg8etl" path="res://Prefabs/Items/Bottle.tscn" id="23_430yw"]
 [ext_resource type="PackedScene" uid="uid://pbux0vk31gje" path="res://Prefabs/Items/Coin.tscn" id="24_ham8k"]
 [ext_resource type="PackedScene" uid="uid://odad5fk070ot" path="res://Prefabs/Items/Banknote.tscn" id="25_yxi5i"]
+[ext_resource type="PackedScene" uid="uid://ckrikbqp2irky" path="res://Prefabs/NPCs/NPCGirl1.tscn" id="26_epk7v"]
 [ext_resource type="PackedScene" uid="uid://cv51erie5ikti" path="res://Prefabs/Items/Bone.tscn" id="26_tclsp"]
 [ext_resource type="PackedScene" uid="uid://6l1cpay8s4c3" path="res://Prefabs/Items/Carrot.tscn" id="27_24sk1"]
+[ext_resource type="PackedScene" uid="uid://c5kdqe8ewwlbi" path="res://Prefabs/NPCs/NPCGirl2.tscn" id="27_i1w50"]
+[ext_resource type="PackedScene" uid="uid://b4b5acv0qnmh6" path="res://Prefabs/NPCs/NPCGirl3.tscn" id="28_ixxht"]
 [ext_resource type="PackedScene" uid="uid://cew38waow7hlu" path="res://Prefabs/Items/RotCarrot.tscn" id="28_lw6jm"]
+[ext_resource type="PackedScene" uid="uid://dsawbmnbixx2g" path="res://Prefabs/NPCs/NPCMan1.tscn" id="29_gx312"]
+[ext_resource type="PackedScene" uid="uid://cotnyc5j2voj2" path="res://Prefabs/NPCs/NPCMan2.tscn" id="30_2a4da"]
 [ext_resource type="Texture2D" uid="uid://bgs0typn774f8" path="res://Graphics/Items/Soap1.png" id="30_d2ymx"]
+[ext_resource type="PackedScene" uid="uid://boymptckcn3c2" path="res://Prefabs/NPCs/NPCMan3.tscn" id="31_lacus"]
+[ext_resource type="PackedScene" uid="uid://bkqot2sb58s3s" path="res://Prefabs/NPCs/NPCMan4.tscn" id="32_qqvq2"]
+[ext_resource type="PackedScene" uid="uid://btv8ykfjdndb1" path="res://Prefabs/NPCs/Police.tscn" id="33_4pijn"]
+[ext_resource type="PackedScene" uid="uid://d1omyyx1wqjn4" path="res://Prefabs/NPCs/Robber.tscn" id="34_xfdkq"]
 [ext_resource type="Texture2D" uid="uid://pgirkqliwhqm" path="res://Graphics/City/Buildings/ShopClothes.png" id="39_orp46"]
 [ext_resource type="Texture2D" uid="uid://b4lwqqdix1ug3" path="res://Graphics/City/Doors/ClothesDoor.png" id="41_kg23w"]
+[ext_resource type="Texture2D" uid="uid://dyeo5eis08cj4" path="res://Graphics/City/Buildings/BarberShop.png" id="45_xwa8l"]
 [ext_resource type="AudioStream" uid="uid://bpoqgi8r5jqk" path="res://Sounds/Music/Music C64.ogg" id="46_pvwag"]
 [ext_resource type="AudioStream" uid="uid://dlmk070lesxor" path="res://Sounds/Step1.ogg" id="51_acyfm"]
 [ext_resource type="AudioStream" uid="uid://hh1eo5uv75ci" path="res://Sounds/Step2.ogg" id="52_f2pnb"]
+[ext_resource type="Texture2D" uid="uid://c2nche4gev0o6" path="res://Graphics/City/Doors/BarberShopDoor.png" id="53_7y0js"]
 [ext_resource type="AudioStream" uid="uid://b1ps27vtawy0v" path="res://Sounds/Pickup.ogg" id="53_b1cu6"]
 [ext_resource type="AudioStream" uid="uid://dhwh6amm8qcao" path="res://Sounds/Nope.ogg" id="54_oreq5"]
 [ext_resource type="AudioStream" uid="uid://cl6qlwar0ri6q" path="res://Sounds/Eating.ogg" id="57_kjmwi"]
@@ -42,16 +53,13 @@
 [ext_resource type="Texture2D" uid="uid://df4ygufgpvcrl" path="res://Graphics/UI/Sky.png" id="119_tt18p"]
 [ext_resource type="Script" path="res://Scripts/Road.cs" id="120_k7nrc"]
 [ext_resource type="Texture2D" uid="uid://b2cyhnm2r21xa" path="res://Graphics/City/Buildings/HotDogs.png" id="121_sndpn"]
-[ext_resource type="Texture2D" uid="uid://dotgp2li36uq0" path="res://Graphics/City/Extra/9PatchesSign.png" id="123_arsmo"]
 [ext_resource type="Theme" uid="uid://cqvjkew4xu7gx" path="res://Graphics/UI/Game_theme.tres" id="124_5uv6w"]
 [ext_resource type="Texture2D" uid="uid://brisss320lop1" path="res://Graphics/City/Buildings/Metro.png" id="125_vwflt"]
 [ext_resource type="Texture2D" uid="uid://t1ubn1ux5fsh" path="res://Graphics/City/Buildings/Park.png" id="127_rqetm"]
 [ext_resource type="Texture2D" uid="uid://ttxtb6vmfmoj" path="res://Graphics/City/Buildings/Building2.png" id="132_l6rha"]
 [ext_resource type="Texture2D" uid="uid://c41jrwvwumsnk" path="res://Graphics/City/Roads/Sidewalk2Wide.png" id="134_xyx1l"]
 [ext_resource type="Texture2D" uid="uid://d0i3uo4hydhob" path="res://Graphics/City/Roads/Sidewalk1L.png" id="136_j1exq"]
-[ext_resource type="Texture2D" uid="uid://btgywcrt2yrmk" path="res://Graphics/City/Roads/Sidewalk1R.png" id="137_6fs1n"]
 [ext_resource type="Texture2D" uid="uid://xq1y8lbts437" path="res://Graphics/City/Roads/Sidewalk1Wide.png" id="138_hwr80"]
-[ext_resource type="Texture2D" uid="uid://o3frro5g2aor" path="res://Graphics/City/Windows/Window1.png" id="141_425ci"]
 [ext_resource type="Texture2D" uid="uid://buade41ky2l4s" path="res://Graphics/City/Windows/HotDogsSign.png" id="142_n2vq3"]
 [ext_resource type="Script" path="res://Scripts/Location.cs" id="143_gewhc"]
 [ext_resource type="Texture2D" uid="uid://dcgyeutr4j0ty" path="res://Graphics/City/Roads/Sidewalk1.png" id="144_c7fi2"]
@@ -65,13 +73,7 @@
 [ext_resource type="Texture2D" uid="uid://cuiobart2g1uh" path="res://Graphics/Locations/Fountain.png" id="162_ywl4e"]
 [ext_resource type="Texture2D" uid="uid://dwjilcelffoqt" path="res://Graphics/Locations/Trashcan.png" id="163_ew5wl"]
 [ext_resource type="Texture2D" uid="uid://bry0oq7m3gmdf" path="res://Graphics/Locations/Sign.png" id="166_6t7an"]
-[ext_resource type="Texture2D" uid="uid://ddcv3cat3bapc" path="res://Graphics/Locations/ATM.png" id="167_6kpkg"]
-[ext_resource type="Texture2D" uid="uid://dm7m0gptrocfl" path="res://Graphics/City/Extra/StreetLamp.png" id="168_hhe1v"]
-[ext_resource type="Texture2D" uid="uid://b7s20ys5dwdfo" path="res://Graphics/City/Extra/LightMask.png" id="169_osbf2"]
-[ext_resource type="Texture2D" uid="uid://b5gsny47fn767" path="res://Graphics/UI/Black.png" id="170_8avcv"]
 [ext_resource type="Texture2D" uid="uid://6fy68wwcaawh" path="res://Graphics/City/Buildings/Motel.png" id="174_bnkq3"]
-[ext_resource type="Texture2D" uid="uid://ophymlkt0vb6" path="res://Graphics/City/Doors/Door9.png" id="183_psnls"]
-[ext_resource type="Texture2D" uid="uid://ci0b6pe8d5ikf" path="res://Graphics/City/Buildings/Shop2.png" id="193_3s1pn"]
 [ext_resource type="Texture2D" uid="uid://b7r8eh43l0aea" path="res://Graphics/Items/Razor.png" id="195_4ekim"]
 [ext_resource type="Texture2D" uid="uid://fehqfogxx3fb" path="res://Graphics/City/Doors/MotelDoor.png" id="198_ekcsc"]
 [ext_resource type="Texture2D" uid="uid://ofvvx8qn8anr" path="res://Graphics/Items/Broom.png" id="211_xnrpg"]
@@ -251,6 +253,15 @@ BackItems = NodePath("City/HelpRoad/HR_BackItems")
 Doors = NodePath("City/HelpRoad/HR_Doors")
 StreetLights = NodePath("City/HelpRoad/HR_Lights")
 PeopleLayer = NodePath("City/HelpRoad/HR_People")
+NPCTemplateGirl1 = ExtResource("26_epk7v")
+NPCTemplateGirl2 = ExtResource("27_i1w50")
+NPCTemplateGirl3 = ExtResource("28_ixxht")
+NPCTemplateMan1 = ExtResource("29_gx312")
+NPCTemplateMan2 = ExtResource("30_2a4da")
+NPCTemplateMan3 = ExtResource("31_lacus")
+NPCTemplateMan4 = ExtResource("32_qqvq2")
+NPCPolice = ExtResource("33_4pijn")
+NPCRobber = ExtResource("34_xfdkq")
 NPCBalloon1 = NodePath("Balloons Layer/NPCBalloon1")
 NPCBalloon2 = NodePath("Balloons Layer/NPCBalloon2")
 NPCBalloonTxt1 = NodePath("Balloons Layer/NPCBalloon1/MarginContainer/Label")
@@ -337,14 +348,6 @@ FrontItems = NodePath("HR_FrontItems")
 [node name="HR_Buidlings" type="Node2D" parent="City/HelpRoad"]
 z_index = 20
 
-[node name="Park-1" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
-position = Vector2(-10496, 331)
-texture = ExtResource("127_rqetm")
-
-[node name="Park-2" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
-position = Vector2(-8097, 331)
-texture = ExtResource("127_rqetm")
-
 [node name="HotDogs" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
 position = Vector2(2615, 348)
 texture = ExtResource("121_sndpn")
@@ -357,19 +360,12 @@ scale = Vector2(1.00244, 0.9)
 texture = ExtResource("132_l6rha")
 
 [node name="Metro" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
-z_index = -1
-position = Vector2(-1220, -889.7)
+position = Vector2(-5350, 305.3)
 scale = Vector2(1, 0.9)
 texture = ExtResource("125_vwflt")
 
-[node name="Shop" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
-z_index = -2
-position = Vector2(6289.85, 212.3)
-scale = Vector2(0.85, 0.9)
-texture = ExtResource("193_3s1pn")
-
 [node name="Motel" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
-position = Vector2(4366, 199.65)
+position = Vector2(4241, 252.65)
 scale = Vector2(1, 0.9)
 texture = ExtResource("174_bnkq3")
 
@@ -379,10 +375,6 @@ texture = ExtResource("127_rqetm")
 
 [node name="Park2" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
 position = Vector2(-1511, 342)
-texture = ExtResource("127_rqetm")
-
-[node name="Park3" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
-position = Vector2(13453, 331)
 texture = ExtResource("127_rqetm")
 
 [node name="ShopClothes" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
@@ -402,20 +394,13 @@ theme_override_font_sizes/font_size = 100
 text = "Clothes"
 metadata/_edit_use_anchors_ = true
 
+[node name="BarberShop" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+z_index = -1
+position = Vector2(-4089.5, 327)
+texture = ExtResource("45_xwa8l")
+
 [node name="HR_Road" type="Node2D" parent="City/HelpRoad"]
 z_index = 25
-
-[node name="Sidewalk2Wide-2" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(-10640, 658)
-texture = ExtResource("134_xyx1l")
-
-[node name="Sidewalk2Wide-1" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(-9120, 658)
-texture = ExtResource("134_xyx1l")
-
-[node name="Sidewalk2Wide0" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(-7600, 658)
-texture = ExtResource("134_xyx1l")
 
 [node name="Sidewalk2Wide1" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
 position = Vector2(-6080, 658)
@@ -445,48 +430,6 @@ texture = ExtResource("138_hwr80")
 position = Vector2(2978, 658)
 texture = ExtResource("138_hwr80")
 
-[node name="Sidewalk1" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(5510, 658)
-texture = ExtResource("144_c7fi2")
-
-[node name="Sidewalk2" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(5890, 658)
-texture = ExtResource("144_c7fi2")
-
-[node name="Sidewalk3" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(6270, 658)
-texture = ExtResource("144_c7fi2")
-
-[node name="Sidewalk1Wide6" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(8512, 658)
-texture = ExtResource("138_hwr80")
-
-[node name="Sidewalk1Wide7" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(10030, 658)
-texture = ExtResource("134_xyx1l")
-
-[node name="Sidewalk1Wide8" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(11541, 658)
-texture = ExtResource("134_xyx1l")
-
-[node name="Sidewalk1Wide9" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(13061, 658)
-texture = ExtResource("134_xyx1l")
-
-[node name="Sidewalk1l" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(6573, 658)
-texture = ExtResource("136_j1exq")
-
-[node name="Sidewalk1r2" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(5151, 658)
-texture = ExtResource("137_6fs1n")
-
-[node name="Black" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-z_index = -1
-position = Vector2(7019.5, 661)
-scale = Vector2(14.2125, 1.475)
-texture = ExtResource("170_8avcv")
-
 [node name="Sidewalk4" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
 position = Vector2(3867, 658)
 texture = ExtResource("144_c7fi2")
@@ -495,39 +438,20 @@ texture = ExtResource("144_c7fi2")
 position = Vector2(4162, 658)
 texture = ExtResource("136_j1exq")
 
-[node name="Sidewalk1r" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
-position = Vector2(7578, 658)
-texture = ExtResource("137_6fs1n")
-
 [node name="HR_Windows" type="Node2D" parent="City/HelpRoad"]
 z_index = 30
 
-[node name="MotelWindow1" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
-position = Vector2(4941, -18.35)
-texture = ExtResource("141_425ci")
-
-[node name="MotelWindow2" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
-position = Vector2(4619, -18.35)
-texture = ExtResource("141_425ci")
-
-[node name="MotelWindow3" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
-position = Vector2(4284, -18.35)
-texture = ExtResource("141_425ci")
-
-[node name="MotelWindow4" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
-position = Vector2(4941, 268.65)
-texture = ExtResource("141_425ci")
-
-[node name="MotelWindow5" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
-position = Vector2(4619, 268.65)
-texture = ExtResource("141_425ci")
-
-[node name="MotelWindow6" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
-position = Vector2(4284, 268.65)
-texture = ExtResource("141_425ci")
-
 [node name="HR_Doors" type="Node2D" parent="City/HelpRoad"]
 z_index = 30
+
+[node name="Barber Shop" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
+position = Vector2(-3766.5, 398)
+texture = ExtResource("53_7y0js")
+script = ExtResource("143_gewhc")
+type = 2
+ItemDelivered = 7
+maxSmell = 50
+minClothes = 1
 
 [node name="Clothes Shop" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
 position = Vector2(-1693.1, 383.913)
@@ -581,38 +505,14 @@ price = 10
 ItemDelivered = 1
 amount = 25
 
-[node name="Shop Door" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
-position = Vector2(5820.85, 262.3)
-scale = Vector2(0.9, 0.9)
-texture = ExtResource("183_psnls")
-script = ExtResource("143_gewhc")
-type = 2
-StartTime = 7
-EndTime = 22
-price = 10
-ItemDelivered = 13
-Message = "I can by some soap here for $1\\nShop is open from 7AM to 10PM"
-Road = 1
-
-[node name="Label" type="Label" parent="City/HelpRoad/HR_Doors/Shop Door"]
-offset_left = -173.333
-offset_top = -241.111
-offset_right = 183.667
-offset_bottom = -154.111
-theme = ExtResource("124_5uv6w")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 68
-text = "Miracle Soap!"
-metadata/_edit_use_anchors_ = true
-
 [node name="MetroDoor" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
-position = Vector2(-1556, -894.7)
+position = Vector2(-5622, 300.3)
 texture = ExtResource("146_inpxl")
 script = ExtResource("143_gewhc")
 type = 13
 
 [node name="Cheap Motel" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
-position = Vector2(3905, 297.65)
+position = Vector2(3779, 333.65)
 texture = ExtResource("198_ekcsc")
 script = ExtResource("143_gewhc")
 type = 5
@@ -631,135 +531,14 @@ text = "Cheap Motel
 $4 per night!"
 metadata/_edit_use_anchors_ = true
 
-[node name="Shop Job" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
-position = Vector2(6572.85, 295.3)
-script = ExtResource("143_gewhc")
-type = 7
-StartTime = 9
-EndTime = 16
-price = 200
-maxSmell = 60
-
-[node name="ShopJob" type="NinePatchRect" parent="City/HelpRoad/HR_Doors/Shop Job"]
-modulate = Color(1, 1, 0.352941, 1)
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -117.5
-offset_top = -65.5
-offset_right = 127.5
-offset_bottom = 83.5
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("123_arsmo")
-patch_margin_left = 8
-patch_margin_top = 16
-patch_margin_right = 8
-patch_margin_bottom = 8
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="City/HelpRoad/HR_Doors/Shop Job/ShopJob"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 6.0
-offset_top = 17.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("124_5uv6w")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 40
-text = "Clerk wanted
-9AM-4PM"
-horizontal_alignment = 1
-vertical_alignment = 1
-metadata/_edit_use_anchors_ = true
-
 [node name="HR_BackItems" type="Node2D" parent="City/HelpRoad"]
 z_index = 40
 
-[node name="Garden" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
-position = Vector2(-7786.75, 549.5)
-scale = Vector2(19.9062, 0.812501)
-texture = ExtResource("157_qgp6s")
-script = ExtResource("143_gewhc")
-type = 4
-
-[node name="Atm" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
-position = Vector2(6862.85, 241.3)
-texture = ExtResource("167_6kpkg")
-script = ExtResource("143_gewhc")
-
-[node name="Trashcan" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
-position = Vector2(2047, 510)
-texture = ExtResource("163_ew5wl")
-script = ExtResource("143_gewhc")
-type = 3
-
-[node name="Road Sign" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
-position = Vector2(240, 373)
-texture = ExtResource("166_6t7an")
-script = ExtResource("143_gewhc")
-type = 14
-Message = "Slum street"
-Pos = Vector2(694, 391)
-
-[node name="Label" type="Label" parent="City/HelpRoad/HR_BackItems/Road Sign"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -112.0
-offset_top = -169.0
-offset_right = -140.0
-offset_bottom = -412.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.196078, 0.196078, 0.196078, 1)
-theme_override_font_sizes/font_size = 40
-text = "Help Road"
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-clip_text = true
-metadata/_edit_use_anchors_ = true
-
-[node name="MetroTickets" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
-position = Vector2(-1043, -994.7)
-texture = ExtResource("147_igm8j")
-script = ExtResource("143_gewhc")
-type = 2
-price = 10
-ItemDelivered = 8
-amount = 1
-
-[node name="Bench" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
-position = Vector2(964, 506)
-texture = ExtResource("159_idcjk")
-script = ExtResource("143_gewhc")
-type = 11
-Road = 1
-
-[node name="Fountain" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
-position = Vector2(-382, 465)
-script = ExtResource("143_gewhc")
-type = 17
-ItemDelivered = 2
-amount = 33
-Message = "A fountain of fresh water"
-
-[node name="FountainAnimation" type="AnimatedSprite2D" parent="City/HelpRoad/HR_BackItems/Fountain"]
-position = Vector2(4, 0)
-sprite_frames = SubResource("SpriteFrames_788u5")
-autoplay = "default"
-
 [node name="CityLimitL" type="NinePatchRect" parent="City/HelpRoad/HR_BackItems"]
-offset_left = -10567.0
-offset_top = 308.0
-offset_right = -10368.0
-offset_bottom = 421.0
+offset_left = -4950.0
+offset_top = 353.0
+offset_right = -4751.0
+offset_bottom = 466.0
 texture = ExtResource("154_43yle")
 patch_margin_left = 12
 patch_margin_top = 12
@@ -789,11 +568,73 @@ vertical_alignment = 1
 position = Vector2(101, 81)
 texture = ExtResource("156_r8a07")
 
+[node name="Trashcan" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(2047, 510)
+texture = ExtResource("163_ew5wl")
+script = ExtResource("143_gewhc")
+type = 3
+
+[node name="Road Sign" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(245, 367)
+texture = ExtResource("166_6t7an")
+script = ExtResource("143_gewhc")
+type = 14
+Message = "Slum street"
+Pos = Vector2(694, 391)
+
+[node name="Label" type="Label" parent="City/HelpRoad/HR_BackItems/Road Sign"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -112.0
+offset_top = -169.0
+offset_right = -140.0
+offset_bottom = -412.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.196078, 0.196078, 0.196078, 1)
+theme_override_font_sizes/font_size = 40
+text = "Help Road"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+metadata/_edit_use_anchors_ = true
+
+[node name="MetroTickets" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(-5179, 200.3)
+texture = ExtResource("147_igm8j")
+script = ExtResource("143_gewhc")
+type = 2
+price = 10
+ItemDelivered = 8
+amount = 1
+
+[node name="Bench" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(964, 506)
+texture = ExtResource("159_idcjk")
+script = ExtResource("143_gewhc")
+type = 11
+Road = 1
+
+[node name="Fountain" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(-382, 465)
+script = ExtResource("143_gewhc")
+type = 17
+ItemDelivered = 2
+amount = 33
+Message = "A fountain of fresh water"
+
+[node name="FountainAnimation" type="AnimatedSprite2D" parent="City/HelpRoad/HR_BackItems/Fountain"]
+position = Vector2(4, 0)
+sprite_frames = SubResource("SpriteFrames_788u5")
+autoplay = "default"
+
 [node name="CityLimitR" type="NinePatchRect" parent="City/HelpRoad/HR_BackItems"]
-offset_left = 11598.0
-offset_top = 322.0
-offset_right = 11797.0
-offset_bottom = 435.0
+offset_left = 3342.0
+offset_top = 349.0
+offset_right = 3541.0
+offset_bottom = 462.0
 texture = ExtResource("154_43yle")
 patch_margin_left = 12
 patch_margin_top = 12
@@ -810,12 +651,15 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_bottom = -35.0
+offset_left = 1.0
+offset_top = -2.0
+offset_right = 1.0
+offset_bottom = -37.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("124_5uv6w")
 theme_override_colors/font_color = Color(0.116127, 0.116127, 0.116127, 1)
-text = "City Limit"
+text = "Help Limit"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -829,19 +673,6 @@ z_index = 60
 
 [node name="HR_Lights" type="Node2D" parent="City/HelpRoad"]
 z_index = 80
-
-[node name="StreetLampDump" type="Sprite2D" parent="City/HelpRoad/HR_Lights"]
-position = Vector2(-6836, 409)
-scale = Vector2(1, 1.65)
-texture = ExtResource("168_hhe1v")
-
-[node name="PointLight2D" type="PointLight2D" parent="City/HelpRoad/HR_Lights/StreetLampDump"]
-position = Vector2(-46, 19.3939)
-scale = Vector2(0.925, 0.56)
-enabled = false
-color = Color(1, 0.827451, 0.333333, 1)
-energy = 1.2
-texture = ExtResource("169_osbf2")
 
 [node name="HR_FrontItems" type="Node2D" parent="City/HelpRoad"]
 z_index = 90
@@ -1127,6 +958,7 @@ texture = ExtResource("240_fgw7w")
 offset = Vector2(0, 24)
 hframes = 4
 vframes = 5
+frame = 3
 
 [node name="Hat" type="Sprite2D" parent="Player"]
 texture = ExtResource("5_nnayj")

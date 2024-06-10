@@ -1,4 +1,4 @@
-[gd_scene load_steps=311 format=3 uid="uid://bdflk6ud0jrdt"]
+[gd_scene load_steps=321 format=3 uid="uid://bdflk6ud0jrdt"]
 
 [ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="1_hj6uc"]
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_u838r"]
@@ -270,6 +270,7 @@
 [ext_resource type="Texture2D" uid="uid://bwg7arelkojd0" path="res://Graphics/Intro/CSharp.png" id="156_t3nna"]
 [ext_resource type="Texture2D" uid="uid://bbrcgqtjbmjl2" path="res://Graphics/Intro/C64.png" id="157_10gkh"]
 [ext_resource type="PackedScene" uid="uid://doj4waem2jhvb" path="res://Prefabs/GrowingCarrot.tscn" id="193_m110f"]
+[ext_resource type="Texture2D" uid="uid://c6wraicxtyex4" path="res://Graphics/City/Extra/UAFlag.png" id="193_wt7p6"]
 [ext_resource type="Texture2D" uid="uid://bgs0typn774f8" path="res://Graphics/Items/Soap1.png" id="238_rn7ud"]
 [ext_resource type="AudioStream" uid="uid://bvsl61bx3ttsl" path="res://Sounds/Music/Win music BGO.ogg" id="261_bm57o"]
 [ext_resource type="Texture2D" uid="uid://c4hh6uey0i65d" path="res://Graphics/Player/VictoryDance.png" id="261_njoyj"]
@@ -347,6 +348,70 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 7.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dukp"]
+atlas = ExtResource("193_wt7p6")
+region = Rect2(0, 0, 400, 305)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8frsn"]
+atlas = ExtResource("193_wt7p6")
+region = Rect2(400, 0, 400, 305)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_18kjk"]
+atlas = ExtResource("193_wt7p6")
+region = Rect2(800, 0, 400, 305)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3trqr"]
+atlas = ExtResource("193_wt7p6")
+region = Rect2(1200, 0, 400, 305)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dggyv"]
+atlas = ExtResource("193_wt7p6")
+region = Rect2(0, 305, 400, 305)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7csq"]
+atlas = ExtResource("193_wt7p6")
+region = Rect2(400, 305, 400, 305)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3omjr"]
+atlas = ExtResource("193_wt7p6")
+region = Rect2(800, 305, 400, 305)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42tlw"]
+atlas = ExtResource("193_wt7p6")
+region = Rect2(1200, 305, 400, 305)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5f238"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dukp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8frsn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_18kjk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3trqr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dggyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7csq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3omjr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42tlw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
 }]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_duo4y"]
@@ -957,6 +1022,30 @@ tracks/13/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [false, false, true, false, true, false, false, true, false]
+}
+tracks/14/type = "value"
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/path = NodePath("../UA Flag L:visible")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/keys = {
+"times": PackedFloat32Array(0, 6.8),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/15/type = "value"
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/path = NodePath("../UA Flag R:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/keys = {
+"times": PackedFloat32Array(0, 7.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f682o"]
@@ -2674,6 +2763,19 @@ theme_override_font_sizes/font_size = 38
 text = "College  9AM - 6PM   $100 per lesson"
 horizontal_alignment = 1
 
+[node name="UA Flag" type="AnimatedSprite2D" parent="City/NorthRoad/Buidlings/College"]
+position = Vector2(969, -10)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5f238")
+autoplay = "default"
+
+[node name="Pole" type="Sprite2D" parent="City/NorthRoad/Buidlings/College/UA Flag"]
+show_behind_parent = true
+position = Vector2(-186, 66)
+texture = ExtResource("193_wt7p6")
+hframes = 57
+vframes = 2
+
 [node name="FastFood" type="Sprite2D" parent="City/NorthRoad/Buidlings"]
 z_index = -1
 position = Vector2(-1768, 304)
@@ -3611,6 +3713,19 @@ position = Vector2(-6240, 135)
 scale = Vector2(1, 1.75)
 texture = ExtResource("3_cp2fm")
 
+[node name="UA Flag" type="AnimatedSprite2D" parent="City/SideRoad/Buidlings/Park1"]
+position = Vector2(-181, 50.2857)
+scale = Vector2(0.5, 0.286)
+sprite_frames = SubResource("SpriteFrames_5f238")
+autoplay = "default"
+
+[node name="Pole" type="Sprite2D" parent="City/SideRoad/Buidlings/Park1/UA Flag"]
+show_behind_parent = true
+position = Vector2(-186, 208)
+texture = ExtResource("193_wt7p6")
+hframes = 57
+vframes = 2
+
 [node name="HighSchool" type="Sprite2D" parent="City/SideRoad/Buidlings"]
 position = Vector2(-5025, 176)
 scale = Vector2(1.2, 1.2)
@@ -4420,6 +4535,19 @@ theme = ExtResource("19_ca2sb")
 theme_override_colors/font_color = Color(0.113725, 0.847059, 0, 1)
 theme_override_font_sizes/font_size = 52
 text = "Perfection City Hospital"
+
+[node name="UA Flag" type="AnimatedSprite2D" parent="City/MainStreet/Buidlings/Hospital"]
+position = Vector2(-708, 94)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5f238")
+autoplay = "default"
+
+[node name="Pole" type="Sprite2D" parent="City/MainStreet/Buidlings/Hospital/UA Flag"]
+show_behind_parent = true
+position = Vector2(-186, 208)
+texture = ExtResource("193_wt7p6")
+hframes = 57
+vframes = 2
 
 [node name="Park3" type="Sprite2D" parent="City/MainStreet/Buidlings"]
 position = Vector2(9150, 340)
@@ -7110,7 +7238,8 @@ Remastered version done by          [color=#0080ff][b]CPU[/b][/color] of        
 Using          [color=#0080ff][b]Godot[/b][/color] 4.2.2
 Language:          [color=#0080ff][b]C#[/b][/color]
 Sound Effects: [color=#0080ff][b]CPU[/b][/color]
-Musics: [color=#0080ff][b]SliceNDice[/b][/color]
+In game Musics: [color=#0080ff][b]SliceNDice[/b][/color]
+Wictory Musics: [color=#0080ff][b]BG Ollie[/b][/color]
 Graphics: [color=#0080ff][b]CPU[/b][/color] using          [color=#0080ff][b]GIMP[/b][/color]
 Thanks to [color=#0080ff][b]Blah[/b][/color] for blah blah
 
@@ -7282,10 +7411,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 405.5
-offset_top = -300.0
-offset_right = 1514.5
-offset_bottom = 17.002
+offset_left = -554.5
+offset_top = -840.0
+offset_right = 554.5
+offset_bottom = -522.998
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(550, 170)
@@ -7318,7 +7447,6 @@ libraries = {
 }
 
 [node name="CanvasLayer Win" type="CanvasLayer" parent="UI"]
-visible = false
 
 [node name="Win!" type="Label" parent="UI/CanvasLayer Win"]
 anchors_preset = 8
@@ -7326,10 +7454,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 405.5
-offset_top = -300.0
-offset_right = 1514.5
-offset_bottom = 55.007
+offset_left = -554.5
+offset_top = -840.0
+offset_right = 554.5
+offset_bottom = -484.993
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 1e-05)
@@ -7459,6 +7587,38 @@ one_shot = true
 speed_scale = 1.5
 explosiveness = 0.95
 trail_lifetime = 0.05
+
+[node name="UA Flag L" type="AnimatedSprite2D" parent="UI/CanvasLayer Win"]
+z_index = -150
+z_as_relative = false
+position = Vector2(253, 128)
+rotation = -0.328122
+scale = Vector2(-0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5f238")
+autoplay = "default"
+
+[node name="Pole" type="Sprite2D" parent="UI/CanvasLayer Win/UA Flag L"]
+show_behind_parent = true
+position = Vector2(-186, 208)
+texture = ExtResource("193_wt7p6")
+hframes = 57
+vframes = 2
+
+[node name="UA Flag R" type="AnimatedSprite2D" parent="UI/CanvasLayer Win"]
+z_index = -50
+z_as_relative = false
+position = Vector2(1693, 146)
+rotation = 0.394444
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_5f238")
+autoplay = "default"
+
+[node name="Pole" type="Sprite2D" parent="UI/CanvasLayer Win/UA Flag R"]
+show_behind_parent = true
+position = Vector2(-186, 208)
+texture = ExtResource("193_wt7p6")
+hframes = 57
+vframes = 2
 
 [node name="CanvasLayer Options" type="CanvasLayer" parent="UI"]
 layer = 2

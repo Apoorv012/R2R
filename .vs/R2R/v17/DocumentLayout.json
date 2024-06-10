@@ -3,39 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\claud\\Godot\\R2R\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\help.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\help.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\location.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\road.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\road.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\npc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\npc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\help.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\help.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\dognpc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\dognpc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\igame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\igame.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\claud\\AppData\\Local\\Temp\\.vsdbgsrc\\e02c6d47bcf93dc176fd92dbe50e48b6346bd905c9638f8cf9ab6f4e860123e7\\CSharpInstanceBridge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\npc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\npc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\pickable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\pickable.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|c:\\users\\claud\\godot\\r2r\\scripts\\road.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{69F9AD49-E4E2-43FA-8866-A038F2D6C82B}|R2R.csproj|solutionrelative:scripts\\road.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -45,11 +34,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Enemy.cs",
+              "DocumentMoniker": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Enemy.cs",
+              "RelativeDocumentMoniker": "Scripts\\Enemy.cs",
+              "ToolTip": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Enemy.cs",
+              "RelativeToolTip": "Scripts\\Enemy.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwA0AAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-10T10:54:47.833Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "IGame.cs",
+              "DocumentMoniker": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\IGame.cs",
+              "RelativeDocumentMoniker": "Scripts\\IGame.cs",
+              "ToolTip": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\IGame.cs",
+              "RelativeToolTip": "Scripts\\IGame.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-10T09:04:59.626Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Road.cs",
               "DocumentMoniker": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Road.cs",
               "RelativeDocumentMoniker": "Scripts\\Road.cs",
@@ -61,100 +76,39 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "DogNPC.cs",
-              "DocumentMoniker": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\DogNPC.cs",
-              "RelativeDocumentMoniker": "Scripts\\DogNPC.cs",
-              "ToolTip": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\DogNPC.cs",
-              "RelativeToolTip": "Scripts\\DogNPC.cs",
-              "ViewState": "AQIAADEAAAAAAAAAAAAgwFMAAAA3AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T15:44:32.969Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "CSharpInstanceBridge.cs",
-              "DocumentMoniker": "C:\\Users\\claud\\AppData\\Local\\Temp\\.vsdbgsrc\\e02c6d47bcf93dc176fd92dbe50e48b6346bd905c9638f8cf9ab6f4e860123e7\\CSharpInstanceBridge.cs",
-              "RelativeDocumentMoniker": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\e02c6d47bcf93dc176fd92dbe50e48b6346bd905c9638f8cf9ab6f4e860123e7\\CSharpInstanceBridge.cs",
-              "ToolTip": "C:\\Users\\claud\\AppData\\Local\\Temp\\.vsdbgsrc\\e02c6d47bcf93dc176fd92dbe50e48b6346bd905c9638f8cf9ab6f4e860123e7\\CSharpInstanceBridge.cs [Read Only]",
-              "RelativeToolTip": "..\\..\\AppData\\Local\\Temp\\.vsdbgsrc\\e02c6d47bcf93dc176fd92dbe50e48b6346bd905c9638f8cf9ab6f4e860123e7\\CSharpInstanceBridge.cs [Read Only]",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAUwB0AAAACAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T11:12:51.942Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Pickable.cs",
-              "DocumentMoniker": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Pickable.cs",
-              "RelativeDocumentMoniker": "Scripts\\Pickable.cs",
-              "ToolTip": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Pickable.cs",
-              "RelativeToolTip": "Scripts\\Pickable.cs",
-              "ViewState": "AQIAAAoAAAAAAAAAAAASwBoAAAADAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-25T13:16:00.416Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Location.cs",
-              "DocumentMoniker": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Location.cs",
-              "RelativeDocumentMoniker": "Scripts\\Location.cs",
-              "ToolTip": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Location.cs",
-              "RelativeToolTip": "Scripts\\Location.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAYAAAAPAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-16T15:19:48.3Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Enemy.cs",
-              "DocumentMoniker": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Enemy.cs",
-              "RelativeDocumentMoniker": "Scripts\\Enemy.cs",
-              "ToolTip": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Enemy.cs",
-              "RelativeToolTip": "Scripts\\Enemy.cs",
-              "ViewState": "AQIAADUAAAAAAAAAAAAxwIUAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-26T14:49:40.23Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
               "Title": "NPC.cs",
               "DocumentMoniker": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\NPC.cs",
               "RelativeDocumentMoniker": "Scripts\\NPC.cs",
               "ToolTip": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\NPC.cs",
               "RelativeToolTip": "Scripts\\NPC.cs",
-              "ViewState": "AQIAAHIAAAAAAAAAAAAYwIUAAAAAAAAA",
+              "ViewState": "AQIAANcAAAAAAAAAAAArwPEAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-26T14:24:10.831Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Help.cs",
               "DocumentMoniker": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Help.cs",
               "RelativeDocumentMoniker": "Scripts\\Help.cs",
               "ToolTip": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Help.cs",
               "RelativeToolTip": "Scripts\\Help.cs",
-              "ViewState": "AQIAAGcLAAAAAAAAAAAUwIwLAAAAAAAA",
+              "ViewState": "AQIAAKABAAAAAAAAAAArwMQBAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-08T06:02:05.651Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Game.cs",
               "DocumentMoniker": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Game.cs",
               "RelativeDocumentMoniker": "Scripts\\Game.cs",
               "ToolTip": "C:\\Users\\claud\\Godot\\R2R\\Scripts\\Game.cs",
               "RelativeToolTip": "Scripts\\Game.cs",
-              "ViewState": "AQIAAKsKAAAAAAAAAAD4v0ELAAAAAAAA",
+              "ViewState": "AQIAADYCAAAAAAAAAAAvwF0CAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-04-03T13:07:14.958Z",
               "EditorCaption": ""

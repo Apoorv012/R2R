@@ -11,10 +11,11 @@ We need to have a comple of spots to eat cheap enough
 	SOUNDS: have a way to add custom musics
 
 
-
 ********* BUGS ************************************
 
-
+implement play denial in help
+move npcs a bit up
+move enemies a little bit down
 
 
 [DONE]

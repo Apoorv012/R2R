@@ -45,7 +45,7 @@ public partial class NPC : Sprite2D {
   public int order;
   public bool goingLeft = false;
   Vector2 direction;
-  Game game = null;
+  IGame game = null;
   DogNPC dog = null;
   int happiness = 1; // <2 sad ; 2..3 normal; >3 happy.    Alter it when the player does the expected actions
   bool checkedPlayer = false;
@@ -59,13 +59,13 @@ public partial class NPC : Sprite2D {
   string[] approvalSentences = { "Thanks!", "Thank you!", "Appreciated!", "Well done!", "A small gift for you!" };
 
 
-  public void Spawn(Game game, Node2D cityLayer, int order, bool isFemale) {
+  public void Spawn(IGame game, Node2D cityLayer, int order, bool isFemale) {
     this.game = game;
     this.order = order;
     ZIndex = 60 + order * 2;
     if (rnd.Randf() < .5f) goingLeft = true;
     female = isFemale;
-    gameWon = game.status == Game.Status.Win;
+    gameWon = game.Won;
 
     if (GetParent() != cityLayer) cityLayer.AddChild(this);
     // 960player 2064 npc  on right
@@ -133,6 +133,7 @@ public partial class NPC : Sprite2D {
       GlobalPosition += (float)(NPCSpeed * delta) * direction;
     }
 
+    bool won = game.Won;
     float npcX = GlobalPosition.X;
     bool inside = false;
     for (int i = 0; i < crossroads.Length; i++) {
@@ -189,7 +190,7 @@ public partial class NPC : Sprite2D {
     }
 
 
-    if (giveToPlayer && game.Player.Visible && game.status != Game.Status.Win) {
+    if (giveToPlayer && game.iPlayer.Visible && !won) {
       if ((goingLeft && playerX - GlobalPosition.X > -200) ||
           (!goingLeft && playerX - GlobalPosition.X < 200)) {
         if (!giveToPlayerStopMovement) {
@@ -208,7 +209,7 @@ public partial class NPC : Sprite2D {
       }
     }
 
-    if (game.status == Game.Status.Win) {
+    if (won) {
       gameWon = true;
       if (!checkedPlayer && ((goingLeft && playerX - GlobalPosition.X > -400) || (!goingLeft && playerX - GlobalPosition.X < 400))) {
         // We are close to the player, in case the player smells too much we will reduce happiness
@@ -219,7 +220,7 @@ public partial class NPC : Sprite2D {
         checkedPlayer = true;
       }
     }
-    else if (!checkedPlayer && game.Player.Visible) {
+    else if (!checkedPlayer && game.iPlayer.Visible) {
       if ((goingLeft && playerX - GlobalPosition.X > -300) ||
         (!goingLeft && playerX - GlobalPosition.X < 300)) {
         // We are close to the player, in case the player smells too much we will reduce happiness
@@ -284,16 +285,16 @@ public partial class NPC : Sprite2D {
     AudioStream sound;
     switch (type) {
       case Sound.Approval:
-        sounds = female ? game.FYes : game.MYes;
+        sounds = female ? game.iFYes : game.iMYes;
         break;
       case Sound.Disapproval:
-        sounds = female ? game.FNo : game.MNo;
+        sounds = female ? game.iFNo : game.iMNo;
         break;
       case Sound.Disgust:
-        sounds = female ? game.FDisgust : game.MDisgust;
+        sounds = female ? game.iFDisgust : game.iMDisgust;
         break;
       case Sound.Enjoy:
-        sounds = female ? game.FApproval : game.MApproval;
+        sounds = female ? game.iFApproval : game.iMApproval;
         break;
       default: return;
     }

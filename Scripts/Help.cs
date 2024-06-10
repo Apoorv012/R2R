@@ -1,9 +1,10 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace R2R;
 
-public partial class Help : Node {
+public partial class Help : Node, IGame {
 	#region Properties *****************************************************************************
 	[ExportGroup("Player")]
 	[Export] public Node2D Player;
@@ -102,7 +103,6 @@ public partial class Help : Node {
 	[Export] public AudioStream[] FNo, MNo, FYes, MYes, FDisgust, MDisgust, FApproval, MApproval;
 
 	[ExportGroup("Debug")]
-	//	[Export] public Label Debug; // FIXME remove
 
 	readonly List<NPC> NPCs = new();
 
@@ -254,13 +254,31 @@ public partial class Help : Node {
     Background1.Position = new(974, 306 - City.Position.Y);
 
 
-    ResetHelp(10, -1700, 2700); // FIMXE
+    ResetHelp(14, -1700, 5000); // FIMXE AAA
 		ResetPlayer();
 		SpawnItems();
   }
 
+	public bool Won => false;
+  public Node2D iPlayer => Player;
+  public AudioStream[] iFNo => FNo;
+  public AudioStream[] iMNo => MNo;
+  public AudioStream[] iFYes => FYes;
+  public AudioStream[] iMYes => MYes;
+  public AudioStream[] iFDisgust => FDisgust;
+  public AudioStream[] iMDisgust => MDisgust;
+  public AudioStream[] iFApproval => FApproval;
+  public AudioStream[] iMApproval => MApproval;
 
-	private void ResetAllValues() {
+	public bool iSleepingOnBench => false;
+	public bool IsTopBoulevard() => false;
+  public bool IsNorthRoad() => false;
+
+	public void JailTime(string msg) { }
+	public void SpawnBottlesForDrunkGuy() { }
+
+
+  private void ResetAllValues() {
 		dayNum = 1;
 		dayTime = 8 / 24.0; // 0 .. 1
 		waitUntil = -1;
@@ -290,9 +308,9 @@ public partial class Help : Node {
 		beard = 60;
 		education = 0;
 		pbEducation.Value = 0;
-		money = 500;
+		money = 0;
 		investedMoney = 0;
-		hasATM = true; // FIXME
+		hasATM = false;
 		hasRazor = false;
     hasSoap = 0;
     hasBroom = false;
@@ -430,8 +448,15 @@ public partial class Help : Node {
 
     ProcessHelp(delta);
 
+		if (showPeople) {
+      SpawnNPC(delta);
+      ManageNPCs(delta);
+    }
+		if (showEnemies) {
+			HandleEnemies(delta);
+		}
 
-		if (Input.IsActionJustPressed("Esc") || (joyStart && !joyJustPressed)) {
+    if (Input.IsActionJustPressed("Esc") || (joyStart && !joyJustPressed)) {
       GetTree().ChangeSceneToFile("res://Game.tscn");
     }
 
@@ -440,16 +465,7 @@ public partial class Help : Node {
 			SwitchFullscreen();
 		}
 
-		return; // FIXME
-
-
-
-
-//		SpawnNPC(d);
-//		HandleEnemies(d);
-//		ManageNPCs(d);
-
-
+		return;
 	}
 
 	bool playedMusic = false;
@@ -1118,10 +1134,10 @@ public partial class Help : Node {
 			prefabs[b] = tmp;
     }
 
-		float pos = minHelpXPos + 900;
+		float pos = -5000;
 		// Go from one end to the other end, the size will depend on the street
 		int index = 0;
-		while (pos < maxHelpXPos + 800) {
+		while (pos < 2000) {
 			// Spawn an object using the defined probabilities
 			// poop 9%, paper 15%, cans 20%, bottles 25%, coins 25%, banknotes 5%, bones 1%
 			Pickable item;
@@ -2132,10 +2148,7 @@ public partial class Help : Node {
 
 	public bool IsPlayerReacheable() {
 		if (status == Status.Win) return false;
-
-		return (status == Status.Playing && !jail &&
-			(foundLocation == null ||
-			(foundLocation.type != LocationType.Bench && foundLocation.type != LocationType.Garden && waitUntil != -1 && waitUntilNextDay != -1 && doActionDelta > 0)));
+		return (doActionDelta <= 0);
 	}
 
 	#endregion actions **************************************************************************     ^Actions^
@@ -2162,7 +2175,8 @@ public partial class Help : Node {
 		Eye.Visible = false;
 		Legs.Visible = true;
 		Beard.Frame = Beardlevel(BeardLevels.Walk);
-		Player.Visible = true;
+    Beard.Visible = true;
+    Player.Visible = true;
 		BroomPlayer.Visible = false;
 		HandBrooming.Visible = false;
 		SoundPlayer.Stop();
@@ -2322,47 +2336,22 @@ public partial class Help : Node {
 	int numNPCs = 0;
 	double spawnDelay = 2;
 	readonly bool[] npcOrders = new bool[5];
-	int NPCsPerDayTime() {
-		// 0->4   0
-		// 5->8   1
-		// 9->12  2
-		// 12->16 3
-		// 17->20 2
-		// 20->23 1
-		int num = 3;
-		if (dayTime > 23 / 24.0) {
-			return 0;
-		}
-		else if (dayTime > 20 / 24.0) {
-			return 3 + num;
-		}
-		else if (dayTime > 16 / 24.0) {
-			return 3 + num;
-		}
-		else if (dayTime > 12 / 24.0) {
-			return 3 + num;
-		}
-		else if (dayTime > 8 / 24.0) {
-			return 2 + num;
-		}
-		else if (dayTime > 4) {
-			return 1 + num;
-		}
-		return 0;
-	}
+  readonly Vector2[] emptyCrossroads = System.Array.Empty<Vector2>();
 
 	readonly List<NPC> toProcess = new();
-	void ManageNPCs(double d) {
-		toProcess.Clear();
-		toProcess.AddRange(NPCs);
-		if (enemy != null && removeEnemy) {
-			removeEnemy = false;
-			enemy.Free();
-			enemy = null;
-		}
-	}
+  void ManageNPCs(double d) {
+    toProcess.Clear();
+    toProcess.AddRange(NPCs);
+    foreach (var npc in toProcess) npc.ProcessNpc(d, Player.GlobalPosition.X, bodySmell + dirtyClothes, emptyCrossroads, currentRoad.Position.X);
+    enemy?.ProcessEnemy(d, emptyCrossroads, currentRoad.Position.X);
+    if (enemy != null && removeEnemy) {
+      removeEnemy = false;
+      enemy.Free();
+      enemy = null;
+    }
+  }
 
-	void RemoveAllNPCs() {
+  void RemoveAllNPCs() {
 		foreach (var npc in NPCs) npc.Delete();
 		NPCs.Clear();
 		if (enemy != null) {
@@ -2373,9 +2362,6 @@ public partial class Help : Node {
 	}
 
 	void SpawnNPC(double delta) {
-		return; // FIXME they should spawn after a while
-
-
 		if (spawnDelay > 0) {
 			spawnDelay -= delta;
 			return;
@@ -2395,8 +2381,8 @@ public partial class Help : Node {
 		}
 		npcOrders[pos] = true;
 
-		int expected = NPCsPerDayTime();
-		if (numNPCs < expected) {
+		int expected = 5;
+    if (numNPCs < expected) {
 			var r = rnd.Randf();
 			PackedScene npcScene;
 			bool female = false;
@@ -2410,7 +2396,7 @@ public partial class Help : Node {
 
 			var npc = npcScene.Instantiate() as NPC;
 			NPCs.Add(npc);
-			npc.Spawn(null, PeopleLayer, pos, female);
+			npc.Spawn(this, PeopleLayer, pos, female);
 			numNPCs++;
 			spawnDelay = 1;
 		}
@@ -2429,7 +2415,7 @@ public partial class Help : Node {
 		else Pickup(PickableItem.Banknote);
 	}
 
-	internal void AddDogPoop(float xPos) {
+	public void AddDogPoop(float xPos) {
 		NPCPlayer.Stream = FartSound;
 		NPCPlayer.Play();
 		var item = ItemPrefabs[PrefabPoop].Instantiate() as Pickable;
@@ -2445,66 +2431,31 @@ public partial class Help : Node {
 
 	void HandleEnemies(double delta) {
 		// We can have only one enemy at time
-		if (enemy != null || status != Status.Playing) return;
+		if (enemy != null) return;
 
 		// How much time between spawns?
 		enemyDelay -= delta;
 		//		Debug.Text = $"{enemyDelay:F1}";
 		if (enemyDelay > 0) return;
 
-
-
 		// What type of enemy to spawn?
-		float probPolice = enemyProbs[0][gameDifficulty];
-		float probRobber = enemyProbs[1][gameDifficulty];
-		float probMaga = enemyProbs[2][gameDifficulty];
-		float probZTurd = enemyProbs[3][gameDifficulty];
-		float probOrban = enemyProbs[4][gameDifficulty];
-		if (dayTime < 6 / 24.0 || dayTime > 22 / 24.0) probPolice += 10;
-		float tot = probPolice + probRobber + probMaga + probZTurd + probOrban + (10 - gameDifficulty);
-		float rndEnemy = rnd.RandfRange(0, tot);
-		if (rndEnemy < probPolice) {
+		if (rnd.RandfRange(0, 1) == 0) {
 			enemyType = EnemyType.Police;
 			enemy = NPCPolice.Instantiate() as Enemy;
 		}
-		else if (rndEnemy < probPolice + probRobber) {
+		else {
 			enemyType = EnemyType.Robber;
 			enemy = NPCRobber.Instantiate() as Enemy;
-		}
-		else if (rndEnemy < probPolice + probRobber + probMaga) {
-			enemyType = EnemyType.Maga;
-			enemy = NPCMAGA.Instantiate() as Enemy;
-		}
-		else if (rndEnemy < probPolice + probRobber + probMaga + probZTurd) {
-			enemyType = EnemyType.ZTurd;
-			enemy = NPCZTurd.Instantiate() as Enemy;
-		}
-		else if (rndEnemy < probPolice + probRobber + probMaga + probZTurd + probOrban) {
-			enemyType = EnemyType.Orban;
-			enemy = NPCOrban.Instantiate() as Enemy;
-		}
-		else {
-			enemyType = EnemyType.None;
-			enemy = null;
-			enemyDelay = rnd.RandfRange(10f, 20f);
 		}
 
 		// Spawn the actual enemy
 		if (enemy != null) {
 			PeopleLayer.AddChild(enemy);
-			enemy.Spawn(null, enemyType);
+			enemy.Spawn(this, enemyType);
 		}
 
 		// Each enemy will try to go to the player for a while, then will run away in case too much time passed or the player enters somewhere
 	}
-
-	readonly float[][] enemyProbs = {
-	new float[] { 8, 7, 6, 5, 5, 5, 3, 3, 2, 2 }, // probPolice 
-	new float[] { 1, 2, 4, 5, 4, 3, 3, 3, 2, 2 }, // probRobber 
-	new float[] { 0, 1, 2, 3, 3, 3, 4, 5, 3, 5 }, // probMaga  
-	new float[] { 0, 0, 0, 0, 3, 4, 4, 5, 3, 5 }, // probZTurd 
-	new float[] { 0, 0, 0, 0, 0, 1, 2, 3, 5, 8 }, // probOrban 
-	};
 
 	void StopEnemies() {
 		if (enemy == null) return;
@@ -2513,116 +2464,15 @@ public partial class Help : Node {
 
 	public void EnemyGone() {
 		removeEnemy = true;
-		switch (enemyType) {
-			case EnemyType.None:
-				enemyDelay = rnd.RandfRange(20f, 30f);
-				break;
-			case EnemyType.Police:
-				enemyDelay = rnd.RandfRange(20f, 30f);
-				break;
-			case EnemyType.DrunkGuy:
-				enemyDelay = rnd.RandfRange(20f, 30f);
-				break;
-			case EnemyType.Robber:
-				enemyDelay = rnd.RandfRange(20f, 40f);
-				break;
-			case EnemyType.Maga:
-				enemyDelay = rnd.RandfRange(30f, 40f);
-				break;
-			case EnemyType.ZTurd:
-				enemyDelay = rnd.RandfRange(30f, 40f);
-				break;
-			case EnemyType.Orban:
-				enemyDelay = rnd.RandfRange(40f, 70f);
-				break;
-		}
-		enemyDelay += (9 - gameDifficulty);
-
-		//		Debug.Text = $"{enemyDelay:F1}";
+    enemyDelay = rnd.RandfRange(2f, 5f);
 	}
 
 	public void RobPlayer(EnemyType what) {
-		// 0 money
-		// 1 atm
-		// 2 clothes
-		// 3 trash
-		// 4 education
-		// 5 razor, broom, tickets
-		switch (what) {
-			case EnemyType.Police: break;
-			case EnemyType.DrunkGuy: break;
-
-			case EnemyType.Robber: // money
-				if (numBanknotes > 0 || numCoins > 0) {
-					ShowBalloon($"I got robbed of {FormatMoney(numBanknotes * 10 + numCoins)}...", 1);
-					numBanknotes = 0;
-					numCoins = 0;
-					ArrangeWallet(0);
-				}
-				break;
-
-			case EnemyType.Maga: // steals 10% of education and ATM
-				if (education > 0 && hasATM) {
-					ShowBalloon($"I lost some of my education ({education * .1:F0}% and my ATM card.\nWhat a loser this guy was!", 2);
-					education *= .1;
-					pbEducation.Value = education;
-					hasATM = false;
-					ATMCard.Visible = false;
-				}
-				else if (education > 0) {
-					ShowBalloon($"I lost some of my education ({education * .1:F0}%\nWhat a loser this guy was!", 2);
-					education *= .1;
-					pbEducation.Value = education;
-				}
-				else if (hasATM) {
-					hasATM = false;
-					ATMCard.Visible = false;
-				}
-				break;
-
-			case EnemyType.ZTurd:
-				if (hasBroom || hasRazor || numTickets > 0) {
-					string msg = "I got robbed of ";
-					if (hasBroom) {
-						msg += "broom";
-					}
-					if (hasRazor) {
-						if (hasBroom) msg += ", razor";
-						else msg += "razor";
-					}
-					if (numTickets > 0) {
-						if (hasBroom && hasRazor) msg += ", and metro tickets";
-						else if (hasBroom || hasRazor) msg += " and metro tickets";
-						else msg += "metro tickets";
-					}
-					msg += "!\nWhat a primitive this guy was!";
-					ShowBalloon(msg, 2);
-				}
-				hasBroom = false;
-				broomLevel = 0;
-				Broom.Visible = false;
-				hasRazor = false;
-				Razor.Visible = false;
-				numTickets = 0;
-				for (int i = 0; i < 10; i++) Tickets[i].Visible = false;
-				break;
-
-			case EnemyType.Orban:
-				ShowBalloon("This guy stoled everything I had!\nHe should be kicked out of civilized countries!", 2);
-				numBanknotes = 0;
-				numCoins = 0;
-				hasBroom = false;
-				broomLevel = 0;
-				Broom.Visible = false;
-				hasRazor = false;
-				Razor.Visible = false;
-				hasATM = false;
-				ATMCard.Visible = false;
-				numTickets = 0;
-				for (int i = 0; i < 10; i++) Tickets[i].Visible = false;
-				RemoveAllItems();
-				ArrangeWallet(0);
-				break;
+		if (numBanknotes > 0 || numCoins > 0) {
+			ShowBalloon($"I got robbed of {FormatMoney(numBanknotes * 10 + numCoins)}...", 1);
+			numBanknotes = 0;
+			numCoins = 0;
+			ArrangeWallet(0);
 		}
 	}
 
@@ -2646,6 +2496,8 @@ public partial class Help : Node {
 	int prevPos = -1;
 	bool wasUp = false, wasDown = false;
 	int numPicked = 0;
+	bool showPeople = false;
+	bool showEnemies = false;
 
 
   void ResetHelp(int stage, int min, int max, bool resetText = true) {
@@ -2741,23 +2593,31 @@ public partial class Help : Node {
 						SpawnItems();
 						return;
 					}
-					else if (helpStage == 9) { // Trashcan
+					else if (helpStage == 9 || (helpStage >= 13 && helpStage <= 16)) { // Trashcan
 						goingUp = false;
             helpReset = true;
 						doActionDelta = .5;
             RemoveAllItems();
-            ResetHelp(10, -1700, 2700);
+            if (helpStage == 9) ResetHelp(10, -1700, 2700);
 						return;
 					}
 					else if (helpStage == 11) { // Clothes
 						goingUp = false;
             helpReset = true;
 						doActionDelta = .5;
-            ResetHelp(12, 0, 3000);
+            ResetHelp(12, 1000, 5000);
             Body.Texture = Body2;
             Hat.Texture = Hat2;
             return;
 					}
+          else if (helpStage == 12) { // Shaving
+            goingUp = false;
+            helpReset = true;
+            doActionDelta = .5;
+						beard = 0;
+            ResetHelp(13, 1000, 5000);
+            return;
+          }
         }
       }
 			else if (doActionDelta <= 0) {
@@ -2773,7 +2633,7 @@ public partial class Help : Node {
     // Here will happen the magic
     var use = (Input.IsKeyPressed(Key.Enter) || Input.IsPhysicalKeyPressed(Key.Ctrl) || Input.IsJoyButtonPressed(0, JoyButton.A));
 
-    if (helpWrite) {
+		if (helpWrite) {
 			string h = help[helpStage];
 			helpDelta += d * helpSpeed * (use ? 40 : 1);
 			int pos = (int)helpDelta;
@@ -2788,12 +2648,34 @@ public partial class Help : Node {
 					else helpSpeed = 20;
 					GlobalMessage.Text += h[prevPos];
 					if (prevPos != pos) { helpSpeed = 100; helpDelta -= d * helpSpeed * (use ? 40 : 1); }
-          }
-          else {
+				}
+				else {
 					actionPosible = true;
 					helpWrite = false;
-				}
-			}
+					if (helpStage == 13) { // Education
+						doActionDelta = .1;
+						ResetHelp(14, -2000, 5000);
+						return;
+					}
+					else if (helpStage == 14) { // Washing
+						doActionDelta = .1;
+						ResetHelp(15, -2000, 5000);
+						showPeople = true;
+						return;
+					}
+					else if (helpStage == 15) { // People
+						doActionDelta = .1;
+						ResetHelp(16, -2000, 5000);
+						showEnemies = true;
+						return;
+					}
+					else if (helpStage > 15 && helpStage < 19) { // Final text
+						doActionDelta = .1;
+						ResetHelp(helpStage + 1, -2000, 5000);
+						return;
+					}
+        }
+      }
 		}
 
 		// If we are here we are waiting for an action
@@ -2879,30 +2761,20 @@ public partial class Help : Node {
 
       case 6: // Statistics, drink from fountain
         HelpMove(d, left, right);
-        if (up) {
-          foreach (var loc in locations) {
-            if (loc.Visible && loc.type == LocationType.Fountain && Mathf.Abs(loc.GlobalPosition.X - Player.GlobalPosition.X) < loc.Width) {
-							goingUp = true;
-							doActionDelta = 1;
-              break;
-            }
-          }
-        }
-        break;
+				if (up && HandleLocactionHelp(false, false, true, false, false)) {
+					goingUp = true;
+					doActionDelta = 1;
+				}
+				break;
 
 			case 7: // HotDogs
         HelpMove(d, left, right);
-        if (up) {
-          foreach (var loc in locations) {
-            if (loc.Visible && loc.type == LocationType.Shop && Mathf.Abs(loc.GlobalPosition.X - Player.GlobalPosition.X) < loc.Width) {
-              // Make food good and go next help
-              goingUp = true;
-              doActionDelta = 1;
-              break;
-            }
-          }
-        }
-        break;
+				if (up && HandleLocactionHelp(false, false, false, true, false)) {
+					// Make food good and go next help
+					goingUp = true;
+					doActionDelta = 1;
+				}
+				break;
 
 			case 8: // Pick items
         HelpMove(d, left, right);
@@ -2917,17 +2789,10 @@ public partial class Help : Node {
 			case 9: // Use the trashcan
         HelpMove(d, left, right);
 				if (down) HelpPickup();
-        if (up) {
-          foreach (var loc in locations) {
-            if (loc.Visible && loc.type == LocationType.Trashcan && Mathf.Abs(loc.GlobalPosition.X - Player.GlobalPosition.X) < loc.Width) {
-              goingUp = true;
-              doActionDelta = 1;
-              break;
-            }
-          }
+        if (up && HandleLocactionHelp(false, false, false, false, true)) {
+          goingUp = true;
+          doActionDelta = 1;
         }
-
-
         break;
 
 			case 10: // Description about work
@@ -2941,27 +2806,96 @@ public partial class Help : Node {
 			case 11: // Buy clothes
         HelpMove(d, left, right);
         if (up) {
-          foreach (var loc in locations) {
-            if (loc.Visible && loc.type == LocationType.Shop && loc.ItemDelivered == ItemDelivered.Clothes && Mathf.Abs(loc.GlobalPosition.X - Player.GlobalPosition.X) < loc.Width) {
-              goingUp = true;
-              doActionDelta = 1;
-              break;
-            }
-          }
+					if (HandleLocactionHelp(true, false, false, false, false)) {
+						goingUp = true;
+						doActionDelta = 1;
+					}
         }
         break;
 
-			case 12: // Bard shaving
+			case 12: // Beard shaving
         HelpMove(d, left, right);
+        if (down) HelpPickup();
+        if (up && HandleLocactionHelp(false, true, false, false, false)) {
+					goingUp = true;
+					doActionDelta = 1;
+				}
+				break;
 
-				// FIXME find out why we lost the beard
-
+			case 13: // Education
+        HelpMove(d, left, right);
+				if (down) HelpPickup();
+        if (up && HandleLocactionHelp(false, false, false, false, true)) {
+          goingUp = true;
+          doActionDelta = 1;
+        }
         break;
 
+			case 14: // Smell
+        HelpMove(d, left, right);
+        if (down) HelpPickup();
+        if (up && HandleLocactionHelp(false, false, false, false, true)) {
+          goingUp = true;
+          doActionDelta = 1;
+        }
+        break;
 
+			case 15: // People
+        HelpMove(d, left, right);
+        if (down) HelpPickup();
+        if (up && HandleLocactionHelp(false, false, false, false, true)) {
+          goingUp = true;
+          doActionDelta = 1;
+        }
+        break;
 
+			case 16: // Enemies
+        HelpMove(d, left, right);
+        if (down) HelpPickup();
+        if (up && HandleLocactionHelp(false, false, false, false, true)) {
+          goingUp = true;
+          doActionDelta = 1;
+        }
+        break;
+
+			case 17: // Text
+			case 18: // 
+        HelpMove(d, left, right);
+        if (down) HelpPickup();
+        if (up && HandleLocactionHelp(false, false, false, false, true)) {
+          goingUp = true;
+          doActionDelta = 1;
+        }
+				break;
+			case 19: // Exit
+        HelpMove(d, left, right);
+				if (use) GetTree().ChangeSceneToFile("res://Game.tscn");
+        break;
     }
   }
+
+	private bool HandleLocactionHelp(bool clothes, bool barber, bool fountain, bool eat, bool trash) {
+		foreach (var loc in locations) {
+			if (!loc.Visible) continue;
+
+      if (clothes && loc.type == LocationType.Shop && loc.ItemDelivered == ItemDelivered.Clothes && Mathf.Abs(loc.GlobalPosition.X - Player.GlobalPosition.X) < loc.Width) {
+				return true;
+			}
+			if (barber && loc.type == LocationType.Shop && loc.ItemDelivered == ItemDelivered.Shaving && Mathf.Abs(loc.GlobalPosition.X - Player.GlobalPosition.X) < loc.Width) {
+				return true;
+			}
+			if (eat && loc.type == LocationType.Shop && loc.ItemDelivered == ItemDelivered.Food && Mathf.Abs(loc.GlobalPosition.X - Player.GlobalPosition.X) < loc.Width) {
+				return true;
+			}
+			if (fountain && loc.type == LocationType.Fountain && Mathf.Abs(loc.GlobalPosition.X - Player.GlobalPosition.X) < loc.Width) {
+				return true;
+			}
+			if (trash && loc.type == LocationType.Trashcan && Mathf.Abs(loc.GlobalPosition.X - Player.GlobalPosition.X) < loc.Width) {
+				return true;
+			}
+		}
+		return false;
+	}
 
   private bool HelpPickup() {
 		pickup = true;
@@ -3060,16 +2994,21 @@ public partial class Help : Node {
 
   /* 11 */  "*Clothes: you cannot work in an office with rags.\nThere are shops where you can find and buy clothes.\nOn the very left there is a clothes shop.\nGo there and buy some (they are free.)",
 
-  /* 10 */  "Beard: resturants do not like long beards for the personnel.\nYou can either go to a barber shop or buy a razor and use it in your home or an hotel.\nFIXME add barber shop",
+  /* 12 */  "*Beard: some jobs, like resturants do not like long beards for the personnel.\nYou can either go to a barber shop or buy a razor and use it in your home or an hotel.\nThere is a barber shop on the left, pay it a visit.",
 
-  /* 11 */  "Education: some jobs require you to have a decent education.\nYou start at zero, and you have to do the learning from elemntary schools up to college.\nThere are different schools in the city for all levels.",
+  /* 13 */  "*Education: some jobs require you to have a decent education.\nYou start at zero, and you have to do the learning from elemntary schools up to college.\nThere are different schools in the city for all levels.",
 
-	/* 12 */	"Smell: you have to take showers and wash your clothes.\nYou need soap to wash yourself and you can use laundry machines for your clothes.",
+	/* 14 */	"*Smell: you have to take showers and wash your clothes.\nYou need soap to wash yourself and you can use laundry machines for your clothes.",
 
-	/* 13 */	"Beware that the city is full of people, some will like you some will not. In case you do good deeds they may appreciate you more.",
-	/* 14 */	"There are also bad people in the city. Try to avoid them by running away or entering locations.",
-	/* 15 */	"You can also go to the gym to get a better fit and walk faster",
-	/* 16 */	"Enjoy the game and try to reach 1 million $ to win!"
+	/* 15 */	"*Beware that the city is full of people, some will like you some will not.\nIn case you do good deeds they may appreciate you more.",
+
+	/* 16 */	"*There are also bad people in the city.\nTry to avoid them by running away or entering locations.",
+
+	/* 17 */	"*You can also go to the gym to get a better fit and walk faster.\nOr use the metro to quickly move from a road to another",
+	
+	/* 18 */	"*Enjoy the game and try to reach 1 million $ to win!",
+
+	/* 19 */	"*Press Esc or Ctrl, or Enter or button A on controller to go back to the game."
   };
 
 }
