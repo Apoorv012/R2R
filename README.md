@@ -1,30 +1,30 @@
 # R2R
  A remake of Rags 2 Riches (C64) game done with Godot
 
-![R2R Title Image](.blob/main/Graphics/title.png)
+![R2R Title Image](Graphics/title.png)
 
-## [i]Rags to Riches[/i]
+## _Rags to Riches_
 Is a  very old Commodore 64 that has been remastereed.
 
-Original game was made in [color=#00ff50][b]1985[/b][/color].
+Original game was made in **1985**.
 
-Published by [color=#00ff50][b]Melody Hall Publishing[/b][/color]
+Published by **Melody Hall Publishing**
 
-Concept, Programming, and Music were done by: [color=#00ff50][b]Bob Keener[/b][/color]
+Concept, Programming, and Music were done by: **Bob Keener**
 
-## [i]Remastered[/i]
-Remastered version done by color=#0080ff][b]CPU[/b][/color] of color=#0080ff][b]UnitedProgramming[/b][/color]
+## _Remastered_
+Remastered version done by color=#0080ff]**CPU** of color=#0080ff]**UnitedProgramming**
 
-Using [color=#0080ff][b]Godot[/b][/color] 4.2.2 Mono version and [color=#0080ff][b]C#[/b][/color] on Visual Studio.
+Using **Godot** 4.2.2 Mono version and **C#** on Visual Studio.
 
-Sound Effects: [color=#0080ff][b]CPU[/b][/color]
+Sound Effects: **CPU**
 
-Musics: [color=#0080ff][b]SliceNDice[/b][/color]
+Musics: **SliceNDice**
 
-Graphics: [color=#0080ff][b]CPU[/b][/color] using [color=#0080ff][b]GIMP[/b][/color]
+Graphics: **CPU** using **GIMP**
 
 
-## [i]Goal of the game[/i]
+## _Goal of the game_
 You start with nothing in the city of Perfection.
 
 Make money, get food, drink, rest, and improve your appereance and your education until you reach one milion $.
