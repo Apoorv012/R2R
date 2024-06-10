@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://doj4waem2jhvb"]
+
+[ext_resource type="Script" path="res://Scripts/GrowingCarrot.cs" id="1_o6k6v"]
+[ext_resource type="Texture2D" uid="uid://bga53se48ukjm" path="res://Graphics/Items/RotCarrot.png" id="1_u30lr"]
+
+[node name="GrowingCarrot" type="Control" node_paths=PackedStringArray("Carrot")]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_right = 44.0
+offset_bottom = 63.0
+script = ExtResource("1_o6k6v")
+Carrot = NodePath("Carrot")
+
+[node name="Carrot" type="Sprite2D" parent="."]
+position = Vector2(21, 94)
+rotation = -1.34041
+scale = Vector2(0.999997, 1.08844)
+texture = ExtResource("1_u30lr")

@@ -1,0 +1,1970 @@
+[gd_scene load_steps=123 format=3 uid="uid://bdxp57b2cmofb"]
+
+[ext_resource type="Script" path="res://Scripts/Help.cs" id="1_b67vp"]
+[ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="2_gwmqf"]
+[ext_resource type="Texture2D" uid="uid://e6f2hcitrcix" path="res://Graphics/Player/Body2.png" id="3_xtq3r"]
+[ext_resource type="Texture2D" uid="uid://ctr7ae0otxhib" path="res://Graphics/Player/Hat2.png" id="5_k6awt"]
+[ext_resource type="Texture2D" uid="uid://dixxex1eteunc" path="res://Graphics/Player/Hat1.png" id="5_nnayj"]
+[ext_resource type="Theme" uid="uid://due1hvfionyq8" path="res://Graphics/UI/Game_theme_SelectedButton.tres" id="8_juuqp"]
+[ext_resource type="Texture2D" uid="uid://dv362m10sa8mk" path="res://Graphics/Backgrounds/Mountains.png" id="9_c0wu6"]
+[ext_resource type="Texture2D" uid="uid://bvjefrmhqqkx" path="res://Graphics/Backgrounds/Hills.png" id="10_47ajm"]
+[ext_resource type="Texture2D" uid="uid://cnc8ft575up5u" path="res://Graphics/Backgrounds/Skyscrapers.png" id="11_7yb35"]
+[ext_resource type="Texture2D" uid="uid://8q2tgol1o0xq" path="res://Graphics/Backgrounds/Buildings.png" id="12_np2pe"]
+[ext_resource type="Texture2D" uid="uid://dvocsp4r2v3sw" path="res://Graphics/Items/Bottle.png" id="13_2c0jn"]
+[ext_resource type="Texture2D" uid="uid://cfo5m0wir864i" path="res://Graphics/Items/Can.png" id="14_hl57p"]
+[ext_resource type="Texture2D" uid="uid://ltd1u3sp6c0w" path="res://Graphics/Items/Bone.png" id="15_584r5"]
+[ext_resource type="Texture2D" uid="uid://dlueacdm18dkb" path="res://Graphics/Items/Paper.png" id="16_ts308"]
+[ext_resource type="Texture2D" uid="uid://obin7arnlpow" path="res://Graphics/Items/Poop.png" id="17_ixfgf"]
+[ext_resource type="Texture2D" uid="uid://b15gwi1uvaqiu" path="res://Graphics/Items/Carrot.png" id="18_vxyhl"]
+[ext_resource type="Texture2D" uid="uid://bga53se48ukjm" path="res://Graphics/Items/RotCarrot.png" id="19_xnaqk"]
+[ext_resource type="PackedScene" uid="uid://bdousdldch26c" path="res://Prefabs/Items/Poop.tscn" id="20_m1eya"]
+[ext_resource type="PackedScene" uid="uid://j3yox6dcpumt" path="res://Prefabs/Items/Paper.tscn" id="21_18cng"]
+[ext_resource type="PackedScene" uid="uid://r5hf3ps7mg2u" path="res://Prefabs/Items/Can.tscn" id="22_10hos"]
+[ext_resource type="PackedScene" uid="uid://dy35ljuwg8etl" path="res://Prefabs/Items/Bottle.tscn" id="23_430yw"]
+[ext_resource type="PackedScene" uid="uid://pbux0vk31gje" path="res://Prefabs/Items/Coin.tscn" id="24_ham8k"]
+[ext_resource type="PackedScene" uid="uid://odad5fk070ot" path="res://Prefabs/Items/Banknote.tscn" id="25_yxi5i"]
+[ext_resource type="PackedScene" uid="uid://cv51erie5ikti" path="res://Prefabs/Items/Bone.tscn" id="26_tclsp"]
+[ext_resource type="PackedScene" uid="uid://6l1cpay8s4c3" path="res://Prefabs/Items/Carrot.tscn" id="27_24sk1"]
+[ext_resource type="PackedScene" uid="uid://cew38waow7hlu" path="res://Prefabs/Items/RotCarrot.tscn" id="28_lw6jm"]
+[ext_resource type="Texture2D" uid="uid://bgs0typn774f8" path="res://Graphics/Items/Soap1.png" id="30_d2ymx"]
+[ext_resource type="Texture2D" uid="uid://pgirkqliwhqm" path="res://Graphics/City/Buildings/ShopClothes.png" id="39_orp46"]
+[ext_resource type="Texture2D" uid="uid://b4lwqqdix1ug3" path="res://Graphics/City/Doors/ClothesDoor.png" id="41_kg23w"]
+[ext_resource type="AudioStream" uid="uid://bpoqgi8r5jqk" path="res://Sounds/Music/Music C64.ogg" id="46_pvwag"]
+[ext_resource type="AudioStream" uid="uid://dlmk070lesxor" path="res://Sounds/Step1.ogg" id="51_acyfm"]
+[ext_resource type="AudioStream" uid="uid://hh1eo5uv75ci" path="res://Sounds/Step2.ogg" id="52_f2pnb"]
+[ext_resource type="AudioStream" uid="uid://b1ps27vtawy0v" path="res://Sounds/Pickup.ogg" id="53_b1cu6"]
+[ext_resource type="AudioStream" uid="uid://dhwh6amm8qcao" path="res://Sounds/Nope.ogg" id="54_oreq5"]
+[ext_resource type="AudioStream" uid="uid://cl6qlwar0ri6q" path="res://Sounds/Eating.ogg" id="57_kjmwi"]
+[ext_resource type="AudioStream" uid="uid://cj0n6ckmw4qwe" path="res://Sounds/Drink.ogg" id="58_xwnx7"]
+[ext_resource type="AudioStream" uid="uid://dwya2nfeuem3x" path="res://Sounds/Eat and Drink.ogg" id="59_a56kt"]
+[ext_resource type="Texture2D" uid="uid://coc681f4afsgg" path="res://Graphics/Locations/MapHelp.png" id="69_3qtu0"]
+[ext_resource type="Texture2D" uid="uid://bqu2m08s8yap" path="res://Graphics/UI/SkyDay.png" id="118_cj1s7"]
+[ext_resource type="Texture2D" uid="uid://df4ygufgpvcrl" path="res://Graphics/UI/Sky.png" id="119_tt18p"]
+[ext_resource type="Script" path="res://Scripts/Road.cs" id="120_k7nrc"]
+[ext_resource type="Texture2D" uid="uid://b2cyhnm2r21xa" path="res://Graphics/City/Buildings/HotDogs.png" id="121_sndpn"]
+[ext_resource type="Texture2D" uid="uid://dotgp2li36uq0" path="res://Graphics/City/Extra/9PatchesSign.png" id="123_arsmo"]
+[ext_resource type="Theme" uid="uid://cqvjkew4xu7gx" path="res://Graphics/UI/Game_theme.tres" id="124_5uv6w"]
+[ext_resource type="Texture2D" uid="uid://brisss320lop1" path="res://Graphics/City/Buildings/Metro.png" id="125_vwflt"]
+[ext_resource type="Texture2D" uid="uid://t1ubn1ux5fsh" path="res://Graphics/City/Buildings/Park.png" id="127_rqetm"]
+[ext_resource type="Texture2D" uid="uid://ttxtb6vmfmoj" path="res://Graphics/City/Buildings/Building2.png" id="132_l6rha"]
+[ext_resource type="Texture2D" uid="uid://c41jrwvwumsnk" path="res://Graphics/City/Roads/Sidewalk2Wide.png" id="134_xyx1l"]
+[ext_resource type="Texture2D" uid="uid://d0i3uo4hydhob" path="res://Graphics/City/Roads/Sidewalk1L.png" id="136_j1exq"]
+[ext_resource type="Texture2D" uid="uid://btgywcrt2yrmk" path="res://Graphics/City/Roads/Sidewalk1R.png" id="137_6fs1n"]
+[ext_resource type="Texture2D" uid="uid://xq1y8lbts437" path="res://Graphics/City/Roads/Sidewalk1Wide.png" id="138_hwr80"]
+[ext_resource type="Texture2D" uid="uid://o3frro5g2aor" path="res://Graphics/City/Windows/Window1.png" id="141_425ci"]
+[ext_resource type="Texture2D" uid="uid://buade41ky2l4s" path="res://Graphics/City/Windows/HotDogsSign.png" id="142_n2vq3"]
+[ext_resource type="Script" path="res://Scripts/Location.cs" id="143_gewhc"]
+[ext_resource type="Texture2D" uid="uid://dcgyeutr4j0ty" path="res://Graphics/City/Roads/Sidewalk1.png" id="144_c7fi2"]
+[ext_resource type="Texture2D" uid="uid://l6340c7foosf" path="res://Graphics/City/Doors/MetroDoor.png" id="146_inpxl"]
+[ext_resource type="Texture2D" uid="uid://ddsuv6s85c8br" path="res://Graphics/City/Doors/MetroTickets.png" id="147_igm8j"]
+[ext_resource type="Texture2D" uid="uid://bogoa6jwbbafh" path="res://Graphics/City/Extra/CityLimit.png" id="154_43yle"]
+[ext_resource type="Texture2D" uid="uid://cmbb5k5rnd7dw" path="res://Graphics/City/Extra/CityLimitPole.png" id="155_643hs"]
+[ext_resource type="Texture2D" uid="uid://c7xfgajc0rgkj" path="res://Graphics/City/Extra/CityLimitArrow.png" id="156_r8a07"]
+[ext_resource type="Texture2D" uid="uid://bedkeb8iycqhj" path="res://Graphics/UI/Transparent.png" id="157_qgp6s"]
+[ext_resource type="Texture2D" uid="uid://c3d5upvniutvp" path="res://Graphics/Locations/Bench.png" id="159_idcjk"]
+[ext_resource type="Texture2D" uid="uid://cuiobart2g1uh" path="res://Graphics/Locations/Fountain.png" id="162_ywl4e"]
+[ext_resource type="Texture2D" uid="uid://dwjilcelffoqt" path="res://Graphics/Locations/Trashcan.png" id="163_ew5wl"]
+[ext_resource type="Texture2D" uid="uid://bry0oq7m3gmdf" path="res://Graphics/Locations/Sign.png" id="166_6t7an"]
+[ext_resource type="Texture2D" uid="uid://ddcv3cat3bapc" path="res://Graphics/Locations/ATM.png" id="167_6kpkg"]
+[ext_resource type="Texture2D" uid="uid://dm7m0gptrocfl" path="res://Graphics/City/Extra/StreetLamp.png" id="168_hhe1v"]
+[ext_resource type="Texture2D" uid="uid://b7s20ys5dwdfo" path="res://Graphics/City/Extra/LightMask.png" id="169_osbf2"]
+[ext_resource type="Texture2D" uid="uid://b5gsny47fn767" path="res://Graphics/UI/Black.png" id="170_8avcv"]
+[ext_resource type="Texture2D" uid="uid://6fy68wwcaawh" path="res://Graphics/City/Buildings/Motel.png" id="174_bnkq3"]
+[ext_resource type="Texture2D" uid="uid://ophymlkt0vb6" path="res://Graphics/City/Doors/Door9.png" id="183_psnls"]
+[ext_resource type="Texture2D" uid="uid://ci0b6pe8d5ikf" path="res://Graphics/City/Buildings/Shop2.png" id="193_3s1pn"]
+[ext_resource type="Texture2D" uid="uid://b7r8eh43l0aea" path="res://Graphics/Items/Razor.png" id="195_4ekim"]
+[ext_resource type="Texture2D" uid="uid://fehqfogxx3fb" path="res://Graphics/City/Doors/MotelDoor.png" id="198_ekcsc"]
+[ext_resource type="Texture2D" uid="uid://ofvvx8qn8anr" path="res://Graphics/Items/Broom.png" id="211_xnrpg"]
+[ext_resource type="Texture2D" uid="uid://bl8mkdg01mdnn" path="res://Graphics/City/Extra/BoneForDog.png" id="231_bhjw2"]
+[ext_resource type="Shader" path="res://Graphics/BackgroundRepeat.gdshader" id="232_ygo66"]
+[ext_resource type="Texture2D" uid="uid://bfdlsn3bf2jh1" path="res://Graphics/City/Roads/StreetBackground.png" id="233_n3nhu"]
+[ext_resource type="Texture2D" uid="uid://diwl2vdijivrr" path="res://Graphics/Locations/YouAreHere.png" id="235_qjlhl"]
+[ext_resource type="Texture2D" uid="uid://ffoek17ecoel" path="res://Graphics/Player/Legs.png" id="236_6jjne"]
+[ext_resource type="Texture2D" uid="uid://3isn4byq5v2d" path="res://Graphics/Player/Head.png" id="237_j3iex"]
+[ext_resource type="Texture2D" uid="uid://chhwbd53v458w" path="res://Graphics/Player/EyeClosed.png" id="238_vjawx"]
+[ext_resource type="Texture2D" uid="uid://bkuor2dsfrnia" path="res://Graphics/Player/EyesSitClosed.png" id="239_jdmyc"]
+[ext_resource type="Texture2D" uid="uid://bal4l7fcabuul" path="res://Graphics/Player/Beard.png" id="240_fgw7w"]
+[ext_resource type="Texture2D" uid="uid://d1lkm6k7ot5it" path="res://Graphics/Player/HandBrooming.png" id="241_nuu1s"]
+[ext_resource type="Texture2D" uid="uid://ck0d4aopwmfyl" path="res://Graphics/Items/ATMCard.png" id="242_itd81"]
+[ext_resource type="Texture2D" uid="uid://hoh5uu6g3mri" path="res://Graphics/Items/Coin.png" id="243_q3mar"]
+[ext_resource type="Texture2D" uid="uid://ciwe2xwxgclw4" path="res://Graphics/Items/Banknote.png" id="244_6wkte"]
+[ext_resource type="Texture2D" uid="uid://7w6uteu03bme" path="res://Graphics/Items/BroomIcon.png" id="245_cont7"]
+[ext_resource type="Texture2D" uid="uid://cyy2vuduax0hm" path="res://Graphics/Items/Ticket.png" id="246_fs3qp"]
+[ext_resource type="Texture2D" uid="uid://bkc4ty1hqni0y" path="res://Graphics/UI/Arrow0.png" id="247_7mnuu"]
+[ext_resource type="Texture2D" uid="uid://chstlnn03ex5r" path="res://Graphics/UI/Arrow0Off.png" id="248_q1g7v"]
+[ext_resource type="ButtonGroup" uid="uid://5hva6pygjcut" path="res://Graphics/UI/GameSpeed_Button_group.tres" id="249_0p1x8"]
+[ext_resource type="Texture2D" uid="uid://bomiu60cfgx4t" path="res://Graphics/UI/Arrow1.png" id="250_ot8fn"]
+[ext_resource type="Texture2D" uid="uid://bnxfxch2kqnb5" path="res://Graphics/UI/Arrow1Off.png" id="251_itinf"]
+[ext_resource type="Texture2D" uid="uid://bcmgjaxys1ehq" path="res://Graphics/UI/Arrow2.png" id="252_av32u"]
+[ext_resource type="Texture2D" uid="uid://d4b6u3gmffjsy" path="res://Graphics/UI/Arrow2Off.png" id="253_u47wb"]
+[ext_resource type="Texture2D" uid="uid://bsn5brmsg035m" path="res://Graphics/UI/Arrow3.png" id="254_8jd1o"]
+[ext_resource type="Texture2D" uid="uid://vuscpqny25km" path="res://Graphics/UI/Arrow3Off.png" id="255_5wca3"]
+[ext_resource type="Texture2D" uid="uid://hkg4t6futfbs" path="res://Graphics/UI/MetroArrow.png" id="256_5428l"]
+[ext_resource type="Texture2D" uid="uid://wbkqs6o5jllg" path="res://Graphics/UI/KO.png" id="257_t8skn"]
+[ext_resource type="Texture2D" uid="uid://uqoiuhqyytt3" path="res://Graphics/Player/Balloon.png" id="272_ixcw1"]
+[ext_resource type="Texture2D" uid="uid://cgf551bhwqth1" path="res://Graphics/Player/BalloonTip.png" id="273_7hdty"]
+
+[sub_resource type="Gradient" id="Gradient_vjce0"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.22291, 0.255418, 0.328173, 0.5, 0.8, 0.83, 0.85, 0.9, 0.95, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.00784314, 0.00784314, 0.0235294, 1, 0.172549, 0.403922, 0.94902, 1, 0.384314, 0.811765, 0.956863, 1, 0, 0.647059, 0.996078, 1, 0.172549, 0.403922, 0.94902, 1, 0.490196, 0.129412, 0.0666667, 1, 0.0431373, 0.0235294, 0.0117647, 1, 0.00784314, 0.00784314, 0.0235294, 1, 0.00784314, 0.00784314, 0.0235294, 1, 0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_areg6"]
+offsets = PackedFloat32Array(0, 0.190402, 0.241486, 0.255418, 0.78, 0.9, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_2l3yi"]
+light_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_84qy2"]
+light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1mwv"]
+atlas = ExtResource("162_ywl4e")
+region = Rect2(0, 0, 74, 209)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dw74"]
+atlas = ExtResource("162_ywl4e")
+region = Rect2(74, 0, 74, 209)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4q12j"]
+atlas = ExtResource("162_ywl4e")
+region = Rect2(148, 0, 74, 209)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ju81a"]
+atlas = ExtResource("162_ywl4e")
+region = Rect2(222, 0, 74, 209)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_788u5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u1mwv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dw74")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4q12j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ju81a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_no1n8"]
+shader = ExtResource("232_ygo66")
+shader_parameter/image = ExtResource("233_n3nhu")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tp3dr"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nr28m"]
+bg_color = Color(0.254902, 0.74902, 0.180392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7jh5d"]
+bg_color = Color(0.250963, 0.549918, 0.473721, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m1qa7"]
+bg_color = Color(0.729412, 0.576471, 0.247059, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucdn1"]
+bg_color = Color(0.823529, 0.768627, 0.835294, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4rea"]
+bg_color = Color(0.388235, 0.219608, 0.0941176, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1igs6"]
+bg_color = Color(0.894118, 0.00784314, 0.203922, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tev0i"]
+bg_color = Color(0.225931, 0.646447, 0.847762, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uineb"]
+bg_color = Color(0.121569, 0.121569, 0.121569, 0.980392)
+
+[node name="Help" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmell", "pbBeard", "pbEducation", "pbFitness", "ItemsHBox", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "currentRoad", "FrontItems", "BackItems", "Doors", "StreetLights", "PeopleLayer", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "HelpSign", "Debug")]
+script = ExtResource("1_b67vp")
+Player = NodePath("Player")
+Body = NodePath("Player/Body")
+Face = NodePath("Player/Head")
+Eye = NodePath("Player/Head/Eye")
+EyesSitClosed = NodePath("Player/Head/EyesSit")
+Hat = NodePath("Player/Hat")
+Beard = NodePath("Player/Beard")
+Legs = NodePath("Player/Legs")
+Balloon = NodePath("Balloons Layer/Balloon")
+BalloonTxt = NodePath("Balloons Layer/Balloon/MarginContainer/Label")
+BroomPlayer = NodePath("Player/Broom")
+HandBrooming = NodePath("Player/HandBrooming")
+Body1 = ExtResource("2_gwmqf")
+Body2 = ExtResource("3_xtq3r")
+Hat1 = ExtResource("5_nnayj")
+Hat2 = ExtResource("5_k6awt")
+moveSpeed = 0.35
+scrollSpeed = 110.0
+DayNum = NodePath("UI/CanvasLayer UI/PanelBackground/DayNumber")
+DayTime = NodePath("UI/CanvasLayer UI/PanelBackground/DayTime")
+TotalFunds = NodePath("UI/CanvasLayer UI/PanelBackground/TotalFunds")
+GlobalMessage = NodePath("UI/CanvasLayer UI/GlobalMessage")
+pbFood = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SFood")
+pbDrink = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SDrink")
+pbRest = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SRest")
+pbSmell = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SSmell")
+pbBeard = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SBeard")
+pbEducation = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SEducation")
+pbFitness = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SFitness")
+ItemsHBox = NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/ItemsHBox")
+ATMCard = NodePath("UI/CanvasLayer UI/PanelBackground/ATMCard")
+Tickets = [NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket0"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket1"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket2"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket3"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket4"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket5"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket6"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket7"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket8"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket9")]
+Soap = NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Soap")
+Razor = NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Razor")
+Broom = NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Broom")
+City = NodePath("City")
+BackgroundStreet = NodePath("BackgroundStreet")
+Sun = NodePath("City/Sun")
+SkyDay = NodePath("City/Sun/SkyDay")
+SkyNight = NodePath("City/Sun/SkyNight")
+SkyGradient = SubResource("Gradient_vjce0")
+StarsGradient = SubResource("Gradient_areg6")
+Background0 = NodePath("City/Parallax0")
+Background1 = NodePath("City/Parallax1")
+Background1a = NodePath("City/Parallax1/Parallax1a")
+Background1b = NodePath("City/Parallax1/Parallax1b")
+Mountains = ExtResource("9_c0wu6")
+Hills = ExtResource("10_47ajm")
+Skyscrapers = ExtResource("11_7yb35")
+Buildings = ExtResource("12_np2pe")
+CityMap = NodePath("MapLayer/MapControl/Map")
+YouAreHere = NodePath("MapLayer/MapControl/Map/YouAreHere")
+Coins = [NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin1"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin2"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin3"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin4"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin5"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin6"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin7"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin8"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin9"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin10"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin11"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin12"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin13"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin14"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin15"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin16"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin17"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin18"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin19")]
+Banknotes = [NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote1"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote2"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote3"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote4"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote5"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote6"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote7"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote8"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote9"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote10")]
+ItemTexts = Array[Texture2D]([ExtResource("13_2c0jn"), ExtResource("14_hl57p"), ExtResource("15_584r5"), ExtResource("16_ts308"), ExtResource("17_ixfgf"), ExtResource("18_vxyhl"), ExtResource("19_xnaqk")])
+ItemPrefabs = Array[PackedScene]([ExtResource("20_m1eya"), ExtResource("21_18cng"), ExtResource("22_10hos"), ExtResource("23_430yw"), ExtResource("24_ham8k"), ExtResource("25_yxi5i"), ExtResource("26_tclsp"), ExtResource("27_24sk1"), ExtResource("28_lw6jm")])
+currentRoad = NodePath("City/HelpRoad")
+FrontItems = NodePath("City/HelpRoad/HR_FrontItems")
+BackItems = NodePath("City/HelpRoad/HR_BackItems")
+Doors = NodePath("City/HelpRoad/HR_Doors")
+StreetLights = NodePath("City/HelpRoad/HR_Lights")
+PeopleLayer = NodePath("City/HelpRoad/HR_People")
+NPCBalloon1 = NodePath("Balloons Layer/NPCBalloon1")
+NPCBalloon2 = NodePath("Balloons Layer/NPCBalloon2")
+NPCBalloonTxt1 = NodePath("Balloons Layer/NPCBalloon1/MarginContainer/Label")
+NPCBalloonTxt2 = NodePath("Balloons Layer/NPCBalloon2/MarginContainer/Label")
+MusicPlayer = NodePath("UI/MusicPlayer")
+SoundPlayer = NodePath("UI/SoundsPlayer")
+PlayerPlayer = NodePath("UI/PlayerPlayer")
+NPCPlayer = NodePath("UI/NPCPlayer")
+MusicC64 = ExtResource("46_pvwag")
+StepSound1 = ExtResource("51_acyfm")
+StepSound2 = ExtResource("52_f2pnb")
+PickupSound = ExtResource("53_b1cu6")
+NoSound = ExtResource("54_oreq5")
+SuccessSound = ExtResource("53_b1cu6")
+FailureSound = ExtResource("54_oreq5")
+EatSound = ExtResource("57_kjmwi")
+DrinkSound = ExtResource("58_xwnx7")
+EatDrinkSound = ExtResource("59_a56kt")
+HelpSign = NodePath("City/HelpRoad/HR_BackItems/Road Sign")
+Debug = NodePath("UI/DebugLayer/Debug")
+
+[node name="City" type="Node2D" parent="."]
+
+[node name="Sun" type="DirectionalLight2D" parent="City"]
+z_index = -50
+position = Vector2(395, 162)
+color = Color(0.988235, 0.94902, 0.654902, 1)
+energy = 0.05
+
+[node name="SkyDay" type="Sprite2D" parent="City/Sun"]
+modulate = Color(0, 0.454902, 0.819608, 1)
+z_index = -50
+z_as_relative = false
+material = SubResource("CanvasItemMaterial_2l3yi")
+position = Vector2(559.5, 235)
+scale = Vector2(8, 4)
+texture = ExtResource("118_cj1s7")
+
+[node name="SkyNight" type="Sprite2D" parent="City/Sun"]
+z_index = -50
+z_as_relative = false
+texture_filter = 1
+material = SubResource("CanvasItemMaterial_84qy2")
+position = Vector2(565, 40)
+scale = Vector2(0.81, 0.7)
+texture = ExtResource("119_tt18p")
+
+[node name="Parallax0" type="Sprite2D" parent="City"]
+z_index = -10
+z_as_relative = false
+position = Vector2(0, 306)
+scale = Vector2(2, 2)
+texture = ExtResource("11_7yb35")
+
+[node name="Parallax1" type="Node2D" parent="City"]
+z_index = -5
+z_as_relative = false
+position = Vector2(0, 306)
+scale = Vector2(2, 2)
+
+[node name="Parallax1a" type="Sprite2D" parent="City/Parallax1"]
+z_index = -5
+z_as_relative = false
+position = Vector2(-1012, 0)
+texture = ExtResource("12_np2pe")
+
+[node name="Parallax1b" type="Sprite2D" parent="City/Parallax1"]
+z_index = -5
+z_as_relative = false
+position = Vector2(1012, 0)
+texture = ExtResource("12_np2pe")
+
+[node name="HelpRoad" type="Node2D" parent="City" node_paths=PackedStringArray("Doors", "BackItems", "PeopleLayer", "StreetLights", "FrontItems")]
+script = ExtResource("120_k7nrc")
+Name = 6
+MinX = -5000.0
+MaxX = 5000.0
+Doors = NodePath("HR_Doors")
+BackItems = NodePath("HR_BackItems")
+PeopleLayer = NodePath("HR_People")
+StreetLights = NodePath("HR_Lights")
+FrontItems = NodePath("HR_FrontItems")
+
+[node name="HR_Buidlings" type="Node2D" parent="City/HelpRoad"]
+z_index = 20
+
+[node name="Park-1" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+position = Vector2(-10496, 331)
+texture = ExtResource("127_rqetm")
+
+[node name="Park-2" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+position = Vector2(-8097, 331)
+texture = ExtResource("127_rqetm")
+
+[node name="HotDogs" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+position = Vector2(2615, 348)
+texture = ExtResource("121_sndpn")
+
+[node name="BricksBehing HotDogs" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+modulate = Color(1, 0.486275, 0.188235, 1)
+z_index = -1
+position = Vector2(2740.2, 219)
+scale = Vector2(1.00244, 0.9)
+texture = ExtResource("132_l6rha")
+
+[node name="Metro" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+z_index = -1
+position = Vector2(-1220, -889.7)
+scale = Vector2(1, 0.9)
+texture = ExtResource("125_vwflt")
+
+[node name="Shop" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+z_index = -2
+position = Vector2(6289.85, 212.3)
+scale = Vector2(0.85, 0.9)
+texture = ExtResource("193_3s1pn")
+
+[node name="Motel" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+position = Vector2(4366, 199.65)
+scale = Vector2(1, 0.9)
+texture = ExtResource("174_bnkq3")
+
+[node name="Park1" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+position = Vector2(854, 343)
+texture = ExtResource("127_rqetm")
+
+[node name="Park2" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+position = Vector2(-1511, 342)
+texture = ExtResource("127_rqetm")
+
+[node name="Park3" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+position = Vector2(13453, 331)
+texture = ExtResource("127_rqetm")
+
+[node name="ShopClothes" type="Sprite2D" parent="City/HelpRoad/HR_Buidlings"]
+position = Vector2(-2309.5, 267)
+scale = Vector2(-1, 1)
+texture = ExtResource("39_orp46")
+
+[node name="Label" type="Label" parent="City/HelpRoad/HR_Buidlings/ShopClothes"]
+offset_left = -448.5
+offset_top = -307.0
+offset_right = -147.5
+offset_bottom = -180.0
+scale = Vector2(-1, 1)
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0.854902, 0.941176, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "Clothes"
+metadata/_edit_use_anchors_ = true
+
+[node name="HR_Road" type="Node2D" parent="City/HelpRoad"]
+z_index = 25
+
+[node name="Sidewalk2Wide-2" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(-10640, 658)
+texture = ExtResource("134_xyx1l")
+
+[node name="Sidewalk2Wide-1" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(-9120, 658)
+texture = ExtResource("134_xyx1l")
+
+[node name="Sidewalk2Wide0" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(-7600, 658)
+texture = ExtResource("134_xyx1l")
+
+[node name="Sidewalk2Wide1" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(-6080, 658)
+texture = ExtResource("138_hwr80")
+
+[node name="Sidewalk2Wide2" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(-4560, 658)
+texture = ExtResource("138_hwr80")
+
+[node name="Sidewalk2Wide3" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(-3040, 658)
+texture = ExtResource("138_hwr80")
+
+[node name="Sidewalk2Wide4" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(-1520, 658)
+texture = ExtResource("134_xyx1l")
+
+[node name="Sidewalk1Wide1" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(0, 658)
+texture = ExtResource("138_hwr80")
+
+[node name="Sidewalk1Wide2" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(1520, 658)
+texture = ExtResource("138_hwr80")
+
+[node name="Sidewalk1Wide3" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(2978, 658)
+texture = ExtResource("138_hwr80")
+
+[node name="Sidewalk1" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(5510, 658)
+texture = ExtResource("144_c7fi2")
+
+[node name="Sidewalk2" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(5890, 658)
+texture = ExtResource("144_c7fi2")
+
+[node name="Sidewalk3" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(6270, 658)
+texture = ExtResource("144_c7fi2")
+
+[node name="Sidewalk1Wide6" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(8512, 658)
+texture = ExtResource("138_hwr80")
+
+[node name="Sidewalk1Wide7" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(10030, 658)
+texture = ExtResource("134_xyx1l")
+
+[node name="Sidewalk1Wide8" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(11541, 658)
+texture = ExtResource("134_xyx1l")
+
+[node name="Sidewalk1Wide9" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(13061, 658)
+texture = ExtResource("134_xyx1l")
+
+[node name="Sidewalk1l" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(6573, 658)
+texture = ExtResource("136_j1exq")
+
+[node name="Sidewalk1r2" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(5151, 658)
+texture = ExtResource("137_6fs1n")
+
+[node name="Black" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+z_index = -1
+position = Vector2(7019.5, 661)
+scale = Vector2(14.2125, 1.475)
+texture = ExtResource("170_8avcv")
+
+[node name="Sidewalk4" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(3867, 658)
+texture = ExtResource("144_c7fi2")
+
+[node name="Sidewalk1l2" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(4162, 658)
+texture = ExtResource("136_j1exq")
+
+[node name="Sidewalk1r" type="Sprite2D" parent="City/HelpRoad/HR_Road"]
+position = Vector2(7578, 658)
+texture = ExtResource("137_6fs1n")
+
+[node name="HR_Windows" type="Node2D" parent="City/HelpRoad"]
+z_index = 30
+
+[node name="MotelWindow1" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
+position = Vector2(4941, -18.35)
+texture = ExtResource("141_425ci")
+
+[node name="MotelWindow2" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
+position = Vector2(4619, -18.35)
+texture = ExtResource("141_425ci")
+
+[node name="MotelWindow3" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
+position = Vector2(4284, -18.35)
+texture = ExtResource("141_425ci")
+
+[node name="MotelWindow4" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
+position = Vector2(4941, 268.65)
+texture = ExtResource("141_425ci")
+
+[node name="MotelWindow5" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
+position = Vector2(4619, 268.65)
+texture = ExtResource("141_425ci")
+
+[node name="MotelWindow6" type="Sprite2D" parent="City/HelpRoad/HR_Windows"]
+position = Vector2(4284, 268.65)
+texture = ExtResource("141_425ci")
+
+[node name="HR_Doors" type="Node2D" parent="City/HelpRoad"]
+z_index = 30
+
+[node name="Clothes Shop" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
+position = Vector2(-1693.1, 383.913)
+scale = Vector2(1.073, 0.971)
+texture = ExtResource("41_kg23w")
+script = ExtResource("143_gewhc")
+type = 2
+ItemDelivered = 5
+
+[node name="Sidewalk2" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
+z_index = -20
+position = Vector2(3319, 581)
+texture = ExtResource("144_c7fi2")
+
+[node name="HotDogs" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
+position = Vector2(2936, 324)
+texture = ExtResource("142_n2vq3")
+script = ExtResource("143_gewhc")
+type = 2
+StartTime = 12
+price = 10
+ItemDelivered = 1
+amount = 25
+
+[node name="Label" type="Label" parent="City/HelpRoad/HR_Doors/HotDogs"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -136.5
+offset_top = -61.5
+offset_right = -136.5
+offset_bottom = -61.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0.101446, 0.391223, 0.394276, 1)
+text = "$1 HotDogs
+12PM-12PM"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HotDogs2" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
+position = Vector2(2597, 322.5)
+scale = Vector2(3.325, 2.4875)
+texture = ExtResource("157_qgp6s")
+script = ExtResource("143_gewhc")
+type = 2
+StartTime = 12
+price = 10
+ItemDelivered = 1
+amount = 25
+
+[node name="Shop Door" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
+position = Vector2(5820.85, 262.3)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("183_psnls")
+script = ExtResource("143_gewhc")
+type = 2
+StartTime = 7
+EndTime = 22
+price = 10
+ItemDelivered = 13
+Message = "I can by some soap here for $1\\nShop is open from 7AM to 10PM"
+Road = 1
+
+[node name="Label" type="Label" parent="City/HelpRoad/HR_Doors/Shop Door"]
+offset_left = -173.333
+offset_top = -241.111
+offset_right = 183.667
+offset_bottom = -154.111
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 68
+text = "Miracle Soap!"
+metadata/_edit_use_anchors_ = true
+
+[node name="MetroDoor" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
+position = Vector2(-1556, -894.7)
+texture = ExtResource("146_inpxl")
+script = ExtResource("143_gewhc")
+type = 13
+
+[node name="Cheap Motel" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
+position = Vector2(3905, 297.65)
+texture = ExtResource("198_ekcsc")
+script = ExtResource("143_gewhc")
+type = 5
+StartTime = 19
+EndTime = 6
+price = 40
+
+[node name="Label" type="Label" parent="City/HelpRoad/HR_Doors/Cheap Motel"]
+offset_left = -118.0
+offset_top = -255.0
+offset_right = 105.0
+offset_bottom = -136.0
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Cheap Motel
+$4 per night!"
+metadata/_edit_use_anchors_ = true
+
+[node name="Shop Job" type="Sprite2D" parent="City/HelpRoad/HR_Doors"]
+position = Vector2(6572.85, 295.3)
+script = ExtResource("143_gewhc")
+type = 7
+StartTime = 9
+EndTime = 16
+price = 200
+maxSmell = 60
+
+[node name="ShopJob" type="NinePatchRect" parent="City/HelpRoad/HR_Doors/Shop Job"]
+modulate = Color(1, 1, 0.352941, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -117.5
+offset_top = -65.5
+offset_right = 127.5
+offset_bottom = 83.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("123_arsmo")
+patch_margin_left = 8
+patch_margin_top = 16
+patch_margin_right = 8
+patch_margin_bottom = 8
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="City/HelpRoad/HR_Doors/Shop Job/ShopJob"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "Clerk wanted
+9AM-4PM"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="HR_BackItems" type="Node2D" parent="City/HelpRoad"]
+z_index = 40
+
+[node name="Garden" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(-7786.75, 549.5)
+scale = Vector2(19.9062, 0.812501)
+texture = ExtResource("157_qgp6s")
+script = ExtResource("143_gewhc")
+type = 4
+
+[node name="Atm" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(6862.85, 241.3)
+texture = ExtResource("167_6kpkg")
+script = ExtResource("143_gewhc")
+
+[node name="Trashcan" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(2047, 510)
+texture = ExtResource("163_ew5wl")
+script = ExtResource("143_gewhc")
+type = 3
+
+[node name="Road Sign" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(240, 373)
+texture = ExtResource("166_6t7an")
+script = ExtResource("143_gewhc")
+type = 14
+Message = "Slum street"
+Pos = Vector2(694, 391)
+
+[node name="Label" type="Label" parent="City/HelpRoad/HR_BackItems/Road Sign"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -112.0
+offset_top = -169.0
+offset_right = -140.0
+offset_bottom = -412.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.196078, 0.196078, 0.196078, 1)
+theme_override_font_sizes/font_size = 40
+text = "Help Road"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+clip_text = true
+metadata/_edit_use_anchors_ = true
+
+[node name="MetroTickets" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(-1043, -994.7)
+texture = ExtResource("147_igm8j")
+script = ExtResource("143_gewhc")
+type = 2
+price = 10
+ItemDelivered = 8
+amount = 1
+
+[node name="Bench" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(964, 506)
+texture = ExtResource("159_idcjk")
+script = ExtResource("143_gewhc")
+type = 11
+Road = 1
+
+[node name="Fountain" type="Sprite2D" parent="City/HelpRoad/HR_BackItems"]
+position = Vector2(-382, 465)
+script = ExtResource("143_gewhc")
+type = 17
+ItemDelivered = 2
+amount = 33
+Message = "A fountain of fresh water"
+
+[node name="FountainAnimation" type="AnimatedSprite2D" parent="City/HelpRoad/HR_BackItems/Fountain"]
+position = Vector2(4, 0)
+sprite_frames = SubResource("SpriteFrames_788u5")
+autoplay = "default"
+
+[node name="CityLimitL" type="NinePatchRect" parent="City/HelpRoad/HR_BackItems"]
+offset_left = -10567.0
+offset_top = 308.0
+offset_right = -10368.0
+offset_bottom = 421.0
+texture = ExtResource("154_43yle")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="CityLimitPole" type="Sprite2D" parent="City/HelpRoad/HR_BackItems/CityLimitL"]
+show_behind_parent = true
+position = Vector2(100, 164)
+texture = ExtResource("155_643hs")
+
+[node name="Label" type="Label" parent="City/HelpRoad/HR_BackItems/CityLimitL"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0.116127, 0.116127, 0.116127, 1)
+text = "City Limit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CityLimitArrow" type="Sprite2D" parent="City/HelpRoad/HR_BackItems/CityLimitL"]
+position = Vector2(101, 81)
+texture = ExtResource("156_r8a07")
+
+[node name="CityLimitR" type="NinePatchRect" parent="City/HelpRoad/HR_BackItems"]
+offset_left = 11598.0
+offset_top = 322.0
+offset_right = 11797.0
+offset_bottom = 435.0
+texture = ExtResource("154_43yle")
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="CityLimitPole" type="Sprite2D" parent="City/HelpRoad/HR_BackItems/CityLimitR"]
+show_behind_parent = true
+position = Vector2(100, 164)
+texture = ExtResource("155_643hs")
+
+[node name="Label" type="Label" parent="City/HelpRoad/HR_BackItems/CityLimitR"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0.116127, 0.116127, 0.116127, 1)
+text = "City Limit"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CityLimitArrow" type="Sprite2D" parent="City/HelpRoad/HR_BackItems/CityLimitR"]
+position = Vector2(101, 81)
+scale = Vector2(-1, 1)
+texture = ExtResource("156_r8a07")
+
+[node name="HR_People" type="Node2D" parent="City/HelpRoad"]
+z_index = 60
+
+[node name="HR_Lights" type="Node2D" parent="City/HelpRoad"]
+z_index = 80
+
+[node name="StreetLampDump" type="Sprite2D" parent="City/HelpRoad/HR_Lights"]
+position = Vector2(-6836, 409)
+scale = Vector2(1, 1.65)
+texture = ExtResource("168_hhe1v")
+
+[node name="PointLight2D" type="PointLight2D" parent="City/HelpRoad/HR_Lights/StreetLampDump"]
+position = Vector2(-46, 19.3939)
+scale = Vector2(0.925, 0.56)
+enabled = false
+color = Color(1, 0.827451, 0.333333, 1)
+energy = 1.2
+texture = ExtResource("169_osbf2")
+
+[node name="HR_FrontItems" type="Node2D" parent="City/HelpRoad"]
+z_index = 90
+
+[node name="RandomItems" type="Node" parent="City"]
+
+[node name="BoneForDog" type="Sprite2D" parent="City/RandomItems"]
+visible = false
+z_index = 70
+position = Vector2(325, 182)
+texture = ExtResource("231_bhjw2")
+
+[node name="BackgroundStreet" type="Sprite2D" parent="."]
+visible = false
+texture_repeat = 2
+material = SubResource("ShaderMaterial_no1n8")
+position = Vector2(1500, 1900)
+scale = Vector2(70, 20)
+texture = ExtResource("233_n3nhu")
+
+[node name="MapLayer" type="CanvasLayer" parent="."]
+
+[node name="MapControl" type="Control" parent="MapLayer"]
+z_index = 200
+z_as_relative = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 960.0
+offset_top = 490.0
+offset_right = 1000.0
+offset_bottom = 530.0
+
+[node name="Map" type="TextureRect" parent="MapLayer/MapControl"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -710.0
+offset_top = -469.0
+offset_right = 680.0
+offset_bottom = 210.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("69_3qtu0")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="MapLayer/MapControl/Map"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -427.0
+offset_top = -87.0
+offset_right = -17.0
+offset_bottom = -5.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.47451, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.905882, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 60
+text = "City of Perfection"
+
+[node name="LabelSlum" type="Label" parent="MapLayer/MapControl/Map"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -816.0
+offset_top = -104.0
+offset_right = -696.0
+offset_bottom = -71.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.47451, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.905882, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "Slum Street"
+
+[node name="LabelMain" type="Label" parent="MapLayer/MapControl/Map"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1006.0
+offset_top = -216.0
+offset_right = -886.0
+offset_bottom = -183.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = -1.5708
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.47451, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.905882, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "Main Street"
+
+[node name="LabelSide" type="Label" parent="MapLayer/MapControl/Map"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -491.0
+offset_top = -235.0
+offset_right = -371.0
+offset_bottom = -202.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = -1.5708
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.47451, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.905882, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "Side Road"
+
+[node name="LabelSuburb" type="Label" parent="MapLayer/MapControl/Map"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -219.0
+offset_top = -270.0
+offset_right = -67.0
+offset_bottom = -237.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = -1.5708
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.47451, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.905882, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "Suburb Avenue"
+
+[node name="LabelNorth" type="Label" parent="MapLayer/MapControl/Map"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -767.0
+offset_top = -393.0
+offset_right = -641.0
+offset_bottom = -360.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.47451, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.905882, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "North Road"
+
+[node name="LabelTop" type="Label" parent="MapLayer/MapControl/Map"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1164.0
+offset_top = -628.0
+offset_right = -1044.0
+offset_bottom = -595.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.47451, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.905882, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "Top Boulevard"
+
+[node name="LabelHelp" type="Label" parent="MapLayer/MapControl/Map"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -799.0
+offset_top = -248.0
+offset_right = -679.0
+offset_bottom = -215.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0.47451, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.905882, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 25
+text = "Help Road"
+
+[node name="YouAreHere" type="TextureRect" parent="MapLayer/MapControl/Map"]
+layout_mode = 0
+offset_left = 694.0
+offset_top = 391.0
+offset_right = 873.0
+offset_bottom = 460.0
+texture = ExtResource("235_qjlhl")
+
+[node name="Player" type="Node2D" parent="."]
+z_index = 70
+texture_filter = 1
+position = Vector2(960, 490)
+
+[node name="Legs" type="Sprite2D" parent="Player"]
+position = Vector2(0, 104)
+texture = ExtResource("236_6jjne")
+offset = Vector2(0, 24)
+hframes = 9
+vframes = 3
+
+[node name="Body" type="Sprite2D" parent="Player"]
+texture = ExtResource("2_gwmqf")
+offset = Vector2(0, 24)
+hframes = 5
+vframes = 3
+
+[node name="Head" type="Sprite2D" parent="Player"]
+texture = ExtResource("237_j3iex")
+offset = Vector2(0, 24)
+hframes = 3
+vframes = 2
+
+[node name="Eye" type="Sprite2D" parent="Player/Head"]
+visible = false
+position = Vector2(-30, -77)
+texture = ExtResource("238_vjawx")
+offset = Vector2(0, 24)
+
+[node name="EyesSit" type="Sprite2D" parent="Player/Head"]
+visible = false
+position = Vector2(-19.0967, -62.6763)
+texture = ExtResource("239_jdmyc")
+offset = Vector2(0, 24)
+
+[node name="Beard" type="Sprite2D" parent="Player"]
+texture = ExtResource("240_fgw7w")
+offset = Vector2(0, 24)
+hframes = 4
+vframes = 5
+
+[node name="Hat" type="Sprite2D" parent="Player"]
+texture = ExtResource("5_nnayj")
+offset = Vector2(0, 24)
+hframes = 2
+vframes = 2
+
+[node name="Broom" type="Sprite2D" parent="Player"]
+visible = false
+position = Vector2(-27, 75)
+texture = ExtResource("211_xnrpg")
+offset = Vector2(0, 40)
+
+[node name="HandBrooming" type="Sprite2D" parent="Player"]
+visible = false
+texture = ExtResource("241_nuu1s")
+offset = Vector2(0, 24)
+vframes = 3
+
+[node name="UI" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="CanvasLayer UI" type="CanvasLayer" parent="UI"]
+
+[node name="PanelBackground" type="Panel" parent="UI/CanvasLayer UI"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -330.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tp3dr")
+
+[node name="DayTime" type="Label" parent="UI/CanvasLayer UI/PanelBackground"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -240.0
+offset_top = -62.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("124_5uv6w")
+text = "8:00 AM "
+horizontal_alignment = 2
+
+[node name="DayNumber" type="Label" parent="UI/CanvasLayer UI/PanelBackground"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1080.0
+offset_top = -62.0
+offset_right = -840.0
+grow_horizontal = 0
+grow_vertical = 0
+theme = ExtResource("124_5uv6w")
+text = "Day 1, week 1"
+
+[node name="ATMCard" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -78.0
+offset_right = 50.0
+offset_bottom = 85.0
+grow_horizontal = 0
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("242_itd81")
+
+[node name="TotalFunds" type="Label" parent="UI/CanvasLayer UI/PanelBackground"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -338.0
+offset_right = -98.0
+offset_bottom = 62.0
+grow_horizontal = 0
+theme = ExtResource("124_5uv6w")
+text = "$ 0.00"
+horizontal_alignment = 2
+
+[node name="GridContainer" type="GridContainer" parent="UI/CanvasLayer UI/PanelBackground"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = -322.0
+offset_right = 524.0
+grow_vertical = 0
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 2
+columns = 2
+
+[node name="LFood" type="Label" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+layout_mode = 2
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 34
+text = "Food:"
+horizontal_alignment = 2
+
+[node name="SFood" type="ProgressBar" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/fill = SubResource("StyleBoxFlat_nr28m")
+step = 1.0
+value = 100.0
+
+[node name="LDrink" type="Label" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+layout_mode = 2
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 34
+text = "Drink:"
+horizontal_alignment = 2
+
+[node name="SDrink" type="ProgressBar" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/fill = SubResource("StyleBoxFlat_7jh5d")
+step = 1.0
+value = 100.0
+
+[node name="LRest" type="Label" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+layout_mode = 2
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 34
+text = "Rest:"
+horizontal_alignment = 2
+
+[node name="SRest" type="ProgressBar" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/fill = SubResource("StyleBoxFlat_m1qa7")
+step = 1.0
+value = 100.0
+
+[node name="LEducation" type="Label" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+layout_mode = 2
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 34
+text = "Education:"
+horizontal_alignment = 2
+
+[node name="SEducation" type="ProgressBar" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/fill = SubResource("StyleBoxFlat_ucdn1")
+step = 1.0
+
+[node name="LBeard" type="Label" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+layout_mode = 2
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 34
+text = "Beard:"
+horizontal_alignment = 2
+
+[node name="SBeard" type="ProgressBar" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/fill = SubResource("StyleBoxFlat_f4rea")
+step = 1.0
+value = 75.0
+
+[node name="LSmell" type="Label" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+layout_mode = 2
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 34
+text = "Smell:"
+horizontal_alignment = 2
+
+[node name="SSmell" type="ProgressBar" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/fill = SubResource("StyleBoxFlat_1igs6")
+step = 1.0
+value = 25.0
+
+[node name="LFitness" type="Label" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+layout_mode = 2
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 34
+text = "Fitness:"
+horizontal_alignment = 2
+
+[node name="SFitness" type="ProgressBar" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
+custom_minimum_size = Vector2(320, 32)
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("124_5uv6w")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/fill = SubResource("StyleBoxFlat_tev0i")
+step = 1.0
+value = 25.0
+
+[node name="InventoryPanel" type="Panel" parent="UI/CanvasLayer UI/PanelBackground"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1080.0
+offset_top = -278.0
+offset_bottom = -58.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="InventoryVBox" type="VBoxContainer" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ItemsHBox" type="HBoxContainer" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="CoinsHBox" type="HBoxContainer" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Coin1" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin2" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin3" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin4" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin5" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin6" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin7" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin8" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin9" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin10" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin11" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin12" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin13" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin14" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin15" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin16" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin17" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin18" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="Coin19" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("243_q3mar")
+stretch_mode = 5
+
+[node name="BanknotesHBox" type="HBoxContainer" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="Banknote1" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("244_6wkte")
+stretch_mode = 5
+
+[node name="Banknote2" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("244_6wkte")
+stretch_mode = 5
+
+[node name="Banknote3" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("244_6wkte")
+stretch_mode = 5
+
+[node name="Banknote4" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("244_6wkte")
+stretch_mode = 5
+
+[node name="Banknote5" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("244_6wkte")
+stretch_mode = 5
+
+[node name="Banknote6" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("244_6wkte")
+stretch_mode = 5
+
+[node name="Banknote7" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("244_6wkte")
+stretch_mode = 5
+
+[node name="Banknote8" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("244_6wkte")
+stretch_mode = 5
+
+[node name="Banknote9" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("244_6wkte")
+stretch_mode = 5
+
+[node name="Banknote10" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("244_6wkte")
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer UI/PanelBackground"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_right = 484.0
+offset_bottom = 64.0
+grow_horizontal = 2
+scale = Vector2(0.8, 0.8)
+theme_override_constants/separation = 8
+
+[node name="Soap" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("30_d2ymx")
+
+[node name="Razor" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("195_4ekim")
+
+[node name="Broom" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("245_cont7")
+
+[node name="Ticket0" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("246_fs3qp")
+
+[node name="Ticket1" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("246_fs3qp")
+
+[node name="Ticket2" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("246_fs3qp")
+
+[node name="Ticket3" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("246_fs3qp")
+
+[node name="Ticket4" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("246_fs3qp")
+
+[node name="Ticket5" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("246_fs3qp")
+
+[node name="Ticket6" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("246_fs3qp")
+
+[node name="Ticket7" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("246_fs3qp")
+
+[node name="Ticket8" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("246_fs3qp")
+
+[node name="Ticket9" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("246_fs3qp")
+
+[node name="GlobalMessage" type="Label" parent="UI/CanvasLayer UI"]
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 249.0
+offset_bottom = 66.0
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0.984314, 0.305882, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.360784, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_outline_size = 1
+text = "Rags 2 Riches"
+metadata/_edit_use_anchors_ = true
+
+[node name="SpeedHBox" type="HBoxContainer" parent="UI/CanvasLayer UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -311.0
+offset_right = 69.0001
+offset_bottom = 88.0
+grow_horizontal = 0
+scale = Vector2(0.75, 0.75)
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="SpeedButton 0" type="CheckButton" parent="UI/CanvasLayer UI/SpeedHBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_icons/checked = ExtResource("247_7mnuu")
+theme_override_icons/unchecked = ExtResource("248_q1g7v")
+button_group = ExtResource("249_0p1x8")
+
+[node name="SpeedButton 1" type="CheckButton" parent="UI/CanvasLayer UI/SpeedHBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_icons/checked = ExtResource("250_ot8fn")
+theme_override_icons/unchecked = ExtResource("251_itinf")
+button_pressed = true
+button_group = ExtResource("249_0p1x8")
+
+[node name="SpeedButton 2" type="CheckButton" parent="UI/CanvasLayer UI/SpeedHBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_icons/checked = ExtResource("252_av32u")
+theme_override_icons/unchecked = ExtResource("253_u47wb")
+button_group = ExtResource("249_0p1x8")
+
+[node name="SpeedButton 3" type="CheckButton" parent="UI/CanvasLayer UI/SpeedHBox"]
+layout_mode = 2
+focus_mode = 0
+theme_override_icons/checked = ExtResource("254_8jd1o")
+theme_override_icons/unchecked = ExtResource("255_5wca3")
+button_group = ExtResource("249_0p1x8")
+
+[node name="PanelMetro" type="Panel" parent="UI/CanvasLayer UI"]
+visible = false
+custom_minimum_size = Vector2(480, 500)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.280029
+offset_top = -34.84
+offset_right = 0.280029
+offset_bottom = 34.84
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("124_5uv6w")
+theme_override_styles/panel = SubResource("StyleBoxFlat_uineb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer UI/PanelMetro"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -204.5
+offset_top = -215.0
+offset_right = 204.5
+offset_bottom = 215.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/CanvasLayer UI/PanelMetro/VBoxContainer"]
+layout_mode = 2
+text = "Select your destination"
+
+[node name="MainStreetButton" type="Button" parent="UI/CanvasLayer UI/PanelMetro/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme = ExtResource("8_juuqp")
+theme_override_font_sizes/font_size = 30
+text = "Main Street"
+icon = ExtResource("256_5428l")
+alignment = 0
+
+[node name="SlumStreetButton" type="Button" parent="UI/CanvasLayer UI/PanelMetro/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "Slum Street"
+icon = ExtResource("256_5428l")
+alignment = 0
+
+[node name="SideRoadButton" type="Button" parent="UI/CanvasLayer UI/PanelMetro/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "Side Road
+"
+icon = ExtResource("256_5428l")
+alignment = 0
+
+[node name="NorthRoadButton" type="Button" parent="UI/CanvasLayer UI/PanelMetro/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "North Road"
+icon = ExtResource("256_5428l")
+alignment = 0
+
+[node name="TopBoulevardButton" type="Button" parent="UI/CanvasLayer UI/PanelMetro/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "Top Boulevard"
+icon = ExtResource("256_5428l")
+alignment = 0
+
+[node name="SuburbAvenueButton" type="Button" parent="UI/CanvasLayer UI/PanelMetro/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_font_sizes/font_size = 30
+text = "Suburb Avenue"
+icon = ExtResource("256_5428l")
+alignment = 0
+
+[node name="CloseButton" type="Button" parent="UI/CanvasLayer UI/PanelMetro/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+theme_override_constants/icon_max_width = 40
+theme_override_font_sizes/font_size = 1
+icon = ExtResource("257_t8skn")
+alignment = 2
+icon_alignment = 2
+
+[node name="FadePanel" type="ColorRect" parent="UI/CanvasLayer UI"]
+visible = false
+offset_left = 2500.0
+offset_top = -400.0
+offset_right = 5500.0
+offset_bottom = 1200.0
+rotation = 0.0872665
+color = Color(0, 0, 0, 1)
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="UI"]
+bus = &"Music"
+
+[node name="SoundsPlayer" type="AudioStreamPlayer" parent="UI"]
+max_polyphony = 2
+bus = &"Sounds"
+
+[node name="NPCPlayer" type="AudioStreamPlayer" parent="UI"]
+max_polyphony = 2
+bus = &"Sounds"
+
+[node name="PlayerPlayer" type="AudioStreamPlayer" parent="UI"]
+max_polyphony = 2
+bus = &"Sounds"
+
+[node name="DebugLayer" type="CanvasLayer" parent="UI"]
+
+[node name="Debug" type="Label" parent="UI/DebugLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -953.0
+offset_bottom = 134.0
+grow_horizontal = 0
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0.770795, 0.809484, 0.977517, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0.360784, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 1
+theme_override_constants/shadow_outline_size = 1
+text = "Debug"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="Balloons Layer" type="CanvasLayer" parent="."]
+
+[node name="NPCBalloon1" type="NinePatchRect" parent="Balloons Layer"]
+visible = false
+modulate = Color(0.901961, 1, 0.611765, 1)
+z_index = 100
+z_as_relative = false
+texture_filter = 1
+offset_left = 447.0
+offset_top = 28.0
+offset_right = 847.0
+offset_bottom = 278.0
+texture = ExtResource("272_ixcw1")
+patch_margin_left = 40
+patch_margin_top = 40
+patch_margin_right = 40
+patch_margin_bottom = 40
+
+[node name="MarginContainer" type="MarginContainer" parent="Balloons Layer/NPCBalloon1"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 36
+
+[node name="Label" type="Label" parent="Balloons Layer/NPCBalloon1/MarginContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "This is the text of the balloon."
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Balloons Layer/NPCBalloon1"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -85.0
+offset_top = -4.0
+offset_right = -35.0
+offset_bottom = 36.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("273_7hdty")
+stretch_mode = 2
+
+[node name="NPCBalloon2" type="NinePatchRect" parent="Balloons Layer"]
+visible = false
+modulate = Color(0.901961, 1, 0.611765, 1)
+z_index = 100
+z_as_relative = false
+texture_filter = 1
+offset_left = 447.0
+offset_top = 28.0
+offset_right = 847.0
+offset_bottom = 278.0
+texture = ExtResource("272_ixcw1")
+patch_margin_left = 40
+patch_margin_top = 40
+patch_margin_right = 40
+patch_margin_bottom = 40
+
+[node name="MarginContainer" type="MarginContainer" parent="Balloons Layer/NPCBalloon2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 36
+
+[node name="Label" type="Label" parent="Balloons Layer/NPCBalloon2/MarginContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "This is the text of the balloon."
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Balloons Layer/NPCBalloon2"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -85.0
+offset_top = -4.0
+offset_right = -35.0
+offset_bottom = 36.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("273_7hdty")
+stretch_mode = 2
+
+[node name="Balloon" type="NinePatchRect" parent="Balloons Layer"]
+visible = false
+z_index = 100
+z_as_relative = false
+texture_filter = 1
+offset_left = 447.0
+offset_top = 28.0
+offset_right = 847.0
+offset_bottom = 278.0
+texture = ExtResource("272_ixcw1")
+patch_margin_left = 40
+patch_margin_top = 40
+patch_margin_right = 40
+patch_margin_bottom = 40
+
+[node name="MarginContainer" type="MarginContainer" parent="Balloons Layer/Balloon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 36
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 36
+
+[node name="Label" type="Label" parent="Balloons Layer/Balloon/MarginContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("124_5uv6w")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 40
+text = "This is the text of the balloon."
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Balloons Layer/Balloon"]
+texture_filter = 1
+texture_repeat = 1
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -85.0
+offset_top = -4.0
+offset_right = -35.0
+offset_bottom = 36.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("273_7hdty")
+stretch_mode = 2
+
+[connection signal="button_down" from="UI/CanvasLayer UI/PanelMetro/VBoxContainer/MainStreetButton" to="." method="JumpToRoad" binds= [0]]
+[connection signal="button_down" from="UI/CanvasLayer UI/PanelMetro/VBoxContainer/SlumStreetButton" to="." method="JumpToRoad" binds= [1]]
+[connection signal="button_down" from="UI/CanvasLayer UI/PanelMetro/VBoxContainer/SideRoadButton" to="." method="JumpToRoad" binds= [2]]
+[connection signal="button_down" from="UI/CanvasLayer UI/PanelMetro/VBoxContainer/NorthRoadButton" to="." method="JumpToRoad" binds= [3]]
+[connection signal="button_down" from="UI/CanvasLayer UI/PanelMetro/VBoxContainer/TopBoulevardButton" to="." method="JumpToRoad" binds= [4]]
+[connection signal="button_down" from="UI/CanvasLayer UI/PanelMetro/VBoxContainer/SuburbAvenueButton" to="." method="JumpToRoad" binds= [5]]
+[connection signal="button_down" from="UI/CanvasLayer UI/PanelMetro/VBoxContainer/CloseButton" to="." method="JumpToRoad" binds= [6]]

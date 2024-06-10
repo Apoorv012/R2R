@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://bck1225im4plg"]
+
+[ext_resource type="Texture2D" uid="uid://touhbxq6yql4" path="res://Graphics/NPCs/DrunkGuy.png" id="1_3t2w5"]
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="2_tecb6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1a0fv"]
+atlas = ExtResource("1_3t2w5")
+region = Rect2(0, 0, 200, 340)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0t5ei"]
+atlas = ExtResource("1_3t2w5")
+region = Rect2(200, 0, 200, 340)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nmt7b"]
+animations = [{
+"frames": [{
+"duration": 20.0,
+"texture": SubResource("AtlasTexture_1a0fv")
+}, {
+"duration": 4.0,
+"texture": SubResource("AtlasTexture_0t5ei")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="DrunkGuy" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_nmt7b")
+autoplay = "default"
+script = ExtResource("2_tecb6")

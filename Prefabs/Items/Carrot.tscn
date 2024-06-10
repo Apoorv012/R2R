@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://6l1cpay8s4c3"]
+
+[ext_resource type="Script" path="res://Scripts/Pickable.cs" id="1_prqho"]
+[ext_resource type="Texture2D" uid="uid://b15gwi1uvaqiu" path="res://Graphics/Items/Carrot.png" id="2_ve5sm"]
+
+[node name="Pickable" type="Node2D"]
+script = ExtResource("1_prqho")
+ItemType = 7
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ve5sm")

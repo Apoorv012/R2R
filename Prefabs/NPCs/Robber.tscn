@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://d1omyyx1wqjn4"]
+
+[ext_resource type="Texture2D" uid="uid://y4l4fja3kkk1" path="res://Graphics/NPCs/Robber.png" id="1_lm7pe"]
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="2_axm28"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_amhdu"]
+atlas = ExtResource("1_lm7pe")
+region = Rect2(0, 380, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vic0"]
+atlas = ExtResource("1_lm7pe")
+region = Rect2(220, 380, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lc0n6"]
+atlas = ExtResource("1_lm7pe")
+region = Rect2(440, 380, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_any00"]
+atlas = ExtResource("1_lm7pe")
+region = Rect2(660, 380, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_72oiw"]
+atlas = ExtResource("1_lm7pe")
+region = Rect2(0, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qa3j8"]
+atlas = ExtResource("1_lm7pe")
+region = Rect2(220, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nbo08"]
+atlas = ExtResource("1_lm7pe")
+region = Rect2(440, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvt0e"]
+atlas = ExtResource("1_lm7pe")
+region = Rect2(660, 0, 220, 380)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e8tdn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_amhdu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vic0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lc0n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_any00")
+}],
+"loop": true,
+"name": &"Flee",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_72oiw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qa3j8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nbo08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvt0e")
+}],
+"loop": true,
+"name": &"Gun",
+"speed": 5.0
+}]
+
+[node name="Robber" type="AnimatedSprite2D"]
+z_index = 70
+z_as_relative = false
+sprite_frames = SubResource("SpriteFrames_e8tdn")
+animation = &"Flee"
+autoplay = "Gun"
+offset = Vector2(0, 4)
+script = ExtResource("2_axm28")

@@ -1,0 +1,116 @@
+[gd_scene load_steps=17 format=3 uid="uid://boymptckcn3c2"]
+
+[ext_resource type="Texture2D" uid="uid://cts2qv1h74767" path="res://Graphics/NPCs/Man3/Man3.png" id="1_ce55p"]
+[ext_resource type="Script" path="res://Scripts/NPC.cs" id="2_fcycj"]
+[ext_resource type="Texture2D" uid="uid://cfvbfy1exh45d" path="res://Graphics/NPCs/Man3/Man3Shirt.png" id="3_uxjpv"]
+[ext_resource type="Texture2D" uid="uid://b4g0vt4cpaprc" path="res://Graphics/NPCs/Man3/Man3Pants.png" id="4_mmerf"]
+[ext_resource type="Texture2D" uid="uid://c2wxyfb284kfe" path="res://Graphics/NPCs/Man3/Man3Hair.png" id="5_gtur7"]
+[ext_resource type="Texture2D" uid="uid://bjkkkcx1s3epl" path="res://Graphics/NPCs/Man1/Man1GlassesIn.png" id="6_384mj"]
+[ext_resource type="Texture2D" uid="uid://vuyi2q0pmx7r" path="res://Graphics/NPCs/Man1/Man1GlassesOut.png" id="7_lqxnl"]
+[ext_resource type="Texture2D" uid="uid://bod2durhu5wrp" path="res://Graphics/NPCs/Man3/Man3Bag.png" id="8_2q0j7"]
+[ext_resource type="Texture2D" uid="uid://ccoy0jgpmxfph" path="res://Graphics/NPCs/Man3/Man3Mouth.png" id="8_m2r3u"]
+
+[sub_resource type="Gradient" id="Gradient_syynm"]
+offsets = PackedFloat32Array(0, 0.287651, 0.739458, 0.88253, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.0996179, 0.0280701, 0.00836161, 1, 0.725908, 0.276755, 0.0894404, 1, 0.898137, 0.869778, 0.131567, 1, 1, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_c6xra"]
+offsets = PackedFloat32Array(0, 0.222892, 0.453313, 0.661145, 0.728916, 0.89759, 1)
+colors = PackedColorArray(0, 0, 1, 1, 0.054902, 0.411765, 1, 1, 0.487288, 0.499104, 0.485357, 1, 0.700283, 0.459796, 0.141208, 1, 0.698039, 0.631373, 0.45098, 1, 0.158, 0.326869, 0.71572, 1, 0, 0.027451, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_ikqnb"]
+offsets = PackedFloat32Array(0, 0.185241, 0.283133, 0.307229, 0.368976, 0.498494, 0.59488, 0.698795, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.913725, 0, 0.160784, 1, 0.698039, 0.14902, 0.180392, 1, 0.792157, 0.729412, 0.054902, 1, 3.60981e-06, 0.741695, 0.122435, 1, 0.25328, 0.871214, 0.755255, 1, 0.0666667, 0.133333, 0.67451, 1, 0, 0.0392157, 0.984314, 1, 1, 1, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_pibcu"]
+offsets = PackedFloat32Array(0, 0.359551, 0.593258, 0.820225, 1)
+colors = PackedColorArray(0, 0.0509804, 0.717647, 1, 0.0661064, 0.071054, 0.230412, 1, 0.174132, 0.0962941, 0.00996877, 1, 0.483126, 0.310578, 0.128909, 1, 0.0746065, 0.0170617, 0.000938253, 1)
+
+[sub_resource type="Gradient" id="Gradient_deeke"]
+offsets = PackedFloat32Array(0, 0.173193, 0.346386, 0.546687, 0.683735, 0.686747, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.301726, 0.13688, 0.0081796, 1, 0.654902, 0.384314, 0.207843, 1, 0.316646, 0.162374, 0.0250798, 1, 0.533333, 0.396078, 0.105882, 1, 0.533333, 0.396078, 0.105882, 0, 0.533333, 0.396078, 0.105882, 0)
+
+[sub_resource type="Gradient" id="Gradient_0yghi"]
+offsets = PackedFloat32Array(0, 0.063253, 0.129518, 0.308735, 0.442771, 0.585843, 0.679217, 0.737952, 0.738007)
+colors = PackedColorArray(0, 0, 0, 1, 0.580392, 0, 0.027451, 1, 0.446012, 0.271543, 0.0594743, 1, 0.197338, 0.111224, 0.0113365, 1, 0.64826, 0.411753, 0.0978976, 1, 1.49205e-06, 0.457965, 0.589129, 1, 0.0509804, 0, 1, 1, 0, 0, 0.137255, 1, 0, 0, 0.137255, 0)
+
+[sub_resource type="Gradient" id="Gradient_6ma0s"]
+offsets = PackedFloat32Array(0, 0.213855, 0.325301, 0.722892, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.012891, 0.0596348, 0.30027, 1, 0.152941, 0.917647, 1, 0.784314, 0.823529, 0.984314, 1, 0.611765, 1, 1, 1, 0)
+
+[node name="Man3" type="Sprite2D" node_paths=PackedStringArray("Hair", "Dress", "Skirt", "Bag", "Mouth", "SoundPlayer")]
+z_as_relative = false
+position = Vector2(503, 450)
+texture = ExtResource("1_ce55p")
+offset = Vector2(0, -5)
+hframes = 5
+frame = 1
+script = ExtResource("2_fcycj")
+Hair = NodePath("Hair")
+Dress = NodePath("Shirt")
+Skirt = NodePath("Pants")
+Bag = NodePath("Bag")
+Mouth = NodePath("Mouth")
+HairGradient = SubResource("Gradient_syynm")
+DressGradient = SubResource("Gradient_c6xra")
+TieGradient = SubResource("Gradient_ikqnb")
+SkirtGradient = SubResource("Gradient_pibcu")
+BagGradient = SubResource("Gradient_deeke")
+HatGradient = SubResource("Gradient_0yghi")
+GlassesInGradient = SubResource("Gradient_6ma0s")
+SoundPlayer = NodePath("AudioStreamPlayer2D")
+
+[node name="Shirt" type="Sprite2D" parent="."]
+modulate = Color(0.223529, 0.305882, 0.878431, 1)
+texture = ExtResource("3_uxjpv")
+offset = Vector2(0, -5)
+hframes = 4
+frame = 1
+
+[node name="Pants" type="Sprite2D" parent="."]
+modulate = Color(0.223529, 0.305882, 0.878431, 1)
+texture = ExtResource("4_mmerf")
+offset = Vector2(0, -5)
+hframes = 5
+frame = 1
+
+[node name="Hair" type="Sprite2D" parent="."]
+modulate = Color(0.803922, 0.529412, 0.152941, 1)
+texture = ExtResource("5_gtur7")
+offset = Vector2(0, -5)
+hframes = 4
+frame = 1
+
+[node name="GlassesIn" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.262745, 0.560784, 1, 1)
+position = Vector2(0, -135.5)
+texture = ExtResource("6_384mj")
+offset = Vector2(0, -5)
+hframes = 4
+frame = 1
+
+[node name="GlassesOut" type="Sprite2D" parent="."]
+visible = false
+modulate = Color(0.262745, 0.560784, 1, 1)
+position = Vector2(0, -137)
+texture = ExtResource("7_lqxnl")
+offset = Vector2(0, -5)
+hframes = 4
+frame = 1
+
+[node name="Mouth" type="Sprite2D" parent="."]
+position = Vector2(0, -109)
+texture = ExtResource("8_m2r3u")
+offset = Vector2(0, -5)
+hframes = 4
+vframes = 3
+
+[node name="Bag" type="Sprite2D" parent="."]
+modulate = Color(0.529412, 0.34902, 0.0705882, 1)
+texture = ExtResource("8_2q0j7")
+offset = Vector2(0, -5)
+hframes = 4
+frame = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

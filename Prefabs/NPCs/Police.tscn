@@ -1,0 +1,49 @@
+[gd_scene load_steps=8 format=3 uid="uid://btv8ykfjdndb1"]
+
+[ext_resource type="Texture2D" uid="uid://cl4u8lbpkpsla" path="res://Graphics/NPCs/PoliceMan.png" id="1_racx6"]
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="2_ahnyg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wv12n"]
+atlas = ExtResource("1_racx6")
+region = Rect2(0, 0, 180, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cr1d8"]
+atlas = ExtResource("1_racx6")
+region = Rect2(180, 0, 180, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nam3g"]
+atlas = ExtResource("1_racx6")
+region = Rect2(360, 0, 180, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hdgk3"]
+atlas = ExtResource("1_racx6")
+region = Rect2(540, 0, 180, 380)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kasu8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wv12n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cr1d8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nam3g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hdgk3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PoliceMan" type="AnimatedSprite2D"]
+z_index = 70
+z_as_relative = false
+position = Vector2(7882, 460)
+sprite_frames = SubResource("SpriteFrames_kasu8")
+autoplay = "default"
+offset = Vector2(0, 4)
+script = ExtResource("2_ahnyg")

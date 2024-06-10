@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b3ffm6bn0h7hg"
+path="res://.godot/imported/MNo (3).ogg-f102dc28a71e1ef03af79f9528ada83e.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/NPCs/MNo/MNo (3).ogg"
+dest_files=["res://.godot/imported/MNo (3).ogg-f102dc28a71e1ef03af79f9528ada83e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

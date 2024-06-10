@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bc4n0u8tca2sa"
+path="res://.godot/imported/FNo (8).ogg-8cdb2c6caae672d75db3ef7456c87870.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/NPCs/FNo/FNo (8).ogg"
+dest_files=["res://.godot/imported/FNo (8).ogg-8cdb2c6caae672d75db3ef7456c87870.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

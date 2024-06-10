@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cv51erie5ikti"]
+
+[ext_resource type="Script" path="res://Scripts/Pickable.cs" id="1_locyi"]
+[ext_resource type="Texture2D" uid="uid://ltd1u3sp6c0w" path="res://Graphics/Items/Bone.png" id="2_no2pd"]
+
+[node name="Pickable" type="Node2D"]
+script = ExtResource("1_locyi")
+ItemType = 6
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_no2pd")

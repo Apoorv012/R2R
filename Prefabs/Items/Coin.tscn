@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://pbux0vk31gje"]
+
+[ext_resource type="Script" path="res://Scripts/Pickable.cs" id="1_w07ww"]
+[ext_resource type="Texture2D" uid="uid://hoh5uu6g3mri" path="res://Graphics/Items/Coin.png" id="2_370sd"]
+
+[node name="Pickable" type="Node2D"]
+script = ExtResource("1_w07ww")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_370sd")

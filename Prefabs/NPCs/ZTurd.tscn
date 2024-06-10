@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://vx5uru04dehe"]
+
+[ext_resource type="Texture2D" uid="uid://doc2otvh64vvr" path="res://Graphics/NPCs/ZTurd.png" id="1_exc5i"]
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="2_e52gj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mupku"]
+atlas = ExtResource("1_exc5i")
+region = Rect2(0, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tv6uk"]
+atlas = ExtResource("1_exc5i")
+region = Rect2(220, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0nhs2"]
+atlas = ExtResource("1_exc5i")
+region = Rect2(440, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vddke"]
+atlas = ExtResource("1_exc5i")
+region = Rect2(660, 0, 220, 380)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jo7kx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mupku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tv6uk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0nhs2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vddke")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="ZTurd" type="AnimatedSprite2D"]
+z_index = 70
+z_as_relative = false
+sprite_frames = SubResource("SpriteFrames_jo7kx")
+autoplay = "default"
+offset = Vector2(0, 4)
+script = ExtResource("2_e52gj")

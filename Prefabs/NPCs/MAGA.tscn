@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://djxjopscpqc4g"]
+
+[ext_resource type="Texture2D" uid="uid://c7jfxshb1m82k" path="res://Graphics/NPCs/MAGA.png" id="1_mg37q"]
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="2_r3d4w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or7x7"]
+atlas = ExtResource("1_mg37q")
+region = Rect2(0, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umxry"]
+atlas = ExtResource("1_mg37q")
+region = Rect2(220, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60w1g"]
+atlas = ExtResource("1_mg37q")
+region = Rect2(440, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ej8vq"]
+atlas = ExtResource("1_mg37q")
+region = Rect2(660, 0, 220, 380)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7t7e4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_or7x7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umxry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60w1g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ej8vq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[node name="MAGA" type="AnimatedSprite2D"]
+z_index = 70
+z_as_relative = false
+sprite_frames = SubResource("SpriteFrames_7t7e4")
+autoplay = "default"
+offset = Vector2(0, 4)
+script = ExtResource("2_r3d4w")

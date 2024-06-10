@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://m51mxfalso8g"
+path="res://.godot/imported/Music Orchestra.ogg-d610e900e5b2fe2f7a22ad3da8e6d8a5.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/Music/Music Orchestra.ogg"
+dest_files=["res://.godot/imported/Music Orchestra.ogg-d610e900e5b2fe2f7a22ad3da8e6d8a5.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bghtr6k4qy4io"]
+
+[ext_resource type="Material" uid="uid://8jjsv8ukiqi7" path="res://Graphics/FireworksMaterial.tres" id="1_lxqm8"]
+
+[node name="Fireworks" type="Node2D"]
+
+[node name="FireworksParticles" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 96
+process_material = ExtResource("1_lxqm8")
+lifetime = 3.5
+one_shot = true
+explosiveness = 0.95

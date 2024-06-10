@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bwjs7g2taqrie"
+path="res://.godot/imported/MYes (2).ogg-cf578be5e558bdaddc92359d10bef704.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/NPCs/MYes/MYes (2).ogg"
+dest_files=["res://.godot/imported/MYes (2).ogg-cf578be5e558bdaddc92359d10bef704.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

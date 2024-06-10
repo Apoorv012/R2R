@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://byplkth5hgvoi"]
+
+[ext_resource type="Texture2D" uid="uid://chg10r48d5s8p" path="res://Graphics/NPCs/Dog.png" id="1_pmjto"]
+[ext_resource type="Script" path="res://Scripts/DogNPC.cs" id="2_04xy0"]
+
+[node name="Dog" type="Sprite2D"]
+z_as_relative = false
+texture = ExtResource("1_pmjto")
+hframes = 2
+vframes = 2
+frame = 2
+script = ExtResource("2_04xy0")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = -1
+color = Color(0.207843, 0.105882, 0.0117647, 1)
+polygon = PackedVector2Array(11, -3, -65, -46, -140, -137, -134, -138, -62, -50, 13, -7)

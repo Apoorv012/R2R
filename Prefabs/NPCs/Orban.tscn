@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://b6vkf6gqpo1t3"]
+
+[ext_resource type="Texture2D" uid="uid://bgvm7tahc3p5a" path="res://Graphics/NPCs/Orban.png" id="1_8j0pe"]
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="2_rfkt3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbd6b"]
+atlas = ExtResource("1_8j0pe")
+region = Rect2(0, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f274h"]
+atlas = ExtResource("1_8j0pe")
+region = Rect2(220, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o3yky"]
+atlas = ExtResource("1_8j0pe")
+region = Rect2(440, 0, 220, 380)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_idpod"]
+atlas = ExtResource("1_8j0pe")
+region = Rect2(660, 0, 220, 380)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rcil0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbd6b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f274h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o3yky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_idpod")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Orban" type="AnimatedSprite2D"]
+z_index = 70
+z_as_relative = false
+sprite_frames = SubResource("SpriteFrames_rcil0")
+autoplay = "default"
+offset = Vector2(0, 4)
+script = ExtResource("2_rfkt3")

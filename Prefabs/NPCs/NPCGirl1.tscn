@@ -1,0 +1,135 @@
+[gd_scene load_steps=21 format=3 uid="uid://ckrikbqp2irky"]
+
+[ext_resource type="Texture2D" uid="uid://djbdqmn0pcpbe" path="res://Graphics/NPCs/Girl1/Girl1.png" id="1_xwmh2"]
+[ext_resource type="Script" path="res://Scripts/NPC.cs" id="2_35sjk"]
+[ext_resource type="Texture2D" uid="uid://xrkr6p2i60ij" path="res://Graphics/NPCs/Girl1/Girl1Hair1.png" id="3_t0uqb"]
+[ext_resource type="Texture2D" uid="uid://deicos45ajftd" path="res://Graphics/NPCs/Girl1/Girl1Hair2.png" id="4_342qg"]
+[ext_resource type="Texture2D" uid="uid://blco2ljuss54v" path="res://Graphics/NPCs/Girl1/Girl1Hair3.png" id="5_8aq1t"]
+[ext_resource type="Texture2D" uid="uid://cf7f8bxw8woi4" path="res://Graphics/NPCs/Girl1/Girl1Hair4.png" id="6_i512w"]
+[ext_resource type="PackedScene" uid="uid://byplkth5hgvoi" path="res://Prefabs/Dog.tscn" id="7_7aaew"]
+[ext_resource type="Texture2D" uid="uid://cxtxyvbnbu7w4" path="res://Graphics/NPCs/Girl1/Girl1GlassesOut.png" id="9_bdn80"]
+[ext_resource type="Texture2D" uid="uid://d0w5illc813ng" path="res://Graphics/NPCs/Girl1/Girl1Eyes.png" id="9_uv0ca"]
+[ext_resource type="Texture2D" uid="uid://bm6rgc08ubk71" path="res://Graphics/NPCs/Girl1/Girl1GlassesIn.png" id="10_uyak2"]
+[ext_resource type="Texture2D" uid="uid://xefg6dk8uwpm" path="res://Graphics/NPCs/Girl1/Girl1Top.png" id="11_57ff4"]
+[ext_resource type="Texture2D" uid="uid://0hmr56jdtvkt" path="res://Graphics/NPCs/Girl1/Girl1Mouth.png" id="11_aftm0"]
+[ext_resource type="Texture2D" uid="uid://2o04mef3no2h" path="res://Graphics/NPCs/Girl1/Girl1Skirt.png" id="12_d2imp"]
+[ext_resource type="Texture2D" uid="uid://bt8cn7vt4x2s3" path="res://Graphics/NPCs/Girl1/Girl1Bag.png" id="13_hsdr0"]
+
+[sub_resource type="Gradient" id="Gradient_syynm"]
+offsets = PackedFloat32Array(0, 0.225904, 0.606928, 0.823795, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.0996179, 0.0280701, 0.00836161, 1, 0.725908, 0.276755, 0.0894404, 1, 0.898137, 0.869778, 0.131567, 1, 1, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_c6xra"]
+offsets = PackedFloat32Array(0, 0.222892, 0.453313, 0.661145, 0.728916, 0.89759, 1)
+colors = PackedColorArray(0, 0, 1, 1, 0.223529, 1, 1, 1, 0.454902, 1, 0, 1, 0.647059, 0.266667, 0.372549, 1, 0.698039, 0.631373, 0.45098, 1, 0.894118, 0.141176, 0.133333, 1, 0, 0.027451, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_acwmu"]
+offsets = PackedFloat32Array(0, 0.153614, 0.301205, 0.447289, 0.558735, 0.789157, 1)
+colors = PackedColorArray(0, 0, 1, 1, 0, 1, 1, 1, 0.94902, 0.0941176, 0.152941, 1, 0.0952579, 0.401128, 0.0686562, 1, 0, 0.0823529, 0.392157, 1, 0.840487, 0.225806, 0.169855, 1, 1, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_deeke"]
+offsets = PackedFloat32Array(0, 0.173193, 0.346386, 0.546687, 0.683735, 0.686747, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.301726, 0.13688, 0.0081796, 1, 0.654902, 0.384314, 0.207843, 1, 0.772549, 0.0980392, 0.0588235, 1, 0.533333, 0.396078, 0.105882, 1, 0.533333, 0.396078, 0.105882, 0, 0.533333, 0.396078, 0.105882, 0)
+
+[sub_resource type="Gradient" id="Gradient_fn8in"]
+offsets = PackedFloat32Array(0, 0.313253, 0.48494, 0.656627, 0.743976, 0.876506, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.095157, 0.0427843, 0.00226769, 1, 0.434732, 0.292577, 0.0380003, 1, 0.115036, 0.226297, 0.0667935, 1, 0.196196, 0.64463, 0.139695, 1, 0.144969, 0.440275, 0.734903, 1, 0, 0.0601702, 1, 1)
+
+[sub_resource type="Gradient" id="Gradient_6ma0s"]
+offsets = PackedFloat32Array(0, 0.213855, 0.325301, 0.722892, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.012891, 0.0596348, 0.30027, 1, 0.152941, 0.917647, 1, 0.784314, 0.823529, 0.984314, 1, 0.611765, 1, 1, 1, 0)
+
+[node name="Girl" type="Sprite2D" node_paths=PackedStringArray("Hair", "Dress", "Skirt", "Bag", "Eyes", "Mouth", "GlassesIn", "GlassesOut", "SoundPlayer")]
+z_as_relative = false
+texture_filter = 1
+position = Vector2(503, 450)
+texture = ExtResource("1_xwmh2")
+offset = Vector2(0, 12)
+hframes = 5
+script = ExtResource("2_35sjk")
+Hair = NodePath("Hair")
+Dress = NodePath("Top")
+Skirt = NodePath("Skirt")
+Bag = NodePath("Bag")
+Eyes = NodePath("Eyes")
+Mouth = NodePath("Mouth")
+GlassesIn = NodePath("GlassesIn")
+GlassesOut = NodePath("GlassesOut")
+Hair1 = ExtResource("3_t0uqb")
+Hair2 = ExtResource("4_342qg")
+Hair3 = ExtResource("5_8aq1t")
+Hair4 = ExtResource("6_i512w")
+HairGradient = SubResource("Gradient_syynm")
+DressGradient = SubResource("Gradient_c6xra")
+SkirtGradient = SubResource("Gradient_acwmu")
+BagGradient = SubResource("Gradient_deeke")
+EyesGradient = SubResource("Gradient_fn8in")
+GlassesInGradient = SubResource("Gradient_6ma0s")
+DogPrefab = ExtResource("7_7aaew")
+SoundPlayer = NodePath("AudioStreamPlayer2D")
+
+[node name="Hair" type="Sprite2D" parent="."]
+modulate = Color(0.0196078, 0.929412, 0, 1)
+texture_filter = 1
+position = Vector2(0, -102)
+texture = ExtResource("3_t0uqb")
+offset = Vector2(0, 12)
+hframes = 4
+
+[node name="Eyes" type="Sprite2D" parent="."]
+modulate = Color(0.156863, 0.796078, 0.168627, 1)
+texture_filter = 1
+position = Vector2(0, -128)
+texture = ExtResource("9_uv0ca")
+offset = Vector2(0, 12)
+hframes = 4
+
+[node name="GlassesOut" type="Sprite2D" parent="."]
+modulate = Color(0.156863, 0.796078, 0.168627, 1)
+texture_filter = 1
+position = Vector2(0, -130)
+texture = ExtResource("9_bdn80")
+offset = Vector2(0, 12)
+hframes = 4
+
+[node name="GlassesIn" type="Sprite2D" parent="."]
+modulate = Color(0.0627451, 1, 1, 0.168627)
+texture_filter = 1
+position = Vector2(0, -130)
+texture = ExtResource("10_uyak2")
+offset = Vector2(0, 12)
+hframes = 4
+
+[node name="Mouth" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -103)
+texture = ExtResource("11_aftm0")
+offset = Vector2(0, 12)
+hframes = 4
+vframes = 3
+
+[node name="Top" type="Sprite2D" parent="."]
+modulate = Color(0.262745, 0.560784, 1, 1)
+texture_filter = 1
+position = Vector2(0, -26)
+texture = ExtResource("11_57ff4")
+offset = Vector2(0, 12)
+hframes = 4
+
+[node name="Skirt" type="Sprite2D" parent="."]
+modulate = Color(0, 0.521569, 0.52549, 1)
+texture_filter = 1
+position = Vector2(0, 44)
+texture = ExtResource("12_d2imp")
+offset = Vector2(0, 12)
+hframes = 4
+
+[node name="Bag" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0.027451, 1)
+texture_filter = 1
+position = Vector2(0, 36.5)
+texture = ExtResource("13_hsdr0")
+offset = Vector2(0, 12)
+hframes = 4
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]

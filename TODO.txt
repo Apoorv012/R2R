@@ -1,0 +1,182 @@
+
+
+++++++ Gameplay ++++++++++++
+On slumstreet we need some way to gain small amount of money, about max 5 per day.
+So we can try to survive (sleeping on the bench)
+We need to have a comple of spots to eat cheap enough
+
+******* TODO ************************TODO ************************
+	GAME: have the game playable with touches and mouse
+	HELP: write help page
+	SOUNDS: have a way to add custom musics
+
+
+
+********* BUGS ************************************
+
+
+
+
+[DONE]
+	!Basic player
+	!Anim to pick items
+	!Basic controller
+	!Day/Night and Time
+	!Change walk speed (X3) if shift is pressed, but consume rest and food faster
+	!Pick coins on ground
+	!Add sounds: walk
+	!Something to show messages to use, probably just a label in the top left
+	!Fix the pickup positions
+	!Do inventory
+	!Pick trash on ground -> cans, bottles, paper, poop, veggy scraps, bones
+	!Added ballon for messages
+	!It is possible to sell items in locations
+	!Add a way to say no when actions are not possible (anim to shake head?)
+	!Pickup items going down
+	!Read signs with control/space
+	!Change coins and banknotes every time you go to a shop or to ATMs
+	!Have the total funds to show thousands commas: $1,000,000.00
+	!Add some "Signs" item that can be read
+	!Buy food (food dispensers, street hotdogs, aid kitchen, fast food, home resturant, resturant, 3 stars mikelin)
+	!SOUNDS: equalize volume
+	!Added bench to sit and rest
+	!Added first anim for first NPC (Girl)
+	!Girl NPC has now anims and random colors
+	!NPCs: add glasses/sunglasses to girl
+	!TRASHCAN: Put trash in bins
+	!Implemented basic options and intro page
+	!Implemented fullscreen and window modes
+	!PLAYER: Implement better mode for beards
+	!GAME: Add beards for sitting position
+	!NPCs: created man1
+	!GAME: if rest is at zero make speed very slow
+	!GAME: if it is night and we do not sleep decrease rest faster
+	!OPTIONS: remember the config
+	!CITY: add road ending and starting for Gas station
+	!CITY: Re-center MainStreet after adding all the items to stay in +-21000
+	!CITY: add signs for the roads
+	!GAME: Handle a way to change the road (use location)
+	!Player: Clean up ass, hat and legs
+	!Player: Icon (with window) to be in jail
+	!GAME: in case we are on the bench and it is night, do sleep (like dead anim), and watch for police coming
+	!ENEMY: added police
+	!OPTIONS: F11 switches fullscreen
+	!OPTIONS: Remember window size when switching fullscreen
+	!NPCs: remove animated sprites, use internal logic for the sprites or they may flicker a lot
+	!GAME: keep references of all "back & doors" items for each street, use a variable to keep the current one
+	!NPCS: Create NPCs and make them to walk around the city
+	!NPCS: spawn little NPCs during night and more during the day. Do not exceed 5 NPCs.
+	!CITY: Set limits on cities, be sure we do not go less than -11000 and more than 11000, limit should be road by road
+	!GAME: in case we sleep on the bench watch for police coming
+	!ENV: light in the morning should not arrive before 5:30AM
+	!GAME: Add buttons for speed (pause, x1, x2, x5)
+	!Apply the fade also for crossroads, add XToGo to the fade, so we can pre-specify the destination X position of the road
+	!Abandoned Godot events for keys, they were not reliable
+	!When in jail food and drink will not go more down than a minimum, and resting is increased
+	!ITEMS: Have items randomly generated when you enter a road (poop 10%, paper 15%, cans 15%, bottles 15%, coins 20%, banknotes 5%, bones 1%)
+	!UI: Metro buttons now can be used with the mouse
+	!UI: Fix balloon sizes, make it streatcheable, maybe
+	!UI: improved sizing of balloons
+	!HYGIENE: Buy razor
+	!ITEMS: buy metro ticket
+	!MARKET: recycle bottles 8-20, after 18 there will be food scraps and bones
+	!GAME: Do jobs, enter the location if all conditions are valid, hide player and stop input actions, move time fast for the required amount, then exit (walk down?) and get money, set time to flow normally
+	!OPTIONS: change background image
+	!NPC: draw small pooper dog and make it walk with NPCs, it will poop from time to time
+	!GAME: reorganize layers (have NPCs to spawn at the correct level)
+	!NPCS: add another girl
+	!NPCS: add anoter man (1/2)
+	!ZIndex of player should follow the now layers
+	!CITY: add backgrounds with skyscrapers (for the other streets)
+	!SOUNDS: Dog fart and poop plopping
+	!CITY: add maps "you are here"
+	!OPTIONS: all options are now editable with keyboard and controller
+	!GAME: find a way to open option and change the speed using Controller
+	!GAME: Add dog to the dump to avoid to reach there, bones can be found randomly at market when it is closed
+	!NPCS: add anoter man (2/2)
+	!CITY: Good progresses on Main Street
+	!LOCATION: Go to school (elementary, middle, high, college)
+	!GAME: Add pause button
+	!GAME: have NPCs and player to go down a few pixels if they are inside a crossroad
+	!GAME: have a way to add some drink in case we eat in resturants or we spend night at home
+	!GAME: Implemented Gym and fitness
+	!MUSIC: play the music every day at 7AM
+	!CITY: Laundry (and remove the "getting naked" stuff)
+	!PLAYER: have a "dirt level" for clothes that adds to the personal one
+	!PLAYER: Do the character with 3 levels of fitness: fat, obese, slim. Gym will change the shape
+	!ENVIRONMENT: improved background parallax	
+	!NPCs: now the alpha of the parts is either removed or made immediately full or none (for hats) to avoid partially transparent items
+	!CITY: the sport bar on Side street now spawns trash when it closes
+	!ITEMS: Buy broom -> use broom to clean roads -> receive coins
+	!GAME: Improved input and controller
+	!OPTIONS: Added GameSpeed and GameDifficulty (difficulty is not yet used)
+	!INTRO: Add a proper intro page
+	!LOCATION: Go to gym -> move faster, improve shape
+	!PLAYER: you collapsed while working -> go to hospital, and do not get paid, and you lose $10
+	!INTRO: Add a game over message when dying, and a restart button when game over
+	!CONFIG: implement restart/continue game
+	!GAME: increase a little bit the speed of the player
+	!CITY: started adding better crossroads signs
+	!ENV: Completely reimplemented how the streets are handled	
+	!CITY: Add "City Limit" Signs
+	!CITY: Added lights on all the streets
+	!NPCs: Add smiles and disgust faces to every NPC
+	!NPCs: Happy if player use broom or use trash, Sad if player stinks too much
+	!NPCs: Have happyness level from 0 to 2, at 1 they give coins, at 2 they give banknotes
+	!NPCs: Add "standing still" image
+	!NPCS: Have NPCs react to trashcans and brooming, maybe provide some random coins
+	!LOCATION: Build schools (elementary, college)
+	!LOCATION: Go to barber shop
+	!POLICE: if you smell too much or are poorly dressed and go in Top or North roads you go to jail
+	!NPCs: Do another girl
+	!GAME: Differentiate between scrap carrot and carrot as items: Implemented the RotCarrot
+	!GAME: Implemented finance
+	!LOCATION: Add bank to get card to use ATMs to deposit money
+	!GAME: Implement apartment 
+	!SOUNDS: NPC sounds: approval, disgust
+	!PLAYER: add cheap clothes
+	!PLAYER: add classy clothes
+	!CITY: improved the cloths shop image and fixed prices of clothes
+	!PLAYER: now also the legs respect the cloathes level
+	!LOCATION: Buy clothes at tailor, shop
+	!PLAYER: we need 9 different bodies (3 x 3 fitness)
+	!CITY: Uniform city names (street, road, boulevard)
+	!PLAYER: Take shower and fixed a problem with jobs not hiding the player
+	!CITY: Be sure the crossroads are all matching, and if you click on them you see the other road
+	!NPC: add balloon messages to npc when you stink and when they give you money
+	!SOUNDS: added more sounds (laundry, shower, sweeping)
+	!CITY: check that all labels are readable when playing
+	!GAME: have the ability to exit from the hotel by pressing the action key, you can re-enter until the end of the service for free
+	!GAME: the rest in apartment/hotem should increase with time, smell should reset at exit (only if staid for a while)
+	!ENVIRONMENT: Improved night/day luminance level and transitions
+	!SOUNDS: sleep, study, and workout
+	!NPCs: Added a second balloon for NPCs
+	!Now balloons are on a canvas layer and ignore the light of the scene
+	!Added messages to jailtime
+	!Fixed walking when sleeping on bench
+	!Increased time for the hot dogs in slum street
+	!Fixed the problem of going lest and right at the same time
+	!NPCs: NPCs will not react anymore to the player if it is not visible
+	!GAME: Plant rot carrots (or carrots). Grow veggies, eat veggies if at home, sell veggies, poop as fertilizer
+	!GAME: fixed the overspawning of items
+	!NPCs: implemented the drunk guy that stays on benches	
+	!NPC: add drunk guy on the bench, will stay until a predefined time, will disappear if time is passed and not visible, and leaves a few bottles and cans
+	!ENEMY: first implementation of robber
+	!ENEMY: implement function to check if the player is doing something (to be used for the robber)
+	!ENEMY: implemented MAGA guy
+	!GAME: when starting action, send signal to current enemies to stop the attack
+	!ENEMY: implemented ZTurd
+	!ENEMY: implemented Orban
+	!FIX: Metro is no more creating errors during fade and balloons visible, and you cannot use it if you do not have tickets
+	!GAME: Card can be stolen but the money will not disappear, they will be available as soon a new card is bought
+	!ENEMY: Use game difficulty when spawning enemies
+	!SOUNDS: work (do different sound by type of work)
+	!GAME: add job in sports bar
+	!SOUNDS: finish to check all jobs to have the right sounds
+	!GAME: allow to restart after gameover (click or enter or button or ctrl)
+	!GAME: create winning
+	!ENEMIES: increased their spawn time
+	!ITEMS: Add soap, can be sold in stores, can be used with fountains if you are stinky. It will last 4 uses
+	!PLAYER: Added hatrs to all clothes
+	!SOUDS: added the ability to use custom music
+	!CITY: added another public toilet at the end of SuburbsStreet

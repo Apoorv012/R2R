@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dm8x55ngog3uw"
+path="res://.godot/imported/FYes (5).ogg-72f01dcc385fe4b5c8ac9c4fd50f6104.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/NPCs/FYes/FYes (5).ogg"
+dest_files=["res://.godot/imported/FYes (5).ogg-72f01dcc385fe4b5c8ac9c4fd50f6104.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

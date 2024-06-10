@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://t1k88fror768"
+path="res://.godot/imported/FDisgust (1).ogg-ff74d60857ebeba376a5285adf0ae139.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/NPCs/FDisgust/FDisgust (1).ogg"
+dest_files=["res://.godot/imported/FDisgust (1).ogg-ff74d60857ebeba376a5285adf0ae139.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

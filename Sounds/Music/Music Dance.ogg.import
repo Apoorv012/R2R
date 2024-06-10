@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://4yb2oj4s44b4"
+path="res://.godot/imported/Music Dance.ogg-5cef5fdb7ce9c763efd6c6412da5b3c1.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/Music/Music Dance.ogg"
+dest_files=["res://.godot/imported/Music Dance.ogg-5cef5fdb7ce9c763efd6c6412da5b3c1.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

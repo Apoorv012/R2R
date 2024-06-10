@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bpoqgi8r5jqk"
+path="res://.godot/imported/Music C64.ogg-9e497fa89b7cea6690951edf32a89773.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/Music/Music C64.ogg"
+dest_files=["res://.godot/imported/Music C64.ogg-9e497fa89b7cea6690951edf32a89773.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

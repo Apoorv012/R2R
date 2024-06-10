@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b6fe8mc7i7rb"
+path="res://.godot/imported/Music Disco.ogg-e84360e29f6ad01af0daff1a53fbe0bb.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/Music/Music Disco.ogg"
+dest_files=["res://.godot/imported/Music Disco.ogg-e84360e29f6ad01af0daff1a53fbe0bb.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

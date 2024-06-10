@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bxmsp4hj4jygr"
+path="res://.godot/imported/FApproval (3).ogg-7ea31c9dcef063d839669ed6111bd675.oggvorbisstr"
+
+[deps]
+
+source_file="res://Sounds/NPCs/FApproval/FApproval (3).ogg"
+dest_files=["res://.godot/imported/FApproval (3).ogg-7ea31c9dcef063d839669ed6111bd675.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
