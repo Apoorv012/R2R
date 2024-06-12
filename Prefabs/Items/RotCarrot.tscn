@@ -5,7 +5,7 @@
 
 [node name="Pickable" type="Node2D"]
 script = ExtResource("1_mbrs5")
-ItemType = 7
+ItemType = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_xdnhh")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7ll3n7pc7l35"
-path="res://.godot/imported/ORIG Legs.png-a54197b59d4650e81e894fe06c422b6d.ctex"
+uid="uid://cq3oh36n0n4tb"
+path="res://.godot/imported/MapIcons.png-d982d062762d6e68730acaf69c94165d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Graphics/Player/Orig/ORIG Legs.png"
-dest_files=["res://.godot/imported/ORIG Legs.png-a54197b59d4650e81e894fe06c422b6d.ctex"]
+source_file="res://Graphics/Locations/MapIcons.png"
+dest_files=["res://.godot/imported/MapIcons.png-d982d062762d6e68730acaf69c94165d.ctex"]
 
 [params]
 

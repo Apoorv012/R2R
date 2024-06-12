@@ -7,16 +7,9 @@ We need to have a comple of spots to eat cheap enough
 
 ******* TODO ************************TODO ************************
 	GAME: have the game playable with touches and mouse
-	HELP: write help page
-	SOUNDS: have a way to add custom musics
-
 
 ********* BUGS ************************************
-
-implement play denial in help
-move npcs a bit up
-move enemies a little bit down
-Fade out music if playing while changing road
+	
 
 
 [DONE]
@@ -179,6 +172,34 @@ Fade out music if playing while changing road
 	!GAME: create winning
 	!ENEMIES: increased their spawn time
 	!ITEMS: Add soap, can be sold in stores, can be used with fountains if you are stinky. It will last 4 uses
-	!PLAYER: Added hatrs to all clothes
+	!PLAYER: Added hats to all clothes
 	!SOUDS: added the ability to use custom music
 	!CITY: added another public toilet at the end of SuburbsStreet
+	!HELP: write help page
+	!SOUNDS: have a way to add custom musics
+	!FIX: fixed the strange anim when sleeping on bench and going up
+	!FIX: removed the Z key to immediately win
+	!GAME: The market now accepts bottles also if you are super stinky
+	!GAME: increased a little the speed of the player
+	!FIX: now the sounds are played correctly when the actions are performed
+	!FIX: the day number and week number are correcly reset when restarting
+	!FIX: now the help starts in the correct situation
+	!GAME: while you are working the food and drink will reduce slowly
+	!PLAYER: it now moves 30% faster
+	!FIX: the exit button is now working
+	!PLAYER: in the help, if you have no space to pick items the player will show its denial
+	!HELP: improved the text of the help (THanks to Bat Milku)
+	!GAME: street lights are now updated after changing the road
+	!SOUNDS: The music fades out when changing roads
+	!PLAYER: now the amount of money in your pocket and the one in the bank are separated
+	!MAP: Added icons to the map to show where are the locations and what each street has
+	
+	!PLAYER: denial is no more played when standing up
+	!FIX: rot carrots were considered as carrots
+	!FIX: fixed the usage of toilets
+	!STATS: Body smell and dirty clothes statistic is now split in 2 progress bars with a cumulate value for both
+	!GAME: the stats change with a speed proportional to the difficulty level
+	!FIX: the dog sprite is now reset at midnight
+	!FIX: possible fixed a problem where NPCs were not spawning anymore
+	!PLAYER: Added mouth
+	

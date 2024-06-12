@@ -1,4 +1,4 @@
-[gd_scene load_steps=125 format=3 uid="uid://bdxp57b2cmofb"]
+[gd_scene load_steps=116 format=3 uid="uid://bdxp57b2cmofb"]
 
 [ext_resource type="Script" path="res://Scripts/Help.cs" id="1_b67vp"]
 [ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="2_gwmqf"]
@@ -92,15 +92,6 @@
 [ext_resource type="Texture2D" uid="uid://ciwe2xwxgclw4" path="res://Graphics/Items/Banknote.png" id="244_6wkte"]
 [ext_resource type="Texture2D" uid="uid://7w6uteu03bme" path="res://Graphics/Items/BroomIcon.png" id="245_cont7"]
 [ext_resource type="Texture2D" uid="uid://cyy2vuduax0hm" path="res://Graphics/Items/Ticket.png" id="246_fs3qp"]
-[ext_resource type="Texture2D" uid="uid://bkc4ty1hqni0y" path="res://Graphics/UI/Arrow0.png" id="247_7mnuu"]
-[ext_resource type="Texture2D" uid="uid://chstlnn03ex5r" path="res://Graphics/UI/Arrow0Off.png" id="248_q1g7v"]
-[ext_resource type="ButtonGroup" uid="uid://5hva6pygjcut" path="res://Graphics/UI/GameSpeed_Button_group.tres" id="249_0p1x8"]
-[ext_resource type="Texture2D" uid="uid://bomiu60cfgx4t" path="res://Graphics/UI/Arrow1.png" id="250_ot8fn"]
-[ext_resource type="Texture2D" uid="uid://bnxfxch2kqnb5" path="res://Graphics/UI/Arrow1Off.png" id="251_itinf"]
-[ext_resource type="Texture2D" uid="uid://bcmgjaxys1ehq" path="res://Graphics/UI/Arrow2.png" id="252_av32u"]
-[ext_resource type="Texture2D" uid="uid://d4b6u3gmffjsy" path="res://Graphics/UI/Arrow2Off.png" id="253_u47wb"]
-[ext_resource type="Texture2D" uid="uid://bsn5brmsg035m" path="res://Graphics/UI/Arrow3.png" id="254_8jd1o"]
-[ext_resource type="Texture2D" uid="uid://vuscpqny25km" path="res://Graphics/UI/Arrow3Off.png" id="255_5wca3"]
 [ext_resource type="Texture2D" uid="uid://hkg4t6futfbs" path="res://Graphics/UI/MetroArrow.png" id="256_5428l"]
 [ext_resource type="Texture2D" uid="uid://wbkqs6o5jllg" path="res://Graphics/UI/KO.png" id="257_t8skn"]
 [ext_resource type="Texture2D" uid="uid://uqoiuhqyytt3" path="res://Graphics/Player/Balloon.png" id="272_ixcw1"]
@@ -189,7 +180,7 @@ bg_color = Color(0.225931, 0.646447, 0.847762, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uineb"]
 bg_color = Color(0.121569, 0.121569, 0.121569, 0.980392)
 
-[node name="Help" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmell", "pbBeard", "pbEducation", "pbFitness", "ItemsHBox", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "currentRoad", "FrontItems", "BackItems", "Doors", "StreetLights", "PeopleLayer", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "HelpSign", "Debug")]
+[node name="Help" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmell", "pbBeard", "pbEducation", "pbFitness", "ItemsHBox", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "currentRoad", "FrontItems", "BackItems", "Doors", "StreetLights", "PeopleLayer", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "HelpSign")]
 script = ExtResource("1_b67vp")
 Player = NodePath("Player")
 Body = NodePath("Player/Body")
@@ -209,6 +200,7 @@ Hat1 = ExtResource("5_nnayj")
 Hat2 = ExtResource("5_k6awt")
 moveSpeed = 0.35
 scrollSpeed = 110.0
+timeSpeed = 1.0
 DayNum = NodePath("UI/CanvasLayer UI/PanelBackground/DayNumber")
 DayTime = NodePath("UI/CanvasLayer UI/PanelBackground/DayTime")
 TotalFunds = NodePath("UI/CanvasLayer UI/PanelBackground/TotalFunds")
@@ -221,11 +213,11 @@ pbBeard = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SBeard")
 pbEducation = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SEducation")
 pbFitness = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SFitness")
 ItemsHBox = NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/ItemsHBox")
-ATMCard = NodePath("UI/CanvasLayer UI/PanelBackground/ATMCard")
+ATMCard = NodePath("UI/CanvasLayer UI/PanelBackground/VBoxContainer/ATMCard")
 Tickets = [NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket0"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket1"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket2"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket3"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket4"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket5"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket6"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket7"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket8"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket9")]
-Soap = NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Soap")
-Razor = NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Razor")
-Broom = NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Broom")
+Soap = NodePath("UI/CanvasLayer UI/PanelBackground/VBoxContainer/Soap")
+Razor = NodePath("UI/CanvasLayer UI/PanelBackground/VBoxContainer/Razor")
+Broom = NodePath("UI/CanvasLayer UI/PanelBackground/VBoxContainer/Broom")
 City = NodePath("City")
 BackgroundStreet = NodePath("BackgroundStreet")
 Sun = NodePath("City/Sun")
@@ -281,7 +273,6 @@ EatSound = ExtResource("57_kjmwi")
 DrinkSound = ExtResource("58_xwnx7")
 EatDrinkSound = ExtResource("59_a56kt")
 HelpSign = NodePath("City/HelpRoad/HR_BackItems/Road Sign")
-Debug = NodePath("UI/DebugLayer/Debug")
 
 [node name="City" type="Node2D" parent="."]
 
@@ -1029,31 +1020,6 @@ grow_vertical = 0
 theme = ExtResource("124_5uv6w")
 text = "Day 1, week 1"
 
-[node name="ATMCard" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -78.0
-offset_right = 50.0
-offset_bottom = 85.0
-grow_horizontal = 0
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("242_itd81")
-
-[node name="TotalFunds" type="Label" parent="UI/CanvasLayer UI/PanelBackground"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -338.0
-offset_right = -98.0
-offset_bottom = 62.0
-grow_horizontal = 0
-theme = ExtResource("124_5uv6w")
-text = "$ 0.00"
-horizontal_alignment = 2
-
 [node name="GridContainer" type="GridContainer" parent="UI/CanvasLayer UI/PanelBackground"]
 layout_mode = 1
 anchors_preset = 2
@@ -1375,18 +1341,6 @@ grow_horizontal = 2
 scale = Vector2(0.8, 0.8)
 theme_override_constants/separation = 8
 
-[node name="Soap" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("30_d2ymx")
-
-[node name="Razor" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("195_4ekim")
-
-[node name="Broom" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("245_cont7")
-
 [node name="Ticket0" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
 layout_mode = 2
 texture = ExtResource("246_fs3qp")
@@ -1427,6 +1381,44 @@ texture = ExtResource("246_fs3qp")
 layout_mode = 2
 texture = ExtResource("246_fs3qp")
 
+[node name="TotalFunds" type="Label" parent="UI/CanvasLayer UI/PanelBackground"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -749.0
+offset_right = -3.0
+offset_bottom = 62.0
+grow_horizontal = 0
+theme = ExtResource("124_5uv6w")
+text = "Pocket  $ 11.90            Bank  $ 1,000,000.00"
+horizontal_alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer UI/PanelBackground"]
+layout_mode = 0
+offset_left = 736.0
+offset_top = 2.0
+offset_right = 828.0
+offset_bottom = 322.0
+theme_override_constants/separation = 4
+
+[node name="ATMCard" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("242_itd81")
+expand_mode = 5
+
+[node name="Soap" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("30_d2ymx")
+
+[node name="Razor" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("195_4ekim")
+
+[node name="Broom" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("245_cont7")
+
 [node name="GlobalMessage" type="Label" parent="UI/CanvasLayer UI"]
 offset_left = 8.0
 offset_top = 4.0
@@ -1442,47 +1434,6 @@ theme_override_constants/outline_size = 1
 theme_override_constants/shadow_outline_size = 1
 text = "Rags 2 Riches"
 metadata/_edit_use_anchors_ = true
-
-[node name="SpeedHBox" type="HBoxContainer" parent="UI/CanvasLayer UI"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -311.0
-offset_right = 69.0001
-offset_bottom = 88.0
-grow_horizontal = 0
-scale = Vector2(0.75, 0.75)
-size_flags_horizontal = 8
-size_flags_vertical = 0
-
-[node name="SpeedButton 0" type="CheckButton" parent="UI/CanvasLayer UI/SpeedHBox"]
-layout_mode = 2
-focus_mode = 0
-theme_override_icons/checked = ExtResource("247_7mnuu")
-theme_override_icons/unchecked = ExtResource("248_q1g7v")
-button_group = ExtResource("249_0p1x8")
-
-[node name="SpeedButton 1" type="CheckButton" parent="UI/CanvasLayer UI/SpeedHBox"]
-layout_mode = 2
-focus_mode = 0
-theme_override_icons/checked = ExtResource("250_ot8fn")
-theme_override_icons/unchecked = ExtResource("251_itinf")
-button_pressed = true
-button_group = ExtResource("249_0p1x8")
-
-[node name="SpeedButton 2" type="CheckButton" parent="UI/CanvasLayer UI/SpeedHBox"]
-layout_mode = 2
-focus_mode = 0
-theme_override_icons/checked = ExtResource("252_av32u")
-theme_override_icons/unchecked = ExtResource("253_u47wb")
-button_group = ExtResource("249_0p1x8")
-
-[node name="SpeedButton 3" type="CheckButton" parent="UI/CanvasLayer UI/SpeedHBox"]
-layout_mode = 2
-focus_mode = 0
-theme_override_icons/checked = ExtResource("254_8jd1o")
-theme_override_icons/unchecked = ExtResource("255_5wca3")
-button_group = ExtResource("249_0p1x8")
 
 [node name="PanelMetro" type="Panel" parent="UI/CanvasLayer UI"]
 visible = false
@@ -1603,27 +1554,6 @@ bus = &"Sounds"
 [node name="PlayerPlayer" type="AudioStreamPlayer" parent="UI"]
 max_polyphony = 2
 bus = &"Sounds"
-
-[node name="DebugLayer" type="CanvasLayer" parent="UI"]
-
-[node name="Debug" type="Label" parent="UI/DebugLayer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -953.0
-offset_bottom = 134.0
-grow_horizontal = 0
-theme = ExtResource("124_5uv6w")
-theme_override_colors/font_color = Color(0.770795, 0.809484, 0.977517, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0.360784, 0, 1)
-theme_override_constants/shadow_offset_x = 3
-theme_override_constants/shadow_offset_y = 2
-theme_override_constants/outline_size = 1
-theme_override_constants/shadow_outline_size = 1
-text = "Debug"
-horizontal_alignment = 2
-vertical_alignment = 2
 
 [node name="Balloons Layer" type="CanvasLayer" parent="."]
 

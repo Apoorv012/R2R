@@ -1,4 +1,4 @@
-[gd_scene load_steps=326 format=3 uid="uid://bdflk6ud0jrdt"]
+[gd_scene load_steps=329 format=3 uid="uid://bdflk6ud0jrdt"]
 
 [ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="1_hj6uc"]
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_u838r"]
@@ -271,6 +271,7 @@
 [ext_resource type="Texture2D" uid="uid://bbrcgqtjbmjl2" path="res://Graphics/Intro/C64.png" id="157_10gkh"]
 [ext_resource type="PackedScene" uid="uid://doj4waem2jhvb" path="res://Prefabs/GrowingCarrot.tscn" id="193_m110f"]
 [ext_resource type="Texture2D" uid="uid://c6wraicxtyex4" path="res://Graphics/City/Extra/UAFlag.png" id="193_wt7p6"]
+[ext_resource type="Texture2D" uid="uid://cq3oh36n0n4tb" path="res://Graphics/Locations/MapIcons.png" id="238_qokn0"]
 [ext_resource type="Texture2D" uid="uid://bgs0typn774f8" path="res://Graphics/Items/Soap1.png" id="238_rn7ud"]
 [ext_resource type="AudioStream" uid="uid://bvsl61bx3ttsl" path="res://Sounds/Music/Win music BGO.ogg" id="261_bm57o"]
 [ext_resource type="Texture2D" uid="uid://c4hh6uey0i65d" path="res://Graphics/Player/VictoryDance.png" id="261_njoyj"]
@@ -444,8 +445,14 @@ bg_color = Color(0.823529, 0.768627, 0.835294, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f4rea"]
 bg_color = Color(0.388235, 0.219608, 0.0941176, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0rw2x"]
+bg_color = Color(0.027451, 0.027451, 0.027451, 0)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1igs6"]
 bg_color = Color(0.894118, 0.00784314, 0.203922, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_oexan"]
+bg_color = Color(0.411765, 0.219608, 0.6, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tev0i"]
 bg_color = Color(0.225931, 0.646447, 0.847762, 1)
@@ -1082,7 +1089,7 @@ expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmell", "pbBeard", "pbEducation", "pbFitness", "ItemsHBox", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "HighlightOpts", "HighlightIntro", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "PanelTitle", "PanelSpark", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameSpeedValue", "GameSpeedSlider", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmellB", "pbSmellC", "pbBeard", "pbEducation", "pbFitness", "pbSmellL", "ItemsHBox", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "HighlightOpts", "HighlightIntro", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "PanelTitle", "PanelSpark", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameSpeedValue", "GameSpeedSlider", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
 script = ExtResource("1_u838r")
 Player = NodePath("Player")
 Body = NodePath("Player/Body")
@@ -1111,16 +1118,18 @@ GlobalMessage = NodePath("UI/CanvasLayer UI/GlobalMessage")
 pbFood = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SFood")
 pbDrink = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SDrink")
 pbRest = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SRest")
-pbSmell = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SSmell")
+pbSmellB = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/PSmell/SSmellB")
+pbSmellC = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/PSmell/SSmellC")
 pbBeard = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SBeard")
 pbEducation = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SEducation")
 pbFitness = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SFitness")
+pbSmellL = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/PSmell/SmellL")
 ItemsHBox = NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/ItemsHBox")
-ATMCard = NodePath("UI/CanvasLayer UI/PanelBackground/ATMCard")
+ATMCard = NodePath("UI/CanvasLayer UI/PanelBackground/VBoxContainer/ATMCard")
 Tickets = [NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket0"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket1"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket2"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket3"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket4"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket5"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket6"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket7"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket8"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket9")]
-Soap = NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Soap")
-Razor = NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Razor")
-Broom = NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Broom")
+Soap = NodePath("UI/CanvasLayer UI/PanelBackground/VBoxContainer/Soap")
+Razor = NodePath("UI/CanvasLayer UI/PanelBackground/VBoxContainer/Razor")
+Broom = NodePath("UI/CanvasLayer UI/PanelBackground/VBoxContainer/Broom")
 FadePanel = NodePath("UI/CanvasLayer UI/FadePanel")
 SpeedButton0 = NodePath("UI/CanvasLayer UI/SpeedHBox/SpeedButton 0")
 SpeedButton1 = NodePath("UI/CanvasLayer UI/SpeedHBox/SpeedButton 1")
@@ -3258,21 +3267,21 @@ price = 80
 Message = "Public Toilet, I can have a shower here for $2"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="City/NorthRoad/NS_Doors/Toilets Cleaner job"]
-offset_left = -113.0
-offset_top = -104.0
-offset_right = 3.0
-offset_bottom = -17.0
+offset_left = -112.0
+offset_top = -121.0
+offset_right = 40.0
+offset_bottom = -25.0
 texture = ExtResource("66_4d78g")
 
 [node name="Label" type="Label" parent="City/NorthRoad/NS_Doors/Toilets Cleaner job/NinePatchRect"]
 layout_mode = 0
 offset_left = 7.0
 offset_top = 21.0
-offset_right = 105.0
-offset_bottom = 82.0
+offset_right = 142.0
+offset_bottom = 87.0
 theme = ExtResource("19_ca2sb")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 22
 text = "Cleaner needed
 8PM-4AM"
 horizontal_alignment = 1
@@ -5819,7 +5828,6 @@ StartTime = 8
 EndTime = 20
 price = 2
 ItemConsumed = 2
-maxSmell = 80
 Message = "Bring here your bottles to be recycled! Keep the city clean! 20 cents per bottle!\\nFrom 8Am to 8PM"
 
 [node name="MarketBottlesSign" type="Label" parent="City/SlumStreet/SS_Doors/Market"]
@@ -5836,6 +5844,7 @@ theme_override_font_sizes/font_size = 23
 theme_override_styles/normal = SubResource("StyleBoxFlat_duo4y")
 text = "Recycle your bottles!"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Bottle" type="Sprite2D" parent="City/SlumStreet/SS_Doors/Market"]
 position = Vector2(-28.287, -14.0953)
@@ -6475,12 +6484,21 @@ theme_override_constants/outline_size = 5
 theme_override_font_sizes/font_size = 25
 text = "Top Boulevard"
 
+[node name="Icons" type="TextureRect" parent="MapLayer/MapControl/Map"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("238_qokn0")
+
 [node name="YouAreHere" type="TextureRect" parent="MapLayer/MapControl/Map"]
 layout_mode = 0
-offset_left = 392.0
-offset_top = 551.0
-offset_right = 571.0
-offset_bottom = 620.0
+offset_left = 400.0
+offset_top = 560.0
+offset_right = 579.0
+offset_bottom = 629.0
 texture = ExtResource("94_38tg7")
 
 [node name="Player" type="Node2D" parent="."]
@@ -6593,29 +6611,17 @@ grow_vertical = 0
 theme = ExtResource("19_ca2sb")
 text = "Day 1, week 1"
 
-[node name="ATMCard" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -78.0
-offset_right = 50.0
-offset_bottom = 85.0
-grow_horizontal = 0
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("45_46qgu")
-
 [node name="TotalFunds" type="Label" parent="UI/CanvasLayer UI/PanelBackground"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -338.0
-offset_right = -98.0
+offset_left = -749.0
+offset_right = -3.0
 offset_bottom = 62.0
 grow_horizontal = 0
 theme = ExtResource("19_ca2sb")
-text = "$ 0.00"
+text = "Pocket  $ 11.90            Bank  $ 1,000,000.00"
 horizontal_alignment = 2
 
 [node name="GridContainer" type="GridContainer" parent="UI/CanvasLayer UI/PanelBackground"]
@@ -6722,15 +6728,87 @@ theme_override_font_sizes/font_size = 34
 text = "Smell:"
 horizontal_alignment = 2
 
-[node name="SSmell" type="ProgressBar" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
-custom_minimum_size = Vector2(320, 32)
+[node name="PSmell" type="Panel" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0rw2x")
+
+[node name="SSmellB" type="ProgressBar" parent="UI/CanvasLayer UI/PanelBackground/GridContainer/PSmell"]
+custom_minimum_size = Vector2(320, 16)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -160.0
+offset_right = 160.0
+offset_bottom = 23.0
+grow_horizontal = 2
 size_flags_vertical = 4
 theme = ExtResource("19_ca2sb")
-theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/font_size = 1
 theme_override_styles/fill = SubResource("StyleBoxFlat_1igs6")
 step = 1.0
 value = 25.0
+
+[node name="SSmellC" type="ProgressBar" parent="UI/CanvasLayer UI/PanelBackground/GridContainer/PSmell"]
+custom_minimum_size = Vector2(320, 16)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -23.0
+offset_right = 160.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 4
+theme = ExtResource("19_ca2sb")
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_font_sizes/font_size = 1
+theme_override_styles/fill = SubResource("StyleBoxFlat_oexan")
+step = 1.0
+value = 25.0
+
+[node name="SmellL" type="Label" parent="UI/CanvasLayer UI/PanelBackground/GridContainer/PSmell"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -33.5
+offset_top = -22.0
+offset_right = 33.5
+offset_bottom = 22.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("19_ca2sb")
+theme_override_font_sizes/font_size = 34
+text = "25%"
+horizontal_alignment = 2
+
+[node name="SmellBodyL" type="Label" parent="UI/CanvasLayer UI/PanelBackground/GridContainer/PSmell"]
+layout_mode = 1
+offset_right = 67.0
+offset_bottom = 44.0
+theme = ExtResource("19_ca2sb")
+theme_override_font_sizes/font_size = 17
+text = "Body"
+
+[node name="SmellClothesL" type="Label" parent="UI/CanvasLayer UI/PanelBackground/GridContainer/PSmell"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -44.0
+offset_right = 67.0
+grow_vertical = 0
+theme = ExtResource("19_ca2sb")
+theme_override_font_sizes/font_size = 17
+text = "Clothes"
+vertical_alignment = 2
 
 [node name="LFitness" type="Label" parent="UI/CanvasLayer UI/PanelBackground/GridContainer"]
 layout_mode = 2
@@ -6927,6 +7005,31 @@ layout_mode = 2
 texture = ExtResource("30_usy1u")
 stretch_mode = 5
 
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer UI/PanelBackground"]
+layout_mode = 0
+offset_left = 736.0
+offset_top = 2.0
+offset_right = 828.0
+offset_bottom = 322.0
+theme_override_constants/separation = 4
+
+[node name="ATMCard" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("45_46qgu")
+expand_mode = 5
+
+[node name="Soap" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("238_rn7ud")
+
+[node name="Razor" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("84_t8n0v")
+
+[node name="Broom" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("114_bciv5")
+
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer UI/PanelBackground"]
 layout_mode = 1
 anchors_preset = 5
@@ -6938,18 +7041,6 @@ offset_bottom = 64.0
 grow_horizontal = 2
 scale = Vector2(0.8, 0.8)
 theme_override_constants/separation = 8
-
-[node name="Soap" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("238_rn7ud")
-
-[node name="Razor" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("84_t8n0v")
-
-[node name="Broom" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
-layout_mode = 2
-texture = ExtResource("114_bciv5")
 
 [node name="Ticket0" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/HBoxContainer"]
 layout_mode = 2
@@ -7246,8 +7337,8 @@ Sound Effects: [color=#0080ff][b]CPU[/b][/color]
 In game Musics:             [color=#0080ff][b]SlicEnDicE[/b][/color]
 Victory Music:              [color=#0080ff][b]BG Ollie[/b][/color]
 Graphics: [color=#0080ff][b]CPU[/b][/color] using           [color=#0080ff][b]GIMP[/b][/color]
-Thanks to            [color=#0080ff][b]Bat Milku[/b][/color],            [color=#0080ff][b]J0nathan550[/b][/color], and 
-... for testing the game
+Thanks to            [color=#0080ff][b]Bat Milku[/b][/color],            [color=#0080ff][b]J0nathan550[/b][/color] 
+for testing the game.
 Thanks to            [color=#0080ff][b]Cheeky Commodore Gamer[/b][/color] for
 presenting and reviewing this game.
 
@@ -8298,7 +8389,7 @@ stretch_mode = 2
 [connection signal="button_down" from="UI/CanvasLayer Intro/IntroButtons/PlayButton" to="." method="PlayGame" binds= [0]]
 [connection signal="button_down" from="UI/CanvasLayer Intro/IntroButtons/OptionsButton" to="." method="ShowOptions"]
 [connection signal="button_up" from="UI/CanvasLayer Intro/IntroButtons/HelpButton" to="." method="StartHelp"]
-[connection signal="button_down" from="UI/CanvasLayer Intro/IntroButtons/ExitButton" to="." method="QuitGame" binds= [false]]
+[connection signal="button_down" from="UI/CanvasLayer Intro/IntroButtons/ExitButton" to="." method="QuitGame"]
 [connection signal="button_down" from="UI/CanvasLayer GameOver/GameOver/RePlayButton" to="." method="PlayGame" binds= [2]]
 [connection signal="button_down" from="UI/CanvasLayer Win/Win!/RePlayButton" to="." method="PlayGame" binds= [2]]
 [connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer/HSlider" to="." method="MusicSliderChange"]

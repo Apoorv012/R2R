@@ -234,6 +234,8 @@ public partial class Help : Node, IGame {
       var node = FrontItems.GetChild(rnd.RandiRange(0, FrontItems.GetChildCount() - 1));
       node.Free();
     }
+    ResetPlayer();
+
     HelpSign.Visible = false;
     maxHelpXPos = 300;
     minHelpXPos = -300;
@@ -250,9 +252,19 @@ public partial class Help : Node, IGame {
     Background0.Position = new(962, 306 - City.Position.Y);
     Background1.Position = new(974, 306 - City.Position.Y);
 
-
-		ResetPlayer();
-		SpawnItems();
+    helpDelta = 0;
+    helpSpeed = 0;
+    helpWrite = true;
+    helpReset = false;
+    maxHelpXPos = 300;
+    minHelpXPos = -300;
+    actionPosible = false;
+    prevPos = -1;
+		wasUp = false;
+		wasDown = false;
+    numPicked = 0;
+    showPeople = false;
+    showEnemies = false;
   }
 
 	public bool Won => false;
@@ -406,8 +418,6 @@ public partial class Help : Node, IGame {
 
 	public override void _Process(double delta) {
 		bool joyStart = Input.IsJoyButtonPressed(0, JoyButton.Start);
-		bool rb = Input.IsJoyButtonPressed(0, JoyButton.RightShoulder);
-		bool lb = Input.IsJoyButtonPressed(0, JoyButton.LeftShoulder);
 		bool joyBack = Input.IsJoyButtonPressed(0, JoyButton.Back);
 
 
@@ -442,7 +452,33 @@ public partial class Help : Node, IGame {
 
     HandleTime(delta);
 
-    ProcessHelp(delta);
+		if (denial && doActionDelta > 0) {
+			Eye.Visible = false;
+			EyesSitClosed.Visible = false;
+			doActionDelta -= delta * 2;
+			int pos = (int)(doActionDelta * 4 + 1) % 4;
+			switch (pos) {
+				case 0: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); break; // Front
+				case 1: Face.Frame = 3; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialR); break; // Right
+				case 2: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); break; // Front
+				case 3: Face.Frame = 4; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialL); break; // Left
+			}
+			if (doActionDelta <= 0) {
+				denial = false;
+				pickup = false;
+				findAround = false;
+				doActionDelta = 0;
+				Body.Frame = 0 + GetFitnessLevel();
+				Face.Frame = 0;
+				Hat.Frame = 0;
+				Legs.Frame = 0 + 9 * (int)clothes;
+				Beard.Frame = Beardlevel(BeardLevels.Walk);
+			}
+			return;
+		}
+		else {
+			ProcessHelp(delta);
+		}
 
 		if (showPeople) {
       SpawnNPC(delta);
@@ -484,8 +520,8 @@ public partial class Help : Node, IGame {
 			currentHotel = null;
 			if (prevWeek != dayNum / 7) {
 				money += (int)(investedMoney * .1);
-				TotalFunds.Text = FormatMoney(money);
-			}
+        TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+      }
 			foreach (var a in apartments) {
 				if (a.RentedDays > 0) a.RentedDays--;
 			}
@@ -605,8 +641,6 @@ public partial class Help : Node, IGame {
 
 	public override void _UnhandledInput(InputEvent evt) {
 		if (evt is not InputEventScreenTouch touch) return;
-
-		//		Debug.Text = $"TOUCH: {touch.Position.X:F0}, {touch.Position.Y:F0}";
 	}
 
 
@@ -618,219 +652,6 @@ public partial class Help : Node, IGame {
 	bool wasLeftPressed = false;
 	bool wasRightPressed = false;
 	bool fitPosition = false;
-
-	void HandleMovements(double delta) {
-		bool up = false;
-		bool down = false;
-		bool left = false;
-		bool right = false;
-		bool use = false;
-		bool running = false;
-		if (doActionDelta <= 0 && waitUntil == -1 && waitUntilNextDay == -1) {
-			float jx = Input.GetJoyAxis(0, JoyAxis.LeftX);
-			float jy = Input.GetJoyAxis(0, JoyAxis.LeftY);
-
-			if (Input.IsKeyPressed(Key.Up) || Input.IsPhysicalKeyPressed(Key.W) || Input.IsJoyButtonPressed(0, JoyButton.DpadUp) || jy <= -.5f) {
-				if (!wasUpPressed) up = true;
-				wasUpPressed = true;
-			}
-			else {
-				wasUpPressed = false;
-			}
-			if (Input.IsKeyPressed(Key.Down) || Input.IsPhysicalKeyPressed(Key.S) || Input.IsJoyButtonPressed(0, JoyButton.DpadDown) || jy >= .5f) {
-				if (!wasDownPressed) down = true;
-				wasDownPressed = true;
-			}
-			else {
-				wasDownPressed = false;
-			}
-			if (!CityMap.Visible && !sleepingOnBench) {
-				left = (Input.IsKeyPressed(Key.Left) || Input.IsPhysicalKeyPressed(Key.A) || Input.IsJoyButtonPressed(0, JoyButton.DpadLeft) || jx <= -.5f);
-				right = (Input.IsKeyPressed(Key.Right) || Input.IsPhysicalKeyPressed(Key.D) || Input.IsJoyButtonPressed(0, JoyButton.DpadRight) || jx >= .5f) && !left;
-			}
-
-			if (Input.IsKeyPressed(Key.Enter) || Input.IsPhysicalKeyPressed(Key.Ctrl) || Input.IsJoyButtonPressed(0, JoyButton.A)) {
-				if (!wasUsePressed) use = true;
-				wasUsePressed = true;
-			}
-			else {
-				wasUsePressed = false;
-			}
-			running = (Input.IsKeyPressed(Key.Shift) || Input.IsJoyButtonPressed(0, JoyButton.B));
-		}
-
-		if (up || down) {
-			left = false;
-			right = false;
-		}
-
-		if (restingOnBench) {
-			up = false;
-			down = false;
-			left = false;
-			right = false;
-		}
-
-
-		if (left && Player.Scale.X < 0) {
-			Player.Scale = flipL;
-		}
-		else if (right && Player.Scale.X > 0) {
-			Player.Scale = flipR;
-		}
-
-		if (use && doingGym) {
-			ResetPlayer();
-			doingGym = false;
-			foundLocation = null;
-			return;
-		}
-
-
-		if (up || use) {
-			if (CityMap.Visible) {
-				CityMap.Visible = false;
-				return;
-			}
-
-			// If we have the broom and there is a pickable just here, use the broom and remove it
-			if (use && hasBroom && SearchItems(true, out Pickable p)) {
-				isSweeping = true;
-				doActionDelta = 1;
-				Body.Frame = 4 + GetFitnessLevel();
-				BroomPlayer.Visible = true;
-				HandBrooming.Visible = true;
-				broomItem = p;
-				PlayerPlayer.Stream = BroomSound;
-				PlayerPlayer.Play();
-				return;
-			}
-
-			// We should check if there is any spot here we can use/go inside
-			foundLocation = null;
-			foreach (var loc in locations) {
-				if (Mathf.Abs(loc.PositionX - 900) < loc.Width) {
-					foundLocation = loc;
-					break;
-				}
-			}
-			if (foundLocation == null) {
-				if (up) {
-					// Say no
-					ShowBalloon(rnd.RandiRange(0, 5) switch {
-						0 => "Can't go there",
-						1 => "Nowhere to go",
-						2 => "Nope",
-						3 => "Nothing there",
-						4 => "Wrong way",
-						_ => "No"
-					}, 2);
-				}
-				else {
-					ShowBalloon(rnd.RandiRange(0, 5) switch {
-						0 => "Nothing to use here",
-						1 => "There is nothing here",
-						2 => "Nope",
-						3 => "Nothing here",
-						4 => "Can't use",
-						_ => "No"
-					}, 2);
-				}
-				return;
-			}
-		}
-
-
-		if (up && foundLocation != null && foundLocation.type != LocationType.Sign) {
-			// If possible walk up anim and then action
-			goingUp = true;
-			doActionDelta = 1;
-      Player.Scale = flipL; 
-			HideBalloon();
-			return;
-		}
-		else if (left || right || fitPosition) {
-			fitPosition = false;
-			moving = true;
-			double multiplier = (running ? 2.75 : 1.5) * (rest <= 0 ? .5 : 1) * (rest > 90 ? 1.1 : 1) * (1 + fitness * 0.01);
-			moveDelta += delta * multiplier;
-			if (moveDelta > moveSpeed) {
-				moveDelta -= moveSpeed;
-				int frame = Legs.Frame + 1 - 9 * (int)clothes;
-				if (frame > 3) frame = 0;
-				Legs.Frame = frame + 9 * (int)clothes;
-				if (frame == 0) {
-					PlayerPlayer.Stream = StepSound1;
-					PlayerPlayer.Play();
-				}
-				else if (frame == 2) {
-					PlayerPlayer.Stream = StepSound2;
-					PlayerPlayer.Play();
-				}
-			}
-			float movement = (float)(delta * scrollSpeed * multiplier);
-			currentRoad.Position += (left ? moveL : moveR) * movement;
-
-			// Check if we are inside a crossroad, in case change the vertical position
-			float posX = currentRoad.Position.X;
-			if (posX > maxHelpXPos) {
-				posX = maxHelpXPos;
-				currentRoad.Position = new(posX, currentRoad.Position.Y);
-				moving = false;
-				moveDelta = 0;
-				Legs.Frame = 0 + 9 * (int)clothes;
-			}
-			else if (posX < minHelpXPos) {
-				posX = minHelpXPos;
-				currentRoad.Position = new(posX, currentRoad.Position.Y);
-				moving = false;
-				moveDelta = 0;
-				Legs.Frame = 0 + 9 * (int)clothes;
-			}
-
-			/*
-			 -11000   -100
-			11000     2024
-
-			11000 4048
-			-11000-2096
-
-			 */
-
-
-			Background0.Position = new(0.09654545454545455f * posX + 962, 306 - City.Position.Y);
-			Background1.Position = new(0.27945454545454546f * posX + 974, 306 - City.Position.Y);
-		}
-		else if (moving || down) {
-			moving = false;
-			moveDelta = 0;
-			Legs.Frame = 0 + 9 * (int)clothes;
-		}
-
-		if (down) {
-			pickup = true;
-			doActionDelta = 1;
-			Player.Scale = flipL;
-			Body.Frame = 1 + GetFitnessLevel();
-			Face.Frame = 1;
-			Hat.Frame = 1;
-			Legs.Frame = 4 + 9 * (int)clothes;
-			Beard.Frame = Beardlevel(BeardLevels.Pickup);
-			HideBalloon();
-		}
-
-		if (use || (foundLocation != null && foundLocation.type == LocationType.Sign)) {
-			if (foundLocation.type == LocationType.Map) {
-				ShowMap(foundLocation.Pos);
-				foundLocation = null;
-				return;
-			}
-			ShowBalloon(foundLocation.Description, 5);
-			foundLocation = null;
-			return;
-		}
-
-	}
 
 	void SetRoad() {
 		int posX = 0;
@@ -986,7 +807,12 @@ public partial class Help : Node, IGame {
 		return $"${money / 10000000},{(money / 10000) % 1000},{(money / 10) % 1000}.{money % 10}0";
 	}
 
-	private void RemoveMoney(int amount) {
+  private string FormatPocket() {
+    int amount = numBanknotes * 10 + numCoins;
+    return $"$ {amount / 10}.{amount % 10}0";
+  }
+
+  private void RemoveMoney(int amount) {
 		while (amount > 0) {
 			if (numCoins > 0) {
 				if (numCoins <= amount) {
@@ -1087,8 +913,8 @@ public partial class Help : Node, IGame {
 		for (int i = 0; i < Banknotes.Length; i++) {
 			Banknotes[i].Visible = i < numBanknotes;
 		}
-		TotalFunds.Text = FormatMoney(money);
-		return earnedMoney;
+    TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+    return earnedMoney;
 	}
 
 	int CalculateInvSize() {
@@ -1144,7 +970,7 @@ public partial class Help : Node, IGame {
 
 			// Step a random long amount of distance
 			var minDist = 150f;
-			var maxDist = 300f;
+			var maxDist = 250f;
 			pos += rnd.RandfRange(minDist, maxDist);
 		}
 
@@ -1153,207 +979,6 @@ public partial class Help : Node, IGame {
 	#endregion Inventory **************************************************************************     ^Inventory^
 
 	#region actions ******************************************************************************************************************************      [Actions]
-
-	void ProcessActions(double delta) {
-		if (denial && doActionDelta > 0) {
-			Eye.Visible = false;
-			EyesSitClosed.Visible = false;
-			doActionDelta -= delta * 2;
-			int pos = (int)(doActionDelta * 4 + 1) % 4;
-			switch (pos) {
-				case 0: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); break; // Front
-				case 1: Face.Frame = 3; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialR); break; // Right
-				case 2: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); break; // Front
-				case 3: Face.Frame = 4; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialL); break; // Left
-			}
-			if (doActionDelta <= 0) {
-				denial = false;
-				pickup = false;
-				findAround = false;
-				doActionDelta = 0;
-				Body.Frame = 0 + GetFitnessLevel();
-				Face.Frame = 0;
-				Hat.Frame = 0;
-				Legs.Frame = 0 + 9 * (int)clothes;
-				Beard.Frame = Beardlevel(BeardLevels.Walk);
-			}
-			return;
-		}
-
-		if (pickup && doActionDelta > 0) {
-			Eye.Visible = false;
-			EyesSitClosed.Visible = false;
-			doActionDelta -= delta;
-			if (doActionDelta <= .5 && !findAround) {
-				findAround = true;
-				// Check all items around, if they are pickable and have a global X position close to the player position
-				bool foundOne = SearchItems(false, out Pickable p);
-				if (!foundOne) {
-					pickup = false;
-					doActionDelta = 0;
-				}
-				else {
-					if (Pickup(p.ItemType)) p.Free();
-				}
-			}
-			if (doActionDelta <= 0) {
-				pickup = false;
-				findAround = false;
-				doActionDelta = 0;
-				Body.Frame = 0 + GetFitnessLevel();
-				Face.Frame = 0;
-				Hat.Frame = 0;
-				Legs.Frame = 0 + 9 * (int)clothes;
-				Beard.Frame = Beardlevel(BeardLevels.Walk);
-			}
-		}
-
-		if (goingUp && doActionDelta > 0) {
-      Eye.Visible = false;
-			EyesSitClosed.Visible = false;
-			doActionDelta -= delta;
-			Body.Frame = 2 + GetFitnessLevel();
-			Face.Frame = 2;
-			Beard.Visible = false;
-			Hat.Frame = 2;
-			int pos = (int)(doActionDelta * 9) % 4;
-			switch (pos) {
-				case 0: Legs.Frame = 6 + 9 * (int)clothes; break;
-				case 1: Legs.Frame = 5 + 9 * (int)clothes; break;
-				case 2: Legs.Frame = 6 + 9 * (int)clothes; break;
-				case 3: Legs.Frame = 7 + 9 * (int)clothes; break;
-			}
-			Player.Position = new(960, 490 - 45 * (1 - (float)doActionDelta));
-			Player.ZIndex = (int)(71 - 25 * (1 - (float)doActionDelta));
-
-			if (foundLocation.type == LocationType.Bench || foundLocation.type == LocationType.Crossroad) { // try to go to the center
-				if (foundLocation.GlobalPosition.X < Player.GlobalPosition.X - 20) currentRoad.Position += moveL * 2;
-				if (foundLocation.GlobalPosition.X > Player.GlobalPosition.X + 20) currentRoad.Position += moveR * 2;
-			}
-			if (doActionDelta <= 0) {
-				goingUp = false;
-				findAround = false;
-				doActionDelta = 0;
-				Body.Frame = 0 + GetFitnessLevel();
-				Face.Frame = 0;
-				Hat.Frame = 0;
-				Legs.Frame = 0 + 9 * (int)clothes;
-				Player.Position = new(960, 490);
-				Beard.Visible = true;
-				Beard.Frame = Beardlevel(BeardLevels.Walk);
-				// Call the action here
-				if (PerformActionAtLocation()) ResetPlayer();
-			}
-		}
-
-		if (restingOnBench && (dayTime > 23 / 24.0 || dayTime < 5 / 24.0) && !sleepingOnBench) {
-			sleepingOnBench = true;
-			Player.ZIndex = 59;
-			doActionDelta = 1;
-		}
-
-		if (sleepingOnBench && doActionDelta > 0) {
-			doActionDelta -= 3 * delta;
-			restingOnBench = false;
-			Player.Rotation = (1 - (float)doActionDelta) * Mathf.Pi * .5f;
-			Eye.Visible = true;
-			Body.Frame = 0 + GetFitnessLevel();
-			Face.Frame = 0;
-			Legs.Frame = 3 + 9 * (int)clothes;
-			Beard.Frame = Beardlevel(BeardLevels.Walk);
-			Player.Position = new(960, 490 + (1 - (float)doActionDelta) * 5);
-			Player.Scale = new(1 - (1 - (float)doActionDelta) * .4f, 1);
-		}
-
-		if ((sleepingOnBench || restingOnBench) && (Input.IsActionJustPressed("Use") || Input.IsActionJustPressed("Down"))) {
-			ResetPlayer();
-		}
-
-		if (isSweeping && doActionDelta > 0) {
-			broomLevel -= delta;
-			doActionDelta -= delta;
-			BroomPlayer.Rotation = Mathf.Sin((float)doActionDelta * 9.45f) * .2f;
-			if (doActionDelta <= 0) {
-				if (broomItem != null) {
-					if (broomItem.ItemType == PickableItem.Coin || broomItem.ItemType == PickableItem.Banknote) Pickup(broomItem.ItemType);
-					broomItem.Free();
-				}
-				// Have NPCs to be happy around
-				foreach (var npc in NPCs) {
-					int val = broomItem.ItemType switch {
-						PickableItem.Coin => 0,
-						PickableItem.Banknote => 0,
-						PickableItem.Bottle => 1,
-						PickableItem.Can => 1,
-						PickableItem.Poop => 3,
-						PickableItem.Paper => 1,
-						PickableItem.Bone => 2,
-						PickableItem.Carrot => 1,
-						PickableItem.RotCarrot => 2,
-						_ => 0
-					};
-					if (npc.SetHappiness(val, true, Player.GlobalPosition.X)) break;
-				}
-				broomItem = null;
-				isSweeping = false;
-				doActionDelta = 0;
-				ResetPlayer();
-				if (broomLevel <= 0) {
-					hasBroom = false;
-					Broom.Visible = false;
-					ShowBalloon("The broom is gone.\nWas used too much and collapsed.", 2);
-				}
-			}
-			return;
-		}
-
-
-		if (doingGym) {
-			fitness += delta * .025 * timeSpeed;
-			if (fitness > 100) fitness = 100;
-			pbFitness.Value = fitness;
-			rest -= delta * .02 * timeSpeed;
-			if (rest < 0) rest = 0;
-			bodySmell += delta * .01 * timeSpeed;
-			if (bodySmell > 100) bodySmell = 100;
-			if (dayTime >= foundLocation?.EndTime / 24.0) {
-				ResetPlayer();
-				doingGym = false;
-				foundLocation = null;
-			}
-		}
-
-		if (doActionDelta <= 0) Beard.Frame = Beardlevel(BeardLevels.Walk);
-
-
-		if (npcBalloonDelay1 > 0) {
-			if (npcForBalloon1 == null) {
-				npcBalloonDelay1 = 0;
-				NPCBalloon1.Visible = false;
-			}
-			else {
-				npcBalloonDelay1 -= delta;
-				NPCBalloon1.Position = npcForBalloon1.GetGlobalTransformWithCanvas().Origin + NPCBalloonOffset;
-				if (npcBalloonDelay1 <= 0) {
-					NPCBalloon1.Visible = false;
-				}
-			}
-		}
-		if (npcBalloonDelay2 > 0) {
-			if (npcForBalloon2 == null) {
-				npcBalloonDelay2 = 0;
-				NPCBalloon2.Visible = false;
-			}
-			else {
-				npcBalloonDelay2 -= delta;
-				NPCBalloon2.Position = npcForBalloon2.GetGlobalTransformWithCanvas().Origin + NPCBalloonOffset;
-				if (npcBalloonDelay2 <= 0) {
-					NPCBalloon2.Visible = false;
-				}
-			}
-		}
-
-	}
 
 
 	private bool SearchItems(bool brooming, out Pickable pickable) {
@@ -1384,7 +1009,8 @@ public partial class Help : Node, IGame {
 				}
 				Coins[numCoins].Visible = true;
 				numCoins++;
-				SoundPlayer.Stream = PickupSound;
+        TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+        SoundPlayer.Stream = PickupSound;
 				SoundPlayer.Play();
 				return true;
 
@@ -1395,7 +1021,8 @@ public partial class Help : Node, IGame {
 				}
 				Banknotes[numBanknotes].Visible = true;
 				numBanknotes++;
-				SoundPlayer.Stream = PickupSound;
+        TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+        SoundPlayer.Stream = PickupSound;
 				SoundPlayer.Play();
 				return true;
 
@@ -1544,8 +1171,8 @@ public partial class Help : Node, IGame {
 						numCoins = 0;
 						foreach (var i in Coins) i.Visible = false;
 						foreach (var i in Banknotes) i.Visible = false;
-						TotalFunds.Text = FormatMoney(money);
-						StopEnemies();
+            TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+            StopEnemies();
 					}
 					else {
 						ShowBalloon("I need an ATM card...", 2);
@@ -1560,8 +1187,8 @@ public partial class Help : Node, IGame {
 						numCoins = 0;
 						foreach (var i in Coins) i.Visible = false;
 						foreach (var i in Banknotes) i.Visible = false;
-						TotalFunds.Text = FormatMoney(money);
-						success = ResultSound.ATM;
+            TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+            success = ResultSound.ATM;
 						StopEnemies();
 					}
 					else if (HasMoneyInBank(10)) {
@@ -2431,7 +2058,6 @@ public partial class Help : Node, IGame {
 
 		// How much time between spawns?
 		enemyDelay -= delta;
-		//		Debug.Text = $"{enemyDelay:F1}";
 		if (enemyDelay > 0) return;
 
 		// What type of enemy to spawn?
@@ -2507,11 +2133,7 @@ public partial class Help : Node, IGame {
     maxHelpXPos = max;
   }
 
-	[Export] Label Debug;
-
   void ProcessHelp(double d) {
-		Debug.Text = $"{((int)currentRoad.Position.X)}  {doActionDelta:F1}  {helpWrite}  {actionPosible}   ({helpStage})";
-
     if (helpStage == 6 && drink > 10) {
       drink -= 5 * d;
 			pbDrink.Value = drink;
@@ -2964,47 +2586,47 @@ public partial class Help : Node, IGame {
 
 
   string[] help = {
-	/* 0 */	"Hello!\n (press A or ctrl to speed up;  press Esc or Start to exit).\n" +
-					"You are this guy sit on the bench. You have literally nothing.\nGet up by going down (S key or Cursor down or move down with controller)*",
+		/* 0 */    "Hello!\n (press A or ctrl to speed up;  press Esc or Start to exit).\n" +
+               "You're the guy that's sitting on the bench. You have nothing.\nGet up by going down (S key or Cursor down or move down with controller)*",
 
-	/* 1 */	"Now that you are up, you can move left and right *(controller or keyboard).\n" +
-					"You can press shift (or B on the controller) to move faster.",
+    /* 1 */    "Now that you are up, you can move left and right *(controller or keyboard).\n" +
+               "You can hold down shift (or B on the controller) to move faster.",
 
-	/* 2 */	"If you look on the left, there is a $1 banknote on the ground*.\n"+
-					"Move over it and then go down again to pick it up.",
+    /* 2 */    "If you look on the left, there is a $1 banknote on the ground*.\n"+
+               "Move over it and then go down to pick it up. (S key or move down with controller)",
 
-	/* 3 */	"There are many locations inside the game,\nfor example here is a sign ",
-	/* 4 */	"that shows* the current road and the map of the city.\nGo under it and press the action key (Ctrl, Enter, or button A on the controller)",
-	
-	/* 5 */	"*Click to close the map, or use Ctrl, Enter, or A on the Controller.",
+    /* 3 */    "There are many locations you can visit in the game,\nfor example here is a sign ",
+    /* 4 */    "that shows* the current road and the map of the city.\nGo under it and press the action key (Ctrl, Enter, or button A on the controller)",
+    
+    /* 5 */    "*Click to close the map, or use Ctrl, Enter, or A on the Controller.",
 
-	/* 6 */	"If you look at the bottom of your screen, you will see that you have some statistics*.\nFor example you are starting to get thirsty.\nThere is a fountain just here, more to the left.\nMove under it and then go up to drink.",
+    /* 6 */    "At the bottom of your screen you can see your statistics*.\nFor example you are getting thirsty.\nThere is a fountain just on your left.\nMove under it and then go up to drink. (W or move up on controller)",
 
-	/* 7 */	"Now you are good with drinks, but you may want also some food.\n*Move on the right and you will find a hot dog shop (remember that you can move fast with Shift or B).\nThe cost is exactly $1 so you can pay for it.\nYou need to sustain yourself (food, drink, and rest) to avoid to die.",
+    /* 7 */    "Now you have thirst covered, but you might also want some food.\n*Move on the right and you will find a hot dog shop\n(remember that you can move faster by holding Shift or B).\nThe cost is exactly $1 so you can pay for it.\nYou need to manage your food, drink, and rest to stay alive.",
 
-	/* 8 */	"You can find items on the ground.\nIt is mostly trash that can be recycled.\n Pick as many items you want.",
+    /* 8 */    "You can find items on the ground.\nIt is mostly trash that can be recycled.\n Pick as many items you want.",
 
-	/* 9 */	"*If you continue picking items you will discover that you cannoy pick up forever.\nYour space is limited and some items will not fit in your inventory.\nEither you can recycle some items (cans, bottles, paper),\neither you can throw then in a trashcan.\nThere is a transhcan close to the hot dogs stand, use it",
+    /* 9 */    "*If you continue picking up items you will discover that you cannot pick up forever.\nYour space is limited and some items will not fit in your inventory.\nYou can either recycle some items (cans, bottles, paper),\nor you can throw the in a trashcan.\nThere is a transhcan close to the hot dogs stand, use it",
 
-	/* 10 */	"*You can also find places where you can work.\nAnd you need to respect some requirements for each job:\nclothes, shaved beard, education, and decent smell.",
+    /* 10 */   "*You can also find places where you can work.\nYou need to meet certain requirements for each job:\nappropriate clothing, a shaved beard, education, and a decent smell.",
 
-  /* 11 */  "*Clothes: you cannot work in an office with rags.\nThere are shops where you can find and buy clothes.\nOn the very left there is a clothes shop.\nGo there and buy some (they are free.)",
+		/* 11 */		"*Clothes: you cannot work in an office with rags.\nThere are shops in which you can buy clothes.\nOn the very left there is a clothes shop.\nGo there and buy some (they are free.)",
 
-  /* 12 */  "*Beard: some jobs, like resturants do not like long beards for the personnel.\nYou can either go to a barber shop or buy a razor and use it in your home or an hotel.\nThere is a barber shop on the left, pay it a visit.",
+		/* 12 */		"*Beard: some jobs, like resturants do not like long beards for the personnel.\nYou can either go to a barber shop or buy a razor and use it in your home or an hotel.\nThere is a barber shop on the left, take a visit.",
 
-  /* 13 */  "*Education: some jobs require you to have a decent education.\nYou start at zero, and you have to do the learning from elemntary schools up to college.\nThere are different schools in the city for all levels.",
+		/* 13 */		"*Education: some jobs require you to have a decent education.\nYou start at zero, and you have to do the learning from elemntary schools up to college.\nThere are different schools in the city for all levels.",
 
-	/* 14 */	"*Smell: you have to take showers and wash your clothes.\nYou need soap to wash yourself and you can use laundry machines for your clothes.",
+    /* 14 */    "*Smell: you have to take showers to clean your body and should wash your clothes.\nYou need soap to wash yourself and you can use laundry machines for your clothes.\nThe Smell statistic is the sum of both smells.",
 
-	/* 15 */	"*Beware that the city is full of people, some will like you some will not.\nIn case you do good deeds they may appreciate you more.",
+    /* 15 */    "*Beware that the city is full of people, some will like you some will not.\nIn case you do good deeds they may appreciate you more.",
 
-	/* 16 */	"*There are also bad people in the city.\nTry to avoid them by running away or entering locations.",
+    /* 16 */    "*There are also bad people in the city.\nTry to avoid them by running away or entering locations.",
 
-	/* 17 */	"*You can also go to the gym to get a better fit and walk faster.\nOr use the metro to quickly move from a road to another",
-	
-	/* 18 */	"*Enjoy the game and try to reach 1 million $ to win!",
+    /* 17 */    "*You can also go to the gym to get a better fit and walk faster.\nOr use the metro to quickly move from a road to another",
+    
+    /* 18 */    "*Enjoy the game and try to reach 1 million $ to win!",
 
-	/* 19 */	"*Press Esc or Ctrl, or Enter or button A on controller to go back to the game."
+    /* 19 */    "*Press Esc or Ctrl, or Enter or button A on controller to go back to the game."
   };
 
 }

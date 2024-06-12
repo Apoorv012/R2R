@@ -1,7 +1,6 @@
 using Godot;
 using System;
 using System.Collections.Generic;
-using System.Runtime.Intrinsics.X86;
 
 namespace R2R;
 
@@ -31,7 +30,8 @@ public partial class Game : Node, IGame {
 	[ExportGroup("UI")]
 	[Export] Label DayNum, DayTime, TotalFunds;
 	[Export] Label GlobalMessage;
-	[Export] ProgressBar pbFood, pbDrink, pbRest, pbSmell, pbBeard, pbEducation, pbFitness;
+	[Export] ProgressBar pbFood, pbDrink, pbRest, pbSmellB, pbSmellC, pbBeard, pbEducation, pbFitness;
+	[Export] Label pbSmellL;
 	[Export] HBoxContainer ItemsHBox;
 	[Export] TextureRect ATMCard;
 	[Export] TextureRect[] Tickets;
@@ -435,7 +435,8 @@ public partial class Game : Node, IGame {
   private void ResetAllValues() {
 		dayNum = 1;
 		dayTime = 8 / 24.0; // 0 .. 1
-		waitUntil = -1;
+    DayNum.Text = $"Day {dayNum}, week {dayNum / 7 + 1}";
+    waitUntil = -1;
 		sleeping = false;
 		hospital = false;
 		doingGym = false;
@@ -534,7 +535,8 @@ public partial class Game : Node, IGame {
 
 		foreach (var npc in NPCs) npc.Delete();
 		NPCs.Clear();
-		if (enemy != null) {
+		for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
+    if (enemy != null) {
 			enemy.Free();
 			enemy = null;
 		}
@@ -548,8 +550,11 @@ public partial class Game : Node, IGame {
 		ArrangeWallet(0);
 		ResetPlayer();
 		SetClothes(Clothes.Rags);
-		SetRoad(SlumStreet, 0);
-	}
+		SetRoad(SlumStreet, 5000);
+
+		// FIXME
+		Pickup(PickableItem.Bone);
+  }
 
 	bool joyJustPressed = false;
 
@@ -559,7 +564,24 @@ public partial class Game : Node, IGame {
 		bool lb = Input.IsJoyButtonPressed(0, JoyButton.LeftShoulder);
 		bool joyBack = Input.IsJoyButtonPressed(0, JoyButton.Back);
 
-		if (!rb && !lb && !joyStart && !joyBack) {
+
+
+		if (Input.IsActionJustPressed("Z")) { // FIXME
+
+    }
+
+
+		if (musicToSetDelay > 0) {
+			musicToSetDelay -= delta;
+			if (musicToSetDelay <= 0) {
+        MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
+				MusicPlayer.Stream = musicToSet;
+				musicToSetDelay = 0;
+				musicToSet = null;
+      }
+    }
+
+    if (!rb && !lb && !joyStart && !joyBack) {
 			joyJustPressed = false;
 		}
 		if (status == Status.Intro) {
@@ -600,10 +622,6 @@ public partial class Game : Node, IGame {
 			SwitchFullscreen();
 			SaveOptions();
 		}
-
-		if (Input.IsActionJustPressed("Z")) {
-      SetStatus(Status.Win);
-    }
 
 		if (globalMessageTimeout > 0) {
 			globalMessageTimeout -= delta;
@@ -727,11 +745,15 @@ public partial class Game : Node, IGame {
 			dayNum++;
 			DayNum.Text = $"Day {dayNum}, week {dayNum / 7 + 1}";
 			isDogPacified = false;
-			currentHotel = null;
+      throwBone = 0;
+      BoneForDog.Visible = false;
+      DumpDog.Visible = false;
+      DumpDog.Frame = 0;
+      currentHotel = null;
 			if (prevWeek != dayNum / 7) {
 				money += (int)(investedMoney * .1);
-				TotalFunds.Text = FormatMoney(money);
-			}
+        TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+      }
 			foreach (var a in apartments) {
 				if (a.RentedDays > 0) a.RentedDays--;
 			}
@@ -934,7 +956,7 @@ public partial class Game : Node, IGame {
 			right = false;
 		}
 
-		if (restingOnBench) {
+		if (restingOnBench || sleepingOnBench || sleeping) {
 			up = false;
 			down = false;
 			left = false;
@@ -1026,7 +1048,7 @@ public partial class Game : Node, IGame {
 		else if (left || right || fitPosition) {
 			fitPosition = false;
 			moving = true;
-			double multiplier = (running ? 2.75 : 1.5) * (rest <= 0 ? .5 : 1) * (rest > 90 ? 1.1 : 1) * (1 + fitness * 0.01);
+			double multiplier = (running ? 3.25 : 2) * (rest <= 0 ? .5 : 1) * (rest > 90 ? 1.1 : 1) * (1 + fitness * 0.01);
 			moveDelta += delta * multiplier;
 			if (moveDelta > moveSpeed) {
 				moveDelta -= moveSpeed;
@@ -1132,21 +1154,27 @@ public partial class Game : Node, IGame {
 
 	}
 
-	void SetRoad(Road road, float posX) {
-		currentRoad = road;
+	AudioStream musicToSet = null;
+	double musicToSetDelay = 0;
+
+  void SetRoad(Road road, float posX) {
+		Tween tween = GetTree().CreateTween();
+		tween.TweenProperty(MusicPlayer, "volume_db", -20, .5);
+
+    currentRoad = road;
 		handlingCrossroads = true;
 		Crossroads = road.Crossroads;
 		handlingCrossroads = false;
 		currentRoad.Position = new(posX, currentRoad.Position.Y);
-		switch (road.Name) {
+		musicToSetDelay = 1;
+    switch (road.Name) {
 			case RoadName.Slum_Street:
 				City.Position = new(0, 0);
 				Sun.Position = new(395, 162);
 				Background0.Texture = Mountains;
 				Background1a.Texture = Hills;
 				Background1b.Texture = Hills;
-				MusicPlayer.Stream = GetMusic(MusicC64);
-        MusicPlayer.Stream = MusicC64;
+        musicToSet = GetMusic(MusicC64);
 				break;
 
 			case RoadName.Main_Street:
@@ -1155,7 +1183,7 @@ public partial class Game : Node, IGame {
 				Background0.Texture = Skyscrapers;
 				Background1a.Texture = Buildings;
 				Background1b.Texture = Buildings;
-				MusicPlayer.Stream = GetMusic(MusicOrchestra);
+        musicToSet = GetMusic(MusicOrchestra);
 				break;
 
 			case RoadName.Side_Road:
@@ -1164,7 +1192,7 @@ public partial class Game : Node, IGame {
 				Background0.Texture = Mountains;
 				Background1a.Texture = Hills;
 				Background1b.Texture = Hills;
-				MusicPlayer.Stream = GetMusic(MusicDisco);
+        musicToSet = GetMusic(MusicDisco);
 				break;
 
 			case RoadName.North_Road:
@@ -1173,7 +1201,7 @@ public partial class Game : Node, IGame {
 				Background0.Texture = Skyscrapers;
 				Background1a.Texture = Buildings;
 				Background1b.Texture = Buildings;
-				MusicPlayer.Stream = GetMusic(MusicRock);
+				musicToSet = GetMusic(MusicRock);
 				break;
 
 			case RoadName.Top_Boulevard:
@@ -1182,7 +1210,7 @@ public partial class Game : Node, IGame {
 				Background0.Texture = Skyscrapers;
 				Background1a.Texture = Buildings;
 				Background1b.Texture = Buildings;
-				MusicPlayer.Stream = GetMusic(MusicDance);
+        musicToSet = GetMusic(MusicDance);
 				break;
 
 			case RoadName.Suburb_Avenue:
@@ -1191,7 +1219,7 @@ public partial class Game : Node, IGame {
 				Background0.Texture = Mountains;
 				Background1a.Texture = Hills;
 				Background1b.Texture = Hills;
-				MusicPlayer.Stream = GetMusic(MusicBroken);
+				musicToSet = GetMusic(MusicBroken);
 				break;
     }
 
@@ -1219,6 +1247,7 @@ public partial class Game : Node, IGame {
 
 		foreach (var npc in NPCs) npc.Delete();
 		NPCs.Clear();
+    for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
 		if (enemy != null) {
 			enemy.Free();
 			enemy = null;
@@ -1228,7 +1257,23 @@ public partial class Game : Node, IGame {
 		Player.ZIndex = 75;
 		SpawnItems();
 		fitPosition = true;
-		enableLights = !enableLights;
+
+    // Set forcibly the lights
+    int now = (int)(dayTime * 24);
+    if (now < 5 || now > 21) {
+			enableLights = true;
+			foreach (var light in currentRoad.StreetLights.GetChildren()) {
+				if (light.GetChild(0) is PointLight2D l)
+					l.Enabled = true;
+			}
+		}
+		else {
+			enableLights = false;
+			foreach (var light in currentRoad.StreetLights.GetChildren()) {
+				if (light.GetChild(0) is PointLight2D l)
+					l.Enabled = false;
+			}
+		}
 	}
 
   private AudioStream GetMusic(AudioStream defaultMusic) {
@@ -1277,30 +1322,35 @@ public partial class Game : Node, IGame {
 	#region stats ********************************************************************************************************************************      [Stats]
 
 	void HandleStats(double delta) {
-		double diff = dayTime - prevDayTime;
+		double timeDiff = dayTime - prevDayTime;
 		if (prevDayTime > dayTime) {
 			prevDayTime = 0;
 			return;
 		}
 		prevDayTime = dayTime;
-		if (diff >= dayTime) return;
+		if (timeDiff >= dayTime) return;
 
-		double nFood = food - diff * 75 * (running ? 1.5 : 1);
-		if (nFood < 0) nFood = 0;
-		double nDrink = drink - diff * 150 * (running ? 1.25 : 1);
-		if (nDrink < 0) nDrink = 0;
+
+		bool whileWorking = (foundLocation != null && foundLocation.type == LocationType.Job);
+		double difficultyFactor = 0.9 * gameDifficulty + 0.3;
+		double difficultyFactorRest = 0.667 * gameDifficulty + 0.5;
+
+    double nFood = food - timeDiff * 75 * (running ? 1.5 : 1) * (whileWorking ? .5 : 1) * difficultyFactor;
+    if (nFood < 0) nFood = 0;
+		double nDrink = drink - timeDiff * 150 * (running ? 1.25 : 1) * (whileWorking ? .5 : 1) * difficultyFactor;
+    if (nDrink < 0) nDrink = 0;
 		double restSpeed = dayTime < 6 / 24.0 || dayTime > 22 / 24.0 ? 85 : 60; // During the night the rest decreases faster
-		double nRest = rest - diff * restSpeed * (running ? 2 : 1) * (nFood == 0 && nDrink == 0 ? 10 : 1);
-		if (nRest < 0) nRest = 0;
-		double nBodySmell = bodySmell + diff * 35 * (running ? 2 : 1);
-		if (nBodySmell > 100) nBodySmell = 100;
-		double nClothesSmell = dirtyClothes + diff * 15;
-		if (dirtyClothes > 100) dirtyClothes = 100;
+		double nRest = rest - timeDiff * restSpeed * (running ? 2 : 1) * (nFood == 0 && nDrink == 0 ? 10 : 1) * difficultyFactorRest;
+    if (nRest < 0) nRest = 0;
+		double nBodySmell = bodySmell + timeDiff * 35 * (running ? 2 : 1) * difficultyFactor;
+    if (nBodySmell > 100) nBodySmell = 100;
+		double nClothesSmell = dirtyClothes + timeDiff * 15 * difficultyFactor;
+    if (dirtyClothes > 100) dirtyClothes = 100;
 		double nSmell = nBodySmell + nClothesSmell;
 		if (nSmell > 100) nSmell = 100;
 		totalSmell = nSmell;
-		double nBeard = beard + diff * 25;
-		if (nBeard > 100) nBeard = 100;
+		double nBeard = beard + timeDiff * 25 * difficultyFactor;
+    if (nBeard > 100) nBeard = 100;
 
 		if (restingOnBench) {
 			nRest += delta;
@@ -1317,15 +1367,16 @@ public partial class Game : Node, IGame {
 		pbDrink.SetValueNoSignal(drink);
 		rest = nRest;
 		pbRest.SetValueNoSignal(rest);
-		pbSmell.SetValueNoSignal(nSmell);
+		pbSmellB.SetValueNoSignal(nBodySmell);
+		pbSmellC.SetValueNoSignal(nClothesSmell);
+		pbSmellL.Text = $"{nSmell:N0}%";
 		bodySmell = nBodySmell;
 		dirtyClothes = nClothesSmell;
 		beard = nBeard;
 		pbBeard.SetValueNoSignal(beard);
 
-
-		// Handle death and collapse
-		if (food == 0 && drink == 0 && rest == 0) {
+    // Handle death and collapse
+    if (food == 0 && drink == 0 && rest == 0) {
 			if (foundLocation != null && foundLocation.type == LocationType.Job && HasMoney(100)) {
 				// If we working we will go to the Hospital
 				if (!hospital) {
@@ -1408,9 +1459,14 @@ public partial class Game : Node, IGame {
 	#region Inventory ****************************************************************************************************************************      [Inventory]
 
 	private static string FormatMoney(int money) {
-		if (money < 1000) return $"${money / 10}.{money % 10}0";
-		if (money < 1000000) return $"${money / 10000},{(money / 10) % 1000}.{money % 10}0";
-		return $"${money / 10000000},{(money / 10000) % 1000},{(money / 10) % 1000}.{money % 10}0";
+		if (money < 1000) return $"$ {money / 10}.{money % 10}0";
+		if (money < 1000000) return $"$ {money / 10000},{(money / 10) % 1000}.{money % 10}0";
+		return $"$ {money / 10000000},{(money / 10000) % 1000},{(money / 10) % 1000}.{money % 10}0";
+	}
+
+	private string FormatPocket() {
+		int amount = numBanknotes * 10 + numCoins;
+		return $"$ {amount / 10}.{amount % 10}0";
 	}
 
 	private void RemoveMoney(int amount) {
@@ -1514,7 +1570,7 @@ public partial class Game : Node, IGame {
 		for (int i = 0; i < Banknotes.Length; i++) {
 			Banknotes[i].Visible = i < numBanknotes;
 		}
-		TotalFunds.Text = FormatMoney(money);
+		TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
 		if (money >= 10000000) {
 			SetStatus(Status.Win);
 		}
@@ -1949,7 +2005,8 @@ public partial class Game : Node, IGame {
 				}
 				Coins[numCoins].Visible = true;
 				numCoins++;
-				SoundPlayer.Stream = PickupSound;
+        TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+        SoundPlayer.Stream = PickupSound;
 				SoundPlayer.Play();
 				return true;
 
@@ -1960,7 +2017,8 @@ public partial class Game : Node, IGame {
 				}
 				Banknotes[numBanknotes].Visible = true;
 				numBanknotes++;
-				SoundPlayer.Stream = PickupSound;
+        TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+        SoundPlayer.Stream = PickupSound;
 				SoundPlayer.Play();
 				return true;
 
@@ -2111,8 +2169,8 @@ public partial class Game : Node, IGame {
 						numCoins = 0;
 						foreach (var i in Coins) i.Visible = false;
 						foreach (var i in Banknotes) i.Visible = false;
-						TotalFunds.Text = FormatMoney(money);
-						StopEnemies();
+            TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+            StopEnemies();
 					}
 					else {
 						ShowBalloon("I need an ATM card...", 2);
@@ -2127,8 +2185,8 @@ public partial class Game : Node, IGame {
 						numCoins = 0;
 						foreach (var i in Coins) i.Visible = false;
 						foreach (var i in Banknotes) i.Visible = false;
-						TotalFunds.Text = FormatMoney(money);
-						success = ResultSound.ATM;
+            TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+            success = ResultSound.ATM;
 						StopEnemies();
 					}
 					else if (HasMoneyInBank(10)) {
@@ -2178,6 +2236,7 @@ public partial class Game : Node, IGame {
 								success = ResultSound.Toilet;
 								resetPlayer = false;
 								StopEnemies();
+								foundLocation = l;
 								break;
 
 							case ItemDelivered.Razor:
@@ -2476,9 +2535,16 @@ public partial class Game : Node, IGame {
 
 			case LocationType.Dump:
 				if (isDogPacified) {
-					Pickup(PickableItem.Bottle);
-					success = ResultSound.GenericSuccess;
-					StopEnemies();
+					if (!Pickup(PickableItem.Bottle)) {
+            GlobalMessage.Text = "I am already full!";
+            globalMessageTimeout = 2;
+            denial = false;
+            doActionDelta = 0;
+          }
+          else {
+						success = ResultSound.GenericSuccess;
+						StopEnemies();
+					}
 				}
 				else {
 					if (numBones > 0) {
@@ -2827,7 +2893,7 @@ public partial class Game : Node, IGame {
     }
 		else {
 			ArrangeWallet(foundLocation.price);
-			ShowBalloon($"I got $ {FormatMoney(foundLocation.price)}", 2);
+			ShowBalloon($"I got {FormatMoney(foundLocation.price)}", 2);
 		}
 		Player.Visible = true;
 		ResetPlayer();
@@ -2837,11 +2903,12 @@ public partial class Game : Node, IGame {
 	}
 
 	public bool IsPlayerReacheable() {
-		if (status == Status.Win) return false;
+    if (jail || sleeping || hospital || doingGym || restingOnBench || sleepingOnBench || fading) return false;
+    if (status != Status.Playing) return false;
 
-		return (status == Status.Playing && !jail &&
-			(foundLocation == null ||
-			(foundLocation.type != LocationType.Bench && foundLocation.type != LocationType.Garden && waitUntil != -1 && waitUntilNextDay != -1 && doActionDelta > 0)));
+    if (foundLocation == null ||
+      (foundLocation.type != LocationType.Bench && foundLocation.type != LocationType.Garden && waitUntil != -1 && waitUntilNextDay != -1 && doActionDelta <= 0)) return true;
+    return false;
 	}
 
 	#endregion actions **************************************************************************     ^Actions^
@@ -2877,7 +2944,6 @@ public partial class Game : Node, IGame {
     Player.Visible = true;
 		BroomPlayer.Visible = false;
 		HandBrooming.Visible = false;
-		SoundPlayer.Stop();
 	}
 
 	// Beard:  Walk = 0, Pickup = 1, DenialL = 3, DenialR = 2, Sit = 4
@@ -3130,7 +3196,7 @@ public partial class Game : Node, IGame {
 			RoadName.Top_Boulevard => 3,
 			RoadName.North_Road => 1,
 			RoadName.Suburb_Avenue => 1,
-			_ => 0
+			_ => 2
 		};
 		if (dayTime > 23 / 24.0) {
 			return 0;
@@ -3170,7 +3236,8 @@ public partial class Game : Node, IGame {
 
 	void RemoveAllNPCs() {
 		foreach (var npc in NPCs) npc.Delete();
-		NPCs.Clear();
+    for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
+    NPCs.Clear();
 		if (enemy != null) {
 			enemy.Free();
 			enemy = null;
@@ -3184,22 +3251,18 @@ public partial class Game : Node, IGame {
 			return;
 		}
 
-		int pos = 0;
-		for (int i = 0; i < npcOrders.Length; i++) {
-			if (!npcOrders[i]) {
-				pos = i;
-				break;
-			}
-		}
-		if (pos == -1) {
-			GlobalMessage.Text = $"Cannot find a place to set the order for the NPC: {npcOrders[0]},{npcOrders[1]},{npcOrders[2]},{npcOrders[3]},{npcOrders[4]}";
-			globalMessageTimeout = 5;
-			return;
-		}
-		npcOrders[pos] = true;
-
 		int expected = NPCsPerDayTime();
 		if (numNPCs < expected) {
+			int pos = 0;
+			for (int i = 0; i < npcOrders.Length; i++) {
+				if (!npcOrders[i]) {
+					pos = i;
+					break;
+				}
+			}
+			if (pos == -1) return; // No free space
+			npcOrders[pos] = true;
+
 			var r = rnd.Randf();
 			PackedScene npcScene;
 			bool female = false;
@@ -3446,7 +3509,7 @@ public partial class Game : Node, IGame {
 				break;
 
 			case EnemyType.Orban:
-				ShowBalloon("This guy stoled everything I had!\nHe should be kicked out of civilized countries!", 2);
+				ShowBalloon("This guy stole everything I had!\nHe should be kicked out of civilized countries!", 2);
 				numBanknotes = 0;
 				numCoins = 0;
 				hasBroom = false;
