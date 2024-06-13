@@ -1928,8 +1928,8 @@ scale = Vector2(1, 1.29574)
 texture = ExtResource("13_y3fgh")
 
 [node name="PointLight2D" type="PointLight2D" parent="City/SuburbAvenue/SB_Lights/StreetLamp"]
-position = Vector2(-46, 40.4506)
-scale = Vector2(0.925, 0.619991)
+position = Vector2(-46, 55.4998)
+scale = Vector2(0.925, 0.662866)
 enabled = false
 color = Color(1, 0.827451, 0.333333, 1)
 energy = 1.2
@@ -1942,8 +1942,8 @@ scale = Vector2(-1, 1.296)
 texture = ExtResource("13_y3fgh")
 
 [node name="PointLight2D" type="PointLight2D" parent="City/SuburbAvenue/SB_Lights/StreetLamp4"]
-position = Vector2(-46, 37.7252)
-scale = Vector2(0.925, 0.612226)
+position = Vector2(-46, 55.578)
+scale = Vector2(0.925, 0.663089)
 enabled = false
 color = Color(1, 0.827451, 0.333333, 1)
 energy = 1.2
@@ -1956,8 +1956,8 @@ scale = Vector2(-1, 1.296)
 texture = ExtResource("13_y3fgh")
 
 [node name="PointLight2D" type="PointLight2D" parent="City/SuburbAvenue/SB_Lights/StreetLamp5"]
-position = Vector2(-46, 35.892)
-scale = Vector2(0.925, 0.607003)
+position = Vector2(-46, 54.4312)
+scale = Vector2(0.925, 0.659821)
 enabled = false
 color = Color(1, 0.827451, 0.333333, 1)
 energy = 1.2
@@ -1997,8 +1997,8 @@ scale = Vector2(-1, 1.296)
 texture = ExtResource("13_y3fgh")
 
 [node name="PointLight2D" type="PointLight2D" parent="City/SuburbAvenue/SB_Lights/StreetLamp3"]
-position = Vector2(-46, 35.4337)
-scale = Vector2(0.925, 0.605698)
+position = Vector2(-46, 54.6599)
+scale = Vector2(0.925, 0.660473)
 enabled = false
 color = Color(1, 0.827451, 0.333333, 1)
 energy = 1.2
@@ -3585,8 +3585,8 @@ scale = Vector2(1, 1.40261)
 texture = ExtResource("13_y3fgh")
 
 [node name="PointLight2D" type="PointLight2D" parent="City/NorthRoad/NS_Lights/StreetLamp2"]
-position = Vector2(-46, 34.1837)
-scale = Vector2(0.925, 0.602136)
+position = Vector2(-46, 51.2948)
+scale = Vector2(0.925, 0.650886)
 enabled = false
 color = Color(1, 0.827451, 0.333333, 1)
 energy = 1.2
@@ -3599,8 +3599,8 @@ scale = Vector2(-1, 1.41842)
 texture = ExtResource("13_y3fgh")
 
 [node name="PointLight2D" type="PointLight2D" parent="City/NorthRoad/NS_Lights/StreetLamp3"]
-position = Vector2(-46, 33.9426)
-scale = Vector2(0.925, 0.601449)
+position = Vector2(-46, 53.3915)
+scale = Vector2(0.925, 0.656859)
 enabled = false
 color = Color(1, 0.827451, 0.333333, 1)
 energy = 1.2
@@ -3627,8 +3627,8 @@ scale = Vector2(-1, 1.33494)
 texture = ExtResource("13_y3fgh")
 
 [node name="PointLight2D" type="PointLight2D" parent="City/NorthRoad/NS_Lights/StreetLamp5"]
-position = Vector2(-46, 35.2488)
-scale = Vector2(0.925, 0.605171)
+position = Vector2(-46, 53.9142)
+scale = Vector2(0.925, 0.658349)
 enabled = false
 color = Color(1, 0.827451, 0.333333, 1)
 energy = 1.2
@@ -3641,8 +3641,8 @@ scale = Vector2(1, 1.38734)
 texture = ExtResource("13_y3fgh")
 
 [node name="PointLight2D" type="PointLight2D" parent="City/NorthRoad/NS_Lights/StreetLamp6"]
-position = Vector2(-46, 32.2911)
-scale = Vector2(0.925, 0.596744)
+position = Vector2(-46, 55.3567)
+scale = Vector2(0.925, 0.662458)
 enabled = false
 color = Color(1, 0.827451, 0.333333, 1)
 energy = 1.2
@@ -5289,7 +5289,6 @@ texture = ExtResource("79_i0fqw")
 z_index = 5
 
 [node name="MS_Lights" type="Node2D" parent="City/MainStreet"]
-visible = false
 z_index = 80
 
 [node name="StreetLamp" type="Sprite2D" parent="City/MainStreet/MS_Lights"]
@@ -5339,8 +5338,8 @@ scale = Vector2(-1, 1.65)
 texture = ExtResource("13_y3fgh")
 
 [node name="PointLight2D" type="PointLight2D" parent="City/MainStreet/MS_Lights/StreetLamp6"]
-position = Vector2(-46, 19.3939)
-scale = Vector2(0.925, 0.56)
+position = Vector2(-46, 47.8466)
+scale = Vector2(0.925, 0.641062)
 enabled = false
 color = Color(1, 0.827451, 0.333333, 1)
 energy = 1.2
@@ -5354,8 +5353,8 @@ scale = Vector2(-1, 1.65)
 texture = ExtResource("13_y3fgh")
 
 [node name="PointLight2D" type="PointLight2D" parent="City/MainStreet/MS_Lights/StreetLamp7"]
-position = Vector2(-46, 19.3939)
-scale = Vector2(0.925, 0.56)
+position = Vector2(-46, 45.4251)
+scale = Vector2(0.925, 0.634163)
 enabled = false
 color = Color(1, 0.827451, 0.333333, 1)
 energy = 1.2
@@ -6231,8 +6230,8 @@ scale = Vector2(1, 1.65)
 texture = ExtResource("13_y3fgh")
 
 [node name="PointLight2D" type="PointLight2D" parent="City/SlumStreet/SS_Lights/StreetLamp Market"]
-position = Vector2(-46, 19.3939)
-scale = Vector2(0.925, 0.56)
+position = Vector2(-46, 41.417)
+scale = Vector2(0.925, 0.622744)
 enabled = false
 color = Color(1, 0.827451, 0.333333, 1)
 energy = 1.2
@@ -6547,7 +6546,7 @@ vframes = 5
 [node name="Hat" type="Sprite2D" parent="Player"]
 texture = ExtResource("4_1ygwg")
 offset = Vector2(0, 24)
-hframes = 2
+hframes = 3
 vframes = 2
 
 [node name="Broom" type="Sprite2D" parent="Player"]

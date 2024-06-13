@@ -7,9 +7,10 @@ We need to have a comple of spots to eat cheap enough
 
 ******* TODO ************************TODO ************************
 	GAME: have the game playable with touches and mouse
+	
 
 ********* BUGS ************************************
-	
+	After picking up carrots the garden should reset
 
 
 [DONE]
@@ -202,4 +203,11 @@ We need to have a comple of spots to eat cheap enough
 	!FIX: the dog sprite is now reset at midnight
 	!FIX: possible fixed a problem where NPCs were not spawning anymore
 	!PLAYER: Added mouth
-	
+	!FIX: now apartments restore same rest and drink of hotel
+	!GAME: if you have carrots and you are in an apartment you will increase yur food
+	!FIX: Fixed a bug were items were not removed numerically also if they are no more in the inventory
+	!GAME: Balloons time is no more affeted by game speed, making possible to read them when playing fast
+	!PLAYER: now the hat moves with the head when the player denies picking up something
+	!NPCs: fixed a problem where the NPCs were not spawning anymore
+	!NPCs: fixed a minor problem of NPC balloons remaining at the side of the screen
+	!NPCs: fixed a problem on the spawning of Drunk Guy, it may be spawning on the same bench of the player

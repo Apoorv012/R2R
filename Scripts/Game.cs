@@ -1,4 +1,5 @@
 using Godot;
+using Godot;
 using System;
 using System.Collections.Generic;
 
@@ -361,7 +362,8 @@ public partial class Game : Node, IGame {
 				WinPanel.Visible = false;
 				WinAnim.Active = false;
 				doActionDelta = 1f;
-				MusicPlayer.Stream = PickupSound;
+        MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
+        MusicPlayer.Stream = PickupSound;
 				MusicPlayer.Play();
 				IntroText.Text = IntroText.Text.Replace("<calc years ago>", (DateTime.Now.Year - 1985).ToString());
 				foreach (var h in HighlightIntro) h.Visible = false;
@@ -535,6 +537,7 @@ public partial class Game : Node, IGame {
 
 		foreach (var npc in NPCs) npc.Delete();
 		NPCs.Clear();
+		numNPCs = 0;
 		for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
     if (enemy != null) {
 			enemy.Free();
@@ -550,10 +553,7 @@ public partial class Game : Node, IGame {
 		ArrangeWallet(0);
 		ResetPlayer();
 		SetClothes(Clothes.Rags);
-		SetRoad(SlumStreet, 5000);
-
-		// FIXME
-		Pickup(PickableItem.Bone);
+		SetRoad(SlumStreet, 0);
   }
 
 	bool joyJustPressed = false;
@@ -567,7 +567,6 @@ public partial class Game : Node, IGame {
 
 
 		if (Input.IsActionJustPressed("Z")) { // FIXME
-
     }
 
 
@@ -698,9 +697,10 @@ public partial class Game : Node, IGame {
 			return;
 		}
 
+		ProcessBaloons(delta); // Balloons time should not be affected by game speed
 
 
-		if (jail) {
+    if (jail) {
 			if (drink < 10) drink = 10;
 			if (food < 10) food = 10;
 			rest++; if (rest > 100) rest = 100;
@@ -780,7 +780,8 @@ public partial class Game : Node, IGame {
 			}
 		}
 		if (h == 7 && m == 0 && !playedMusic) {
-			MusicPlayer.Play();
+      MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
+      MusicPlayer.Play();
 			playedMusic = true;
 		}
 		if (playedMusic && h == 8 && m == 0) {
@@ -789,7 +790,7 @@ public partial class Game : Node, IGame {
 
 		double dayHour = dayTime * 24;
 		if (dayHour < 5 || dayHour > 22) {
-			Sun.Energy = .95f;
+			Sun.Energy = .75f;
 			Sun.BlendMode = Light2D.BlendModeEnum.Sub;
 			Sun.Color = Colors.White;
 		}
@@ -799,7 +800,7 @@ public partial class Game : Node, IGame {
 			Sun.Color = SunColor;
 		}
 		else if (dayHour >= 5 && dayHour < 6) { // Ramp up staing negative
-			Sun.Energy = (float)(6 - dayHour) * .95f;
+			Sun.Energy = (float)(6 - dayHour) * .75f;
 			Sun.BlendMode = Light2D.BlendModeEnum.Sub;
 			Sun.Color = Colors.White;
 		}
@@ -814,7 +815,7 @@ public partial class Game : Node, IGame {
 			Sun.Color = SunColor;
 		}
 		else if (dayHour >= 20 && dayHour < 22) { // Go down going negative
-			Sun.Energy = (float)(dayHour - 20) * .95f * .5f;
+			Sun.Energy = (float)(dayHour - 20) * .75f * .5f;
 			Sun.BlendMode = Light2D.BlendModeEnum.Sub;
 			Sun.Color = Colors.White;
 		}
@@ -1126,7 +1127,7 @@ public partial class Game : Node, IGame {
 			Player.Scale = flipL;
 			Body.Frame = 1 + GetFitnessLevel();
 			Face.Frame = 1;
-			Hat.Frame = 1;
+			Hat.Frame = 3;
 			Legs.Frame = 4 + 9 * (int)clothes;
 			Beard.Frame = Beardlevel(BeardLevels.Pickup);
 			HideBalloon();
@@ -1140,6 +1141,7 @@ public partial class Game : Node, IGame {
 				DumpDog.Frame = 2;
 				DumpDog.Visible = true;
 				InventoryRemoveItem(PickableItem.Bone, true);
+				numBones--;
 				return;
 			}
 			if (foundLocation.type == LocationType.Map) {
@@ -1247,6 +1249,7 @@ public partial class Game : Node, IGame {
 
 		foreach (var npc in NPCs) npc.Delete();
 		NPCs.Clear();
+    numNPCs = 0;
     for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
 		if (enemy != null) {
 			enemy.Free();
@@ -1689,10 +1692,10 @@ public partial class Game : Node, IGame {
 			doActionDelta -= delta * 2;
 			int pos = (int)(doActionDelta * 4 + 1) % 4;
 			switch (pos) {
-				case 0: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); break; // Front
-				case 1: Face.Frame = 3; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialR); break; // Right
-				case 2: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); break; // Front
-				case 3: Face.Frame = 4; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialL); break; // Left
+				case 0: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup);		Hat.Frame = 3;	break; // Front
+				case 1: Face.Frame = 3; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialR);	Hat.Frame = 4;	break; // Right
+				case 2: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup);		Hat.Frame = 3;	break; // Front
+				case 3: Face.Frame = 4; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialL);	Hat.Frame = 5;	break; // Left
 			}
 			if (doActionDelta <= 0) {
 				denial = false;
@@ -1743,8 +1746,8 @@ public partial class Game : Node, IGame {
 			Body.Frame = 2 + GetFitnessLevel();
 			Face.Frame = 2;
 			Beard.Visible = false;
-			Hat.Frame = 2;
-			int pos = (int)(doActionDelta * 9) % 4;
+			Hat.Frame = 1;
+      int pos = (int)(doActionDelta * 9) % 4;
 			switch (pos) {
 				case 0: Legs.Frame = 6 + 9 * (int)clothes; break;
 				case 1: Legs.Frame = 5 + 9 * (int)clothes; break;
@@ -1765,7 +1768,7 @@ public partial class Game : Node, IGame {
 				Body.Frame = 0 + GetFitnessLevel();
 				Face.Frame = 0;
 				Hat.Frame = 0;
-				Legs.Frame = 0 + 9 * (int)clothes;
+        Legs.Frame = 0 + 9 * (int)clothes;
 				Player.Position = new(960, 490);
 				Beard.Visible = true;
 				Beard.Frame = Beardlevel(BeardLevels.Walk);
@@ -1852,47 +1855,6 @@ public partial class Game : Node, IGame {
 		}
 
 		if (doActionDelta <= 0) Beard.Frame = Beardlevel(BeardLevels.Walk);
-
-		if (textForBaloon != null && deltaBaloon > 0) {
-			if (BalloonTxt.Text.Length < textForBaloon.Length) {
-				BalloonTxt.Text += textForBaloon[BalloonTxt.Text.Length];
-			}
-			else if (!fixtBallonSize) fixtBallonSize = true;
-			deltaBaloon -= delta;
-			if (deltaBaloon <= 0) {
-				Balloon.Visible = false;
-				BalloonTxt.Text = "";
-				textForBaloon = null;
-			}
-		}
-
-		if (npcBalloonDelay1 > 0) {
-			if (npcForBalloon1 == null) {
-				npcBalloonDelay1 = 0;
-				NPCBalloon1.Visible = false;
-			}
-			else {
-				npcBalloonDelay1 -= delta;
-				NPCBalloon1.Position = npcForBalloon1.GetGlobalTransformWithCanvas().Origin + NPCBalloonOffset;
-				if (npcBalloonDelay1 <= 0) {
-					NPCBalloon1.Visible = false;
-				}
-			}
-		}
-		if (npcBalloonDelay2 > 0) {
-			if (npcForBalloon2 == null) {
-				npcBalloonDelay2 = 0;
-				NPCBalloon2.Visible = false;
-			}
-			else {
-				npcBalloonDelay2 -= delta;
-				NPCBalloon2.Position = npcForBalloon2.GetGlobalTransformWithCanvas().Origin + NPCBalloonOffset;
-				if (npcBalloonDelay2 <= 0) {
-					NPCBalloon2.Visible = false;
-				}
-			}
-		}
-
 
 		if (fading && doActionDelta > 0) {
 			// 2500 -> -3000
@@ -2403,6 +2365,7 @@ public partial class Game : Node, IGame {
 					else if (l.amount > 0) ShowBalloon($"I got {got} fresh carrots.\nThere are still {l.amount} carrots to be picked.", 2);
 					else ShowBalloon($"I got {got} fresh carrots.", 2);
 					StopEnemies();
+					if (l.amount == 0) l.price = 0;
 				}
 				else if (l.price < 100 && l.amount > 0) { // Tell to wait
 					ShowBalloon($"Carrots are not yet grown. They are at {l.price}%", 2);
@@ -2422,7 +2385,9 @@ public partial class Game : Node, IGame {
 						waitUntil = -1;
 					}
 					InventoryRemoveItem(PickableItem.Carrot);
+					numCarrots = 0;
 					InventoryRemoveItem(PickableItem.RotCarrot);
+					numRotCarrots = 0;
 					if (!gardens.Contains(l)) gardens.Add(l);
 
 					var rect = l.GetRect();
@@ -2605,11 +2570,13 @@ public partial class Game : Node, IGame {
 							numCans = 0;
 							numPaper = 0;
 							numCarrots = 0;
+							numRotCarrots = 0;
 							numBones = 0;
 							InventoryRemoveItem(PickableItem.Bottle);
 							InventoryRemoveItem(PickableItem.Can);
 							InventoryRemoveItem(PickableItem.Paper);
 							InventoryRemoveItem(PickableItem.Carrot);
+							InventoryRemoveItem(PickableItem.RotCarrot);
 							InventoryRemoveItem(PickableItem.Bone);
 							earnedMoney = ArrangeWallet(earnedMoney);
 							ShowMoneyPopup(earnedMoney);
@@ -2634,8 +2601,8 @@ public partial class Game : Node, IGame {
 						Body.Frame = 3 + GetFitnessLevel();
 						Face.Frame = 5;
 						Legs.Frame = 8 + 9 * (int)clothes;
-						Hat.Frame = 3;
-						Beard.Frame = Beardlevel(BeardLevels.Sit);
+						Hat.Frame = 2;
+            Beard.Frame = Beardlevel(BeardLevels.Sit);
 						resetPlayer = false;
 					}
 				}
@@ -2839,7 +2806,7 @@ public partial class Game : Node, IGame {
 		Body.Frame = 0 + GetFitnessLevel();
 		Face.Frame = 0;
 		Hat.Frame = 0;
-		Legs.Frame = 0 + 9 * (int)clothes;
+    Legs.Frame = 0 + 9 * (int)clothes;
 		Player.ZIndex = 30;
 		Player.Scale = Vector2.One;
 		Player.Rotation = 0;
@@ -2861,10 +2828,17 @@ public partial class Game : Node, IGame {
 			pbEducation.Value = education;
 			ShowBalloon($"I have more knowledge now!", 2);
 		}
-		else if (foundLocation.type == LocationType.Hotel) {
+		else if (foundLocation.type == LocationType.Hotel || foundLocation.type == LocationType.Apartment) {
 			rest = 100;
 			drink = 100;
 			bodySmell = 0;
+
+			while (numCarrots > 0 && food < 76) {
+				numCarrots--;
+        InventoryRemoveItem(PickableItem.Carrot, true);
+        food += foundLocation.type == LocationType.Hotel ? 25 : 50; // In apartment you gain more
+        if (food > 100) food = 100;
+      }
 			if (hasRazor) beard = 0;
 			hasRazor = false;
 			Razor.Visible = false;
@@ -2927,7 +2901,7 @@ public partial class Game : Node, IGame {
 		Body.Frame = 0 + GetFitnessLevel();
 		Face.Frame = 0;
 		Hat.Frame = 0;
-		Legs.Frame = 0 + 9 * (int)clothes;
+    Legs.Frame = 0 + 9 * (int)clothes;
 		if (wasInsideCrossroad) {
 			Player.Position = new(960, 520);
 		}
@@ -3080,6 +3054,48 @@ public partial class Game : Node, IGame {
 		BalloonTxt.Text = "";
 		textForBaloon = null;
 	}
+
+	void ProcessBaloons(double delta) {
+    if (textForBaloon != null && deltaBaloon > 0) {
+      if (BalloonTxt.Text.Length < textForBaloon.Length) {
+        BalloonTxt.Text += textForBaloon[BalloonTxt.Text.Length];
+      }
+      else if (!fixtBallonSize) fixtBallonSize = true;
+      deltaBaloon -= delta;
+      if (deltaBaloon <= 0) {
+        Balloon.Visible = false;
+        BalloonTxt.Text = "";
+        textForBaloon = null;
+      }
+    }
+
+    if (npcBalloonDelay1 > 0) {
+      if (npcForBalloon1 == null) {
+        npcBalloonDelay1 = 0;
+        NPCBalloon1.Visible = false;
+      }
+      else {
+        npcBalloonDelay1 -= delta;
+        NPCBalloon1.Position = npcForBalloon1.GetGlobalTransformWithCanvas().Origin + NPCBalloonOffset;
+        if (npcBalloonDelay1 <= 0) {
+          NPCBalloon1.Visible = false;
+        }
+      }
+    }
+    if (npcBalloonDelay2 > 0) {
+      if (npcForBalloon2 == null) {
+        npcBalloonDelay2 = 0;
+        NPCBalloon2.Visible = false;
+      }
+      else {
+        npcBalloonDelay2 -= delta;
+        NPCBalloon2.Position = npcForBalloon2.GetGlobalTransformWithCanvas().Origin + NPCBalloonOffset;
+        if (npcBalloonDelay2 <= 0) {
+          NPCBalloon2.Visible = false;
+        }
+      }
+    }
+  }
 
 	void ShowMetroMenu() {
 		PanelMetro.Visible = true;
@@ -3238,7 +3254,8 @@ public partial class Game : Node, IGame {
 		foreach (var npc in NPCs) npc.Delete();
     for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
     NPCs.Clear();
-		if (enemy != null) {
+    numNPCs = 0;
+    if (enemy != null) {
 			enemy.Free();
 			enemy = null;
 		}
@@ -3288,6 +3305,8 @@ public partial class Game : Node, IGame {
 		npc.Delete();
 		numNPCs--;
 		spawnDelay = rnd.RandfRange(1f, 3f);
+		if (npcForBalloon1 == npc) { NPCBalloon1.Visible = false; npcForBalloon1 = null; }
+		if (npcForBalloon2 == npc) { NPCBalloon2.Visible = false; npcForBalloon2 = null; }
 	}
 
 	public void GiveToPlayer(int happiness) {
@@ -3320,7 +3339,7 @@ public partial class Game : Node, IGame {
     bool good = false;
     while (!good) {
       drunkGuyBench = Benches[rnd.RandiRange(0, Benches.Length - 1)];
-      if (Player.GlobalPosition.DistanceSquaredTo(drunkGuyBench.GlobalPosition) > 2000) {
+      if (Player.GlobalPosition.DistanceTo(drunkGuyBench.GlobalPosition) > 1000) {
         good = true;
       }
     }
@@ -3976,7 +3995,8 @@ public partial class Game : Node, IGame {
 		if (doActionDelta > 0) {
 			doActionDelta -= delta;
 			if (doActionDelta <= 0) {
-				MusicPlayer.Stream = MusicC64;
+        MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
+        MusicPlayer.Stream = MusicC64;
 				MusicPlayer.Play();
 			}
 		}
