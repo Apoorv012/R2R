@@ -5,6 +5,8 @@ using R2R;
 public partial interface IGame {
   public bool Won { get; }
   public Node2D iPlayer { get; }
+  public int PlayerPos { get; }
+  public int WindowWidth { get; }
   public void ShowNPCBalloon(string text, Node2D npc);
   public void GiveToPlayer(int happiness);
   public void NPCGone(NPC npc);

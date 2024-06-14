@@ -246,7 +246,7 @@ public partial class Help : Node, IGame {
     Body.Frame = 3 + GetFitnessLevel();
     Face.Frame = 5;
     Legs.Frame = 8 + 9 * (int)clothes;
-    Hat.Frame = 3;
+    Hat.Frame = 2;
     Beard.Frame = Beardlevel(BeardLevels.Sit);
     helpStage = 0;
     Background0.Position = new(962, 306 - City.Position.Y);
@@ -284,6 +284,9 @@ public partial class Help : Node, IGame {
 
 	public void JailTime(string msg) { }
 	public void SpawnBottlesForDrunkGuy() { }
+
+  public int PlayerPos => 960;
+  public int WindowWidth => 1920;
 
 
   private void ResetAllValues() {
@@ -458,12 +461,12 @@ public partial class Help : Node, IGame {
 			doActionDelta -= delta * 2;
 			int pos = (int)(doActionDelta * 4 + 1) % 4;
 			switch (pos) {
-				case 0: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); break; // Front
-				case 1: Face.Frame = 3; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialR); break; // Right
-				case 2: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); break; // Front
-				case 3: Face.Frame = 4; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialL); break; // Left
-			}
-			if (doActionDelta <= 0) {
+        case 0: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); Hat.Frame = 3; break; // Front
+        case 1: Face.Frame = 3; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialR); Hat.Frame = 4; break; // Right
+        case 2: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); Hat.Frame = 3; break; // Front
+        case 3: Face.Frame = 4; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialL); Hat.Frame = 5; break; // Left
+      }
+      if (doActionDelta <= 0) {
 				denial = false;
 				pickup = false;
 				findAround = false;
@@ -1112,605 +1115,6 @@ public partial class Help : Node, IGame {
 		SoundPlayer.Play();
 	}
 
-	bool PerformActionAtLocation() {
-		if (foundLocation == null) return false;
-		var l = foundLocation;
-		foundLocation = null;
-		// Check smell, beard, education, time
-		if (beard > l.maxBeard) {
-			ShowBalloon("I should shave to go there...", 2);
-			SoundPlayer.Stream = NoSound;
-			SoundPlayer.Play();
-			return true;
-		}
-		double totalSmell = Mathf.Clamp(bodySmell + dirtyClothes, 0, 100);
-		if (totalSmell > l.maxSmell) {
-			ShowBalloon("I am too stinky to go there...", 2);
-			SoundPlayer.Stream = NoSound;
-			SoundPlayer.Play();
-			return true;
-		}
-		if (education < l.minEducation) {
-			ShowBalloon("I need to have a better education to go there...", 2);
-			SoundPlayer.Stream = NoSound;
-			SoundPlayer.Play();
-			return true;
-		}
-		if (clothes < l.minClothes) {
-			ShowBalloon("I need to be better dressed to go there...", 2);
-			SoundPlayer.Stream = NoSound;
-			SoundPlayer.Play();
-			return true;
-		}
-		if (l.StartTime != 0 && l.EndTime != 0) {
-			if (l.StartTime < l.EndTime) {
-				if (dayTime < l.StartTime / 24.0 || dayTime > l.EndTime / 24.0) {
-					if (l.type != LocationType.Job && l.type != LocationType.School) {
-						ShowBalloon("It is closed.", 2);
-						return true;
-					}
-				}
-			}
-			else {
-				if (dayTime > l.EndTime / 24.0 && dayTime < l.StartTime / 24.0) {
-					if (l.type != LocationType.Job && l.type != LocationType.School) {
-						ShowBalloon("It is closed.", 2);
-						return true;
-					}
-				}
-			}
-		}
-		int earnedMoney = 0;
-		bool resetPlayer = true;
-		ResultSound success = ResultSound.None;
-		switch (l.type) {
-			case LocationType.ATM: {
-					if (hasATM) {
-						money += numBanknotes * 10 + numCoins;
-						numBanknotes = 0;
-						numCoins = 0;
-						foreach (var i in Coins) i.Visible = false;
-						foreach (var i in Banknotes) i.Visible = false;
-            TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
-            StopEnemies();
-					}
-					else {
-						ShowBalloon("I need an ATM card...", 2);
-						success = ResultSound.None;
-					}
-				}
-				break;
-			case LocationType.Bank: {
-					if (hasATM) {
-						money += numBanknotes * 10 + numCoins;
-						numBanknotes = 0;
-						numCoins = 0;
-						foreach (var i in Coins) i.Visible = false;
-						foreach (var i in Banknotes) i.Visible = false;
-            TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
-            success = ResultSound.ATM;
-						StopEnemies();
-					}
-					else if (HasMoneyInBank(10)) {
-						hasATM = true;
-						ATMCard.Visible = true;
-						ShowBalloon("Got an ATM card", 4);
-						RemoveMoney(10);
-						success = ResultSound.GenericSuccess;
-						StopEnemies();
-					}
-					else {
-						ShowBalloon("I need $10 to get an ATM card", 4);
-						success = ResultSound.Failure;
-					}
-				}
-				break;
-			case LocationType.Shop: {
-					if (HasMoney(l.price)) {
-						switch (l.ItemDelivered) {
-							case ItemDelivered.Food:
-								food += l.amount;
-								if (food > 100) food = 100;
-								ShowBalloon("Noutricious!", 1);
-								RemoveMoney(l.price);
-								success = ResultSound.Eat;
-								StopEnemies();
-								break;
-
-							case ItemDelivered.Drink:
-								drink += l.amount;
-								if (drink > 100) drink = 100;
-								ShowBalloon("Refreshing!", 1);
-								RemoveMoney(l.price);
-								success = ResultSound.Drink;
-								StopEnemies();
-								break;
-
-							case ItemDelivered.Toilet:
-								RemoveMoney(l.price);
-								waitUntil = dayTime + .5 / 24.0;
-								if (waitUntil >= 1) waitUntil -= 1;
-								if (waitUntil < dayTime) {
-									waitUntilNextDay = waitUntil;
-									waitUntil = -1;
-								}
-								Player.Visible = false;
-								success = ResultSound.Toilet;
-								resetPlayer = false;
-								StopEnemies();
-								break;
-
-							case ItemDelivered.Razor:
-								if (hasRazor) ShowBalloon("I already have a razor", 2);
-								else {
-									RemoveMoney(l.price);
-									hasRazor = true;
-									Razor.Visible = true;
-									success = ResultSound.GenericSuccess;
-									StopEnemies();
-								}
-								break;
-
-							case ItemDelivered.Clothes:
-								RemoveMoney(l.price);
-								dirtyClothes = 0;
-								ShowBalloon("That is an upgrade!", 2);
-								success = ResultSound.GenericSuccess;
-								StopEnemies();
-								break;
-
-							case ItemDelivered.Suits:
-								if (clothes == Clothes.Classy) ShowBalloon("I already have these clothes!", 2);
-								else {
-									RemoveMoney(l.price);
-									dirtyClothes = 0;
-									ShowBalloon("I can own the world now!", 2);
-									success = ResultSound.GenericSuccess;
-									StopEnemies();
-								}
-								break;
-
-							case ItemDelivered.Shaving:
-								RemoveMoney(l.price);
-								beard = 0;
-								if (bodySmell > 30) bodySmell = 30;
-								ShowBalloon("Nice and clean!", 2);
-								success = ResultSound.GenericSuccess;
-								StopEnemies();
-								break;
-
-							case ItemDelivered.Tickets:
-								if (numTickets == 10) ShowBalloon("I already have many metro tickets!", 2);
-								else {
-									RemoveMoney(l.price);
-									numTickets++;
-									for (int i = 0; i < 10; i++) Tickets[i].Visible = i < numTickets;
-									success = ResultSound.GenericSuccess;
-									StopEnemies();
-								}
-								break;
-
-							case ItemDelivered.Broom:
-								if (hasBroom) ShowBalloon("I already have a broom", 2);
-								else {
-									RemoveMoney(l.price);
-									hasBroom = true;
-									broomLevel = 100;
-									Broom.Visible = true;
-									success = ResultSound.GenericSuccess;
-									StopEnemies();
-								}
-								break;
-
-							case ItemDelivered.FoodAndDrink:
-								food += l.amount;
-								drink += l.amount;
-								if (food > 100) food = 100;
-								if (drink > 100) drink = 100;
-								ShowBalloon("Good meal!", 1);
-								RemoveMoney(l.price);
-								success = ResultSound.EatAndDrink;
-								StopEnemies();
-								break;
-
-							case ItemDelivered.Laundry:
-								RemoveMoney(l.price);
-								waitUntil = dayTime + 1 / 24.0;
-								if (waitUntil >= 1) waitUntil -= 1;
-								if (waitUntil < dayTime) {
-									waitUntilNextDay = waitUntil;
-									waitUntil = -1;
-								}
-								Player.Visible = false;
-								foundLocation = l;
-								success = ResultSound.Laundry;
-								resetPlayer = false;
-								StopEnemies();
-								break;
-
-							case ItemDelivered.Finance:
-								RemoveMoney(l.price);
-								investedMoney += 100000;
-								success = ResultSound.ATM;
-								StopEnemies();
-								break;
-
-							case ItemDelivered.Soap:
-                break;
-						}
-
-					}
-					else {
-						ShowBalloon($"I do not have {FormatMoney(l.price)}...", 2);
-						success = ResultSound.Failure;
-					}
-				}
-				break;
-
-			case LocationType.Trashcan: {
-					var all = ItemsHBox.GetChildren();
-					if (all.Count == 0) ShowBalloon($"Nothing to throw away...", 2);
-					else {
-						bool wasPoop = false;
-						foreach (var item in all) {
-							if (item is TypedTextureRect ttr) {
-								if (ttr.ItemType == PickableItem.Paper) numPaper--;
-								if (ttr.ItemType == PickableItem.Bottle) numBottles--;
-								if (ttr.ItemType == PickableItem.Bone) numBones--;
-								if (ttr.ItemType == PickableItem.Carrot) numCarrots--;
-								if (ttr.ItemType == PickableItem.RotCarrot) numRotCarrots--;
-								if (ttr.ItemType == PickableItem.Can) numCans--;
-								if (ttr.ItemType == PickableItem.Poop) { numPoop--; wasPoop = true; }
-							}
-							item.Free();
-						}
-						ShowBalloon($"All garbage is now in the trash", 2);
-						success = ResultSound.GenericSuccess;
-						// In case some poop was picked up and thrown away, and the player is in "poor mode" have a NPC to give a coin
-						if (wasPoop) {
-							foreach (var npc in NPCs) {
-								if (npc.SetHappiness(2, true, Player.GlobalPosition.X)) break;
-							}
-						}
-						StopEnemies();
-					}
-				}
-				break;
-
-			case LocationType.Garden:
-				break;
-
-			case LocationType.Hotel: {
-					// Sleep if enough money, get washed, get shaved only if you have razor
-					if (HasMoney(l.price) || currentHotel == l) {
-						if (currentHotel != l) RemoveMoney(l.price);
-						waitUntil = l.EndTime / 24.0;
-						if (waitUntil < dayTime) {
-							waitUntilNextDay = waitUntil;
-							waitUntil = -1;
-						}
-						Player.Visible = false;
-						foundLocation = l;
-						currentHotel = l;
-						sleeping = true;
-						sleepStartTime = dayTime;
-						resetPlayer = false;
-						success = ResultSound.Sleep;
-						StopEnemies();
-					}
-					else {
-						ShowBalloon($"I do not have {FormatMoney(l.price)}...", 2);
-						success = ResultSound.Failure;
-					}
-				}
-				break;
-
-			case LocationType.Apartment:
-				Location aprt = null;
-				foreach (var a in apartments) {
-					if (l == a) {
-						aprt = a; break;
-					}
-				}
-				bool stayInApartment = false;
-				if (aprt != null && aprt.RentedDays > 0) {
-					// Already rented?
-					stayInApartment = true;
-				}
-				else if (HasMoney(l.price)) {
-					RemoveMoney(l.price);
-					if (aprt == null) apartments.Add(l);
-					l.RentedDays = l.amount;
-					stayInApartment = true;
-				}
-				else {
-					ShowBalloon($"I do not have {FormatMoney(l.price)} to rent the apartment for {l.RentedDays} days...", 2);
-					success = ResultSound.Failure;
-				}
-				if (stayInApartment) {
-					int time = Mathf.CeilToInt(dayTime * 24) + 1;
-					if (time < 7) waitUntil = 7 / 24.0;
-					else if (time < 12) waitUntil = 12 / 24.0;
-					else if (time < 18) waitUntil = 18 / 24.0;
-					else if (time < 18) waitUntil = 18 / 24.0;
-					else waitUntil = 6 / 24.0;
-					if (waitUntil < dayTime) {
-						waitUntilNextDay = waitUntil;
-						waitUntil = -1;
-					}
-					Player.Visible = false;
-					foundLocation = l;
-					sleeping = true;
-					sleepStartTime = dayTime;
-					resetPlayer = false;
-					success = ResultSound.Sleep;
-					StopEnemies();
-				}
-				break;
-
-			case LocationType.Job:
-				// Work for the specified amount of time, then get money
-				// Check if we are in the very first hour of possible work, if not say it is too late
-				if ((int)(dayTime * 24) != l.StartTime) {
-					ShowBalloon($"I cannot start working here now.\nI should go here at {FormatTime(l.StartTime)}", 4);
-					success = ResultSound.Failure;
-					break;
-				}
-				waitUntil = l.EndTime / 24.0;
-				if (waitUntil < dayTime) {
-					waitUntilNextDay = waitUntil;
-					waitUntil = -1;
-				}
-				Player.Visible = false;
-				foundLocation = l;
-				resetPlayer = false;
-				success = l.amount switch {
-					0 => ResultSound.Work1,
-					1 => ResultSound.Work2,
-					2 => ResultSound.Work3,
-					_ => ResultSound.Work1,
-				};
-				StopEnemies();
-				break;
-
-			case LocationType.Dump:
-				break;
-
-			case LocationType.Recycler: {
-					// Sell scraps and get money
-					switch (l.ItemConsumed) {
-						case PickableItem.Bottle:
-							earnedMoney += l.price * numBottles;
-							numBottles = 0;
-							InventoryRemoveItem(PickableItem.Bottle);
-							earnedMoney = ArrangeWallet(earnedMoney);
-							ShowMoneyPopup(earnedMoney);
-							success = ResultSound.GenericSuccess;
-							StopEnemies();
-							break;
-
-						case PickableItem.Can:
-							earnedMoney += l.price * numCans;
-							numCans = 0;
-							InventoryRemoveItem(PickableItem.Can);
-							earnedMoney = ArrangeWallet(earnedMoney);
-							ShowMoneyPopup(earnedMoney);
-							success = ResultSound.GenericSuccess;
-							StopEnemies();
-							break;
-
-						case PickableItem.Paper:
-							earnedMoney += l.price * numPaper;
-							numPaper = 0;
-							InventoryRemoveItem(PickableItem.Paper);
-							earnedMoney = ArrangeWallet(earnedMoney);
-							ShowMoneyPopup(earnedMoney);
-							success = ResultSound.GenericSuccess;
-							StopEnemies();
-							break;
-
-						case PickableItem.AllRecyclable:
-							earnedMoney += l.price * (numBottles + numCans + numPaper + numCarrots + numBones);
-							numBottles = 0;
-							numCans = 0;
-							numPaper = 0;
-							numCarrots = 0;
-							numBones = 0;
-							InventoryRemoveItem(PickableItem.Bottle);
-							InventoryRemoveItem(PickableItem.Can);
-							InventoryRemoveItem(PickableItem.Paper);
-							InventoryRemoveItem(PickableItem.Carrot);
-							InventoryRemoveItem(PickableItem.Bone);
-							earnedMoney = ArrangeWallet(earnedMoney);
-							ShowMoneyPopup(earnedMoney);
-							success = ResultSound.GenericSuccess;
-							StopEnemies();
-							break;
-
-					}
-				}
-				break;
-
-			case LocationType.Bench: {
-					if (l.GetChildCount() > 0) {
-						ShowBalloon("I cannot sit here now, the bench is already used", 2);
-						resetPlayer = true;
-					}
-					else {
-						restingOnBench = true;
-						Player.Position = new(960, 406);
-						Eye.Visible = false;
-						EyesSitClosed.Visible = false;
-						Body.Frame = 3 + GetFitnessLevel();
-						Face.Frame = 5;
-						Legs.Frame = 8 + 9 * (int)clothes;
-						Hat.Frame = 3;
-						Beard.Frame = Beardlevel(BeardLevels.Sit);
-						resetPlayer = false;
-					}
-				}
-				break;
-
-			case LocationType.Crossroad: {
-					JumpToRoad(l.Pos.X, l.Road, false);
-					Player.Visible = false;
-					resetPlayer = false;
-					StopEnemies();
-				}
-				break;
-
-			case LocationType.Metro: {
-					if (numTickets > 0) {
-						StopEnemies();
-						// Show popup asking for road, then the selection should do the next action
-						ShowMetroMenu();
-					}
-					else {
-						ShowBalloon("I do not have any metro ticket!", 2);
-					}
-				}
-				break;
-
-			case LocationType.Map: {
-					// Show map with current location
-					ShowMap(l.Pos);
-				}
-				break;
-
-			case LocationType.School: {
-					// Study for the specified amount of time, then get money
-					if (!HasMoney(l.price)) {
-						ShowBalloon($"I do not have {FormatMoney(l.price)} to pay the school...", 2);
-						success = ResultSound.Failure;
-						break;
-					}
-					// Can we get more edication here?
-					if ((l.amount == 0 && education > 24) ||
-					(l.amount == 1 && education > 24) ||
-					(l.amount == 2 && education > 24)) {
-						success = ResultSound.Failure;
-						break;
-					}
-					if (education >= 100) {
-						ShowBalloon($"I already have a perfect education!", 2);
-						break;
-					}
-
-					// Check if we are in the very first hour of possible work, if not say it is too late
-					if ((int)(dayTime * 24) != l.StartTime) {
-						if (l.StartTime < l.EndTime) {
-							if (dayTime * 24 < l.StartTime) ShowBalloon($"Lessons are not yet started.\nI should be there at {FormatTime(l.StartTime)}", 4);
-							else if (dayTime * 24 < l.EndTime) ShowBalloon($"Lessons are already started.\nI can try tomorrow at {FormatTime(l.StartTime)}", 4);
-							else ShowBalloon($"Lessons are completed for today. I can try again tomorrow", 2);
-						}
-						else {
-							if (dayTime * 24 < l.EndTime) ShowBalloon($"Lessons are already started.\nI can try tomorrow at {FormatTime(l.StartTime)}", 4);
-							else if (dayTime * 24 < l.StartTime) ShowBalloon($"Lessons are not yet started.\nI should be there at {FormatTime(l.StartTime)}", 4);
-							else ShowBalloon($"Lessons are completed for today. I can try again tomorrow", 2);
-						}
-						break;
-					}
-					waitUntil = l.EndTime / 24.0;
-					if (waitUntil < dayTime) {
-						waitUntilNextDay = waitUntil;
-						waitUntil = -1;
-					}
-					Player.Visible = false;
-					foundLocation = l;
-					resetPlayer = false;
-					success = ResultSound.Study;
-					StopEnemies();
-				}
-				break;
-
-			case LocationType.Gym:
-				if (HasMoney(l.price)) {
-					RemoveMoney(l.price);
-					doingGym = true;
-					Player.Visible = false;
-					foundLocation = l;
-					resetPlayer = false;
-					success = ResultSound.Workout;
-					StopEnemies();
-				}
-				else {
-					ShowBalloon("I do not have enough money to enter.", 2);
-					success = ResultSound.Failure;
-				}
-				break;
-
-
-      case LocationType.Fountain:
-					drink += l.amount;
-					if (drink > 100) drink = 100;
-					ShowBalloon("Refreshing!", 1);
-					RemoveMoney(l.price);
-					success = ResultSound.Drink;
-					StopEnemies();
-	      break;
-
-    }
-
-    switch (success) {
-			case ResultSound.None:
-				return resetPlayer;
-
-			case ResultSound.GenericSuccess:
-				SoundPlayer.Stream = SuccessSound;
-				break;
-			case ResultSound.Failure:
-				SoundPlayer.Stream = FailureSound;
-				break;
-			case ResultSound.Eat:
-				SoundPlayer.Stream = EatSound;
-				break;
-			case ResultSound.Drink:
-				SoundPlayer.Stream = DrinkSound;
-				break;
-			case ResultSound.EatAndDrink:
-				SoundPlayer.Stream = EatDrinkSound;
-				break;
-			case ResultSound.Toilet:
-				SoundPlayer.Stream = ShowerSound;
-				break;
-			case ResultSound.Laundry:
-				SoundPlayer.Stream = LaundrySound;
-				break;
-			case ResultSound.Broom:
-				SoundPlayer.Stream = BroomSound;
-				break;
-			case ResultSound.ATM:
-				SoundPlayer.Stream = CashSound;
-				break;
-			case ResultSound.Sleep:
-				SoundPlayer.Stream = SleepSound;
-				break;
-			case ResultSound.Work1:
-				SoundPlayer.Stream = Work1Sound;
-				break;
-			case ResultSound.Work2:
-				SoundPlayer.Stream = Work2Sound;
-				break;
-			case ResultSound.Work3:
-				SoundPlayer.Stream = Work3Sound;
-				break;
-			case ResultSound.Study:
-				SoundPlayer.Stream = StudySound;
-				break;
-			case ResultSound.DogBark:
-				SoundPlayer.Stream = DogBarkSound;
-				break;
-			case ResultSound.Workout:
-				SoundPlayer.Stream = WorkoutSound;
-				break;
-			case ResultSound.Wash:
-				SoundPlayer.Stream = WashSound;
-				break;
-		}
-		SoundPlayer.Play();
-
-		return resetPlayer;
-	}
 
 	private int GetFitnessLevel() {
 		return (((int)(fitness / 34)) % 3) * 5;
@@ -2176,7 +1580,7 @@ public partial class Help : Node, IGame {
 				Body.Frame = 2 + GetFitnessLevel();
 				Face.Frame = 2;
 				Beard.Visible = false;
-				Hat.Frame = 2;
+				Hat.Frame = 1;
 				int pos = (int)(doActionDelta * 9) % 4;
 				switch (pos) {
 					case 0: Legs.Frame = 6 + 9 * (int)clothes; break;
@@ -2521,7 +1925,7 @@ public partial class Help : Node, IGame {
     Player.Scale = flipL;
     Body.Frame = 1 + GetFitnessLevel();
     Face.Frame = 1;
-    Hat.Frame = 1;
+    Hat.Frame = 3;
     Legs.Frame = 4 + 9 * (int)clothes;
     Beard.Frame = Beardlevel(BeardLevels.Pickup);
     bool foundOne = SearchItems(false, out Pickable p);
@@ -2586,11 +1990,12 @@ public partial class Help : Node, IGame {
 
 
   string[] help = {
-		/* 0 */    "Hello!\n (press A or ctrl to speed up;  press Esc or Start to exit).\n" +
+		/* 0 */    "Hello!\n (ctrl or press A on the controller to speed up;  press Esc or Start to exit).\n" +
                "You're the guy that's sitting on the bench. You have nothing.\nGet up by going down (S key or Cursor down or move down with controller)*",
 
     /* 1 */    "Now that you are up, you can move left and right *(controller or keyboard).\n" +
-               "You can hold down shift (or B on the controller) to move faster.",
+               "You can hold down shift (or B on the controller) to move faster.\n" +
+							 "But keep in mind that running will make your resources to deplete faster.",
 
     /* 2 */    "If you look on the left, there is a $1 banknote on the ground*.\n"+
                "Move over it and then go down to pick it up. (S key or move down with controller)",
@@ -2614,7 +2019,7 @@ public partial class Help : Node, IGame {
 
 		/* 12 */		"*Beard: some jobs, like resturants do not like long beards for the personnel.\nYou can either go to a barber shop or buy a razor and use it in your home or an hotel.\nThere is a barber shop on the left, take a visit.",
 
-		/* 13 */		"*Education: some jobs require you to have a decent education.\nYou start at zero, and you have to do the learning from elemntary schools up to college.\nThere are different schools in the city for all levels.",
+		/* 13 */		"*Education: some jobs require you to have a decent education.\nYou start at zero, and you have to do the learning from elementary schools up to college.\nThere are different schools in the city for all levels.",
 
     /* 14 */    "*Smell: you have to take showers to clean your body and should wash your clothes.\nYou need soap to wash yourself and you can use laundry machines for your clothes.\nThe Smell statistic is the sum of both smells.",
 

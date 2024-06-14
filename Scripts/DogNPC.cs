@@ -9,12 +9,12 @@ public partial class DogNPC : Sprite2D {
   RandomNumberGenerator rnd = new();
   PoopingStatus hasPooped = PoopingStatus.NotPooped;
 
-  public void Init(NPC npc) {
+  public void Init(NPC npc, int windowWidth) {
     owner = npc;
     owner.GetParent().AddChild(this);
     goingLeft = npc.goingLeft;
     direction = goingLeft ? Vector2.Left : Vector2.Right;
-    GlobalPosition = new(goingLeft ? 1914 : -30, npc.GlobalPosition.Y + 130);
+    GlobalPosition = new(goingLeft ? windowWidth - 6 : -30, npc.GlobalPosition.Y + 130);
     Scale = (goingLeft ? Vector2.Left : Vector2.Right) + Vector2.Down;
     ZIndex = 60 + npc.order;
   }

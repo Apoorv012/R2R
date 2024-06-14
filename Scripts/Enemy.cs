@@ -16,7 +16,7 @@ public partial class Enemy : AnimatedSprite2D {
 		type = enemyType;
 		if (rnd.Randf() < .5f) goingLeft = true;
 
-		GlobalPosition = new(goingLeft ? 2064 : -155, 462);
+		GlobalPosition = new(goingLeft ? game.WindowWidth + 155 : -155, 462);
 		Scale = (goingLeft ? Vector2.Left : Vector2.Right) + Vector2.Down;
 		direction = goingLeft ? Vector2.Left : Vector2.Right;
 
@@ -73,7 +73,7 @@ public partial class Enemy : AnimatedSprite2D {
 			game.EnemyGone();
 			Speed = 0;
 		}
-		else if (!goingLeft && GlobalPosition.X > 2064) {
+		else if (!goingLeft && GlobalPosition.X > game.WindowWidth + 144) {
 			game.EnemyGone();
 			Speed = 0;
 		}
@@ -103,11 +103,11 @@ public partial class Enemy : AnimatedSprite2D {
 				game.EnemyGone();
 			}
 			if (game.IsTopBoulevard()) {
-				game.JailTime("You were too stinky to walk on Top Boluvard!");
+				game.JailTime("You were too stinky to walk on the rich road Top Boluvard!");
 				game.EnemyGone();
 			}
 			if (game.IsNorthRoad()) {
-				game.JailTime("You were too stinky to walk on North Road!");
+				game.JailTime("You were too stinky to walk on the rich road North Road!");
 				game.EnemyGone();
 			}
 		}
@@ -133,7 +133,7 @@ public partial class Enemy : AnimatedSprite2D {
       game.EnemyGone();
       Speed = 0;
     }
-    else if (!goingLeft && GlobalPosition.X > 2064) {
+    else if (!goingLeft && GlobalPosition.X > game.WindowWidth + 144) {
       game.EnemyGone();
       Speed = 0;
     }

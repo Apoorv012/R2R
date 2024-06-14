@@ -6,11 +6,12 @@ So we can try to survive (sleeping on the bench)
 We need to have a comple of spots to eat cheap enough
 
 ******* TODO ************************TODO ************************
-	GAME: have the game playable with touches and mouse
+	GAME: add bag to carry more items
+	GAME: impement save/load
+	INPUT: add ability to remap keys
 	
 
 ********* BUGS ************************************
-	After picking up carrots the garden should reset
 
 
 [DONE]
@@ -194,7 +195,6 @@ We need to have a comple of spots to eat cheap enough
 	!SOUNDS: The music fades out when changing roads
 	!PLAYER: now the amount of money in your pocket and the one in the bank are separated
 	!MAP: Added icons to the map to show where are the locations and what each street has
-	
 	!PLAYER: denial is no more played when standing up
 	!FIX: rot carrots were considered as carrots
 	!FIX: fixed the usage of toilets
@@ -211,3 +211,23 @@ We need to have a comple of spots to eat cheap enough
 	!NPCs: fixed a problem where the NPCs were not spawning anymore
 	!NPCs: fixed a minor problem of NPC balloons remaining at the side of the screen
 	!NPCs: fixed a problem on the spawning of Drunk Guy, it may be spawning on the same bench of the player
+
+	PLAYER: the player hat was wrong in the tutorial
+	GAME: The Help is now named Tutorial
+	UI: The background sky and stars are now the double horizontally, to fix weird aspect ratios
+	FIX: hours written on the HotDog stand in Slum Street was wrong
+	GAME: now more widespread aspect ratios (like 32/9) are supported
+	GAME: the game is paused if it is not focused
+	GAME: P and key 0 can pause the game; 1, 2, and 3 will change the game speed accordingly
+	OPTIONS: for the difficulty there are now also numbers
+	OPTIONS: the popup menu of the buttons respect the UI theme
+	TUTORIAL: be sure to specify A on the Controller on the first sentence
+	GAME: the game speed factor in the options is now considered to advance the time in the game
+	OPTIONS: Added button to go back to the title screen
+	GAME: now it is possible to carry up to 30 coins and 20 banknotes (for a total of $23)
+	GAME: you cannot move the player if the game is paused
+	OPTIONS: have a flag to have run to be when pressed or alternate by pressing (and use godot action)
+	GAME: the run mode has two modes now: keep shift pressed and alternate shift press
+	OPTIONS: improvement of the UI of the options
+	UI: added tooltips
+	INTRO: added credits button, will show the scrolling maximized

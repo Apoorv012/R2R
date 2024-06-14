@@ -1,0 +1,62 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://cqvjkew4xu7gx"]
+
+[ext_resource type="Texture2D" uid="uid://brc73h55ggpol" path="res://Graphics/UI/CheckOK.png" id="1_7q8v0"]
+[ext_resource type="Texture2D" uid="uid://bcja0tdu7213t" path="res://Graphics/UI/CheckKO.png" id="2_ilwlj"]
+[ext_resource type="FontFile" uid="uid://b1q8fcrilxq4a" path="res://Graphics/UI/Acme.ttf" id="3_w7e2s"]
+[ext_resource type="Texture2D" uid="uid://chygc278oqv88" path="res://Graphics/UI/DropDownArrow.png" id="4_3yipk"]
+[ext_resource type="Texture2D" uid="uid://drrtpxwlndkxk" path="res://Graphics/UI/OK.png" id="5_s85xs"]
+[ext_resource type="Texture2D" uid="uid://wbkqs6o5jllg" path="res://Graphics/UI/KO.png" id="6_jrgpq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vkdsc"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.941176)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0.796078, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4wi3r"]
+bg_color = Color(0.00392157, 0.0352941, 0.129412, 0.988235)
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.0663447, 0.257116, 0.43655, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 16.0
+expand_margin_top = 8.0
+expand_margin_right = 16.0
+expand_margin_bottom = 8.0
+
+[resource]
+CheckButton/icons/checked = ExtResource("1_7q8v0")
+CheckButton/icons/unchecked = ExtResource("2_ilwlj")
+Label/font_sizes/font_size = 45
+Label/fonts/font = ExtResource("3_w7e2s")
+OptionButton/font_sizes/font_size = 32
+OptionButton/fonts/font = ExtResource("3_w7e2s")
+OptionButton/icons/arrow = ExtResource("4_3yipk")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_vkdsc")
+PopupMenu/font_sizes/font_size = 40
+PopupMenu/fonts/font = ExtResource("3_w7e2s")
+PopupMenu/icons/checked = ExtResource("5_s85xs")
+PopupMenu/icons/radio_checked = ExtResource("5_s85xs")
+PopupMenu/icons/radio_unchecked = ExtResource("6_jrgpq")
+PopupMenu/icons/unchecked = ExtResource("6_jrgpq")
+ProgressBar/colors/font_outline_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
+ProgressBar/constants/outline_size = 6
+ProgressBar/font_sizes/font_size = 33
+ProgressBar/fonts/font = ExtResource("3_w7e2s")
+TooltipPanel/styles/panel = SubResource("StyleBoxFlat_4wi3r")

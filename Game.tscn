@@ -1,4 +1,4 @@
-[gd_scene load_steps=329 format=3 uid="uid://bdflk6ud0jrdt"]
+[gd_scene load_steps=332 format=3 uid="uid://bdflk6ud0jrdt"]
 
 [ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="1_hj6uc"]
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_u838r"]
@@ -38,7 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://b7s20ys5dwdfo" path="res://Graphics/City/Extra/LightMask.png" id="13_ylmxr"]
 [ext_resource type="PackedScene" uid="uid://6l1cpay8s4c3" path="res://Prefabs/Items/Carrot.tscn" id="15_ef7u1"]
 [ext_resource type="PackedScene" uid="uid://c5kdqe8ewwlbi" path="res://Prefabs/NPCs/NPCGirl2.tscn" id="18_ovgdg"]
-[ext_resource type="Theme" uid="uid://cqvjkew4xu7gx" path="res://Graphics/UI/Game_theme.tres" id="19_ca2sb"]
+[ext_resource type="Theme" uid="uid://cqvjkew4xu7gx" path="res://Graphics/UI/Themes/Game_theme.tres" id="19_ca2sb"]
 [ext_resource type="Texture2D" uid="uid://chhwbd53v458w" path="res://Graphics/Player/EyeClosed.png" id="20_0spon"]
 [ext_resource type="PackedScene" uid="uid://dy35ljuwg8etl" path="res://Prefabs/Items/Bottle.tscn" id="20_1o0ay"]
 [ext_resource type="PackedScene" uid="uid://cotnyc5j2voj2" path="res://Prefabs/NPCs/NPCMan2.tscn" id="20_g0agu"]
@@ -58,7 +58,6 @@
 [ext_resource type="Texture2D" uid="uid://dmwqc71lqxcx5" path="res://Graphics/Locations/VendingMachineDrinks.png" id="28_oiwha"]
 [ext_resource type="PackedScene" uid="uid://odad5fk070ot" path="res://Prefabs/Items/Banknote.tscn" id="28_rfqmt"]
 [ext_resource type="Texture2D" uid="uid://ltd1u3sp6c0w" path="res://Graphics/Items/Bone.png" id="29_af21a"]
-[ext_resource type="Texture2D" uid="uid://hoh5uu6g3mri" path="res://Graphics/Items/Coin.png" id="29_gt5ns"]
 [ext_resource type="PackedScene" uid="uid://j3yox6dcpumt" path="res://Prefabs/Items/Paper.tscn" id="29_im271"]
 [ext_resource type="Texture2D" uid="uid://bc87tv6mwoc35" path="res://Graphics/Items/Soap3.png" id="29_pepyg"]
 [ext_resource type="Texture2D" uid="uid://c3d5upvniutvp" path="res://Graphics/Locations/Bench.png" id="29_r7y80"]
@@ -244,7 +243,7 @@
 [ext_resource type="AudioStream" uid="uid://du0yvb4y8or6m" path="res://Sounds/NPCs/MApproval/MApproval (1).ogg" id="88_wioya"]
 [ext_resource type="AudioStream" uid="uid://bmha277q2ovdx" path="res://Sounds/NPCs/MApproval/MApproval (2).ogg" id="89_7xavv"]
 [ext_resource type="Texture2D" uid="uid://hkg4t6futfbs" path="res://Graphics/UI/MetroArrow.png" id="90_cekyi"]
-[ext_resource type="Theme" uid="uid://due1hvfionyq8" path="res://Graphics/UI/Game_theme_SelectedButton.tres" id="90_geyvj"]
+[ext_resource type="Theme" uid="uid://due1hvfionyq8" path="res://Graphics/UI/Themes/Game_theme_SelectedButton.tres" id="90_geyvj"]
 [ext_resource type="Texture2D" uid="uid://wbkqs6o5jllg" path="res://Graphics/UI/KO.png" id="91_xed2o"]
 [ext_resource type="Texture2D" uid="uid://gxesdesp5b7n" path="res://Graphics/Locations/Map.png" id="93_em7jx"]
 [ext_resource type="Texture2D" uid="uid://diwl2vdijivrr" path="res://Graphics/Locations/YouAreHere.png" id="94_38tg7"]
@@ -273,6 +272,7 @@
 [ext_resource type="Texture2D" uid="uid://c6wraicxtyex4" path="res://Graphics/City/Extra/UAFlag.png" id="193_wt7p6"]
 [ext_resource type="Texture2D" uid="uid://cq3oh36n0n4tb" path="res://Graphics/Locations/MapIcons.png" id="238_qokn0"]
 [ext_resource type="Texture2D" uid="uid://bgs0typn774f8" path="res://Graphics/Items/Soap1.png" id="238_rn7ud"]
+[ext_resource type="Texture2D" uid="uid://dqhxla7rp80xu" path="res://Graphics/Items/CoinInventory.png" id="245_5h24u"]
 [ext_resource type="AudioStream" uid="uid://bvsl61bx3ttsl" path="res://Sounds/Music/Win music BGO.ogg" id="261_bm57o"]
 [ext_resource type="Texture2D" uid="uid://c4hh6uey0i65d" path="res://Graphics/Player/VictoryDance.png" id="261_njoyj"]
 [ext_resource type="Material" uid="uid://8jjsv8ukiqi7" path="res://Graphics/FireworksMaterial.tres" id="267_cjldn"]
@@ -281,6 +281,8 @@
 [ext_resource type="Texture2D" uid="uid://buy8pjfj8dkjm" path="res://Graphics/Intro/BatMilku.png" id="272_r4lsp"]
 [ext_resource type="Texture2D" uid="uid://dt8ulecadgt0s" path="res://Graphics/Intro/J0nathan550.png" id="273_lrx3g"]
 [ext_resource type="Texture2D" uid="uid://db6yg2dcriey4" path="res://Graphics/Intro/CheekyCommodoreGamer.png" id="274_sxkv6"]
+[ext_resource type="Texture2D" uid="uid://bgggvhi154s0u" path="res://Graphics/Intro/Navi.png" id="275_w70h7"]
+[ext_resource type="Texture2D" uid="uid://beoivrskwm7yl" path="res://Graphics/Intro/Apoorv.png" id="276_y5wu3"]
 
 [sub_resource type="Gradient" id="Gradient_vjce0"]
 interpolation_mode = 2
@@ -568,6 +570,9 @@ _data = {
 "Intro": SubResource("Animation_gg457"),
 "RESET": SubResource("Animation_fgrcn")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_op5we"]
+bg_color = Color(0, 0, 0, 0.941176)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uclcx"]
 content_margin_left = 3.0
@@ -1089,7 +1094,7 @@ expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmellB", "pbSmellC", "pbBeard", "pbEducation", "pbFitness", "pbSmellL", "ItemsHBox", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "HighlightOpts", "HighlightIntro", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "PanelTitle", "PanelSpark", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameSpeedValue", "GameSpeedSlider", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmellB", "pbSmellC", "pbBeard", "pbEducation", "pbFitness", "pbSmellL", "ItemsHBox", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "OptionsSaveButton", "HighlightIntro", "PanelCredits", "CreditsMask", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "PanelTitle", "PanelSpark", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameSpeedValue", "GameSpeedSlider", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "RunModeCB", "HighlightOpts", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "BanknotesContainer", "CoinsContainer", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
 script = ExtResource("1_u838r")
 Player = NodePath("Player")
 Body = NodePath("Player/Body")
@@ -1137,8 +1142,10 @@ SpeedButton2 = NodePath("UI/CanvasLayer UI/SpeedHBox/SpeedButton 2")
 SpeedButton3 = NodePath("UI/CanvasLayer UI/SpeedHBox/SpeedButton 3")
 OptionsPlayButton = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxButtons/PlayButton")
 OptionsContinueButton = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxButtons/ContinueButton")
-HighlightOpts = [NodePath("UI/CanvasLayer Options/PanelOptions/Highlight0"), NodePath("UI/CanvasLayer Options/PanelOptions/Highlight1"), NodePath("UI/CanvasLayer Options/PanelOptions/Highlight2"), NodePath("UI/CanvasLayer Options/PanelOptions/Highlight3"), NodePath("UI/CanvasLayer Options/PanelOptions/Highlight4"), NodePath("UI/CanvasLayer Options/PanelOptions/Highlight5"), NodePath("UI/CanvasLayer Options/PanelOptions/Highlight6"), NodePath("UI/CanvasLayer Options/PanelOptions/Highlight7"), NodePath("UI/CanvasLayer Options/PanelOptions/Highlight8"), NodePath("UI/CanvasLayer Options/PanelOptions/Highlight9"), NodePath("UI/CanvasLayer Options/PanelOptions/Highlight10")]
-HighlightIntro = [NodePath("UI/CanvasLayer Intro/Highlight0"), NodePath("UI/CanvasLayer Intro/Highlight1"), NodePath("UI/CanvasLayer Intro/Highlight2"), NodePath("UI/CanvasLayer Intro/Highlight3")]
+OptionsSaveButton = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxButtons/SaveButton")
+HighlightIntro = [NodePath("UI/CanvasLayer Intro/Highlights/Highlight0"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight1"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight2"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight3"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight4")]
+PanelCredits = NodePath("UI/CanvasLayer Intro/Mask/IntroTextScrolling/Credits background")
+CreditsMask = NodePath("UI/CanvasLayer Intro/Mask")
 PanelMetro = NodePath("UI/CanvasLayer UI/PanelMetro")
 MetroMain = NodePath("UI/CanvasLayer UI/PanelMetro/VBoxContainer/MainStreetButton")
 MetroSlum = NodePath("UI/CanvasLayer UI/PanelMetro/VBoxContainer/SlumStreetButton")
@@ -1151,18 +1158,20 @@ SelectedButtonTheme = ExtResource("90_geyvj")
 PanelOptions = NodePath("UI/CanvasLayer Options")
 PanelTitle = NodePath("UI/CanvasLayer Options/PanelOptions/Title")
 PanelSpark = NodePath("UI/CanvasLayer Options/PanelOptions/Title/Sparkle")
-MusicVolValue = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer/Value")
-MusicVolSlider = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer/HSlider")
-EffetsVolValue = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer/Value")
-EffetsVolSlider = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer/HSlider")
-DropDownFullscreen = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/OptionFullscreen")
-DropDownFPS = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelLimitFPS")
+MusicVolValue = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer/MusicValue")
+MusicVolSlider = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer/MusicHSlider")
+EffetsVolValue = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer/EffectsValue")
+EffetsVolSlider = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer/EffectsHSlider")
+DropDownFullscreen = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/HBoxVideo/OptionFullscreen")
+DropDownFPS = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/HBoxVideo/PanelLimitFPS")
 GameSpeedValue = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed/VBoxContainer/Value")
 GameSpeedSlider = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed/VBoxContainer/HSlider")
 GameDifficultyValue = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelDifficulty/VBoxContainer/Value")
 GameDifficultySlider = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelDifficulty/VBoxContainer/HSlider")
-UsePlayerHatCB = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelHat/CheckButton")
-UseCustomMusicCB = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelCustomMusic/CheckButton")
+UsePlayerHatCB = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelHat/HatCheckButton")
+UseCustomMusicCB = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelCustomMusic/CustomMusicCheckButton")
+RunModeCB = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelRunMode/RunModeCheckButton")
+HighlightOpts = [NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight0a"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight0b"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight1"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight2"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight3"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight4"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight5"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight6"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight7"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight8"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight9"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight10"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight11"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight12"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight13")]
 City = NodePath("City")
 BackgroundStreet = NodePath("BackgroundStreet")
 Sun = NodePath("City/Sun")
@@ -1180,8 +1189,10 @@ Skyscrapers = ExtResource("5_nf3a0")
 Buildings = ExtResource("6_j78vm")
 CityMap = NodePath("MapLayer/MapControl/Map")
 YouAreHere = NodePath("MapLayer/MapControl/Map/YouAreHere")
-Coins = [NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin1"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin2"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin3"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin4"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin5"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin6"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin7"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin8"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin9"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin10"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin11"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin12"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin13"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin14"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin15"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin16"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin17"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin18"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin19")]
-Banknotes = [NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote1"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote2"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote3"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote4"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote5"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote6"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote7"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote8"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote9"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote10")]
+Coins = [NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin1"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin2"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin3"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin4"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin5"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin6"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin7"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin8"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin9"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin10"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin11"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin12"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin13"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin14"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin15"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin16"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin17"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin18"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin19"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin20"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin21"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin22"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin23"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin24"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin25"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin26"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin27"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin28"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin29"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox/Coin30")]
+Banknotes = [NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote1"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote2"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote3"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote4"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote5"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote6"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote7"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote8"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote9"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote10"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote11"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote12"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote13"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote14"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote15"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote16"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote17"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote18"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote19"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote20")]
+BanknotesContainer = NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox")
+CoinsContainer = NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox")
 ItemTexts = Array[Texture2D]([ExtResource("27_6r7jq"), ExtResource("30_jde8m"), ExtResource("29_af21a"), ExtResource("31_h2s53"), ExtResource("28_hijcr"), ExtResource("8_sj0xs"), ExtResource("13_38vke")])
 ItemPrefabs = Array[PackedScene]([ExtResource("30_aeg6j"), ExtResource("29_im271"), ExtResource("13_ximlu"), ExtResource("20_1o0ay"), ExtResource("27_08n1n"), ExtResource("28_rfqmt"), ExtResource("31_t6qqv"), ExtResource("15_ef7u1"), ExtResource("22_78x71")])
 GrowingCarrotPrefab = ExtResource("193_m110f")
@@ -1274,7 +1285,7 @@ z_index = -50
 z_as_relative = false
 material = SubResource("CanvasItemMaterial_2l3yi")
 position = Vector2(559.5, 235)
-scale = Vector2(8, 4)
+scale = Vector2(32, 4)
 texture = ExtResource("2_7ghn5")
 
 [node name="SkyNight" type="Sprite2D" parent="City/Sun"]
@@ -5737,7 +5748,7 @@ grow_vertical = 2
 theme = ExtResource("19_ca2sb")
 theme_override_colors/font_color = Color(0.101446, 0.391223, 0.394276, 1)
 text = "$1 HotDogs
-12PM-12PM"
+12AM-12PM"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -6854,105 +6865,163 @@ layout_mode = 2
 [node name="CoinsHBox" type="HBoxContainer" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox"]
 custom_minimum_size = Vector2(0, 32)
 layout_mode = 2
+theme_override_constants/separation = -17
 
 [node name="Coin1" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin2" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin3" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin4" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin5" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin6" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin7" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin8" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin9" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin10" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin11" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin12" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin13" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin14" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin15" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin16" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin17" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin18" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="Coin19" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
 layout_mode = 2
-texture = ExtResource("29_gt5ns")
+texture = ExtResource("245_5h24u")
+stretch_mode = 5
+
+[node name="Coin20" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("245_5h24u")
+stretch_mode = 5
+
+[node name="Coin21" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("245_5h24u")
+stretch_mode = 5
+
+[node name="Coin22" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("245_5h24u")
+stretch_mode = 5
+
+[node name="Coin23" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("245_5h24u")
+stretch_mode = 5
+
+[node name="Coin24" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("245_5h24u")
+stretch_mode = 5
+
+[node name="Coin25" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("245_5h24u")
+stretch_mode = 5
+
+[node name="Coin26" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("245_5h24u")
+stretch_mode = 5
+
+[node name="Coin27" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("245_5h24u")
+stretch_mode = 5
+
+[node name="Coin28" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("245_5h24u")
+stretch_mode = 5
+
+[node name="Coin29" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+layout_mode = 2
+texture = ExtResource("245_5h24u")
+stretch_mode = 5
+
+[node name="Coin30" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox"]
+visible = false
+layout_mode = 2
+texture = ExtResource("245_5h24u")
 stretch_mode = 5
 
 [node name="BanknotesHBox" type="HBoxContainer" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
+theme_override_constants/separation = -51
 
 [node name="Banknote1" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
 layout_mode = 2
@@ -7000,6 +7069,57 @@ texture = ExtResource("30_usy1u")
 stretch_mode = 5
 
 [node name="Banknote10" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("30_usy1u")
+stretch_mode = 5
+
+[node name="Banknote11" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("30_usy1u")
+stretch_mode = 5
+
+[node name="Banknote12" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("30_usy1u")
+stretch_mode = 5
+
+[node name="Banknote13" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("30_usy1u")
+stretch_mode = 5
+
+[node name="Banknote14" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("30_usy1u")
+stretch_mode = 5
+
+[node name="Banknote15" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("30_usy1u")
+stretch_mode = 5
+
+[node name="Banknote16" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("30_usy1u")
+stretch_mode = 5
+
+[node name="Banknote17" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("30_usy1u")
+stretch_mode = 5
+
+[node name="Banknote18" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("30_usy1u")
+stretch_mode = 5
+
+[node name="Banknote19" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+layout_mode = 2
+texture = ExtResource("30_usy1u")
+stretch_mode = 5
+
+[node name="Banknote20" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox"]
+visible = false
 layout_mode = 2
 texture = ExtResource("30_usy1u")
 stretch_mode = 5
@@ -7301,10 +7421,8 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -4.0
-offset_top = -2364.0
-offset_right = -4.0
-offset_bottom = 736.0
+offset_top = -1064.0
+offset_bottom = 4430.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/default_color = Color(1, 0.976471, 0, 1)
@@ -7318,7 +7436,20 @@ theme_override_font_sizes/normal_font_size = 64
 theme_override_font_sizes/bold_font_size = 70
 theme_override_font_sizes/italics_font_size = 90
 bbcode_enabled = true
-text = "                                                                      [i]Rags to Riches[/i]
+text = "
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                      [i]Rags to Riches[/i]
 
 A very old           Commodore 64 game remastered.
 
@@ -7336,8 +7467,11 @@ Sound Effects: [color=#0080ff][b]CPU[/b][/color]
 In game Musics:             [color=#0080ff][b]SlicEnDicE[/b][/color]
 Victory Music:              [color=#0080ff][b]BG Ollie[/b][/color]
 Graphics: [color=#0080ff][b]CPU[/b][/color] using           [color=#0080ff][b]GIMP[/b][/color]
-Thanks to            [color=#0080ff][b]Bat Milku[/b][/color],            [color=#0080ff][b]J0nathan550[/b][/color] 
+
+Thanks to            [color=#0080ff][b]Bat Milku[/b][/color],            [color=#0080ff][b]J0nathan550[/b][/color],
+            [color=#0080ff][b]Homer[/b][/color],            [color=#0080ff][b]Navi[/b][/color], and             [color=#0080ff][b]Apoorv[/b][/color]
 for testing the game.
+
 Thanks to            [color=#0080ff][b]Cheeky Commodore Gamer[/b][/color] for
 presenting and reviewing this game.
 
@@ -7347,6 +7481,16 @@ Make money, get food, drink, rest, and improve your appereance and education, an
 And beware af the bad guys.
 
 Enjoy!
+
+
+
+
+
+
+
+
+
+
 "
 scroll_active = false
 shortcut_keys_enabled = false
@@ -7356,111 +7500,165 @@ hint_underlined = false
 [node name="C64" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
 offset_left = 269.0
-offset_top = 222.0
+offset_top = 1288.0
 offset_right = 349.0
-offset_bottom = 302.0
+offset_bottom = 1368.0
 texture = ExtResource("157_10gkh")
 expand_mode = 1
 
 [node name="CPU" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
 offset_left = 720.0
-offset_top = 1160.0
+offset_top = 2226.0
 offset_right = 816.0
-offset_bottom = 1256.0
+offset_bottom = 2322.0
 texture = ExtResource("152_j7ma7")
 
 [node name="UnitedProgramming" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
 offset_left = 1021.0
-offset_top = 1172.0
+offset_top = 2238.0
 offset_right = 1109.0
-offset_bottom = 1260.0
+offset_bottom = 2326.0
 texture = ExtResource("153_h76qt")
 expand_mode = 1
 
 [node name="CSharp" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
 offset_left = 271.0
-offset_top = 1397.0
+offset_top = 2463.0
 offset_right = 351.0
-offset_bottom = 1477.0
+offset_bottom = 2543.0
 texture = ExtResource("156_t3nna")
 expand_mode = 1
 
 [node name="SlicEnDicE" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
-offset_left = 423.0
-offset_top = 1613.0
-offset_right = 515.0
-offset_bottom = 1705.0
+offset_left = 424.0
+offset_top = 2678.0
+offset_right = 516.0
+offset_bottom = 2770.0
 texture = ExtResource("267_ynn2y")
 expand_mode = 1
 
 [node name="BGOllie" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
-offset_left = 384.0
-offset_top = 1718.0
-offset_right = 476.0
-offset_bottom = 1810.0
+offset_left = 386.0
+offset_top = 2786.0
+offset_right = 478.0
+offset_bottom = 2878.0
 texture = ExtResource("268_x5qpp")
 expand_mode = 1
 
 [node name="GIMP" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
-offset_left = 535.0
-offset_top = 1828.0
-offset_right = 627.0
-offset_bottom = 1920.0
+offset_left = 542.0
+offset_top = 2895.0
+offset_right = 634.0
+offset_bottom = 2987.0
 texture = ExtResource("155_gw0qo")
 expand_mode = 1
 
 [node name="Godot" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
 offset_left = 155.0
-offset_top = 1275.0
+offset_top = 2341.0
 offset_right = 247.0
-offset_bottom = 1367.0
+offset_bottom = 2433.0
 texture = ExtResource("154_1wdf4")
 expand_mode = 1
 
 [node name="BatMilku" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
 offset_left = 265.0
-offset_top = 1939.0
+offset_top = 3089.0
 offset_right = 357.0
-offset_bottom = 2031.0
+offset_bottom = 3181.0
 texture = ExtResource("272_r4lsp")
 expand_mode = 1
 
 [node name="J0nathan" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
 offset_left = 689.0
-offset_top = 1941.0
+offset_top = 3091.0
 offset_right = 781.0
-offset_bottom = 2033.0
+offset_bottom = 3183.0
 texture = ExtResource("273_lrx3g")
+expand_mode = 1
+
+[node name="Homer" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 3200.0
+offset_right = 109.0
+offset_bottom = 3292.0
+expand_mode = 1
+
+[node name="Navi" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+layout_mode = 0
+offset_left = 356.0
+offset_top = 3200.0
+offset_right = 448.0
+offset_bottom = 3292.0
+texture = ExtResource("275_w70h7")
+expand_mode = 1
+
+[node name="Apoorv" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+layout_mode = 0
+offset_left = 731.0
+offset_top = 3200.0
+offset_right = 823.0
+offset_bottom = 3292.0
+texture = ExtResource("276_y5wu3")
 expand_mode = 1
 
 [node name="CheekyCommodoreGamer" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
 offset_left = 267.0
-offset_top = 2131.0
+offset_top = 3472.0
 offset_right = 359.0
-offset_bottom = 2223.0
+offset_bottom = 3564.0
 texture = ExtResource("274_sxkv6")
 expand_mode = 1
 
 [node name="OSG?" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
 offset_left = -286.0
-offset_top = 2378.0
+offset_top = 3444.0
 offset_right = -194.0
-offset_bottom = 2470.0
+offset_bottom = 3536.0
 texture = ExtResource("154_1wdf4")
 expand_mode = 1
 
-[node name="Highlight0" type="TextureRect" parent="UI/CanvasLayer Intro"]
+[node name="Credits background" type="Panel" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+visible = false
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_op5we")
+
+[node name="Highlights" type="Control" parent="UI/CanvasLayer Intro"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 8.0
+offset_top = 4.0
+offset_right = 48.0
+offset_bottom = 44.0
+
+[node name="Highlight0" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
+custom_minimum_size = Vector2(0, 57)
+offset_left = 1730.0
+offset_top = 753.0
+offset_right = 1896.0
+offset_bottom = 810.0
+texture = ExtResource("101_md2s6")
+expand_mode = 1
+
+[node name="Highlight1" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
 custom_minimum_size = Vector2(0, 57)
 offset_left = 1730.0
 offset_top = 814.0
@@ -7469,7 +7667,7 @@ offset_bottom = 871.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight1" type="TextureRect" parent="UI/CanvasLayer Intro"]
+[node name="Highlight2" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
 custom_minimum_size = Vector2(0, 57)
 offset_left = 1730.0
 offset_top = 875.0
@@ -7478,7 +7676,7 @@ offset_bottom = 932.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight2" type="TextureRect" parent="UI/CanvasLayer Intro"]
+[node name="Highlight3" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
 custom_minimum_size = Vector2(0, 57)
 offset_left = 1730.0
 offset_top = 936.0
@@ -7487,7 +7685,7 @@ offset_bottom = 993.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight3" type="TextureRect" parent="UI/CanvasLayer Intro"]
+[node name="Highlight4" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
 custom_minimum_size = Vector2(0, 57)
 offset_left = 1730.0
 offset_top = 997.0
@@ -7496,20 +7694,6 @@ offset_bottom = 1054.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="IntroHighlight" type="VBoxContainer" parent="UI/CanvasLayer Intro"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -190.0
-offset_top = -266.0
-offset_right = -24.0
-offset_bottom = -14.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_constants/separation = 4
-
 [node name="IntroButtons" type="VBoxContainer" parent="UI/CanvasLayer Intro"]
 modulate = Color(1, 1, 1, 0.0196078)
 anchors_preset = 3
@@ -7517,10 +7701,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -182.0
-offset_top = -260.0
-offset_right = -32.0
-offset_bottom = -32.0
+offset_left = -174.0
+offset_top = -317.0
+offset_right = -24.0
+offset_bottom = -28.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/separation = 16
@@ -7528,6 +7712,7 @@ theme_override_constants/separation = 16
 [node name="PlayButton" type="Button" parent="UI/CanvasLayer Intro/IntroButtons"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
+tooltip_text = "Start the game"
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_uclcx")
@@ -7536,22 +7721,34 @@ text = "Play"
 [node name="OptionsButton" type="Button" parent="UI/CanvasLayer Intro/IntroButtons"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
+tooltip_text = "Show the options to configure the game to your liking"
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_uclcx")
 text = "Options"
 
-[node name="HelpButton" type="Button" parent="UI/CanvasLayer Intro/IntroButtons"]
+[node name="TutorialButton" type="Button" parent="UI/CanvasLayer Intro/IntroButtons"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
+tooltip_text = "Play the tutorial that will teach you how to play the game."
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_uclcx")
-text = "Help"
+text = "Tutorial"
+
+[node name="CreditsButton" type="Button" parent="UI/CanvasLayer Intro/IntroButtons"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+tooltip_text = "Makes the credits scrolling area bigger and smaller."
+theme_override_fonts/font = ExtResource("46_ge3pe")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_uclcx")
+text = "Credits"
 
 [node name="ExitButton" type="Button" parent="UI/CanvasLayer Intro/IntroButtons"]
 custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
+tooltip_text = "Close the game and go back to the OS."
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_uclcx")
@@ -7788,105 +7985,143 @@ grow_vertical = 2
 theme = ExtResource("19_ca2sb")
 theme_override_styles/panel = SubResource("StyleBoxTexture_8resc")
 
-[node name="Highlight0" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions"]
+[node name="Highligts" type="Control" parent="UI/CanvasLayer Options/PanelOptions"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Highlight0a" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
 offset_left = 313.0
 offset_top = 499.0
-offset_right = 1113.0
-offset_bottom = 563.0
+offset_right = 713.0
+offset_bottom = 559.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight1" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions"]
+[node name="Highlight0b" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
-offset_left = 313.0
-offset_top = 571.0
-offset_right = 1113.0
-offset_bottom = 635.0
+offset_left = 715.0
+offset_top = 499.0
+offset_right = 1115.0
+offset_bottom = 559.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight2" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions"]
+[node name="Highlight1" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
-offset_left = 313.0
-offset_top = 642.0
-offset_right = 1113.0
-offset_bottom = 702.0
+offset_left = 307.0
+offset_top = 567.0
+offset_right = 1123.0
+offset_bottom = 631.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight3" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions"]
+[node name="Highlight2" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
-offset_left = 313.0
+offset_left = 307.0
+offset_top = 639.0
+offset_right = 1123.0
+offset_bottom = 703.0
+texture = ExtResource("101_md2s6")
+expand_mode = 1
+
+[node name="Highlight3" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
+layout_mode = 0
+offset_left = 307.0
 offset_top = 712.0
-offset_right = 1113.0
+offset_right = 1123.0
 offset_bottom = 772.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight4" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions"]
+[node name="Highlight4" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
-offset_left = 313.0
+offset_left = 307.0
 offset_top = 785.0
-offset_right = 1113.0
+offset_right = 1123.0
 offset_bottom = 845.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight5" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions"]
+[node name="Highlight5" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
-offset_left = 313.0
+offset_left = 307.0
 offset_top = 856.0
-offset_right = 1113.0
+offset_right = 1123.0
 offset_bottom = 916.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight6" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions"]
+[node name="Highlight6" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
-offset_left = 313.0
+offset_left = 307.0
 offset_top = 928.0
-offset_right = 1113.0
+offset_right = 1123.0
 offset_bottom = 988.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight7" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions"]
+[node name="Highlight7" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
-offset_left = 313.0
-offset_top = 997.0
-offset_right = 1113.0
-offset_bottom = 1057.0
+offset_left = 307.0
+offset_top = 1000.0
+offset_right = 1123.0
+offset_bottom = 1060.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight8" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions"]
-visible = false
+[node name="Highlight8" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
 offset_left = 1419.0
-offset_top = 702.0
+offset_top = 496.0
 offset_right = 1760.0
-offset_bottom = 793.0
+offset_bottom = 587.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight9" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions"]
-visible = false
+[node name="Highlight9" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
 offset_left = 1419.0
-offset_top = 798.0
+offset_top = 592.0
 offset_right = 1760.0
-offset_bottom = 889.0
+offset_bottom = 683.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
-[node name="Highlight10" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions"]
-visible = false
+[node name="Highlight10" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
 offset_left = 1419.0
-offset_top = 894.0
+offset_top = 688.0
 offset_right = 1760.0
-offset_bottom = 985.0
+offset_bottom = 779.0
+texture = ExtResource("101_md2s6")
+expand_mode = 1
+
+[node name="Highlight11" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
+layout_mode = 0
+offset_left = 1419.0
+offset_top = 784.0
+offset_right = 1760.0
+offset_bottom = 875.0
+texture = ExtResource("101_md2s6")
+expand_mode = 1
+
+[node name="Highlight12" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
+layout_mode = 0
+offset_left = 1419.0
+offset_top = 880.0
+offset_right = 1760.0
+offset_bottom = 971.0
+texture = ExtResource("101_md2s6")
+expand_mode = 1
+
+[node name="Highlight13" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
+layout_mode = 0
+offset_left = 1419.0
+offset_top = 976.0
+offset_right = 1760.0
+offset_bottom = 1067.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
@@ -7897,6 +8132,43 @@ offset_top = 498.0
 offset_right = 1113.0
 offset_bottom = 1058.0
 theme_override_constants/separation = 8
+
+[node name="HBoxVideo" type="HBoxContainer" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders"]
+layout_mode = 2
+
+[node name="OptionFullscreen" type="OptionButton" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/HBoxVideo"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+tooltip_text = "Switch between fullscreen and window modes"
+theme = ExtResource("19_ca2sb")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_djxn1")
+item_count = 2
+selected = 0
+popup/item_0/text = "Fullscreen"
+popup/item_0/id = 0
+popup/item_1/text = "Window"
+popup/item_1/id = 1
+
+[node name="PanelLimitFPS" type="OptionButton" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/HBoxVideo"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+tooltip_text = "Used to limit the FPS of the game"
+theme = ExtResource("19_ca2sb")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_djxn1")
+item_count = 5
+selected = 0
+popup/item_0/text = "Unlimited FPS"
+popup/item_0/id = 0
+popup/item_1/text = "144 FPS"
+popup/item_1/id = 1
+popup/item_2/text = "60 FPS"
+popup/item_2/id = 2
+popup/item_3/text = "50 FPS"
+popup/item_3/id = 3
+popup/item_4/text = "30 FPS"
+popup/item_4/id = 4
 
 [node name="PanelMusic" type="Panel" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders"]
 custom_minimum_size = Vector2(800, 64)
@@ -7916,19 +8188,20 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+tooltip_text = "Change the volume of the music"
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
 text = " Music Volume"
 vertical_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer"]
+[node name="MusicHSlider" type="HSlider" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 80.0
 
-[node name="Value" type="Label" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+[node name="MusicValue" type="Label" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer"]
+custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("46_ge3pe")
@@ -7955,19 +8228,20 @@ theme_override_constants/separation = 8
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 0
+tooltip_text = "Change the volume of all sound effects"
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
 text = " Effects Volume"
 vertical_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer"]
+[node name="EffectsHSlider" type="HSlider" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 80.0
 
-[node name="Value" type="Label" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+[node name="EffectsValue" type="Label" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer"]
+custom_minimum_size = Vector2(110, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("46_ge3pe")
@@ -7976,18 +8250,25 @@ text = "80%"
 horizontal_alignment = 2
 vertical_alignment = 2
 
-[node name="OptionFullscreen" type="OptionButton" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders"]
-custom_minimum_size = Vector2(400, 0)
+[node name="PanelCustomMusic" type="Panel" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders"]
+custom_minimum_size = Vector2(800, 64)
 layout_mode = 2
-theme = ExtResource("19_ca2sb")
+theme_override_styles/panel = SubResource("StyleBoxFlat_djxn1")
+
+[node name="CustomMusicCheckButton" type="CheckButton" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelCustomMusic"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+tooltip_text = "When checked, all music files (in OGG or MP3 format)
+that are inside a folder called Music inside the
+ game folder, will be used when playing music.
+Use this to disable the default music."
+theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_djxn1")
-item_count = 2
-selected = 0
-popup/item_0/text = "Fullscreen"
-popup/item_0/id = 0
-popup/item_1/text = "Window"
-popup/item_1/id = 1
+text = "Use custom music"
 
 [node name="PanelSpeed" type="Panel" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders"]
 custom_minimum_size = Vector2(800, 64)
@@ -8009,15 +8290,19 @@ layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
-text = " Game Speed"
+text = " Time Speed"
 vertical_alignment = 2
 
 [node name="HSlider" type="HSlider" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+tooltip_text = "Changes the speed of the time in game.
+Making it go faster will make the game more difficult,
+making it slower will make the game easier but more
+boring if you have to wait."
 max_value = 9.0
-value = 4.0
+value = 5.0
 
 [node name="Value" type="Label" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed/VBoxContainer"]
 custom_minimum_size = Vector2(160, 0)
@@ -8056,6 +8341,11 @@ vertical_alignment = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+tooltip_text = "The difficulty affects the number of the bad guys
+that will spawn and how fast you will deplete your
+resources.
+The names are the people of the government of
+ Ukraine during the russian invasion."
 max_value = 9.0
 value = 5.0
 
@@ -8064,8 +8354,8 @@ custom_minimum_size = Vector2(160, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("46_ge3pe")
-theme_override_font_sizes/font_size = 40
-text = "Kamyshin"
+theme_override_font_sizes/font_size = 30
+text = "5 - Kamyshin"
 horizontal_alignment = 2
 vertical_alignment = 2
 
@@ -8074,81 +8364,97 @@ custom_minimum_size = Vector2(800, 64)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_djxn1")
 
-[node name="CheckButton" type="CheckButton" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelHat"]
+[node name="HatCheckButton" type="CheckButton" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelHat"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+tooltip_text = "Decide if the player should wear an hat or not.
+Affects only visuals."
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
 text = "Use hat for player"
 
-[node name="PanelCustomMusic" type="Panel" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders"]
+[node name="PanelRunMode" type="Panel" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders"]
 custom_minimum_size = Vector2(800, 64)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_djxn1")
 
-[node name="CheckButton" type="CheckButton" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelCustomMusic"]
+[node name="RunModeCheckButton" type="CheckButton" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelRunMode"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-tooltip_text = "When checked, all music files (in OGG format) that are inside a folder called Music inside the game folder, will be used when playing music.
-Use this to disable the default music."
+tooltip_text = "If checked you have to keep Shift
+pressed to run.
+If unchecked the Shift key will
+alternate between walking and running."
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
-text = "Use custom music"
-
-[node name="PanelLimitFPS" type="OptionButton" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders"]
-custom_minimum_size = Vector2(400, 0)
-layout_mode = 2
-theme = ExtResource("19_ca2sb")
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_djxn1")
-item_count = 5
-selected = 0
-popup/item_0/text = "FPS Unlimited"
-popup/item_0/id = 0
-popup/item_1/text = "144 FPS"
-popup/item_1/id = 1
-popup/item_2/text = "60 FPS"
-popup/item_2/id = 2
-popup/item_3/text = "50 FPS"
-popup/item_3/id = 3
-popup/item_4/text = "30 FPS"
-popup/item_4/id = 4
+button_pressed = true
+text = "Keep Shift pressed to run"
 
 [node name="VBoxButtons" type="VBoxContainer" parent="UI/CanvasLayer Options/PanelOptions"]
 layout_mode = 0
 offset_left = 1440.0
-offset_top = 714.0
+offset_top = 508.0
 offset_right = 1740.0
-offset_bottom = 970.0
+offset_bottom = 1052.0
 theme_override_constants/separation = 32
 
 [node name="PlayButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
 custom_minimum_size = Vector2(300, 64)
 layout_mode = 2
+tooltip_text = "Start the game from the begin"
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
 text = "Restart"
 
+[node name="LoadButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
+custom_minimum_size = Vector2(300, 64)
+layout_mode = 2
+tooltip_text = "Load an existing game (NOT IMPLEMENTED YET!)"
+theme_override_fonts/font = ExtResource("46_ge3pe")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
+text = "Load"
+
+[node name="SaveButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
+custom_minimum_size = Vector2(300, 64)
+layout_mode = 2
+tooltip_text = "Save the current game (NOT IMPLEMENTED YET!)"
+theme_override_fonts/font = ExtResource("46_ge3pe")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
+text = "Save"
+
 [node name="ContinueButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
 custom_minimum_size = Vector2(300, 64)
 layout_mode = 2
+tooltip_text = "Continue playing"
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
 text = "Continue"
 
+[node name="BackToIntroButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
+custom_minimum_size = Vector2(300, 64)
+layout_mode = 2
+tooltip_text = "Go back to the main screen"
+theme_override_fonts/font = ExtResource("46_ge3pe")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
+text = "Back to Title"
+
 [node name="ExitButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
 custom_minimum_size = Vector2(300, 64)
 layout_mode = 2
+tooltip_text = "Exit the game and go back to the OS"
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
@@ -8175,6 +8481,71 @@ grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(98, 60)
 texture = ExtResource("137_dpxxp")
+
+[node name="Labels" type="Control" parent="UI/CanvasLayer Options/PanelOptions"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LabelVideo" type="Label" parent="UI/CanvasLayer Options/PanelOptions/Labels"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 498.0
+offset_right = 262.0
+offset_bottom = 556.0
+theme_override_colors/font_color = Color(0, 0.78852, 0, 1)
+text = "Video"
+horizontal_alignment = 2
+
+[node name="VBar" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Labels/LabelVideo"]
+modulate = Color(0, 0.788235, 0, 1)
+layout_mode = 0
+offset_left = 200.0
+offset_top = 6.0
+offset_right = 208.0
+offset_bottom = 56.0
+texture = ExtResource("2_7ghn5")
+expand_mode = 1
+
+[node name="LabelAudio" type="Label" parent="UI/CanvasLayer Options/PanelOptions/Labels"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 646.0
+offset_right = 262.0
+offset_bottom = 704.0
+theme_override_colors/font_color = Color(0, 0.78852, 0, 1)
+text = "Audio"
+horizontal_alignment = 2
+
+[node name="VBar" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Labels/LabelAudio"]
+modulate = Color(0, 0.788235, 0, 1)
+layout_mode = 0
+offset_left = 200.0
+offset_top = -75.0
+offset_right = 208.0
+offset_bottom = 125.0
+texture = ExtResource("2_7ghn5")
+expand_mode = 1
+
+[node name="LabelGameplay" type="Label" parent="UI/CanvasLayer Options/PanelOptions/Labels"]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 860.0
+offset_right = 262.0
+offset_bottom = 918.0
+theme_override_colors/font_color = Color(0, 0.78852, 0, 1)
+text = "Gameplay"
+horizontal_alignment = 2
+
+[node name="VBar" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Labels/LabelGameplay"]
+modulate = Color(0, 0.788235, 0, 1)
+layout_mode = 0
+offset_left = 200.0
+offset_top = -73.0
+offset_right = 208.0
+offset_bottom = 197.0
+texture = ExtResource("2_7ghn5")
+expand_mode = 1
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="UI"]
 bus = &"Music"
@@ -8210,6 +8581,7 @@ horizontal_alignment = 1
 [node name="Balloons Layer" type="CanvasLayer" parent="."]
 
 [node name="NPCBalloon1" type="NinePatchRect" parent="Balloons Layer"]
+visible = false
 modulate = Color(0.901961, 1, 0.611765, 1)
 z_index = 100
 z_as_relative = false
@@ -8265,6 +8637,7 @@ texture = ExtResource("96_ohcu5")
 stretch_mode = 2
 
 [node name="NPCBalloon2" type="NinePatchRect" parent="Balloons Layer"]
+visible = false
 modulate = Color(0.901961, 1, 0.611765, 1)
 z_index = 100
 z_as_relative = false
@@ -8387,17 +8760,22 @@ stretch_mode = 2
 [connection signal="button_down" from="UI/CanvasLayer UI/PanelMetro/VBoxContainer/CloseButton" to="." method="JumpToRoad" binds= [6]]
 [connection signal="button_down" from="UI/CanvasLayer Intro/IntroButtons/PlayButton" to="." method="PlayGame" binds= [0]]
 [connection signal="button_down" from="UI/CanvasLayer Intro/IntroButtons/OptionsButton" to="." method="ShowOptions"]
-[connection signal="button_up" from="UI/CanvasLayer Intro/IntroButtons/HelpButton" to="." method="StartHelp"]
+[connection signal="button_up" from="UI/CanvasLayer Intro/IntroButtons/TutorialButton" to="." method="StartHelp"]
+[connection signal="button_up" from="UI/CanvasLayer Intro/IntroButtons/CreditsButton" to="." method="Credits"]
 [connection signal="button_down" from="UI/CanvasLayer Intro/IntroButtons/ExitButton" to="." method="QuitGame"]
 [connection signal="button_down" from="UI/CanvasLayer GameOver/GameOver/RePlayButton" to="." method="PlayGame" binds= [2]]
 [connection signal="button_down" from="UI/CanvasLayer Win/Win!/RePlayButton" to="." method="PlayGame" binds= [2]]
-[connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer/HSlider" to="." method="MusicSliderChange"]
-[connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer/HSlider" to="." method="EffectsSliderChange"]
-[connection signal="item_selected" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/OptionFullscreen" to="." method="ChangeFullscreen"]
+[connection signal="item_selected" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/HBoxVideo/OptionFullscreen" to="." method="ChangeFullscreen"]
+[connection signal="item_selected" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/HBoxVideo/PanelLimitFPS" to="." method="SetMaxFPS"]
+[connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer/MusicHSlider" to="." method="MusicSliderChange"]
+[connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer/EffectsHSlider" to="." method="EffectsSliderChange"]
 [connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed/VBoxContainer/HSlider" to="." method="GameSpeedSliderChange"]
 [connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelDifficulty/VBoxContainer/HSlider" to="." method="GameDifficultySliderChange"]
-[connection signal="toggled" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelHat/CheckButton" to="." method="UseHatForPlayer"]
-[connection signal="item_selected" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelLimitFPS" to="." method="SetMaxFPS"]
+[connection signal="toggled" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelHat/HatCheckButton" to="." method="UseHatForPlayer"]
+[connection signal="toggled" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelRunMode/RunModeCheckButton" to="." method="RunModePlayer"]
 [connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/PlayButton" to="." method="PlayGame" binds= [0]]
+[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/LoadButton" to="." method="LoadGame"]
+[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/SaveButton" to="." method="SaveGame"]
 [connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/ContinueButton" to="." method="PlayGame" binds= [1]]
+[connection signal="pressed" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/BackToIntroButton" to="." method="PlayGame" binds= [2]]
 [connection signal="pressed" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/ExitButton" to="." method="QuitGame"]

@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://e6f2hcitrcix" path="res://Graphics/Player/Body2.png" id="3_xtq3r"]
 [ext_resource type="Texture2D" uid="uid://ctr7ae0otxhib" path="res://Graphics/Player/Hat2.png" id="5_k6awt"]
 [ext_resource type="Texture2D" uid="uid://dixxex1eteunc" path="res://Graphics/Player/Hat1.png" id="5_nnayj"]
-[ext_resource type="Theme" uid="uid://due1hvfionyq8" path="res://Graphics/UI/Game_theme_SelectedButton.tres" id="8_juuqp"]
+[ext_resource type="Theme" uid="uid://due1hvfionyq8" path="res://Graphics/UI/Themes/Game_theme_SelectedButton.tres" id="8_juuqp"]
 [ext_resource type="Texture2D" uid="uid://dv362m10sa8mk" path="res://Graphics/Backgrounds/Mountains.png" id="9_c0wu6"]
 [ext_resource type="Texture2D" uid="uid://bvjefrmhqqkx" path="res://Graphics/Backgrounds/Hills.png" id="10_47ajm"]
 [ext_resource type="Texture2D" uid="uid://cnc8ft575up5u" path="res://Graphics/Backgrounds/Skyscrapers.png" id="11_7yb35"]
@@ -53,7 +53,7 @@
 [ext_resource type="Texture2D" uid="uid://df4ygufgpvcrl" path="res://Graphics/UI/Sky.png" id="119_tt18p"]
 [ext_resource type="Script" path="res://Scripts/Road.cs" id="120_k7nrc"]
 [ext_resource type="Texture2D" uid="uid://b2cyhnm2r21xa" path="res://Graphics/City/Buildings/HotDogs.png" id="121_sndpn"]
-[ext_resource type="Theme" uid="uid://cqvjkew4xu7gx" path="res://Graphics/UI/Game_theme.tres" id="124_5uv6w"]
+[ext_resource type="Theme" uid="uid://cqvjkew4xu7gx" path="res://Graphics/UI/Themes/Game_theme.tres" id="124_5uv6w"]
 [ext_resource type="Texture2D" uid="uid://brisss320lop1" path="res://Graphics/City/Buildings/Metro.png" id="125_vwflt"]
 [ext_resource type="Texture2D" uid="uid://t1ubn1ux5fsh" path="res://Graphics/City/Buildings/Park.png" id="127_rqetm"]
 [ext_resource type="Texture2D" uid="uid://ttxtb6vmfmoj" path="res://Graphics/City/Buildings/Building2.png" id="132_l6rha"]
@@ -955,7 +955,7 @@ frame = 3
 [node name="Hat" type="Sprite2D" parent="Player"]
 texture = ExtResource("5_nnayj")
 offset = Vector2(0, 24)
-hframes = 2
+hframes = 3
 vframes = 2
 
 [node name="Broom" type="Sprite2D" parent="Player"]

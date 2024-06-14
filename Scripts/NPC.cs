@@ -70,7 +70,7 @@ public partial class NPC : Sprite2D {
     if (GetParent() != cityLayer) cityLayer.AddChild(this);
     // 960player 2064 npc  on right
     // 960player -144 npc  on left
-    GlobalPosition = new(goingLeft ? 2064 : -155, 450 + order * 8);
+    GlobalPosition = new(goingLeft ? game.WindowWidth + 155 : -155, 450 + order * 8);
     Scale = (goingLeft ? Vector2.Left : Vector2.Right) + Vector2.Down;
     direction = goingLeft ? Vector2.Left : Vector2.Right;
     NPCSpeed = rnd.RandfRange(120f, 200f);
@@ -103,7 +103,7 @@ public partial class NPC : Sprite2D {
 
     if (DogPrefab != null && rnd.RandiRange(0, 5) == 0) {
       dog = DogPrefab.Instantiate() as DogNPC;
-      dog.Init(this);
+      dog.Init(this, game.WindowWidth);
     }
 
     happiness = rnd.RandiRange(1, 3);
@@ -242,7 +242,7 @@ public partial class NPC : Sprite2D {
       game.NPCGone(this);
       NPCSpeed = 0;
     }
-    else if (!goingLeft && GlobalPosition.X > 2064) {
+    else if (!goingLeft && GlobalPosition.X > game.WindowWidth + 144) {
       game.NPCGone(this);
       NPCSpeed = 0;
     }

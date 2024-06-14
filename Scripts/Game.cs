@@ -1,7 +1,7 @@
 using Godot;
-using Godot;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace R2R;
 
@@ -40,9 +40,10 @@ public partial class Game : Node, IGame {
 	[Export] TextureRect Razor;
 	[Export] TextureRect Broom;
 	[Export] ColorRect FadePanel;
-	[Export] Button SpeedButton0, SpeedButton1, SpeedButton2, SpeedButton3, OptionsPlayButton, OptionsContinueButton;
-	[Export] TextureRect[] HighlightOpts;
-	[Export] TextureRect[] HighlightIntro;
+	[Export] Button SpeedButton0, SpeedButton1, SpeedButton2, SpeedButton3, OptionsPlayButton, OptionsContinueButton, OptionsSaveButton;
+  [Export] TextureRect[] HighlightIntro;
+	[Export] Panel PanelCredits;
+	[Export] Control CreditsMask;
 
 	[ExportGroup("Metro")]
 	[Export] Panel PanelMetro;
@@ -69,8 +70,10 @@ public partial class Game : Node, IGame {
 	[Export] Slider GameDifficultySlider;
 	[Export] CheckButton UsePlayerHatCB;
 	[Export] CheckButton UseCustomMusicCB;
+	[Export] CheckButton RunModeCB;
+  [Export] TextureRect[] HighlightOpts;
 
-	[ExportGroup("Environment")]
+  [ExportGroup("Environment")]
 	[Export] Node2D City;
 	[Export] Sprite2D BackgroundStreet;
 	[Export] DirectionalLight2D Sun;
@@ -86,6 +89,7 @@ public partial class Game : Node, IGame {
 	[ExportGroup("Items")]
 	[Export] TextureRect[] Coins;
 	[Export] TextureRect[] Banknotes;
+	[Export] HBoxContainer BanknotesContainer, CoinsContainer;
 	[Export] Texture2D[] ItemTexts; // 0 Bottle, 1 Can, 2 bone, 3 paper, 4 poop
 	[Export] PackedScene[] ItemPrefabs;
 	[Export] PackedScene GrowingCarrotPrefab;
@@ -157,6 +161,7 @@ public partial class Game : Node, IGame {
 	bool doingGym = false;
 	double userGameSpeed = 1;
 	double gameSpeed = 5;
+  double speedFactor = 1;
 	int gameDifficulty = 5;
 	bool moving = false;
 	double moveDelta = 0;
@@ -175,8 +180,11 @@ public partial class Game : Node, IGame {
 	public bool sleepingOnBench = false;
 	bool jail = false;
 	double globalMessageTimeout = 0;
+  bool joyJustPressed = false;
+	bool wasPPressed = false;
+	bool keepShiftPressedToRun = true;
 
-	double food = 100;
+  double food = 100;
 	double drink = 100;
 	double rest = 100;
 	double bodySmell = 25;
@@ -275,22 +283,11 @@ public partial class Game : Node, IGame {
 				DisplayServer.WindowSetSize(new(winWidth, winHeight), 0);
 			}
 			DropDownFullscreen.Selected = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Windowed ? 1 : 0;
-			int gs = (int)config.GetValue("Game", "Speed", 4);
-			GameSpeedSlider.SetValueNoSignal(gs);
-			gameSpeed = gs switch {
-				0 => .1,
-				1 => .25,
-				2 => .5,
-				3 => .8,
-				4 => 1,
-				5 => 1.1,
-				6 => 1.2,
-				7 => 1.5,
-				8 => 2,
-				9 => 5,
-				_ => 1,
-			};
-			GameSpeedValue.Text = gs switch {
+			gameSpeed = (int)config.GetValue("Game", "Speed", 5);
+      speedFactor = 0.015625 * gameSpeed * gameSpeed + 0.03125 * gameSpeed + 0.453125;
+			if (gameSpeed == 0) speedFactor = .1;
+      GameSpeedSlider.SetValueNoSignal(gameSpeed);
+			GameSpeedValue.Text = gameSpeed switch {
 				0 => "Frozen",
 				1 => "Very slow",
 				2 => "Slow",
@@ -321,6 +318,8 @@ public partial class Game : Node, IGame {
 
 			Hat.Visible = (bool)config.GetValue("Game", "UseHatForPlayer", true);
 			UsePlayerHatCB.SetPressedNoSignal(Hat.Visible);
+      keepShiftPressedToRun = (bool)config.GetValue("Game", "KeepShiftPressedToRun", true);
+			RunModeCB.SetPressedNoSignal(keepShiftPressedToRun);
 			UseCustomMusicCB.SetPressedNoSignal((bool)config.GetValue("Game", "UseCustomMusic", false));
 		}
 
@@ -338,9 +337,11 @@ public partial class Game : Node, IGame {
 		BalloonTxt.Text = "";
 		textForBaloon = null;
 		BackgroundStreet.Visible = true;
+		PanelCredits.Visible = false;
+    CreditsMask.Position = new(0, 716);
+    CreditsMask.Size = new(1920, 364);
 
-
-		for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
+    for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
 
 		ResetAllValues();
 
@@ -349,7 +350,8 @@ public partial class Game : Node, IGame {
 		firstStart = false;
 		OptionsPlayButton.Text = "Start";
 		OptionsContinueButton.Disabled = true;
-		SetStatus(Status.Intro);
+    OptionsSaveButton.Disabled = true;
+    SetStatus(Status.Intro);
 	}
 
 	void SetStatus(Status s) {
@@ -367,9 +369,13 @@ public partial class Game : Node, IGame {
 				MusicPlayer.Play();
 				IntroText.Text = IntroText.Text.Replace("<calc years ago>", (DateTime.Now.Year - 1985).ToString());
 				foreach (var h in HighlightIntro) h.Visible = false;
-				break;
+        PanelCredits.Visible = false;
+        CreditsMask.Position = new(0, 716);
+        CreditsMask.Size = new(1920, 364);
+        introTextScrollPos = -700;
+        break;
 			case Status.Starting:
-				IntroPanel.Visible = false;
+        IntroPanel.Visible = false;
 				introTextScrollPos = 400;
 				GameOverPanel.Visible = false;
 				GameOverAnim.Active = false;
@@ -378,7 +384,8 @@ public partial class Game : Node, IGame {
 				doActionDelta = .5f;
 				OptionsPlayButton.Text = "Restart";
 				OptionsContinueButton.Disabled = false;
-				break;
+        OptionsSaveButton.Disabled = false;
+        break;
 			case Status.Playing:
 				break;
 			case Status.Dying:
@@ -422,8 +429,6 @@ public partial class Game : Node, IGame {
 	}
 
 	public bool iSleepingOnBench => sleepingOnBench;
-
-
   public Node2D iPlayer => Player;
 	public AudioStream[] iFNo => FNo;
 	public AudioStream[] iMNo => MNo;
@@ -550,13 +555,12 @@ public partial class Game : Node, IGame {
 		removeEnemy = false;
 
 		RemoveAllItems();
-		ArrangeWallet(0);
-		ResetPlayer();
+    ArrangeWallet(0);
+    ResetPlayer();
 		SetClothes(Clothes.Rags);
 		SetRoad(SlumStreet, 0);
   }
 
-	bool joyJustPressed = false;
 
 	public override void _Process(double delta) {
 		bool joyStart = Input.IsJoyButtonPressed(0, JoyButton.Start);
@@ -565,8 +569,15 @@ public partial class Game : Node, IGame {
 		bool joyBack = Input.IsJoyButtonPressed(0, JoyButton.Back);
 
 
+		checkAspectRatioDelta -= delta;
+		if (checkAspectRatioDelta < 0) {
+      CheckAspectRatio();
+			checkAspectRatioDelta = 2;
+    }
 
-		if (Input.IsActionJustPressed("Z")) { // FIXME
+
+
+    if (Input.IsActionJustPressed("Z")) { // FIXME
     }
 
 
@@ -652,6 +663,19 @@ public partial class Game : Node, IGame {
 			joyJustPressed = false;
 		}
 
+		if (Input.IsKeyPressed(Key.Key0)) GameSpeed(0);
+		if (Input.IsKeyPressed(Key.P)) {
+			if (!wasPPressed) {
+				GameSpeed(userGameSpeed == 0 ? 1 : 0);
+				wasPPressed = true;
+			}
+		}
+		else wasPPressed = false;
+    if (Input.IsKeyPressed(Key.Key1)) GameSpeed(1);
+		if (Input.IsKeyPressed(Key.Key2)) GameSpeed(2);
+		if (Input.IsKeyPressed(Key.Key3)) GameSpeed(3);
+
+
 		if (fixtBallonSize) {
 			fixtBallonSize = false;
 			var lsize = BalloonTxt.Size;
@@ -668,7 +692,9 @@ public partial class Game : Node, IGame {
 			NPCBalloon2.Size = lsize;
 		}
 
-		double d = delta * userGameSpeed;
+    double d = delta * userGameSpeed * speedFactor;
+
+		// gamespeed 0->*.1	1->*.5		5->*1		9->*2
 
 		HandleTime(d);
 		if (status == Status.Starting) {
@@ -902,23 +928,62 @@ public partial class Game : Node, IGame {
 		//		Debug.Text = $"TOUCH: {touch.Position.X:F0}, {touch.Position.Y:F0}";
 	}
 
+  public override void _Notification(int what) {
+		if (what == NotificationApplicationFocusOut) {
+			GameSpeed(0);
+    }
+		else if (what == NotificationApplicationFocusIn) {
+      GameSpeed(1);
+    }
+  }
 
-	#region movement *****************************************************************************************************************************      [movement]
 
-	bool wasUpPressed = false;
+	double checkAspectRatioDelta = 0;
+	Window window = null;
+	int windowWidth = 1980;
+	int playerXPos = 960;
+
+  public int PlayerPos => playerXPos;
+	public int WindowWidth => windowWidth;
+
+	const float defaultAspectRatio = 16f / 9;
+  void CheckAspectRatio() {
+    window ??= GetWindow();
+    windowWidth = window.Size.X;
+    float ratio = window.Size.X * 1f / window.Size.Y;
+		if (ratio > defaultAspectRatio) {
+			if (playerXPos != windowWidth / 2) {
+				playerXPos = windowWidth / 2;
+				var pos = Player.Position;
+				pos.X = playerXPos;
+				Player.Position = pos;
+			}
+		}
+		else if (playerXPos != 960) {
+      playerXPos = 960;
+      var pos = Player.Position;
+      pos.X = playerXPos;
+      Player.Position = pos;
+    }
+  }
+
+  #region movement *****************************************************************************************************************************      [movement]
+
+  bool wasUpPressed = false;
 	bool wasDownPressed = false;
 	bool wasUsePressed = false;
 	bool wasLeftPressed = false;
 	bool wasRightPressed = false;
+	bool wasShiftPressed = false;
 	bool fitPosition = false;
 
 	void HandleMovements(double delta) {
+		if (userGameSpeed == 0) return;
 		bool up = false;
 		bool down = false;
 		bool left = false;
 		bool right = false;
 		bool use = false;
-		bool running = false;
 		if (doActionDelta <= 0 && waitUntil == -1 && waitUntilNextDay == -1) {
 			float jx = Input.GetJoyAxis(0, JoyAxis.LeftX);
 			float jy = Input.GetJoyAxis(0, JoyAxis.LeftY);
@@ -949,8 +1014,16 @@ public partial class Game : Node, IGame {
 			else {
 				wasUsePressed = false;
 			}
-			running = (Input.IsKeyPressed(Key.Shift) || Input.IsJoyButtonPressed(0, JoyButton.B));
-		}
+
+			if (keepShiftPressedToRun) running = (Input.IsKeyPressed(Key.Shift) || Input.IsJoyButtonPressed(0, JoyButton.B));
+			else if ((Input.IsKeyPressed(Key.Shift) || Input.IsJoyButtonPressed(0, JoyButton.B))) {
+				if (!wasShiftPressed) {
+					running = !running;
+					wasShiftPressed = true;
+				}
+			}
+			else wasShiftPressed = false;
+    }
 
 		if (up || down) {
 			left = false;
@@ -1049,7 +1122,7 @@ public partial class Game : Node, IGame {
 		else if (left || right || fitPosition) {
 			fitPosition = false;
 			moving = true;
-			double multiplier = (running ? 3.25 : 2) * (rest <= 0 ? .5 : 1) * (rest > 90 ? 1.1 : 1) * (1 + fitness * 0.01);
+			double multiplier = (running ? 3.75 : 2) * (rest <= 1 ? .5 : 1) * (rest > 90 ? 1.1 : 1) * (1 + fitness * 0.01);
 			moveDelta += delta * multiplier;
 			if (moveDelta > moveSpeed) {
 				moveDelta -= moveSpeed;
@@ -1078,11 +1151,11 @@ public partial class Game : Node, IGame {
 				}
 			}
 			if (inside && !wasInsideCrossroad) {
-				Player.Position = new(960, 520);
+				Player.Position = new(playerXPos, 520);
 				wasInsideCrossroad = true;
 			}
 			else if (!inside && wasInsideCrossroad) {
-				Player.Position = new(960, 490);
+				Player.Position = new(playerXPos, 490);
 				wasInsideCrossroad = false;
 			}
 
@@ -1288,7 +1361,6 @@ public partial class Game : Node, IGame {
     }
     int slashPos = exePath.LastIndexOf('/') + 1;
     exePath = exePath[0..slashPos] + "Music/";
-    GD.Print($"Checking for music in: {exePath}");
     using var dir = DirAccess.Open(exePath);
     List<string> foundMusics = new();
 		foreach (var file in DirAccess.GetFilesAt(exePath)) {
@@ -1301,7 +1373,7 @@ public partial class Game : Node, IGame {
 		string music = foundMusics[rnd.RandiRange(0, foundMusics.Count - 1)];
     AudioStream sound;
 		if (music[^1] == '3') {
-			using var musicFile = FileAccess.Open(music, FileAccess.ModeFlags.Read);
+			using var musicFile = Godot.FileAccess.Open(music, Godot.FileAccess.ModeFlags.Read);
 			sound = new AudioStreamMP3 {
 				Data = musicFile.GetBuffer((long)musicFile.GetLength())
 			};
@@ -1446,7 +1518,7 @@ public partial class Game : Node, IGame {
 		Face.Frame = 0;
 		Legs.Frame = 3 + 9 * (int)clothes;
 		Beard.Frame = Beardlevel(BeardLevels.Walk);
-		Player.Position = new(960, 490 + deathDelta * 110);
+		Player.Position = new(playerXPos, 490 + deathDelta * 110);
 		Player.Scale = new(1 - deathDelta * .2f, 1);
 		deathDelta += (float)delta * 1.5f;
 
@@ -1549,35 +1621,68 @@ public partial class Game : Node, IGame {
 	}
 
 	int ArrangeWallet(int earnedMoney) {
-		// Max is 10 banknotes and 19 coins
+		// Max is 20 banknotes and 30 coins
 		numCoins += earnedMoney;
-		while (numBanknotes < 10 && numCoins > 10) {
+		while (numBanknotes < 20 && numCoins > 10) {
 			numBanknotes++;
 			numCoins -= 10;
 		}
-		if (numCoins > 19) {
+		if (numCoins > 30) {
 			if (hasATM) {
 				money += numCoins;
 				numCoins = 0;
 			}
 			else {
-				earnedMoney = numCoins - 19;
-				numCoins = 19;
+				earnedMoney = numCoins - 30;
+				numCoins = 30;
 				GlobalMessage.Text = $"Some money is lost, get an ATM card!";
 				globalMessageTimeout = 5;
 			}
 		}
+    TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+    if (money >= 10000000) {
+      SetStatus(Status.Win);
+    }
+		SetWalletUI();
+    return earnedMoney;
+  }
+
+  void SetWalletUI() {
 		for (int i = 0; i < Coins.Length; i++) {
 			Coins[i].Visible = i < numCoins;
 		}
 		for (int i = 0; i < Banknotes.Length; i++) {
 			Banknotes[i].Visible = i < numBanknotes;
 		}
-		TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
-		if (money >= 10000000) {
-			SetStatus(Status.Win);
-		}
-		return earnedMoney;
+		int separation = numBanknotes switch {
+			11 => -8,
+			12 => -16,
+			13 => -24,
+			14 => -30,
+			15 => -35,
+			16 => -40,
+			17 => -44,
+			18 => -48,
+			19 => -51,
+			20 => -53,
+			_ => 0
+		};
+		BanknotesContainer.AddThemeConstantOverride("separation", separation);
+    separation = numCoins switch {
+      20 => 0,
+      21 => -3,
+      22 => -5,
+      23 => -7,
+      24 => -9,
+      25 => -11,
+      26 => -13,
+      27 => -14,
+      28 => -15,
+      29 => -17,
+      30 => -18,
+      _ => 0
+    };
+    CoinsContainer.AddThemeConstantOverride("separation", separation);
 	}
 
 	int CalculateInvSize() {
@@ -1754,7 +1859,7 @@ public partial class Game : Node, IGame {
 				case 2: Legs.Frame = 6 + 9 * (int)clothes; break;
 				case 3: Legs.Frame = 7 + 9 * (int)clothes; break;
 			}
-			Player.Position = new(960, 490 - 45 * (1 - (float)doActionDelta));
+			Player.Position = new(playerXPos, 490 - 45 * (1 - (float)doActionDelta));
 			Player.ZIndex = (int)(71 - 25 * (1 - (float)doActionDelta));
 
 			if (foundLocation.type == LocationType.Bench || foundLocation.type == LocationType.Crossroad) { // try to go to the center
@@ -1769,7 +1874,7 @@ public partial class Game : Node, IGame {
 				Face.Frame = 0;
 				Hat.Frame = 0;
         Legs.Frame = 0 + 9 * (int)clothes;
-				Player.Position = new(960, 490);
+				Player.Position = new(playerXPos, 490);
 				Beard.Visible = true;
 				Beard.Frame = Beardlevel(BeardLevels.Walk);
 				// Call the action here
@@ -1792,7 +1897,7 @@ public partial class Game : Node, IGame {
 			Face.Frame = 0;
 			Legs.Frame = 3 + 9 * (int)clothes;
 			Beard.Frame = Beardlevel(BeardLevels.Walk);
-			Player.Position = new(960, 490 + (1 - (float)doActionDelta) * 5);
+			Player.Position = new(playerXPos, 490 + (1 - (float)doActionDelta) * 5);
 			Player.Scale = new(1 - (1 - (float)doActionDelta) * .4f, 1);
 		}
 
@@ -1918,12 +2023,12 @@ public partial class Game : Node, IGame {
 			throwBone -= delta;
 
 			// Mid point
-			float midX = (DumpDog.GlobalPosition.X * 2 + 960) / 3;
+			float midX = (DumpDog.GlobalPosition.X * 2 + playerXPos) / 3;
 			float midY = DumpDog.GlobalPosition.Y - 400; // Intentionally high because is the control point of the Bezier curve
 
 			// Bezier curve
 			float t = (float)(1 - throwBone);
-			float px = midX + (1 - t) * (1 - t) * (960 - midX) + t * t * (DumpDog.GlobalPosition.X - midX);
+			float px = midX + (1 - t) * (1 - t) * (playerXPos - midX) + t * t * (DumpDog.GlobalPosition.X - midX);
 			float py = midY + (1 - t) * (1 - t) * (490 - midY) + t * t * (DumpDog.GlobalPosition.Y - midY);
 
 			BoneForDog.GlobalPosition = new(px, py);
@@ -1961,24 +2066,26 @@ public partial class Game : Node, IGame {
 		int objectSize = 0;
 		switch (itemType) {
 			case PickableItem.Coin:
-				if (numCoins >= 19) {
+				if (numCoins >= 30) {
 					PlayDenial();
 					return false;
 				}
 				Coins[numCoins].Visible = true;
 				numCoins++;
+        SetWalletUI();
         TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
         SoundPlayer.Stream = PickupSound;
 				SoundPlayer.Play();
 				return true;
 
 			case PickableItem.Banknote:
-				if (numBanknotes >= 10) {
+				if (numBanknotes >= 20) {
 					PlayDenial();
 					return false;
 				}
 				Banknotes[numBanknotes].Visible = true;
 				numBanknotes++;
+        SetWalletUI();
         TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
         SoundPlayer.Stream = PickupSound;
 				SoundPlayer.Play();
@@ -2129,7 +2236,8 @@ public partial class Game : Node, IGame {
 						money += numBanknotes * 10 + numCoins;
 						numBanknotes = 0;
 						numCoins = 0;
-						foreach (var i in Coins) i.Visible = false;
+            SetWalletUI();
+            foreach (var i in Coins) i.Visible = false;
 						foreach (var i in Banknotes) i.Visible = false;
             TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
             StopEnemies();
@@ -2145,7 +2253,8 @@ public partial class Game : Node, IGame {
 						money += numBanknotes * 10 + numCoins;
 						numBanknotes = 0;
 						numCoins = 0;
-						foreach (var i in Coins) i.Visible = false;
+            SetWalletUI();
+            foreach (var i in Coins) i.Visible = false;
 						foreach (var i in Banknotes) i.Visible = false;
             TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
             success = ResultSound.ATM;
@@ -2156,7 +2265,7 @@ public partial class Game : Node, IGame {
 						ATMCard.Visible = true;
 						ShowBalloon("Got an ATM card", 4);
 						RemoveMoney(10);
-						success = ResultSound.GenericSuccess;
+            success = ResultSound.GenericSuccess;
 						StopEnemies();
 					}
 					else {
@@ -2595,7 +2704,7 @@ public partial class Game : Node, IGame {
 					}
 					else {
 						restingOnBench = true;
-						Player.Position = new(960, 406);
+						Player.Position = new(playerXPos, 406);
 						Eye.Visible = false;
 						EyesSitClosed.Visible = false;
 						Body.Frame = 3 + GetFitnessLevel();
@@ -2798,7 +2907,7 @@ public partial class Game : Node, IGame {
 
 	public void JailTime(string msg) {
 		SetRoad(SlumStreet, 2200);
-		Player.Position = new(960, 90);
+		Player.Position = new(playerXPos, 90);
 		restingOnBench = false;
 		sleepingOnBench = false;
 		pickup = false;
@@ -2903,10 +3012,10 @@ public partial class Game : Node, IGame {
 		Hat.Frame = 0;
     Legs.Frame = 0 + 9 * (int)clothes;
 		if (wasInsideCrossroad) {
-			Player.Position = new(960, 520);
+			Player.Position = new(playerXPos, 520);
 		}
 		else {
-			Player.Position = new(960, 490);
+			Player.Position = new(playerXPos, 490);
 		}
     Player.ZIndex = 75;
 		Player.Scale = Vector2.One;
@@ -3477,8 +3586,8 @@ public partial class Game : Node, IGame {
 					ShowBalloon($"I got robbed of {FormatMoney(numBanknotes * 10 + numCoins)}...", 1);
 					numBanknotes = 0;
 					numCoins = 0;
-					ArrangeWallet(0);
-				}
+          SetWalletUI();
+        }
 				break;
 
 			case EnemyType.Maga: // steals 10% of education and ATM
@@ -3541,8 +3650,8 @@ public partial class Game : Node, IGame {
 				numTickets = 0;
 				for (int i = 0; i < 10; i++) Tickets[i].Visible = false;
 				RemoveAllItems();
-				ArrangeWallet(0);
-				break;
+        SetWalletUI();
+        break;
 		}
 	}
 
@@ -3563,7 +3672,8 @@ public partial class Game : Node, IGame {
 			ResetPlayer();
 			OptionsPlayButton.Text = "Restart";
 			OptionsContinueButton.Disabled = false;
-			SetStatus(Status.Starting);
+      OptionsSaveButton.Disabled = false;
+      SetStatus(Status.Starting);
 		}
 		else if (fromWhere == 1) { // Continue
 			if (status == Status.Playing) PanelOptions.Visible = false;
@@ -3578,13 +3688,34 @@ public partial class Game : Node, IGame {
 			ResetPlayer();
 			OptionsPlayButton.Text = "Restart";
 			OptionsContinueButton.Disabled = false;
-			SetStatus(Status.Intro);
+      OptionsSaveButton.Disabled = false;
+      SetStatus(Status.Intro);
 		}
 		PanelOptions.Visible = false;
 	}
 
+	public void LoadGame() {
+	}
 
-	void SetMaxFPS(int index) {
+	public void SaveGame() {
+    var savePath = OS.GetExecutablePath();
+    if (OS.IsDebugBuild()) {
+      savePath = "C:/Users/claud/Godot/R2R/";
+    }
+    int slashPos = savePath.LastIndexOf('/') + 1;
+    savePath = savePath[0..slashPos] + "Saves/";
+		if (!DirAccess.DirExistsAbsolute(savePath)) Directory.CreateDirectory(savePath);
+    using var dir = DirAccess.Open(savePath);
+		
+		// Create a big Json file with all variables and instanciated objects
+
+
+
+  }
+
+
+
+  void SetMaxFPS(int index) {
 		Engine.MaxFps = index switch {
 			0 => 0,
 			1 => 144,
@@ -3623,34 +3754,24 @@ public partial class Game : Node, IGame {
 			9 => "Insane",
 			_ => "Normal",
 		};
-		gameSpeed = (int)GameSpeedSlider.Value switch {
-			0 => .1,
-			1 => .25,
-			2 => .5,
-			3 => .8,
-			4 => 1,
-			5 => 1.1,
-			6 => 1.2,
-			7 => 1.5,
-			8 => 2,
-			9 => 5,
-			_ => 1,
-		};
+		gameSpeed = (int)GameSpeedSlider.Value;
+    speedFactor = 0.015625 * gameSpeed * gameSpeed + 0.03125 * gameSpeed + 0.453125;
+    if (gameSpeed == 0) speedFactor = .1;
 	}
 	void GameDifficultySliderChange(float _) {
 		gameDifficulty = (int)GameDifficultySlider.Value;
 		GameDifficultyValue.Text = gameDifficulty switch {
-			0 => "Shevchenko",
-			1 => "Shmyhal",
-			2 => "Galushchenko",
-			3 => "Kuleba",
-			4 => "Umerov",
-			5 => "Kamyshin",
-			6 => "Budanov",
-			7 => "Syrskyi",
-			8 => "Zaluzhny",
-			9 => "Zelenskyy",
-			_ => "Kamyshin",
+			0 => "0 - Shevchenko",
+			1 => "1 - Shmyhal",
+			2 => "2 - Galushchenko",
+			3 => "3 - Kuleba",
+			4 => "4 - Umerov",
+			5 => "5 - Kamyshin",
+			6 => "6 - Budanov",
+			7 => "7 - Syrskyi",
+			8 => "8 - Zaluzhny",
+			9 => "9 - Zelenskyy",
+			_ => "5 - Kamyshin",
 		};
 	}
 
@@ -3686,9 +3807,13 @@ public partial class Game : Node, IGame {
 	public void UseHatForPlayer(bool pressed) {
 		Hat.Visible = pressed;
   }
+	public void RunModePlayer(bool pressed) {
+		keepShiftPressedToRun = pressed;
+    config.SetValue("Game", "KeepShiftPressedToRun", keepShiftPressedToRun);
+  }
 
 
-	void SaveOptions() {
+  void SaveOptions() {
 		config.SetValue("Sounds", "MusicVolume", (int)MusicVolSlider.Value);
 		config.SetValue("Sounds", "SoundsVolume", (int)EffetsVolSlider.Value);
 		config.SetValue("Graphics", "Fullscreen", (int)(DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Fullscreen ? 1 : 0));
@@ -3750,6 +3875,26 @@ public partial class Game : Node, IGame {
 
 
 	double optionsClickDelta = 0;
+
+	const int menuFullScreen = 0;
+	const int menuFPS = 1;
+
+	const int menuMusicVol = 2;
+	const int menuEffectsVol = 3;
+	const int menuCustomMusic = 4;
+
+	const int menuTimeSpeed = 5;
+	const int menuDifficulty = 6;
+	const int menuHatForplayer = 7;
+	const int menuRunMode = 8;
+
+	const int menuRestart = 9;
+	const int menuLoad = 10;
+	const int menuSave = 11;
+	const int menuContinue = 12;
+	const int menuBackTitle = 13;
+	const int menuExit = 14;
+
 	void HandleMenuActions(bool joyStart, double delta) {
 		if (Input.IsActionJustPressed("Esc") || (joyStart && !joyJustPressed)) {
 			joyJustPressed = true;
@@ -3778,9 +3923,9 @@ public partial class Game : Node, IGame {
 		double delay;
 		if (use) delay = .5;
 		else if (up || down) delay = .25;
-		else if (sel == 3 || sel == 4 || sel == 7) delay = .4;
-		else delay = .05;
-		if (optionsClickDelta < delay) return;
+		else if (sel == menuMusicVol || sel == menuEffectsVol || sel == menuTimeSpeed || sel == menuDifficulty) delay = .05;
+		else delay = .4;
+    if (optionsClickDelta < delay) return;
 
 		if (!up && !down && !left && !right && !use) return;
 		optionsClickDelta = 0;
@@ -3789,44 +3934,50 @@ public partial class Game : Node, IGame {
 			if (sel == -1) sel = HighlightOpts.Length - 1;
 			HighlightOpts[sel].Visible = false;
 			sel++;
-			if (sel >= HighlightOpts.Length) sel = 0;
+			if (sel == menuSave && OptionsSaveButton.Disabled) sel++;
+			if (sel == menuContinue && OptionsContinueButton.Disabled) sel++;
+      if (sel >= HighlightOpts.Length) sel = 0;
 			HighlightOpts[sel].Visible = true;
 		}
 		if (up) {
 			if (sel == -1) sel = 0;
 			HighlightOpts[sel].Visible = false;
 			sel--;
-			if (sel < 0) sel = HighlightOpts.Length - 1;
+      if (sel == menuContinue && OptionsContinueButton.Disabled) sel--;
+      if (sel == menuSave && OptionsSaveButton.Disabled) sel--;
+      if (sel < 0) sel = HighlightOpts.Length - 1;
 			HighlightOpts[sel].Visible = true;
 		}
-		if (left && (sel == 0 || sel == 1 || sel == 3 || sel == 4 || sel == 7)) {
-			if (sel == 0) {
+		if (left && sel < menuRestart) {
+			if (sel == menuFullScreen) {
+				ChangeFullscreen(0);
+			}
+      else if (sel == menuFPS) {
+        var index = DropDownFPS.Selected;
+        index--;
+        if (index < 0) index = 4;
+        DropDownFPS.Selected = index;
+        SetMaxFPS(index);
+      }
+			else if (sel == menuMusicVol) {
 				MusicVolSlider.SetValueNoSignal(MusicVolSlider.Value - 1);
 				MusicVolValue.Text = $"{MusicVolSlider.Value:N0}%";
 				MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
 			}
-			else if (sel == 1) {
+			else if (sel == menuEffectsVol) {
 				EffetsVolSlider.SetValueNoSignal(EffetsVolSlider.Value - 1);
 				EffetsVolValue.Text = $"{EffetsVolSlider.Value:N0}%";
 				SoundPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
 				PlayerPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
 				NPCPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
 			}
-			else if (sel == 3) {
+			else if (sel == menuCustomMusic) {
+				UseCustomMusicCB.SetPressedNoSignal(false);
+			}
+			else if (sel == menuTimeSpeed) {
 				GameSpeedSlider.SetValueNoSignal(GameSpeedSlider.Value - 1);
-				gameSpeed = (int)GameSpeedSlider.Value switch {
-					0 => .1,
-					1 => .25,
-					2 => .5,
-					3 => .8,
-					4 => 1,
-					5 => 1.1,
-					6 => 1.2,
-					7 => 1.5,
-					8 => 2,
-					9 => 5,
-					_ => 1,
-				};
+        gameSpeed = (int)GameSpeedSlider.Value;
+        speedFactor = 0.015625 * gameSpeed * gameSpeed + 0.03125 * gameSpeed + 0.453125;
 				GameSpeedValue.Text = (int)GameSpeedSlider.Value switch {
 					0 => "Frozen",
 					1 => "Very slow",
@@ -3841,7 +3992,7 @@ public partial class Game : Node, IGame {
 					_ => "Normal",
 				};
 			}
-			else if (sel == 4) {
+			else if (sel == menuDifficulty) {
 				GameDifficultySlider.SetValueNoSignal(GameDifficultySlider.Value - 1);
 				gameDifficulty = (int)GameDifficultySlider.Value;
 				GameDifficultyValue.Text = gameDifficulty switch {
@@ -3858,43 +4009,43 @@ public partial class Game : Node, IGame {
 					_ => "Kamyshin",
 				};
 			}
-			else if (sel == 7) {
-				var index = DropDownFPS.Selected;
-				index--;
-				if (index<0) index = 4;
-				DropDownFPS.Selected = index;
-        SetMaxFPS(index);
-			}
-			SaveOptions();
+      else if (sel == menuHatForplayer) {
+        UseHatForPlayer(false);
+        UsePlayerHatCB.SetPressedNoSignal(false);
+      }
+      else if (sel == menuRunMode) {
+        RunModePlayer(false);
+        RunModeCB.SetPressedNoSignal(false);
+      }
+      SaveOptions();
 		}
-		if (right && (sel == 0 || sel == 1 || sel == 3 || sel == 4 || sel == 7)) {
-			if (sel == 0) {
+		if (right && sel < menuRestart) {
+      if (sel == menuFullScreen) {
+        ChangeFullscreen(1);
+      }
+      else if (sel == menuFPS) {
+        var index = DropDownFPS.Selected;
+        index++;
+        if (index > 4) index = 0;
+        DropDownFPS.Selected = index;
+        SetMaxFPS(index);
+      }
+      else if (sel == menuMusicVol) {
 				MusicVolSlider.SetValueNoSignal(MusicVolSlider.Value + 1);
 				MusicVolValue.Text = $"{MusicVolSlider.Value:N0}%";
 				MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
 			}
-			else if (sel == 1) {
+			else if (sel == menuEffectsVol) {
 				EffetsVolSlider.SetValueNoSignal(EffetsVolSlider.Value + 1);
 				EffetsVolValue.Text = $"{EffetsVolSlider.Value:N0}%";
 				SoundPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
 				PlayerPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
 				NPCPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
 			}
-			else if (sel == 3) {
+			else if (sel == menuTimeSpeed) {
 				GameSpeedSlider.SetValueNoSignal(GameSpeedSlider.Value + 1);
-				gameSpeed = (int)GameSpeedSlider.Value switch {
-					0 => .1,
-					1 => .25,
-					2 => .5,
-					3 => .8,
-					4 => 1,
-					5 => 1.1,
-					6 => 1.2,
-					7 => 1.5,
-					8 => 2,
-					9 => 5,
-					_ => 1,
-				};
+        gameSpeed = (int)GameSpeedSlider.Value;
+        speedFactor = 0.015625 * gameSpeed * gameSpeed + 0.03125 * gameSpeed + 0.453125;
 				GameSpeedValue.Text = (int)GameSpeedSlider.Value switch {
 					0 => "Frozen",
 					1 => "Very slow",
@@ -3909,7 +4060,7 @@ public partial class Game : Node, IGame {
 					_ => "Normal",
 				};
 			}
-			else if (sel == 4) {
+			else if (sel == menuDifficulty) {
 				GameDifficultySlider.SetValueNoSignal(GameDifficultySlider.Value + 1);
 				gameDifficulty = (int)GameDifficultySlider.Value;
 				GameDifficultyValue.Text = gameDifficulty switch {
@@ -3926,30 +4077,33 @@ public partial class Game : Node, IGame {
 					_ => "Kamyshin",
 				};
 			}
-      else if (sel == 7) {
-        var index = DropDownFPS.Selected;
-				index++;
-        if (index > 4) index = 0;
-        DropDownFPS.Selected = index;
-        SetMaxFPS(index);
+      else if (sel == menuHatForplayer) {
+        UseHatForPlayer(true);
+				UsePlayerHatCB.SetPressedNoSignal(true);
+      }
+      else if (sel == menuRunMode) {
+        RunModePlayer(true);
+				RunModeCB.SetPressedNoSignal(true);
       }
       SaveOptions();
 		}
 
-		if (use && sel == 2) {
+		if (use && sel == menuFullScreen) {
 			SwitchFullscreen();
 			SaveOptions();
 		}
 
-		if (use && sel == 5) {
-			UsePlayerHatCB.SetPressedNoSignal(!UsePlayerHatCB.ButtonPressed);
-			UseHatForPlayer(UsePlayerHatCB.ButtonPressed);
+		if (use && sel == menuHatForplayer) {
+			UsePlayerHatCB.ButtonPressed = !UsePlayerHatCB.ButtonPressed;
 		}
-		if (use && sel == 6) {
-			UseCustomMusicCB.ButtonPressed = false;
+		if (use && sel == menuCustomMusic) {
+			UseCustomMusicCB.ButtonPressed = !UseCustomMusicCB.ButtonPressed;
+    }
+		if (use && sel == menuRunMode) {
+			RunModeCB.ButtonPressed = !RunModeCB.ButtonPressed;
 		}
 
-    if (use && sel == 7) {
+    if (use && sel == menuFPS) {
 			var index = DropDownFPS.Selected;
 			index++;
 			if (index > 4) index = 0;
@@ -3958,14 +4112,22 @@ public partial class Game : Node, IGame {
       SaveOptions();
     }
 
-    if (use && sel == 8) {
+    if (use && sel == menuLoad) {
+			LoadGame();
+		}
+		if (use && sel == menuSave) {
+			SaveGame();
+		}
+		if (use && sel == menuRestart) {
 			PlayGame(0);
 		}
-		if (use && sel == 9) {
+    if (use && sel == menuContinue) {
 			PlayGame(1);
 		}
-
-		if (use && sel == 10) {
+		if (use && sel == menuBackTitle) {
+			PlayGame(2);
+		}
+		if (use && sel == menuExit) {
 			QuitGame();
 		}
 	}
@@ -3986,11 +4148,11 @@ public partial class Game : Node, IGame {
 	[Export] AnimationPlayer WinAnim;
 	[Export] RichTextLabel IntroText;
 
-	double introTextScrollPos = 400;
+	double introTextScrollPos = 0;
 
 	void ShowIntro(double delta) {
 		introTextScrollPos -= delta * 40;
-		if (introTextScrollPos < -3100) introTextScrollPos = 400;
+		if (introTextScrollPos < -4400) introTextScrollPos = PanelCredits.Visible ? 0 : -700;
 		IntroText.Position = new(0, (float)introTextScrollPos);
 		if (doActionDelta > 0) {
 			doActionDelta -= delta;
@@ -4000,7 +4162,7 @@ public partial class Game : Node, IGame {
 				MusicPlayer.Play();
 			}
 		}
-		else if (!HighlightIntro[0].Visible && !HighlightIntro[1].Visible && !HighlightIntro[2].Visible && !HighlightIntro[3].Visible &&
+		else if (!HighlightIntro[0].Visible && !HighlightIntro[1].Visible && !HighlightIntro[2].Visible && !HighlightIntro[3].Visible && !HighlightIntro[4].Visible &&
 			(Input.IsKeyPressed(Key.Enter) || Input.IsPhysicalKeyPressed(Key.Ctrl) || Input.IsJoyButtonPressed(0, JoyButton.A))) {
 			SetStatus(Status.Starting);
 		}
@@ -4016,7 +4178,6 @@ public partial class Game : Node, IGame {
 			}
 		}
 
-		float jx = Input.GetJoyAxis(0, JoyAxis.LeftX);
 		float jy = Input.GetJoyAxis(0, JoyAxis.LeftY);
 		bool up = (Input.IsKeyPressed(Key.Up) || Input.IsPhysicalKeyPressed(Key.W) || Input.IsJoyButtonPressed(0, JoyButton.DpadUp)) || jy < -.5f;
 		bool down = (Input.IsKeyPressed(Key.Down) || Input.IsPhysicalKeyPressed(Key.S) || Input.IsJoyButtonPressed(0, JoyButton.DpadDown)) || jy > .5f;
@@ -4052,12 +4213,28 @@ public partial class Game : Node, IGame {
 			case 0: PlayGame(0); break;
 			case 1: ShowOptions(); break;
 			case 2: StartHelp(); break;
-			case 3: QuitGame(); break;
+			case 3: Credits(); break;
+			case 4: QuitGame(); break;
 		}
 	}
 
   public void StartHelp() {
     GetTree().ChangeSceneToFile("res://Prefabs/Help.tscn");
+  }
+
+	public void Credits() {
+    PanelCredits.Visible = !PanelCredits.Visible;
+
+		if (PanelCredits.Visible) {
+			CreditsMask.Position = Vector2.Zero;
+			CreditsMask.Size = new(1920, 1080);
+			introTextScrollPos += 710;
+    }
+		else {
+      CreditsMask.Position = new(0, 716);
+      CreditsMask.Size = new(1920, 364);
+      introTextScrollPos -= 710;
+    }
   }
 
   #endregion Intro ********************************************************************************************************************** ^Intro^
