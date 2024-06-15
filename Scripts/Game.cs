@@ -3775,7 +3775,6 @@ public partial class Game : Node, IGame {
       wasInsideCrossroad = wasInsideCrossroad,
       playedMusic = playedMusic,
       prevHour = prevHour,
-      checkAspectRatioDelta = checkAspectRatioDelta,
       windowWidth = windowWidth,
       playerXPos = playerXPos,
       lastSpawnMain = lastSpawnMain,

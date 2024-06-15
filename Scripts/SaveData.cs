@@ -87,7 +87,6 @@ public class SaveData {
   public bool wasInsideCrossroad { get; set; }
   public bool playedMusic { get; set; }
   public int prevHour { get; set; }
-  public double checkAspectRatioDelta { get; set; }
   public int windowWidth { get; set; }
   public int playerXPos { get; set; }
   public double lastSpawnMain { get; set; }
