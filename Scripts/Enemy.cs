@@ -11,6 +11,8 @@ public partial class Enemy : AnimatedSprite2D {
 	bool completedAction = false;
 	bool fleeing = false;
 	double catchTime = 0;
+	bool wasInsideCrossroad = false;
+
 	internal void Spawn(IGame game, EnemyType enemyType) {
 		this.game = game;
 		type = enemyType;
@@ -26,7 +28,6 @@ public partial class Enemy : AnimatedSprite2D {
   }
 
 
-	bool wasInsideCrossroad = false;
 
 	public void ProcessEnemy(double delta, Vector2[] crossroads, float streetX) {
 		if (!completedAction) {
@@ -172,6 +173,21 @@ public partial class Enemy : AnimatedSprite2D {
     }
   }
 
+
+	public SaveEnemy Save() {
+		return new() {
+			X = Position.X,
+			Y = Position.Y,
+			goingLeft = goingLeft,
+			Speed = Speed,
+			type = (int)type,
+			completedAction = completedAction,
+			fleeing = fleeing,
+			catchTime = catchTime,
+			wasInsideCrossroad = wasInsideCrossroad,
+		};
+	}
 }
+
 
 public enum EnemyType { None, Police, DrunkGuy, Robber, Maga, ZTurd, Orban };

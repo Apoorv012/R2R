@@ -30,5 +30,5 @@ public partial class Pickable : Node2D {
 }
 
 public enum PickableItem {
-  Coin, Banknote, Bottle, Can, Poop, Paper, Bone, Carrot, RotCarrot, AllTrash, AllRecyclable
+  Coin = 0, Banknote = 1, Bottle = 2, Can = 3, Poop = 4, Paper = 5, Bone = 6, Carrot = 7, RotCarrot = 8, AllTrash = 9, AllRecyclable = 10
 }

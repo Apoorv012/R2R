@@ -1094,7 +1094,7 @@ expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmellB", "pbSmellC", "pbBeard", "pbEducation", "pbFitness", "pbSmellL", "ItemsHBox", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "OptionsSaveButton", "HighlightIntro", "PanelCredits", "CreditsMask", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "PanelTitle", "PanelSpark", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameSpeedValue", "GameSpeedSlider", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "RunModeCB", "HighlightOpts", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "BanknotesContainer", "CoinsContainer", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmellB", "pbSmellC", "pbBeard", "pbEducation", "pbFitness", "pbSmellL", "ItemsHBox", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "OptionsSaveButton", "HighlightIntro", "PanelCredits", "CreditsMask", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "PanelTitle", "PanelSpark", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameSpeedValue", "GameSpeedSlider", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "RunModeCB", "HighlightOpts", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "BanknotesContainer", "CoinsContainer", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "ApartmentList", "HotelList", "Gardens", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "cam", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
 script = ExtResource("1_u838r")
 Player = NodePath("Player")
 Body = NodePath("Player/Body")
@@ -1206,6 +1206,9 @@ SlumStreet = NodePath("City/SlumStreet")
 Slum_MarketDoor = NodePath("City/SlumStreet/SS_Doors/Market")
 Side_SportBarDoor = NodePath("City/SideRoad/DS_Doors/Sport Bar")
 Benches = [NodePath("City/SuburbAvenue/SB_BackItems/Bench"), NodePath("City/SideRoad/DS_BackItems/Bench"), NodePath("City/MainStreet/MS_BackItems/Bench"), NodePath("City/SlumStreet/SS_BackItems/Bench")]
+ApartmentList = [NodePath("City/TopBoulevard/TS_Doors/Top notch Apartments"), NodePath("City/NorthRoad/NS_Doors/Decent Apartments"), NodePath("City/MainStreet/MS_Doors/Rentable Apartments")]
+HotelList = [NodePath("City/SuburbAvenue/SB_Doors/1 Star Hotel"), NodePath("City/NorthRoad/NS_Doors/Quick Rest Hotel"), NodePath("City/SlumStreet/SS_Doors/Cheap Motel")]
+Gardens = []
 NPCTemplateGirl1 = ExtResource("33_1k0wr")
 NPCTemplateGirl2 = ExtResource("18_ovgdg")
 NPCTemplateGirl3 = ExtResource("23_84vq4")
@@ -1264,6 +1267,7 @@ FDisgust = Array[AudioStream]([ExtResource("70_ltdvq"), ExtResource("71_xk0q5"),
 MDisgust = Array[AudioStream]([ExtResource("76_ef24c"), ExtResource("77_b6osu"), ExtResource("78_vfidd"), ExtResource("79_uxo1i"), ExtResource("80_wx61e"), ExtResource("81_7sl3a"), ExtResource("82_24t2i"), ExtResource("72_u16l4")])
 FApproval = Array[AudioStream]([ExtResource("83_lkosm"), ExtResource("84_m7x7a"), ExtResource("85_mupoh"), ExtResource("86_n2qnn"), ExtResource("87_1t025")])
 MApproval = Array[AudioStream]([ExtResource("88_wioya"), ExtResource("89_7xavv")])
+cam = NodePath("Player/Camera2D")
 IntroPanel = NodePath("UI/CanvasLayer Intro")
 GameOverPanel = NodePath("UI/CanvasLayer GameOver")
 WinPanel = NodePath("UI/CanvasLayer Win")
@@ -1454,11 +1458,32 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Aparts1" type="Sprite2D" parent="City/SuburbAvenue/Buidlings"]
+[node name="Hotel" type="Sprite2D" parent="City/SuburbAvenue/Buidlings"]
 modulate = Color(1, 0.960784, 0.878431, 1)
 y_sort_enabled = true
 position = Vector2(4964, 206)
 texture = ExtResource("3_vqm7t")
+
+[node name="Sprite2D" type="Sprite2D" parent="City/SuburbAvenue/Buidlings/Hotel"]
+self_modulate = Color(0.0588235, 0.0705882, 0.0823529, 1)
+position = Vector2(206, 20.9999)
+scale = Vector2(4.5125, 0.487502)
+texture = ExtResource("101_md2s6")
+
+[node name="Label" type="Label" parent="City/SuburbAvenue/Buidlings/Hotel/Sprite2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -31.9114
+offset_top = -47.1792
+offset_right = 160.089
+offset_bottom = -84.1792
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.222, 2.049)
+theme = ExtResource("90_geyvj")
+theme_override_font_sizes/font_size = 30
+text = "1 ★ Hotel - $3 per night"
 
 [node name="Market2" type="Sprite2D" parent="City/SuburbAvenue/Buidlings"]
 position = Vector2(3515, 271)
@@ -1726,10 +1751,15 @@ price = 10
 ItemConsumed = 7
 maxSmell = 70
 
-[node name="Door4" type="Sprite2D" parent="City/SuburbAvenue/SB_Doors"]
+[node name="1 Star Hotel" type="Sprite2D" parent="City/SuburbAvenue/SB_Doors"]
 modulate = Color(1, 0.960784, 0.878431, 1)
 position = Vector2(5173, 430)
 texture = ExtResource("49_vmd18")
+script = ExtResource("26_v2dtc")
+type = 5
+StartTime = 20
+EndTime = 6
+price = 30
 
 [node name="Door1" type="Sprite2D" parent="City/SuburbAvenue/SB_Doors"]
 self_modulate = Color(0.909804, 0.772549, 0.776471, 1)
@@ -2283,7 +2313,7 @@ maxBeard = 20
 minClothes = 2
 minEducation = 75
 
-[node name="Apartments" type="Sprite2D" parent="City/TopBoulevard/TS_Doors"]
+[node name="Top notch Apartments" type="Sprite2D" parent="City/TopBoulevard/TS_Doors"]
 position = Vector2(-5404, 401)
 texture = ExtResource("49_g2xo7")
 script = ExtResource("26_v2dtc")
@@ -2536,7 +2566,7 @@ EndTime = 16
 price = 2500
 amount = 2
 maxSmell = 20
-maxBeard = 0
+maxBeard = 19
 minClothes = 2
 minEducation = 75
 
@@ -3061,14 +3091,15 @@ texture = ExtResource("58_kb3gq")
 z_index = 30
 position = Vector2(1500, 0)
 
-[node name="Apartments" type="Sprite2D" parent="City/NorthRoad/NS_Doors"]
+[node name="Decent Apartments" type="Sprite2D" parent="City/NorthRoad/NS_Doors"]
 position = Vector2(-9529, 415)
 texture = ExtResource("48_rq23e")
 script = ExtResource("26_v2dtc")
 type = 6
 price = 150
+amount = 7
 
-[node name="Label" type="Label" parent="City/NorthRoad/NS_Doors/Apartments"]
+[node name="Label" type="Label" parent="City/NorthRoad/NS_Doors/Decent Apartments"]
 offset_left = -121.0
 offset_top = -178.0
 offset_right = 121.0
@@ -3218,7 +3249,7 @@ offset_bottom = -101.0
 theme = ExtResource("19_ca2sb")
 text = "Sharp Razors"
 
-[node name="Hotel" type="Sprite2D" parent="City/NorthRoad/NS_Doors"]
+[node name="Quick Rest Hotel" type="Sprite2D" parent="City/NorthRoad/NS_Doors"]
 position = Vector2(2372, 390)
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("52_qkksj")
@@ -4515,6 +4546,32 @@ y_sort_enabled = true
 position = Vector2(-6686, 210)
 texture = ExtResource("3_vqm7t")
 
+[node name="NinePatchRect" type="NinePatchRect" parent="City/MainStreet/Buidlings/Aparts1"]
+self_modulate = Color(0.491135, 0.246743, 0.0444808, 1)
+offset_left = 115.0
+offset_top = 78.0
+offset_right = 279.0
+offset_bottom = 179.0
+texture = ExtResource("66_4d78g")
+
+[node name="Label" type="Label" parent="City/MainStreet/Buidlings/Aparts1/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 24.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("19_ca2sb")
+theme_override_colors/font_color = Color(0.595012, 0.821515, 1, 1)
+theme_override_font_sizes/font_size = 26
+text = "Rent
+$7.5 for 5 days"
+vertical_alignment = 1
+
 [node name="Park2" type="Sprite2D" parent="City/MainStreet/Buidlings"]
 z_index = -1
 position = Vector2(-5333, 331)
@@ -4875,9 +4932,13 @@ EndTime = 20
 price = 3
 ItemConsumed = 5
 
-[node name="Apartments" type="Sprite2D" parent="City/MainStreet/MS_Doors"]
+[node name="Rentable Apartments" type="Sprite2D" parent="City/MainStreet/MS_Doors"]
 position = Vector2(-6264, 410.5)
 texture = ExtResource("6_d6cds")
+script = ExtResource("26_v2dtc")
+type = 6
+price = 75
+amount = 5
 
 [node name="Barber Shop" type="Sprite2D" parent="City/MainStreet/MS_Doors"]
 position = Vector2(-3974, 392)
@@ -6572,6 +6633,9 @@ texture = ExtResource("126_2wr3s")
 offset = Vector2(0, 24)
 vframes = 3
 
+[node name="Camera2D" type="Camera2D" parent="Player"]
+offset = Vector2(0, 60)
+
 [node name="UI" type="Control" parent="."]
 custom_minimum_size = Vector2(1920, 1080)
 layout_mode = 3
@@ -7651,6 +7715,7 @@ offset_bottom = 44.0
 
 [node name="Highlight0" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
 custom_minimum_size = Vector2(0, 57)
+layout_mode = 0
 offset_left = 1730.0
 offset_top = 753.0
 offset_right = 1896.0
@@ -7660,6 +7725,7 @@ expand_mode = 1
 
 [node name="Highlight1" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
 custom_minimum_size = Vector2(0, 57)
+layout_mode = 0
 offset_left = 1730.0
 offset_top = 814.0
 offset_right = 1896.0
@@ -7669,6 +7735,7 @@ expand_mode = 1
 
 [node name="Highlight2" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
 custom_minimum_size = Vector2(0, 57)
+layout_mode = 0
 offset_left = 1730.0
 offset_top = 875.0
 offset_right = 1896.0
@@ -7678,6 +7745,7 @@ expand_mode = 1
 
 [node name="Highlight3" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
 custom_minimum_size = Vector2(0, 57)
+layout_mode = 0
 offset_left = 1730.0
 offset_top = 936.0
 offset_right = 1896.0
@@ -7687,6 +7755,7 @@ expand_mode = 1
 
 [node name="Highlight4" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
 custom_minimum_size = Vector2(0, 57)
+layout_mode = 0
 offset_left = 1730.0
 offset_top = 997.0
 offset_right = 1896.0

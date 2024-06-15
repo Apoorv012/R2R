@@ -180,24 +180,24 @@ public partial class Location : Sprite2D {
 }
 
 public enum LocationType {
-  ATM, // Exchange cash if you have a card
-  Bank, // Used to get a card
-  Shop, // Food, Drink, Tickets, Razor, Clothes, Shaving, 
-  Trashcan, // A trashcan to throw away stuff
-  Garden, // Place to grow food
-  Hotel, // Place to sleep one night
-  Apartment, // Place to rent for a week
-  Job, // Place where you can work
-  Dump, // Place where you can find bones or other trash to recycle
-  Recycler, // Place where you can sell your scraps
-  Sign, // Used just to read some text
-  Bench, // Used to rest
-  Crossroad, // Used to go to other streets
-  Metro, // Special item to go around
-  Map, // Special type of sign that shows a map when used
-  School, // Used to study (use Amount as level of school: 0 elementary, 1 middle, 2 high, 3 college
-  Gym, // Used to improve the fitness level
-	Fountain, // Used to drink or to wash yourself in case you have soap
+  ATM = 0, // Exchange cash if you have a card
+  Bank = 1, // Used to get a card
+  Shop = 2, // Food, Drink, Tickets, Razor, Clothes, Shaving, 
+  Trashcan = 3, // A trashcan to throw away stuff
+  Garden = 4, // Place to grow food
+  Hotel = 5, // Place to sleep one night
+  Apartment = 6, // Place to rent for a week
+  Job = 7, // Place where you can work
+  Dump = 8, // Place where you can find bones or other trash to recycle
+  Recycler = 9, // Place where you can sell your scraps
+  Sign = 10, // Used just to read some text
+  Bench = 11, // Used to rest
+  Crossroad = 12, // Used to go to other streets
+  Metro = 13, // Special item to go around
+  Map = 14, // Special type of sign that shows a map when used
+  School = 15, // Used to study (use Amount as level of school: 0 elementary, 1 middle, 2 high, 3 college
+  Gym = 16, // Used to improve the fitness level
+	Fountain = 17, // Used to drink or to wash yourself in case you have soap
 }
 
 public enum RoadName { None=-1, Main_Street=0, Slum_Street=1, Side_Road=2, North_Road=3, Top_Boulevard=4, Suburb_Avenue=5, Help_Road=6 };

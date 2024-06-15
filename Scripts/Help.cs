@@ -1423,7 +1423,7 @@ public partial class Help : Node, IGame {
 
 			var npc = npcScene.Instantiate() as NPC;
 			NPCs.Add(npc);
-			npc.Spawn(this, PeopleLayer, pos, female);
+			npc.Spawn(this, currentRoad as Road, pos, female);
 			numNPCs++;
 			spawnDelay = 1;
 		}

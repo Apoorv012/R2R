@@ -7,14 +7,14 @@ public partial class DogNPC : Sprite2D {
   bool goingLeft = false;
   Vector2 direction;
   RandomNumberGenerator rnd = new();
-  PoopingStatus hasPooped = PoopingStatus.NotPooped;
+  public PoopingStatus hasPooped = PoopingStatus.NotPooped;
 
-  public void Init(NPC npc, int windowWidth) {
+  public void Init(NPC npc) {
     owner = npc;
     owner.GetParent().AddChild(this);
     goingLeft = npc.goingLeft;
     direction = goingLeft ? Vector2.Left : Vector2.Right;
-    GlobalPosition = new(goingLeft ? windowWidth - 6 : -30, npc.GlobalPosition.Y + 130);
+    GlobalPosition = new(npc.GlobalPosition.X + (goingLeft ? -140 : 140), npc.GlobalPosition.Y + 130);
     Scale = (goingLeft ? Vector2.Left : Vector2.Right) + Vector2.Down;
     ZIndex = 60 + npc.order;
   }
@@ -99,7 +99,7 @@ public partial class DogNPC : Sprite2D {
   }
 
 
-  enum PoopingStatus {
-    NotPooped, Pooping, HasPooped
+  public enum PoopingStatus {
+    NotPooped = 0, Pooping = 1, HasPooped = 2
   }
 }

@@ -54,23 +54,30 @@ public partial class NPC : Sprite2D {
   bool giveToPlayerStopMovement = false;
   bool female = false;
   public bool gameWon = false;
+  RoadName road;
+  int minPos, maxPos;
 
   string[] disgustSentences = { "Disgusting", "Ew!", "Bad smell!", "Go take a shower!", "Wash yourself!", "Don't play with poop!" };
   string[] approvalSentences = { "Thanks!", "Thank you!", "Appreciated!", "Well done!", "A small gift for you!" };
 
 
-  public void Spawn(IGame game, Node2D cityLayer, int order, bool isFemale) {
+  public void Spawn(IGame game, Road road, int order, bool isFemale) {
     this.game = game;
     this.order = order;
     ZIndex = 60 + order * 2;
     if (rnd.Randf() < .5f) goingLeft = true;
     female = isFemale;
     gameWon = game.Won;
+    this.road = road.Name;
 
-    if (GetParent() != cityLayer) cityLayer.AddChild(this);
+    if (GetParent() != road.PeopleLayer) road.PeopleLayer.AddChild(this);
     // 960player 2064 npc  on right
     // 960player -144 npc  on left
-    GlobalPosition = new(goingLeft ? game.WindowWidth + 155 : -155, 450 + order * 8);
+
+    minPos = 960 - game.WindowWidth / 2 - 155;
+    maxPos = 960 + game.WindowWidth / 2 + 155;
+
+    GlobalPosition = new(goingLeft ? maxPos : minPos, 450 + order * 8);
     Scale = (goingLeft ? Vector2.Left : Vector2.Right) + Vector2.Down;
     direction = goingLeft ? Vector2.Left : Vector2.Right;
     NPCSpeed = rnd.RandfRange(120f, 200f);
@@ -103,7 +110,7 @@ public partial class NPC : Sprite2D {
 
     if (DogPrefab != null && rnd.RandiRange(0, 5) == 0) {
       dog = DogPrefab.Instantiate() as DogNPC;
-      dog.Init(this, game.WindowWidth);
+      dog.Init(this);
     }
 
     happiness = rnd.RandiRange(1, 3);
@@ -238,11 +245,11 @@ public partial class NPC : Sprite2D {
 
     dog?.ProcessDog(delta, playerX, crossroads, streetX);
 
-    if (goingLeft && GlobalPosition.X < -144) {
+    if (goingLeft && GlobalPosition.X < minPos) {
       game.NPCGone(this);
       NPCSpeed = 0;
     }
-    else if (!goingLeft && GlobalPosition.X > game.WindowWidth + 144) {
+    else if (!goingLeft && GlobalPosition.X > maxPos) {
       game.NPCGone(this);
       NPCSpeed = 0;
     }
@@ -345,6 +352,29 @@ public partial class NPC : Sprite2D {
       stopForDogPoop = false;
       game.AddDogPoop(dog.GlobalPosition.X + (goingLeft ? 20 : -20));
     }
+  }
 
+  public SaveNPC Save() {
+    return new() {
+      X = Position.X,
+      Y = Position.Y,
+      minPos = minPos,
+      maxPos = maxPos,
+      order = order,
+      goingLeft = goingLeft,
+      hasDog = dog != null,
+      dogPooped = (int)(dog?.hasPooped ?? 0),
+      dogX = dog?.Position.X ?? 0,
+      dogY = dog?.Position.Y ?? 0,
+      happiness = happiness,
+      emotion = (int)emotion,
+      checkedPlayer = checkedPlayer,
+      giveToPlayer = giveToPlayer,
+      giveToPlayerDelay = giveToPlayerDelay,
+      giveToPlayerStopMovement = giveToPlayerStopMovement,
+      female = female,
+      road = (int)road,
+      stopForDogPoop = stopForDogPoop
+    };
   }
 }

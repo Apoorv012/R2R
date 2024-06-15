@@ -10,6 +10,9 @@ We need to have a comple of spots to eat cheap enough
 	GAME: impement save/load
 	INPUT: add ability to remap keys
 	
+	Be sure rented days for apartments is fully reset
+	Be sure price/amount of gardens is fully reset
+	Add arrays: gardens, apartments, hotels
 
 ********* BUGS ************************************
 
@@ -211,7 +214,6 @@ We need to have a comple of spots to eat cheap enough
 	!NPCs: fixed a problem where the NPCs were not spawning anymore
 	!NPCs: fixed a minor problem of NPC balloons remaining at the side of the screen
 	!NPCs: fixed a problem on the spawning of Drunk Guy, it may be spawning on the same bench of the player
-
 	PLAYER: the player hat was wrong in the tutorial
 	GAME: The Help is now named Tutorial
 	UI: The background sky and stars are now the double horizontally, to fix weird aspect ratios
@@ -231,3 +233,8 @@ We need to have a comple of spots to eat cheap enough
 	OPTIONS: improvement of the UI of the options
 	UI: added tooltips
 	INTRO: added credits button, will show the scrolling maximized
+	
+	FIX: better management of Apartments, Hotels, and Gardens
+	FIX: better position of the player when the window is resized (thanks to Navi)
+	FIX: improved zoom of the camera in case of weird resolution
+	GAME: it is possible to save the current status of the game (not yet possible to load it and no visual confirmations)

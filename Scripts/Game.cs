@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 
 namespace R2R;
 
@@ -116,6 +117,9 @@ public partial class Game : Node, IGame {
 	[Export] Node2D Slum_MarketDoor;
 	[Export] Node2D Side_SportBarDoor;
 	[Export] Location[] Benches;
+	[Export] Location[] ApartmentList;
+	[Export] Location[] HotelList;
+	[Export] Location[] Gardens;
 
 	[ExportGroup("NPCs")]
 	[Export] PackedScene NPCTemplateGirl1, NPCTemplateGirl2, NPCTemplateGirl3;
@@ -219,8 +223,6 @@ public partial class Game : Node, IGame {
 	const int sizePaper = 128;
 	const int sizePoop = 60;
 	readonly List<Location> locations = new();
-	readonly List<Location> apartments = new();
-	readonly List<Location> gardens = new();
 
 	string textForBaloon = null;
 	double deltaBaloon = 0;
@@ -339,7 +341,7 @@ public partial class Game : Node, IGame {
 		BackgroundStreet.Visible = true;
 		PanelCredits.Visible = false;
     CreditsMask.Position = new(0, 716);
-    CreditsMask.Size = new(1920, 364);
+    CreditsMask.SetDeferred("size", new Vector2(1920, 364));
 
     for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
 
@@ -352,9 +354,12 @@ public partial class Game : Node, IGame {
 		OptionsContinueButton.Disabled = true;
     OptionsSaveButton.Disabled = true;
     SetStatus(Status.Intro);
-	}
 
-	void SetStatus(Status s) {
+    GetViewport().SizeChanged += ViewportResized;
+
+  }
+
+  void SetStatus(Status s) {
 		status = s;
 		switch (s) {
 			case Status.Intro:
@@ -371,7 +376,7 @@ public partial class Game : Node, IGame {
 				foreach (var h in HighlightIntro) h.Visible = false;
         PanelCredits.Visible = false;
         CreditsMask.Position = new(0, 716);
-        CreditsMask.Size = new(1920, 364);
+        CreditsMask.SetDeferred("size", new Vector2(1920, 364));
         introTextScrollPos = -700;
         break;
 			case Status.Starting:
@@ -531,14 +536,13 @@ public partial class Game : Node, IGame {
 		lastSpawnSide = -1;
 		lastSpawnSuburb = -1;
 
-		foreach (var a in apartments) a.RentedDays = 0;
-		apartments.Clear();
-		foreach (var g in gardens) {
+		foreach (var a in HotelList) a.RentedDays = 0;
+		foreach (var a in ApartmentList) a.RentedDays = 0;
+		foreach (var g in Gardens) {
 			g.amount = 0;
 			foreach (var c in g.carrots) g.Free();
 			g.carrots.Clear();
 		}
-		gardens.Clear();
 
 		foreach (var npc in NPCs) npc.Delete();
 		NPCs.Clear();
@@ -561,21 +565,27 @@ public partial class Game : Node, IGame {
 		SetRoad(SlumStreet, 0);
   }
 
+	[Export] Camera2D cam;
 
-	public override void _Process(double delta) {
+	const float sixteenninth = 16f / 9f;
+  private void ViewportResized() {
+    window ??= GetWindow();
+    windowWidth = window.Size.X;
+		float ratio = window.Size.X * 1f / window.Size.Y;
+    if (ratio >= sixteenninth) {
+      cam.Zoom = Vector2.One;
+    }
+		else {
+			float zoom = (float)(1.18996 * ratio * ratio - 4.48298 * ratio + 5.19265);
+			cam.Zoom = new(zoom, zoom);
+		}
+  }
+
+  public override void _Process(double delta) {
 		bool joyStart = Input.IsJoyButtonPressed(0, JoyButton.Start);
 		bool rb = Input.IsJoyButtonPressed(0, JoyButton.RightShoulder);
 		bool lb = Input.IsJoyButtonPressed(0, JoyButton.LeftShoulder);
 		bool joyBack = Input.IsJoyButtonPressed(0, JoyButton.Back);
-
-
-		checkAspectRatioDelta -= delta;
-		if (checkAspectRatioDelta < 0) {
-      CheckAspectRatio();
-			checkAspectRatioDelta = 2;
-    }
-
-
 
     if (Input.IsActionJustPressed("Z")) { // FIXME
     }
@@ -754,7 +764,8 @@ public partial class Game : Node, IGame {
 		}
 	}
 
-	bool playedMusic = false;
+
+  bool playedMusic = false;
 
 	Color SunColor = Color.FromHtml("fcf2a7");
 
@@ -780,7 +791,7 @@ public partial class Game : Node, IGame {
 				money += (int)(investedMoney * .1);
         TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
       }
-			foreach (var a in apartments) {
+			foreach (var a in ApartmentList) {
 				if (a.RentedDays > 0) a.RentedDays--;
 			}
 			if (waitUntilNextDay != -1) {
@@ -849,7 +860,7 @@ public partial class Game : Node, IGame {
 		// Carrots grow every hour, require 100 hours to be ready (2 days + 4 hours)
 		if (prevHour != h) {
 			prevHour = h;
-			foreach (var g in gardens) {
+			foreach (var g in Gardens) {
 				if (g.amount > 0 && g.price < 100) {
 					g.price++;
 					// Show some plants growing
@@ -938,34 +949,12 @@ public partial class Game : Node, IGame {
   }
 
 
-	double checkAspectRatioDelta = 0;
 	Window window = null;
 	int windowWidth = 1980;
-	int playerXPos = 960;
 
-  public int PlayerPos => playerXPos;
+	const int playerXPos = 960;
+  public int PlayerPos => 960;
 	public int WindowWidth => windowWidth;
-
-	const float defaultAspectRatio = 16f / 9;
-  void CheckAspectRatio() {
-    window ??= GetWindow();
-    windowWidth = window.Size.X;
-    float ratio = window.Size.X * 1f / window.Size.Y;
-		if (ratio > defaultAspectRatio) {
-			if (playerXPos != windowWidth / 2) {
-				playerXPos = windowWidth / 2;
-				var pos = Player.Position;
-				pos.X = playerXPos;
-				Player.Position = pos;
-			}
-		}
-		else if (playerXPos != 960) {
-      playerXPos = 960;
-      var pos = Player.Position;
-      pos.X = playerXPos;
-      Player.Position = pos;
-    }
-  }
 
   #region movement *****************************************************************************************************************************      [movement]
 
@@ -2497,7 +2486,6 @@ public partial class Game : Node, IGame {
 					numCarrots = 0;
 					InventoryRemoveItem(PickableItem.RotCarrot);
 					numRotCarrots = 0;
-					if (!gardens.Contains(l)) gardens.Add(l);
 
 					var rect = l.GetRect();
 					for (int i = 0; i < l.amount; i++) {
@@ -2541,7 +2529,7 @@ public partial class Game : Node, IGame {
 
 			case LocationType.Apartment:
 				Location aprt = null;
-				foreach (var a in apartments) {
+				foreach (var a in ApartmentList) {
 					if (l == a) {
 						aprt = a; break;
 					}
@@ -2553,7 +2541,6 @@ public partial class Game : Node, IGame {
 				}
 				else if (HasMoney(l.price)) {
 					RemoveMoney(l.price);
-					if (aprt == null) apartments.Add(l);
 					l.RentedDays = l.amount;
 					stayInApartment = true;
 				}
@@ -3402,7 +3389,7 @@ public partial class Game : Node, IGame {
 
 			var npc = npcScene.Instantiate() as NPC;
 			NPCs.Add(npc);
-			npc.Spawn(this, currentRoad.PeopleLayer, pos, female);
+			npc.Spawn(this, currentRoad, pos, female);
 			numNPCs++;
 			spawnDelay = 1;
 		}
@@ -3587,6 +3574,7 @@ public partial class Game : Node, IGame {
 					numBanknotes = 0;
 					numCoins = 0;
           SetWalletUI();
+					ArrangeWallet(0);
         }
 				break;
 
@@ -3651,6 +3639,7 @@ public partial class Game : Node, IGame {
 				for (int i = 0; i < 10; i++) Tickets[i].Visible = false;
 				RemoveAllItems();
         SetWalletUI();
+        ArrangeWallet(0);
         break;
 		}
 	}
@@ -3698,21 +3687,217 @@ public partial class Game : Node, IGame {
 	}
 
 	public void SaveGame() {
-    var savePath = OS.GetExecutablePath();
-    if (OS.IsDebugBuild()) {
-      savePath = "C:/Users/claud/Godot/R2R/";
-    }
-    int slashPos = savePath.LastIndexOf('/') + 1;
-    savePath = savePath[0..slashPos] + "Saves/";
+		var savePath = OS.GetExecutablePath();
+		if (OS.IsDebugBuild()) {
+			savePath = "C:/Users/claud/Godot/R2R/";
+		}
+		int slashPos = savePath.LastIndexOf('/') + 1;
+		savePath = savePath[0..slashPos] + "Saves/";
 		if (!DirAccess.DirExistsAbsolute(savePath)) Directory.CreateDirectory(savePath);
-    using var dir = DirAccess.Open(savePath);
-		
-		// Create a big Json file with all variables and instanciated objects
 
+    // Create a big Json file with all variables and instanciated objects
 
+    SaveData save = new() {
+      currentRoad = (int)currentRoad.Name,
+      roadXPos = currentRoad.Position.X,
+      firstStart = firstStart,
+      status = status,
+      dayNum = dayNum,
+      dayTime = dayTime,
+      waitUntil = waitUntil,
+      waitUntilNextDay = waitUntilNextDay,
+      sleeping = sleeping,
+      sleepStartTime = sleepStartTime,
+      hospital = hospital,
+      doingGym = doingGym,
+      userGameSpeed = userGameSpeed,
+      gameSpeed = gameSpeed,
+      speedFactor = speedFactor,
+      gameDifficulty = gameDifficulty,
+      moving = moving,
+      moveDelta = moveDelta,
+      doActionDelta = doActionDelta,
+      blinkDelta = blinkDelta,
+      enableLights = enableLights,
+      running = running,
+      pickup = pickup,
+      denial = denial,
+      goingUp = goingUp,
+      restingOnBench = restingOnBench,
+      sleepingOnBench = sleepingOnBench,
+      jail = jail,
+      globalMessageTimeout = globalMessageTimeout,
+      joyJustPressed = joyJustPressed,
+      wasPPressed = wasPPressed,
+      keepShiftPressedToRun = keepShiftPressedToRun,
+      food = food,
+      drink = drink,
+      rest = rest,
+      bodySmell = bodySmell,
+      fitness = fitness,
+      clothes = (int)clothes,
+      dirtyClothes = dirtyClothes,
+      totalSmell = totalSmell,
+      beard = beard,
+      education = education,
+      money = money,
+      investedMoney = investedMoney,
+      hasATM = hasATM,
+      hasRazor = hasRazor,
+      hasSoap = hasSoap,
+      hasBroom = hasBroom,
+      broomLevel = broomLevel,
+      isSweeping = isSweeping,
+      broomItem = broomItem == null ? -1 : (int)broomItem.ItemType,
+      numCoins = numCoins,
+      numBanknotes = numBanknotes,
+      numBottles = numBottles,
+      numCans = numCans,
+      numBones = numBones,
+      numPaper = numPaper,
+      numPoop = numPoop,
+      numCarrots = numCarrots,
+      numRotCarrots = numRotCarrots,
+      numTickets = numTickets,
+      textForBaloon = textForBaloon,
+      deltaBaloon = deltaBaloon,
+      findAround = findAround,
+      prevDayTime = prevDayTime,
+      deathDelta = deathDelta,
+      fading = fading,
+      roadToGo = (int)roadToGo,
+      roadXToGo = roadXToGo,
+      isDogPacified = isDogPacified,
+      dogBark = dogBark,
+      throwBone = throwBone,
+      marketSpawn = marketSpawn,
+      barSpawn = barSpawn,
+      wasInsideCrossroad = wasInsideCrossroad,
+      playedMusic = playedMusic,
+      prevHour = prevHour,
+      checkAspectRatioDelta = checkAspectRatioDelta,
+      windowWidth = windowWidth,
+      playerXPos = playerXPos,
+      lastSpawnMain = lastSpawnMain,
+      lastSpawnSlum = lastSpawnSlum,
+      lastSpawnTop = lastSpawnTop,
+      lastSpawnNorth = lastSpawnNorth,
+      lastSpawnSide = lastSpawnSide,
+      lastSpawnSuburb = lastSpawnSuburb,
+      numNPCs = numNPCs,
+      spawnDelay = spawnDelay,
+      npcOrders = new bool[npcOrders.Length],
+      enemyDelay = enemyDelay,
+      enemy = enemy?.Save(),
+      removeEnemy = removeEnemy,
+      drunkGuyBench = -1
+    };
+    for (int i = 0; i < npcOrders.Length; i++) {
+			save.npcOrders[i] = npcOrders[i];
+		}
+		for (int i = 0; i < Benches.Length; i++) {
+			if (Benches[i] == drunkGuyBench) {
+				save.drunkGuyBench = i;
+				break;
+			}
+		}
 
+		// We need to store all spawn items in all roads (position and type)
+		SaveAllStreetItems(SlumStreet, save.slumItems);
+		SaveAllStreetItems(MainStreet, save.mainItems);
+		SaveAllStreetItems(TopBoulevard, save.topItems);
+		SaveAllStreetItems(NorthRoad, save.northItems);
+		SaveAllStreetItems(SideRoad, save.sideItems);
+		SaveAllStreetItems(SuburbAvenue, save.suburbItems);
+
+		// Save all relevant locations with their statuses
+		SaveAllLocations(Gardens, save.gardens);
+		SaveAllLocations(HotelList, save.hotels);
+		SaveAllLocations(ApartmentList, save.apartments);
+
+		// Find the index of each of the required saved locations and save it as integer + road
+
+		FindLocation(foundLocation, out int foundRoad, out int foundIndex);
+		save.foundLocationRoad = foundRoad;
+		save.foundLocationIndex = foundIndex;
+
+    FindLocation(foundLocation, out foundRoad, out foundIndex);
+    save.currentHotelRoad = foundRoad;
+    save.currentHotelIndex = foundIndex;
+
+		save.npcs = new();
+		foreach (var npc in NPCs) save.npcs.Add(npc.Save());
+
+		string fileName = $"R2R Save {DateTime.Now.Year:0000}-{DateTime.Now.Month:00}-{DateTime.Now.Day:00}-{DateTime.Now.Hour:00}-{DateTime.Now.Minute:00}-{DateTime.Now.Second:00}.save";
+
+		var file = Godot.FileAccess.Open(savePath + fileName, Godot.FileAccess.ModeFlags.Write);
+		file.StoreString(JsonSerializer.Serialize(save));
   }
 
+  private void FindLocation(Location l, out int foundLocationRoad, out int foundLocationIndex) {
+    if (l == null) {
+      foundLocationIndex = -1;
+      foundLocationRoad = -1;
+			return;
+    }
+    // We need to find the location around
+    if (FindLocationByRoad(SlumStreet, l, out foundLocationRoad, out foundLocationIndex)) return;
+    if (FindLocationByRoad(MainStreet, l, out foundLocationRoad, out foundLocationIndex)) return;
+    if (FindLocationByRoad(SideRoad, l, out foundLocationRoad, out foundLocationIndex)) return;
+    if (FindLocationByRoad(NorthRoad, l, out foundLocationRoad, out foundLocationIndex)) return;
+    if (FindLocationByRoad(TopBoulevard, l, out foundLocationRoad, out foundLocationIndex)) return;
+    if (FindLocationByRoad(SuburbAvenue, l, out foundLocationRoad, out foundLocationIndex)) return;
+
+    foundLocationIndex = -1;
+    foundLocationRoad = -1;
+  }
+
+  private bool FindLocationByRoad(Road road, Location loc, out int foundLocationRoad, out int foundLocationIndex) {
+		int pos = 0;
+    foreach (var node in road.Doors.GetChildren()) {
+			if (node is Location l && l == loc) {
+				foundLocationRoad = (int)road.Name;
+				foundLocationIndex = pos;
+				return true;
+      }
+			pos++;
+		}
+    foreach (var node in road.BackItems.GetChildren()) {
+      if (node is Location l && l == loc) {
+        foundLocationRoad = (int)road.Name;
+        foundLocationIndex = pos;
+        return true;
+      }
+      pos++;
+    }
+    foreach (var node in road.FrontItems.GetChildren()) {
+      if (node is Location l && l == loc) {
+        foundLocationRoad = (int)road.Name;
+        foundLocationIndex = pos;
+        return true;
+      }
+      pos++;
+    }
+    foundLocationRoad = -1;
+    foundLocationIndex = -1;
+    return false;
+  }
+
+  void SaveAllStreetItems(Road road, List<SaveItem> saveItems) {
+		saveItems = new();
+		foreach (var item in road.FrontItems.GetChildren()) {
+			if (item is Pickable n) {
+				saveItems.Add(new() { posX = n.Position.X, posY = n.Position.Y, itemType = (int)n.ItemType });
+			}
+		}
+	}
+
+	void SaveAllLocations(Location[] locs, List<SaveLocation> saveLocs) {
+    saveLocs = new();
+    foreach (var l in locs) {
+      saveLocs.Add(new(l));
+    }
+	}
 
 
   void SetMaxFPS(int index) {
@@ -4227,12 +4412,12 @@ public partial class Game : Node, IGame {
 
 		if (PanelCredits.Visible) {
 			CreditsMask.Position = Vector2.Zero;
-			CreditsMask.Size = new(1920, 1080);
+			CreditsMask.SetDeferred("size", new Vector2(1920, 1080));
 			introTextScrollPos += 710;
     }
 		else {
       CreditsMask.Position = new(0, 716);
-      CreditsMask.Size = new(1920, 364);
+      CreditsMask.SetDeferred("size", new Vector2(1920, 364));
       introTextScrollPos -= 710;
     }
   }
