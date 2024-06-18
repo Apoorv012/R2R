@@ -13,7 +13,7 @@ Published by **Melody Hall Publishing**
 Concept, Programming, and Music were done by: **Bob Keener**
 
 ## _Remastered_
-Remastered version done by color=#0080ff]**CPU** of color=#0080ff]**UnitedProgramming**
+Remastered version done by <font color="#0080ff">**CPU**</font> of <font color="#0080ff">**UnitedProgramming**</font>
 
 Using **Godot** 4.2.2 Mono version and **C#** on Visual Studio.
 
