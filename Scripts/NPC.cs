@@ -39,7 +39,8 @@ public partial class NPC : Sprite2D {
   [Export] PackedScene DogPrefab;
 
   [Export] AudioStreamPlayer2D SoundPlayer;
-
+  int npcPrefab;
+  int hair;
 
   RandomNumberGenerator rnd = new();
   public int order;
@@ -61,9 +62,10 @@ public partial class NPC : Sprite2D {
   string[] approvalSentences = { "Thanks!", "Thank you!", "Appreciated!", "Well done!", "A small gift for you!" };
 
 
-  public void Spawn(IGame game, Road road, int order, bool isFemale) {
+  public void Spawn(IGame game, Road road, int order, bool isFemale, int prefab) {
     this.game = game;
     this.order = order;
+    npcPrefab = prefab;
     ZIndex = 60 + order * 2;
     if (rnd.Randf() < .5f) goingLeft = true;
     female = isFemale;
@@ -100,13 +102,15 @@ public partial class NPC : Sprite2D {
     }
 
     if (Hair1 != null && Hair2 != null && Hair3 != null && Hair4 != null) {
-      Hair.Texture = rnd.RandiRange(0, 3) switch {
+      hair = rnd.RandiRange(0, 3);
+      Hair.Texture = hair switch {
         0 => Hair1,
         1 => Hair2,
         2 => Hair3,
         _ => Hair4,
       };
     }
+    else hair = -1;
 
     if (DogPrefab != null && rnd.RandiRange(0, 5) == 0) {
       dog = DogPrefab.Instantiate() as DogNPC;
@@ -114,6 +118,61 @@ public partial class NPC : Sprite2D {
     }
 
     happiness = rnd.RandiRange(1, 3);
+  }
+
+  public void Spawn(IGame game, Road road, SaveNPC n) {
+    this.game = game;
+    order = n.order;
+    npcPrefab = n.npcPrefab;
+    ZIndex = 60 + n.order * 2;
+    goingLeft = n.goingLeft;
+    female = n.female;
+    gameWon = game.Won;
+    this.road = (RoadName)n.road;
+
+    if (GetParent() != road.PeopleLayer) road.PeopleLayer.AddChild(this);
+    // 960player 2064 npc  on right
+    // 960player -144 npc  on left
+
+    minPos = 960 - game.WindowWidth / 2 - 155;
+    maxPos = 960 + game.WindowWidth / 2 + 155;
+
+    Position = new(n.X, n.Y);
+    Scale = (goingLeft ? Vector2.Left : Vector2.Right) + Vector2.Down;
+    direction = goingLeft ? Vector2.Left : Vector2.Right;
+    NPCSpeed = n.speed;
+
+    if (Hair != null) Hair.Modulate = Color.FromHtml(n.Hair);
+    if (Dress != null) Dress.Modulate = Color.FromHtml(n.Dress);
+    if (Skirt != null) Skirt.Modulate = Color.FromHtml(n.Skirt);
+    if (Tie != null) Tie.Modulate = Color.FromHtml(n.Tie);
+    if (Bag != null) Bag.Modulate = Color.FromHtml(n.Bag);
+    if (Eyes != null) Eyes.Modulate = Color.FromHtml(n.Eyes);
+    if (Hat != null) Hat.Modulate = Color.FromHtml(n.Hat);
+
+    if (GlassesIn != null) {
+      GlassesIn.Visible = n.hasGlasses;
+      GlassesIn.Modulate = Color.FromHtml(n.glasses);
+    }
+    if (GlassesOut != null) {
+      GlassesOut.Visible = n.hasGlasses;
+    }
+
+    if (Hair1 != null && Hair2 != null && Hair3 != null && Hair4 != null && n.hair != -1) {
+      Hair.Texture = n.hair switch {
+        0 => Hair1,
+        1 => Hair2,
+        2 => Hair3,
+        _ => Hair4,
+      };
+    }
+
+    if (DogPrefab != null && n.hasDog) {
+      dog = DogPrefab.Instantiate() as DogNPC;
+      dog.Init(this, n);
+    }
+
+    happiness = n.happiness;
   }
 
   private static Color FlattenAlpha(Color color) {
@@ -358,6 +417,7 @@ public partial class NPC : Sprite2D {
     return new() {
       X = Position.X,
       Y = Position.Y,
+      speed = NPCSpeed,
       minPos = minPos,
       maxPos = maxPos,
       order = order,
@@ -374,7 +434,19 @@ public partial class NPC : Sprite2D {
       giveToPlayerStopMovement = giveToPlayerStopMovement,
       female = female,
       road = (int)road,
-      stopForDogPoop = stopForDogPoop
+      stopForDogPoop = stopForDogPoop,
+      Hair = Hair?.Modulate.ToHtml(),
+      Dress = Dress?.Modulate.ToHtml(),
+      Skirt = Skirt?.Modulate.ToHtml(),
+      Tie = Tie?.Modulate.ToHtml(),
+      Bag = Bag?.Modulate.ToHtml(),
+      Eyes = Eyes?.Modulate.ToHtml(),
+      Hat = Hat?.Modulate.ToHtml(),
+      hasGlasses = GlassesIn?.Visible ?? false,
+      glasses = GlassesIn?.Modulate.ToHtml(),
+      npcPrefab = npcPrefab,
+      hair = hair
     };
   }
+
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=332 format=3 uid="uid://bdflk6ud0jrdt"]
+[gd_scene load_steps=350 format=3 uid="uid://bdflk6ud0jrdt"]
 
 [ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="1_hj6uc"]
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_u838r"]
@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://dlmk070lesxor" path="res://Sounds/Step1.ogg" id="8_lq7tg"]
 [ext_resource type="Texture2D" uid="uid://b15gwi1uvaqiu" path="res://Graphics/Items/Carrot.png" id="8_sj0xs"]
 [ext_resource type="AudioStream" uid="uid://hh1eo5uv75ci" path="res://Sounds/Step2.ogg" id="9_py6x6"]
+[ext_resource type="Texture2D" uid="uid://hvgdpty67ff3" path="res://Graphics/UI/ButtonDelete.png" id="9_qdoej"]
 [ext_resource type="Texture2D" uid="uid://u2wkbamvfj65" path="res://Graphics/City/Doors/JailDoor.png" id="10_77fcg"]
 [ext_resource type="AudioStream" uid="uid://b1ps27vtawy0v" path="res://Sounds/Pickup.ogg" id="10_daiq6"]
 [ext_resource type="PackedScene" uid="uid://dsawbmnbixx2g" path="res://Prefabs/NPCs/NPCMan1.tscn" id="10_n5xn7"]
@@ -43,9 +44,11 @@
 [ext_resource type="PackedScene" uid="uid://dy35ljuwg8etl" path="res://Prefabs/Items/Bottle.tscn" id="20_1o0ay"]
 [ext_resource type="PackedScene" uid="uid://cotnyc5j2voj2" path="res://Prefabs/NPCs/NPCMan2.tscn" id="20_g0agu"]
 [ext_resource type="PackedScene" uid="uid://boymptckcn3c2" path="res://Prefabs/NPCs/NPCMan3.tscn" id="21_4vduh"]
+[ext_resource type="Texture2D" uid="uid://c2hc0udphjfa3" path="res://Graphics/Items/CanFull.png" id="22_4c6he"]
 [ext_resource type="PackedScene" uid="uid://cew38waow7hlu" path="res://Prefabs/Items/RotCarrot.tscn" id="22_78x71"]
 [ext_resource type="Texture2D" uid="uid://df4ygufgpvcrl" path="res://Graphics/UI/Sky.png" id="22_goynt"]
 [ext_resource type="PackedScene" uid="uid://b4b5acv0qnmh6" path="res://Prefabs/NPCs/NPCGirl3.tscn" id="23_84vq4"]
+[ext_resource type="Texture2D" uid="uid://c4xkqgikswi8h" path="res://Graphics/Items/FoodSnack.png" id="23_yikdl"]
 [ext_resource type="AudioStream" uid="uid://bv6pxm4kd6g3x" path="res://Sounds/Fart.ogg" id="25_7h40q"]
 [ext_resource type="Texture2D" uid="uid://ddcv3cat3bapc" path="res://Graphics/Locations/ATM.png" id="25_m2d3n"]
 [ext_resource type="PackedScene" uid="uid://bkqot2sb58s3s" path="res://Prefabs/NPCs/NPCMan4.tscn" id="26_so1xo"]
@@ -68,11 +71,13 @@
 [ext_resource type="Texture2D" uid="uid://bebjcpnk857k8" path="res://Graphics/Items/Soap4.png" id="30_pr14c"]
 [ext_resource type="Texture2D" uid="uid://ciwe2xwxgclw4" path="res://Graphics/Items/Banknote.png" id="30_usy1u"]
 [ext_resource type="AudioStream" uid="uid://m51mxfalso8g" path="res://Sounds/Music/Music Orchestra.ogg" id="31_1y5jj"]
+[ext_resource type="PackedScene" uid="uid://bn34icge0mqlv" path="res://Prefabs/Items/CanFull.tscn" id="31_4173e"]
 [ext_resource type="Texture2D" uid="uid://dlueacdm18dkb" path="res://Graphics/Items/Paper.png" id="31_h2s53"]
 [ext_resource type="PackedScene" uid="uid://cv51erie5ikti" path="res://Prefabs/Items/Bone.tscn" id="31_t6qqv"]
 [ext_resource type="AudioStream" uid="uid://4yb2oj4s44b4" path="res://Sounds/Music/Music Dance.ogg" id="32_ne48k"]
 [ext_resource type="PackedScene" uid="uid://ckrikbqp2irky" path="res://Prefabs/NPCs/NPCGirl1.tscn" id="33_1k0wr"]
 [ext_resource type="AudioStream" uid="uid://bsxj1ifarajwc" path="res://Sounds/DogBark.ogg" id="33_p8q05"]
+[ext_resource type="PackedScene" uid="uid://c5cw57bko552b" path="res://Prefabs/Items/FoodSnack.tscn" id="34_4m2q4"]
 [ext_resource type="Texture2D" uid="uid://b5gsny47fn767" path="res://Graphics/UI/Black.png" id="34_ldg0i"]
 [ext_resource type="Texture2D" uid="uid://dwjilcelffoqt" path="res://Graphics/Locations/Trashcan.png" id="34_p4ini"]
 [ext_resource type="PackedScene" uid="uid://d1omyyx1wqjn4" path="res://Prefabs/NPCs/Robber.tscn" id="35_kqufh"]
@@ -259,6 +264,7 @@
 [ext_resource type="Texture2D" uid="uid://exy6jws5bqgi" path="res://Graphics/Intro/TitleBackgroundCity.png" id="133_xr7yn"]
 [ext_resource type="Texture2D" uid="uid://x3047drq6cy4" path="res://Graphics/Intro/TitleName.png" id="136_m6db2"]
 [ext_resource type="Texture2D" uid="uid://bc7eioe7mgu4n" path="res://Graphics/Intro/TitleStar.png" id="137_dpxxp"]
+[ext_resource type="Texture2D" uid="uid://b576alipw7coc" path="res://Graphics/City/Extra/Bags.png" id="139_vdpu6"]
 [ext_resource type="Texture2D" uid="uid://touhbxq6yql4" path="res://Graphics/NPCs/DrunkGuy.png" id="144_j4wwf"]
 [ext_resource type="Script" path="res://Scripts/Enemy.cs" id="145_f8qtb"]
 [ext_resource type="FontFile" uid="uid://cxm1ssooutqep" path="res://Graphics/UI/Acme-Bold.ttf" id="151_yx4em"]
@@ -270,14 +276,20 @@
 [ext_resource type="Texture2D" uid="uid://bbrcgqtjbmjl2" path="res://Graphics/Intro/C64.png" id="157_10gkh"]
 [ext_resource type="PackedScene" uid="uid://doj4waem2jhvb" path="res://Prefabs/GrowingCarrot.tscn" id="193_m110f"]
 [ext_resource type="Texture2D" uid="uid://c6wraicxtyex4" path="res://Graphics/City/Extra/UAFlag.png" id="193_wt7p6"]
+[ext_resource type="Texture2D" uid="uid://dkba7wir5nb6u" path="res://Graphics/Locations/VendingMachineFood.png" id="208_2xtr4"]
+[ext_resource type="Texture2D" uid="uid://dtavqp277tyhd" path="res://Graphics/NPCs/HotDogs Vendor.png" id="237_52t58"]
 [ext_resource type="Texture2D" uid="uid://cq3oh36n0n4tb" path="res://Graphics/Locations/MapIcons.png" id="238_qokn0"]
 [ext_resource type="Texture2D" uid="uid://bgs0typn774f8" path="res://Graphics/Items/Soap1.png" id="238_rn7ud"]
 [ext_resource type="Texture2D" uid="uid://dqhxla7rp80xu" path="res://Graphics/Items/CoinInventory.png" id="245_5h24u"]
+[ext_resource type="Theme" uid="uid://cakjbyckg0vdk" path="res://Graphics/UI/Themes/Game_theme_SaveLoad.tres" id="246_7wek8"]
+[ext_resource type="Texture2D" uid="uid://cp75qh8arjcvc" path="res://Graphics/UI/ButtonArrow.png" id="247_dstc6"]
+[ext_resource type="Texture2D" uid="uid://bn6hvpoclqr74" path="res://Graphics/Player/Bag.png" id="247_xyg0n"]
 [ext_resource type="AudioStream" uid="uid://bvsl61bx3ttsl" path="res://Sounds/Music/Win music BGO.ogg" id="261_bm57o"]
 [ext_resource type="Texture2D" uid="uid://c4hh6uey0i65d" path="res://Graphics/Player/VictoryDance.png" id="261_njoyj"]
 [ext_resource type="Material" uid="uid://8jjsv8ukiqi7" path="res://Graphics/FireworksMaterial.tres" id="267_cjldn"]
 [ext_resource type="Texture2D" uid="uid://t2vxdm25vwrq" path="res://Graphics/Intro/SlicEnDicE.png" id="267_ynn2y"]
 [ext_resource type="Texture2D" uid="uid://celsrn72207xg" path="res://Graphics/Intro/BGOllie.png" id="268_x5qpp"]
+[ext_resource type="Texture2D" uid="uid://o6lfxjpf4pyk" path="res://Graphics/Intro/BobKeener.png" id="271_4rhe0"]
 [ext_resource type="Texture2D" uid="uid://buy8pjfj8dkjm" path="res://Graphics/Intro/BatMilku.png" id="272_r4lsp"]
 [ext_resource type="Texture2D" uid="uid://dt8ulecadgt0s" path="res://Graphics/Intro/J0nathan550.png" id="273_lrx3g"]
 [ext_resource type="Texture2D" uid="uid://db6yg2dcriey4" path="res://Graphics/Intro/CheekyCommodoreGamer.png" id="274_sxkv6"]
@@ -299,6 +311,34 @@ light_mode = 1
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_84qy2"]
 light_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u1fff"]
+atlas = ExtResource("237_52t58")
+region = Rect2(0, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mf85a"]
+atlas = ExtResource("237_52t58")
+region = Rect2(300, 300, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kfnwi"]
+animations = [{
+"frames": [{
+"duration": 15.0,
+"texture": SubResource("AtlasTexture_u1fff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mf85a")
+}, {
+"duration": 13.0,
+"texture": SubResource("AtlasTexture_u1fff")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mf85a")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_unyct"]
 atlas = ExtResource("144_j4wwf")
@@ -416,6 +456,34 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_42tlw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ra563"]
+atlas = ExtResource("237_52t58")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qgygx"]
+atlas = ExtResource("237_52t58")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c7nyo"]
+animations = [{
+"frames": [{
+"duration": 13.0,
+"texture": SubResource("AtlasTexture_ra563")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgygx")
+}, {
+"duration": 15.0,
+"texture": SubResource("AtlasTexture_ra563")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qgygx")
 }],
 "loop": true,
 "name": &"default",
@@ -799,7 +867,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("../../../Player:visible")
+tracks/8/path = NodePath("../../../Player and Camera/Player:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -971,7 +1039,7 @@ tracks/7/keys = {
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("../../../Player:visible")
+tracks/8/path = NodePath("../../../Player and Camera/Player:visible")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
@@ -1094,28 +1162,30 @@ expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmellB", "pbSmellC", "pbBeard", "pbEducation", "pbFitness", "pbSmellL", "ItemsHBox", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "OptionsSaveButton", "HighlightIntro", "PanelCredits", "CreditsMask", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "PanelTitle", "PanelSpark", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameSpeedValue", "GameSpeedSlider", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "RunModeCB", "HighlightOpts", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "BanknotesContainer", "CoinsContainer", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "ApartmentList", "HotelList", "Gardens", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "cam", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Bag", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "cam", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmellB", "pbSmellC", "pbBeard", "pbEducation", "pbFitness", "pbSmellL", "ItemsHBox", "InventoryControl", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "OptionsSaveButton", "HighlightIntro", "PanelCredits", "CreditsMask", "PopupCanvas", "FileSaveCanvas", "PopupTitle", "PopupLabel", "SaveGamesContainer", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "PanelTitle", "PanelSpark", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "RunModeCB", "HighlightOpts", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "BanknotesContainer", "CoinsContainer", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "ApartmentList", "HotelList", "Gardens", "HotDogVendors", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
 script = ExtResource("1_u838r")
-Player = NodePath("Player")
-Body = NodePath("Player/Body")
+Player = NodePath("Player and Camera/Player")
+Body = NodePath("Player and Camera/Player/Body")
 Body1 = ExtResource("1_hj6uc")
 Body2 = ExtResource("3_lkmju")
 Body3 = ExtResource("4_mc2e6")
 Hat1 = ExtResource("4_1ygwg")
 Hat2 = ExtResource("6_7gxap")
 Hat3 = ExtResource("7_m348y")
-Face = NodePath("Player/Head")
-Eye = NodePath("Player/Head/Eye")
-EyesSitClosed = NodePath("Player/Head/EyesSit")
-Hat = NodePath("Player/Hat")
-Beard = NodePath("Player/Beard")
-Legs = NodePath("Player/Legs")
+Face = NodePath("Player and Camera/Player/Head")
+Eye = NodePath("Player and Camera/Player/Head/Eye")
+EyesSitClosed = NodePath("Player and Camera/Player/Head/EyesSit")
+Hat = NodePath("Player and Camera/Player/Hat")
+Beard = NodePath("Player and Camera/Player/Beard")
+Legs = NodePath("Player and Camera/Player/Legs")
+Bag = NodePath("Player and Camera/Player/Bag")
 Balloon = NodePath("Balloons Layer/Balloon")
 BalloonTxt = NodePath("Balloons Layer/Balloon/MarginContainer/Label")
-BroomPlayer = NodePath("Player/Broom")
-HandBrooming = NodePath("Player/HandBrooming")
+BroomPlayer = NodePath("Player and Camera/Player/Broom")
+HandBrooming = NodePath("Player and Camera/Player/HandBrooming")
 moveSpeed = 0.35
 scrollSpeed = 110.0
+cam = NodePath("Player and Camera/Camera2D")
 DayNum = NodePath("UI/CanvasLayer UI/PanelBackground/DayNumber")
 DayTime = NodePath("UI/CanvasLayer UI/PanelBackground/DayTime")
 TotalFunds = NodePath("UI/CanvasLayer UI/PanelBackground/TotalFunds")
@@ -1130,6 +1200,7 @@ pbEducation = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SEducati
 pbFitness = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/SFitness")
 pbSmellL = NodePath("UI/CanvasLayer UI/PanelBackground/GridContainer/PSmell/SmellL")
 ItemsHBox = NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/ItemsHBox")
+InventoryControl = NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryBagControl")
 ATMCard = NodePath("UI/CanvasLayer UI/PanelBackground/VBoxContainer/ATMCard")
 Tickets = [NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket0"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket1"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket2"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket3"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket4"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket5"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket6"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket7"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket8"), NodePath("UI/CanvasLayer UI/PanelBackground/HBoxContainer/Ticket9")]
 Soap = NodePath("UI/CanvasLayer UI/PanelBackground/VBoxContainer/Soap")
@@ -1146,6 +1217,13 @@ OptionsSaveButton = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxButtons/Sa
 HighlightIntro = [NodePath("UI/CanvasLayer Intro/Highlights/Highlight0"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight1"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight2"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight3"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight4")]
 PanelCredits = NodePath("UI/CanvasLayer Intro/Mask/IntroTextScrolling/Credits background")
 CreditsMask = NodePath("UI/CanvasLayer Intro/Mask")
+PopupCanvas = NodePath("UI/CanvasLayer Popup")
+FileSaveCanvas = NodePath("UI/CanvasLayer FileSelect")
+ButtonArrow = ExtResource("247_dstc6")
+DeleteIcon = ExtResource("9_qdoej")
+PopupTitle = NodePath("UI/CanvasLayer Popup/PopupPanelBorder/PopupPanel/PopupTitle")
+PopupLabel = NodePath("UI/CanvasLayer Popup/PopupPanelBorder/PopupPanel/PopupLabel")
+SaveGamesContainer = NodePath("UI/CanvasLayer FileSelect/PopupPanel/SaveGamesScrollContainer/SaveGamesContainer")
 PanelMetro = NodePath("UI/CanvasLayer UI/PanelMetro")
 MetroMain = NodePath("UI/CanvasLayer UI/PanelMetro/VBoxContainer/MainStreetButton")
 MetroSlum = NodePath("UI/CanvasLayer UI/PanelMetro/VBoxContainer/SlumStreetButton")
@@ -1164,14 +1242,12 @@ EffetsVolValue = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/Panel
 EffetsVolSlider = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer/EffectsHSlider")
 DropDownFullscreen = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/HBoxVideo/OptionFullscreen")
 DropDownFPS = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/HBoxVideo/PanelLimitFPS")
-GameSpeedValue = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed/VBoxContainer/Value")
-GameSpeedSlider = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed/VBoxContainer/HSlider")
 GameDifficultyValue = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelDifficulty/VBoxContainer/Value")
 GameDifficultySlider = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelDifficulty/VBoxContainer/HSlider")
 UsePlayerHatCB = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelHat/HatCheckButton")
 UseCustomMusicCB = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelCustomMusic/CustomMusicCheckButton")
 RunModeCB = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelRunMode/RunModeCheckButton")
-HighlightOpts = [NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight0a"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight0b"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight1"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight2"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight3"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight4"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight5"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight6"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight7"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight8"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight9"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight10"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight11"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight12"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight13")]
+HighlightOpts = [NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight0"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight1"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight2"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight3"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight4"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight5"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight6"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight7"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight8"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight9"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight10"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight11"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight12"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight13")]
 City = NodePath("City")
 BackgroundStreet = NodePath("BackgroundStreet")
 Sun = NodePath("City/Sun")
@@ -1193,8 +1269,8 @@ Coins = [NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBo
 Banknotes = [NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote1"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote2"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote3"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote4"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote5"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote6"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote7"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote8"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote9"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote10"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote11"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote12"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote13"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote14"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote15"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote16"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote17"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote18"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote19"), NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox/Banknote20")]
 BanknotesContainer = NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/BanknotesHBox")
 CoinsContainer = NodePath("UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox/CoinsHBox")
-ItemTexts = Array[Texture2D]([ExtResource("27_6r7jq"), ExtResource("30_jde8m"), ExtResource("29_af21a"), ExtResource("31_h2s53"), ExtResource("28_hijcr"), ExtResource("8_sj0xs"), ExtResource("13_38vke")])
-ItemPrefabs = Array[PackedScene]([ExtResource("30_aeg6j"), ExtResource("29_im271"), ExtResource("13_ximlu"), ExtResource("20_1o0ay"), ExtResource("27_08n1n"), ExtResource("28_rfqmt"), ExtResource("31_t6qqv"), ExtResource("15_ef7u1"), ExtResource("22_78x71")])
+ItemTexts = Array[Texture2D]([ExtResource("27_6r7jq"), ExtResource("30_jde8m"), ExtResource("29_af21a"), ExtResource("31_h2s53"), ExtResource("28_hijcr"), ExtResource("8_sj0xs"), ExtResource("13_38vke"), ExtResource("22_4c6he"), ExtResource("23_yikdl")])
+ItemPrefabs = Array[PackedScene]([ExtResource("30_aeg6j"), ExtResource("29_im271"), ExtResource("13_ximlu"), ExtResource("20_1o0ay"), ExtResource("27_08n1n"), ExtResource("28_rfqmt"), ExtResource("31_t6qqv"), ExtResource("15_ef7u1"), ExtResource("22_78x71"), ExtResource("31_4173e"), ExtResource("34_4m2q4")])
 GrowingCarrotPrefab = ExtResource("193_m110f")
 Soaps = Array[Texture2D]([ExtResource("238_rn7ud"), ExtResource("28_ag4vl"), ExtResource("29_pepyg"), ExtResource("30_pr14c")])
 SuburbAvenue = NodePath("City/SuburbAvenue")
@@ -1208,7 +1284,8 @@ Side_SportBarDoor = NodePath("City/SideRoad/DS_Doors/Sport Bar")
 Benches = [NodePath("City/SuburbAvenue/SB_BackItems/Bench"), NodePath("City/SideRoad/DS_BackItems/Bench"), NodePath("City/MainStreet/MS_BackItems/Bench"), NodePath("City/SlumStreet/SS_BackItems/Bench")]
 ApartmentList = [NodePath("City/TopBoulevard/TS_Doors/Top notch Apartments"), NodePath("City/NorthRoad/NS_Doors/Decent Apartments"), NodePath("City/MainStreet/MS_Doors/Rentable Apartments")]
 HotelList = [NodePath("City/SuburbAvenue/SB_Doors/1 Star Hotel"), NodePath("City/NorthRoad/NS_Doors/Quick Rest Hotel"), NodePath("City/SlumStreet/SS_Doors/Cheap Motel")]
-Gardens = []
+Gardens = [NodePath("City/SuburbAvenue/SB_BackItems/Garden"), NodePath("City/SideRoad/DS_BackItems/Garden"), NodePath("City/MainStreet/MS_BackItems/Garden"), NodePath("City/SlumStreet/SS_BackItems/Garden")]
+HotDogVendors = [NodePath("City/SlumStreet/SS_Doors/HotDogs2/HotDogsVendor"), NodePath("City/SuburbAvenue/SB_Doors/Hot Dogs/HotDogsVendor")]
 NPCTemplateGirl1 = ExtResource("33_1k0wr")
 NPCTemplateGirl2 = ExtResource("18_ovgdg")
 NPCTemplateGirl3 = ExtResource("23_84vq4")
@@ -1267,7 +1344,6 @@ FDisgust = Array[AudioStream]([ExtResource("70_ltdvq"), ExtResource("71_xk0q5"),
 MDisgust = Array[AudioStream]([ExtResource("76_ef24c"), ExtResource("77_b6osu"), ExtResource("78_vfidd"), ExtResource("79_uxo1i"), ExtResource("80_wx61e"), ExtResource("81_7sl3a"), ExtResource("82_24t2i"), ExtResource("72_u16l4")])
 FApproval = Array[AudioStream]([ExtResource("83_lkosm"), ExtResource("84_m7x7a"), ExtResource("85_mupoh"), ExtResource("86_n2qnn"), ExtResource("87_1t025")])
 MApproval = Array[AudioStream]([ExtResource("88_wioya"), ExtResource("89_7xavv")])
-cam = NodePath("Player/Camera2D")
 IntroPanel = NodePath("UI/CanvasLayer Intro")
 GameOverPanel = NodePath("UI/CanvasLayer GameOver")
 WinPanel = NodePath("UI/CanvasLayer Win")
@@ -1332,7 +1408,7 @@ position = Vector2(0, -5000)
 script = ExtResource("44_pm8qa")
 Name = 5
 MinX = -8200.0
-MaxX = 8300.0
+MaxX = 8800.0
 Y = -5000.0
 Doors = NodePath("SB_Doors")
 BackItems = NodePath("SB_BackItems")
@@ -1403,7 +1479,7 @@ texture = ExtResource("12_qxqnq")
 
 [node name="Park2" type="Sprite2D" parent="City/SuburbAvenue/Buidlings"]
 z_index = -1
-position = Vector2(-7190, 164)
+position = Vector2(-8666, 164)
 scale = Vector2(1, 1.75)
 texture = ExtResource("3_cp2fm")
 
@@ -1530,8 +1606,41 @@ text = "🚽Public Toilet $1 🚿"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Shop" type="Sprite2D" parent="City/SuburbAvenue/Buidlings"]
+z_index = -2
+position = Vector2(-6735.15, 307.3)
+scale = Vector2(0.85, 0.9)
+texture = ExtResource("52_qe6ax")
+
+[node name="Window" type="Sprite2D" parent="City/SuburbAvenue/Buidlings/Shop"]
+self_modulate = Color(0, 0.803922, 0.941176, 0.921569)
+position = Vector2(105, 35.1118)
+scale = Vector2(3.03217, 1.25955)
+texture = ExtResource("2_7ghn5")
+
+[node name="Bags" type="Sprite2D" parent="City/SuburbAvenue/Buidlings/Shop"]
+position = Vector2(113.117, 145.223)
+texture = ExtResource("139_vdpu6")
+
+[node name="Label" type="Label" parent="City/SuburbAvenue/Buidlings/Shop"]
+offset_left = -97.4707
+offset_top = -111.444
+offset_right = 358.529
+offset_bottom = 71.5558
+theme = ExtResource("19_ca2sb")
+theme_override_colors/font_color = Color(0.921569, 0.811765, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 70
+text = "Special Offer!
+All bags only $5"
+
 [node name="Road" type="Node2D" parent="City/SuburbAvenue"]
 z_index = 25
+
+[node name="Sidewalk8" type="Sprite2D" parent="City/SuburbAvenue/Road"]
+position = Vector2(-9120, 659)
+texture = ExtResource("5_aqokb")
 
 [node name="Sidewalk7" type="Sprite2D" parent="City/SuburbAvenue/Road"]
 position = Vector2(-7600, 659)
@@ -1665,6 +1774,27 @@ texture = ExtResource("60_jifo3")
 [node name="SB_Doors" type="Node2D" parent="City/SuburbAvenue"]
 z_index = 30
 
+[node name="Shop" type="Sprite2D" parent="City/SuburbAvenue/SB_Doors"]
+self_modulate = Color(0.752941, 0.596078, 1, 1)
+position = Vector2(-7215.15, 412.3)
+texture = ExtResource("48_rq23e")
+script = ExtResource("26_v2dtc")
+type = 2
+StartTime = 8
+EndTime = 20
+price = 50
+ItemDelivered = 14
+maxSmell = 80
+
+[node name="Label" type="Label" parent="City/SuburbAvenue/SB_Doors/Shop"]
+offset_left = -120.0
+offset_top = -159.0
+offset_right = 116.0
+offset_bottom = -101.0
+theme = ExtResource("19_ca2sb")
+text = "Bagels 🛍 -el"
+metadata/_edit_use_anchors_ = true
+
 [node name="HotDogs" type="Sprite2D" parent="City/SuburbAvenue/SB_Doors"]
 position = Vector2(-5133, 328)
 texture = ExtResource("69_0s1kl")
@@ -1694,10 +1824,22 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Sidewalk2" type="Sprite2D" parent="City/SuburbAvenue/SB_Doors/HotDogs"]
-z_index = -20
-position = Vector2(356, 257)
-texture = ExtResource("47_ttahs")
+[node name="Hot Dogs" type="Sprite2D" parent="City/SuburbAvenue/SB_Doors"]
+position = Vector2(-5471.5, 341.5)
+scale = Vector2(3.3375, 2.8625)
+texture = ExtResource("60_i3a8m")
+script = ExtResource("26_v2dtc")
+type = 2
+StartTime = 10
+EndTime = 22
+price = 15
+ItemDelivered = 1
+amount = 25
+
+[node name="HotDogsVendor" type="AnimatedSprite2D" parent="City/SuburbAvenue/SB_Doors/Hot Dogs"]
+position = Vector2(2.69385, 1.53247)
+scale = Vector2(0.301, 0.349)
+sprite_frames = SubResource("SpriteFrames_kfnwi")
 
 [node name="Night School" type="Sprite2D" parent="City/SuburbAvenue/SB_Doors"]
 position = Vector2(-3946, 403)
@@ -1737,7 +1879,7 @@ type = 9
 StartTime = 8
 EndTime = 22
 price = 2
-ItemConsumed = 9
+ItemConsumed = 10
 Message = "All items can be recycled here for 20 cents"
 
 [node name="Market" type="Sprite2D" parent="City/SuburbAvenue/SB_Doors"]
@@ -1780,10 +1922,10 @@ Message = "Public Toilet, I can have a shower here for $2"
 z_index = 40
 
 [node name="CityLimitL" type="NinePatchRect" parent="City/SuburbAvenue/SB_BackItems"]
-offset_left = -8162.0
-offset_top = 258.0
-offset_right = -7963.0
-offset_bottom = 371.0
+offset_left = -8901.0
+offset_top = 260.0
+offset_right = -8702.0
+offset_bottom = 373.0
 texture = ExtResource("77_g34sl")
 patch_margin_left = 12
 patch_margin_top = 12
@@ -2033,7 +2175,7 @@ texture = ExtResource("13_ylmxr")
 
 [node name="StreetLamp3" type="Sprite2D" parent="City/SuburbAvenue/SB_Lights"]
 z_index = -40
-position = Vector2(-7094, 357)
+position = Vector2(-7658, 357)
 scale = Vector2(-1, 1.296)
 texture = ExtResource("13_y3fgh")
 
@@ -3135,7 +3277,6 @@ EndTime = 14
 ItemDelivered = 3
 maxSmell = 20
 maxBeard = 20
-minClothes = 1
 minEducation = 1
 
 [node name="College Door" type="Sprite2D" parent="City/NorthRoad/NS_Doors"]
@@ -3248,6 +3389,7 @@ offset_right = 116.0
 offset_bottom = -101.0
 theme = ExtResource("19_ca2sb")
 text = "Sharp Razors"
+metadata/_edit_use_anchors_ = true
 
 [node name="Quick Rest Hotel" type="Sprite2D" parent="City/NorthRoad/NS_Doors"]
 position = Vector2(2372, 390)
@@ -3563,6 +3705,15 @@ texture = ExtResource("50_arxwc")
 position = Vector2(1480, 382)
 texture = ExtResource("25_m2d3n")
 script = ExtResource("26_v2dtc")
+
+[node name="Snacks Vending Machine" type="Sprite2D" parent="City/NorthRoad/NS_BackItems"]
+position = Vector2(7353, 483)
+scale = Vector2(0.85, 0.85)
+texture = ExtResource("208_2xtr4")
+script = ExtResource("26_v2dtc")
+type = 2
+price = 12
+ItemDelivered = 16
 
 [node name="CityLimitR" type="NinePatchRect" parent="City/NorthRoad/NS_BackItems"]
 offset_left = 10472.0
@@ -4370,6 +4521,14 @@ position = Vector2(5619, 320)
 texture = ExtResource("25_m2d3n")
 script = ExtResource("26_v2dtc")
 
+[node name="Drinks Vending Machine" type="Sprite2D" parent="City/SideRoad/DS_BackItems"]
+position = Vector2(6331, 458)
+texture = ExtResource("28_oiwha")
+script = ExtResource("26_v2dtc")
+type = 2
+price = 5
+ItemDelivered = 15
+
 [node name="CityLimitR" type="NinePatchRect" parent="City/SideRoad/DS_BackItems"]
 offset_left = 8909.0
 offset_top = 293.0
@@ -5070,6 +5229,14 @@ vertical_alignment = 1
 position = Vector2(101, 81)
 texture = ExtResource("79_i0fqw")
 
+[node name="Snacks Vending Machine" type="Sprite2D" parent="City/MainStreet/MS_BackItems"]
+position = Vector2(-9228, 427)
+texture = ExtResource("208_2xtr4")
+script = ExtResource("26_v2dtc")
+type = 2
+price = 12
+ItemDelivered = 16
+
 [node name="Bench" type="Sprite2D" parent="City/MainStreet/MS_BackItems"]
 position = Vector2(-9837, 502)
 texture = ExtResource("29_r7y80")
@@ -5321,6 +5488,7 @@ theme_override_font_sizes/font_size = 50
 text = "Please keep the park clean!"
 horizontal_alignment = 1
 autowrap_mode = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="CityLimitR" type="NinePatchRect" parent="City/MainStreet/MS_BackItems"]
 offset_left = 10582.0
@@ -5825,6 +5993,12 @@ price = 10
 ItemDelivered = 1
 amount = 25
 
+[node name="HotDogsVendor" type="AnimatedSprite2D" parent="City/SlumStreet/SS_Doors/HotDogs2"]
+position = Vector2(-0.902296, 5.02513)
+scale = Vector2(0.301, 0.301)
+sprite_frames = SubResource("SpriteFrames_c7nyo")
+frame_progress = 0.619877
+
 [node name="JailDoor" type="Sprite2D" parent="City/SlumStreet/SS_Doors"]
 position = Vector2(-1129, 446)
 texture = ExtResource("10_77fcg")
@@ -6055,8 +6229,7 @@ texture = ExtResource("28_oiwha")
 script = ExtResource("26_v2dtc")
 type = 2
 price = 5
-ItemDelivered = 2
-amount = 75
+ItemDelivered = 15
 
 [node name="Atm" type="Sprite2D" parent="City/SlumStreet/SS_BackItems"]
 position = Vector2(1694, 305)
@@ -6572,68 +6745,77 @@ offset_right = 579.0
 offset_bottom = 629.0
 texture = ExtResource("94_38tg7")
 
-[node name="Player" type="Node2D" parent="."]
+[node name="Player and Camera" type="Node2D" parent="."]
+
+[node name="Player" type="Node2D" parent="Player and Camera"]
 visible = false
 z_index = 30
 texture_filter = 1
 position = Vector2(960, 490)
 
-[node name="Legs" type="Sprite2D" parent="Player"]
+[node name="Legs" type="Sprite2D" parent="Player and Camera/Player"]
 position = Vector2(0, 104)
 texture = ExtResource("5_otpij")
 offset = Vector2(0, 24)
 hframes = 9
 vframes = 3
 
-[node name="Body" type="Sprite2D" parent="Player"]
+[node name="Body" type="Sprite2D" parent="Player and Camera/Player"]
 texture = ExtResource("1_hj6uc")
 offset = Vector2(0, 24)
 hframes = 5
 vframes = 3
 
-[node name="Head" type="Sprite2D" parent="Player"]
+[node name="Head" type="Sprite2D" parent="Player and Camera/Player"]
 texture = ExtResource("2_xspdm")
 offset = Vector2(0, 24)
 hframes = 3
 vframes = 2
 
-[node name="Eye" type="Sprite2D" parent="Player/Head"]
+[node name="Eye" type="Sprite2D" parent="Player and Camera/Player/Head"]
 visible = false
 position = Vector2(-30, -77)
 texture = ExtResource("20_0spon")
 offset = Vector2(0, 24)
 
-[node name="EyesSit" type="Sprite2D" parent="Player/Head"]
+[node name="EyesSit" type="Sprite2D" parent="Player and Camera/Player/Head"]
 visible = false
 position = Vector2(-19.0967, -62.6763)
 texture = ExtResource("46_0kg8f")
 offset = Vector2(0, 24)
 
-[node name="Beard" type="Sprite2D" parent="Player"]
+[node name="Beard" type="Sprite2D" parent="Player and Camera/Player"]
 texture = ExtResource("4_alpaj")
 offset = Vector2(0, 24)
 hframes = 4
 vframes = 5
 
-[node name="Hat" type="Sprite2D" parent="Player"]
+[node name="Hat" type="Sprite2D" parent="Player and Camera/Player"]
 texture = ExtResource("4_1ygwg")
 offset = Vector2(0, 24)
 hframes = 3
 vframes = 2
 
-[node name="Broom" type="Sprite2D" parent="Player"]
+[node name="Bag" type="Sprite2D" parent="Player and Camera/Player"]
+position = Vector2(35, 94)
+texture = ExtResource("247_xyg0n")
+offset = Vector2(0, 40)
+vframes = 3
+
+[node name="Broom" type="Sprite2D" parent="Player and Camera/Player"]
 visible = false
 position = Vector2(-27, 75)
 texture = ExtResource("53_8tf6v")
 offset = Vector2(0, 40)
 
-[node name="HandBrooming" type="Sprite2D" parent="Player"]
+[node name="HandBrooming" type="Sprite2D" parent="Player and Camera/Player"]
 visible = false
 texture = ExtResource("126_2wr3s")
 offset = Vector2(0, 24)
 vframes = 3
 
-[node name="Camera2D" type="Camera2D" parent="Player"]
+[node name="Camera2D" type="Camera2D" parent="Player and Camera"]
+position = Vector2(960, 490)
 offset = Vector2(0, 60)
 
 [node name="UI" type="Control" parent="."]
@@ -6642,6 +6824,143 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
+
+[node name="CanvasLayer Popup" type="CanvasLayer" parent="UI"]
+layer = 128
+visible = false
+
+[node name="PopupPanelBorder" type="ColorRect" parent="UI/CanvasLayer Popup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -324.0
+offset_top = -299.0
+offset_right = 324.0
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("246_7wek8")
+color = Color(0.0807833, 0.0807833, 0.0807833, 1)
+
+[node name="PopupPanel" type="ColorRect" parent="UI/CanvasLayer Popup/PopupPanelBorder"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -200.0
+offset_right = 320.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.210058, 0.192581, 0.14175, 1)
+
+[node name="PopupTitle" type="Label" parent="UI/CanvasLayer Popup/PopupPanelBorder/PopupPanel"]
+layout_mode = 2
+offset_right = 640.0
+offset_bottom = 81.0
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.456669, 0.570676, 0.980316, 1)
+theme_override_font_sizes/font_size = 68
+text = "Game saved!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PopupLabel" type="Label" parent="UI/CanvasLayer Popup/PopupPanelBorder/PopupPanel"]
+layout_mode = 2
+offset_top = 92.0
+offset_right = 640.0
+offset_bottom = 353.0
+size_flags_vertical = 1
+text = "Game saved in:
+c:\\temp\\gamesaved\\"
+autowrap_mode = 1
+
+[node name="Button" type="Button" parent="UI/CanvasLayer Popup/PopupPanelBorder/PopupPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -50.0
+offset_right = 320.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+text = "OK!"
+
+[node name="CanvasLayer FileSelect" type="CanvasLayer" parent="UI"]
+layer = 120
+visible = false
+
+[node name="PopupPanel" type="ColorRect" parent="UI/CanvasLayer FileSelect"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -640.0
+offset_top = -360.0
+offset_right = 640.0
+offset_bottom = 360.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("246_7wek8")
+color = Color(0.211765, 0.192157, 0.141176, 1)
+
+[node name="Title" type="Label" parent="UI/CanvasLayer FileSelect/PopupPanel"]
+layout_mode = 2
+offset_right = 640.0
+offset_bottom = 81.0
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.456669, 0.570676, 0.980316, 1)
+theme_override_font_sizes/font_size = 68
+text = "Select the game to load"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SaveGamesScrollContainer" type="ScrollContainer" parent="UI/CanvasLayer FileSelect/PopupPanel"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = 8.0
+offset_top = -262.0
+offset_right = -8.0
+offset_bottom = 290.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SaveGamesContainer" type="VBoxContainer" parent="UI/CanvasLayer FileSelect/PopupPanel/SaveGamesScrollContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UI/CanvasLayer FileSelect/PopupPanel/SaveGamesScrollContainer/SaveGamesContainer"]
+layout_mode = 2
+text = "File to load"
+icon = ExtResource("247_dstc6")
+
+[node name="CancelButton" type="Button" parent="UI/CanvasLayer FileSelect/PopupPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -320.0
+offset_top = -54.0
+offset_right = 320.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+text = "Cancel"
 
 [node name="CanvasLayer UI" type="CanvasLayer" parent="UI"]
 
@@ -6923,7 +7242,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ItemsHBox" type="HBoxContainer" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox"]
-custom_minimum_size = Vector2(0, 64)
+custom_minimum_size = Vector2(0, 110)
 layout_mode = 2
 
 [node name="CoinsHBox" type="HBoxContainer" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/InventoryVBox"]
@@ -7188,6 +7507,11 @@ layout_mode = 2
 texture = ExtResource("30_usy1u")
 stretch_mode = 5
 
+[node name="InventoryBagControl" type="Control" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel"]
+anchors_preset = 0
+offset_right = 1079.0
+offset_bottom = 112.0
+
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer UI/PanelBackground"]
 layout_mode = 0
 offset_left = 736.0
@@ -7278,7 +7602,6 @@ theme_override_constants/shadow_offset_x = 3
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/outline_size = 1
 theme_override_constants/shadow_outline_size = 1
-text = "Rags 2 Riches"
 metadata/_edit_use_anchors_ = true
 
 [node name="SpeedHBox" type="HBoxContainer" parent="UI/CanvasLayer UI"]
@@ -7485,8 +7808,8 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -1064.0
-offset_bottom = 4430.0
+offset_top = 336.0
+offset_bottom = 5830.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_colors/default_color = Color(1, 0.976471, 0, 1)
@@ -7519,9 +7842,9 @@ A very old           Commodore 64 game remastered.
 
 Original game was made in [color=#00ff50][b]1985[/b][/color], <calc years ago> years ago.
 Published by [color=#00ff50][b]Melody Hall Publishing[/b][/color]
-Concept: [color=#00ff50][b]Bob Keener[/b][/color]
+Concept:          [color=#00ff50][b]Bob Keener[/b][/color]
 Programming: [color=#00ff50][b]Bob Keener[/b][/color]
-Music: [color=#00ff50][b]Bob Keener[/b][/color]
+Music: [color=#00ff50][b]Bob Keener[/b][/color] (it is the Mozart's K498)
 
 [i]Remastered[/i]
 Remastered version done by          [color=#0080ff][b]CPU[/b][/color] of            [color=#0080ff][b]UnitedProgramming[/b][/color]
@@ -7577,6 +7900,15 @@ offset_top = 2226.0
 offset_right = 816.0
 offset_bottom = 2322.0
 texture = ExtResource("152_j7ma7")
+
+[node name="BobKeener" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
+layout_mode = 0
+offset_left = 235.0
+offset_top = 1677.0
+offset_right = 331.0
+offset_bottom = 1797.0
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("271_4rhe0")
 
 [node name="UnitedProgramming" type="TextureRect" parent="UI/CanvasLayer Intro/Mask/IntroTextScrolling"]
 layout_mode = 0
@@ -8059,84 +8391,75 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Highlight0a" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
+[node name="Highlight0" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
-offset_left = 313.0
-offset_top = 499.0
-offset_right = 713.0
-offset_bottom = 559.0
-texture = ExtResource("101_md2s6")
-expand_mode = 1
-
-[node name="Highlight0b" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
-layout_mode = 0
-offset_left = 715.0
-offset_top = 499.0
-offset_right = 1115.0
-offset_bottom = 559.0
+offset_left = 307.0
+offset_top = 545.0
+offset_right = 715.0
+offset_bottom = 605.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight1" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
-offset_left = 307.0
-offset_top = 567.0
+offset_left = 715.0
+offset_top = 545.0
 offset_right = 1123.0
-offset_bottom = 631.0
+offset_bottom = 605.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight2" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
 offset_left = 307.0
-offset_top = 639.0
+offset_top = 613.0
 offset_right = 1123.0
-offset_bottom = 703.0
+offset_bottom = 677.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight3" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
 offset_left = 307.0
-offset_top = 712.0
+offset_top = 685.0
 offset_right = 1123.0
-offset_bottom = 772.0
+offset_bottom = 749.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight4" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
 offset_left = 307.0
-offset_top = 785.0
+offset_top = 758.0
 offset_right = 1123.0
-offset_bottom = 845.0
+offset_bottom = 818.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight5" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
 offset_left = 307.0
-offset_top = 856.0
+offset_top = 831.0
 offset_right = 1123.0
-offset_bottom = 916.0
+offset_bottom = 891.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight6" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
 offset_left = 307.0
-offset_top = 928.0
+offset_top = 902.0
 offset_right = 1123.0
-offset_bottom = 988.0
+offset_bottom = 962.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight7" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
 layout_mode = 0
 offset_left = 307.0
-offset_top = 1000.0
+offset_top = 974.0
 offset_right = 1123.0
-offset_bottom = 1060.0
+offset_bottom = 1034.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
@@ -8197,9 +8520,9 @@ expand_mode = 1
 [node name="VBoxSliders" type="VBoxContainer" parent="UI/CanvasLayer Options/PanelOptions"]
 layout_mode = 0
 offset_left = 313.0
-offset_top = 498.0
-offset_right = 1113.0
-offset_bottom = 1058.0
+offset_top = 545.0
+offset_right = 1117.0
+offset_bottom = 1105.0
 theme_override_constants/separation = 8
 
 [node name="HBoxVideo" type="HBoxContainer" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders"]
@@ -8339,50 +8662,6 @@ theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
 text = "Use custom music"
 
-[node name="PanelSpeed" type="Panel" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders"]
-custom_minimum_size = Vector2(800, 64)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_djxn1")
-
-[node name="VBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 8
-
-[node name="Label" type="Label" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed/VBoxContainer"]
-custom_minimum_size = Vector2(300, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("46_ge3pe")
-theme_override_font_sizes/font_size = 40
-text = " Time Speed"
-vertical_alignment = 2
-
-[node name="HSlider" type="HSlider" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-tooltip_text = "Changes the speed of the time in game.
-Making it go faster will make the game more difficult,
-making it slower will make the game easier but more
-boring if you have to wait."
-max_value = 9.0
-value = 5.0
-
-[node name="Value" type="Label" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed/VBoxContainer"]
-custom_minimum_size = Vector2(160, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("46_ge3pe")
-theme_override_font_sizes/font_size = 40
-text = "Normal"
-horizontal_alignment = 2
-vertical_alignment = 2
-
 [node name="PanelDifficulty" type="Panel" parent="UI/CanvasLayer Options/PanelOptions/VBoxSliders"]
 custom_minimum_size = Vector2(800, 64)
 layout_mode = 2
@@ -8487,7 +8766,7 @@ text = "Restart"
 [node name="LoadButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
 custom_minimum_size = Vector2(300, 64)
 layout_mode = 2
-tooltip_text = "Load an existing game (NOT IMPLEMENTED YET!)"
+tooltip_text = "Load an existing game"
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
@@ -8496,7 +8775,7 @@ text = "Load"
 [node name="SaveButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
 custom_minimum_size = Vector2(300, 64)
 layout_mode = 2
-tooltip_text = "Save the current game (NOT IMPLEMENTED YET!)"
+tooltip_text = "Save the current game"
 theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
@@ -8553,8 +8832,9 @@ texture = ExtResource("137_dpxxp")
 
 [node name="Labels" type="Control" parent="UI/CanvasLayer Options/PanelOptions"]
 anchors_preset = 0
+offset_top = 47.0
 offset_right = 40.0
-offset_bottom = 40.0
+offset_bottom = 87.0
 
 [node name="LabelVideo" type="Label" parent="UI/CanvasLayer Options/PanelOptions/Labels"]
 layout_mode = 0
@@ -8612,7 +8892,7 @@ layout_mode = 0
 offset_left = 200.0
 offset_top = -73.0
 offset_right = 208.0
-offset_bottom = 197.0
+offset_bottom = 133.0
 texture = ExtResource("2_7ghn5")
 expand_mode = 1
 
@@ -8816,6 +9096,8 @@ grow_vertical = 0
 texture = ExtResource("96_ohcu5")
 stretch_mode = 2
 
+[connection signal="button_down" from="UI/CanvasLayer Popup/PopupPanelBorder/PopupPanel/Button" to="." method="ClosePopup"]
+[connection signal="button_down" from="UI/CanvasLayer FileSelect/PopupPanel/CancelButton" to="." method="CancelLoadGame"]
 [connection signal="button_down" from="UI/CanvasLayer UI/SpeedHBox/SpeedButton 0" to="." method="GameSpeed" binds= [0]]
 [connection signal="button_down" from="UI/CanvasLayer UI/SpeedHBox/SpeedButton 1" to="." method="GameSpeed" binds= [1]]
 [connection signal="button_down" from="UI/CanvasLayer UI/SpeedHBox/SpeedButton 2" to="." method="GameSpeed" binds= [2]]
@@ -8838,7 +9120,6 @@ stretch_mode = 2
 [connection signal="item_selected" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/HBoxVideo/PanelLimitFPS" to="." method="SetMaxFPS"]
 [connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer/MusicHSlider" to="." method="MusicSliderChange"]
 [connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer/EffectsHSlider" to="." method="EffectsSliderChange"]
-[connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelSpeed/VBoxContainer/HSlider" to="." method="GameSpeedSliderChange"]
 [connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelDifficulty/VBoxContainer/HSlider" to="." method="GameDifficultySliderChange"]
 [connection signal="toggled" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelHat/HatCheckButton" to="." method="UseHatForPlayer"]
 [connection signal="toggled" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelRunMode/RunModeCheckButton" to="." method="RunModePlayer"]

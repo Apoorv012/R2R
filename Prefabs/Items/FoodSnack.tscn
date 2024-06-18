@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5cw57bko552b"]
+
+[ext_resource type="Script" path="res://Scripts/Pickable.cs" id="1_22vr2"]
+[ext_resource type="Texture2D" uid="uid://c4xkqgikswi8h" path="res://Graphics/Items/FoodSnack.png" id="2_b3frg"]
+
+[node name="Pickable" type="Node2D"]
+script = ExtResource("1_22vr2")
+ItemType = 12
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_b3frg")

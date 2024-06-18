@@ -1,0 +1,62 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cakjbyckg0vdk"]
+
+[ext_resource type="FontFile" uid="uid://b1q8fcrilxq4a" path="res://Graphics/UI/Acme.ttf" id="1_wmcw1"]
+[ext_resource type="Texture2D" uid="uid://chygc278oqv88" path="res://Graphics/UI/DropDownArrow.png" id="2_2trrh"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8tqce"]
+bg_color = Color(0.24551, 0.332217, 0.903821, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.0784314, 0.207843, 0.698039, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3ddu"]
+bg_color = Color(0.14902, 0.192157, 0.686275, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.0784314, 0.0431373, 0.698039, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vkdsc"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.941176)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0, 0, 0.796078, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[resource]
+Button/font_sizes/font_size = 30
+Button/styles/hover = SubResource("StyleBoxFlat_8tqce")
+Button/styles/normal = SubResource("StyleBoxFlat_w3ddu")
+Label/font_sizes/font_size = 45
+Label/fonts/font = ExtResource("1_wmcw1")
+OptionButton/font_sizes/font_size = 32
+OptionButton/fonts/font = ExtResource("1_wmcw1")
+OptionButton/icons/arrow = ExtResource("2_2trrh")
+OptionButton/styles/normal = SubResource("StyleBoxFlat_vkdsc")
+ProgressBar/colors/font_outline_color = Color(0.0352941, 0.0352941, 0.0352941, 1)
+ProgressBar/constants/outline_size = 6
+ProgressBar/font_sizes/font_size = 33
+ProgressBar/fonts/font = ExtResource("1_wmcw1")

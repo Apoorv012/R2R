@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=3 uid="uid://bdxp57b2cmofb"]
+[gd_scene load_steps=117 format=3 uid="uid://bdxp57b2cmofb"]
 
 [ext_resource type="Script" path="res://Scripts/Help.cs" id="1_b67vp"]
 [ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="2_gwmqf"]
@@ -49,6 +49,7 @@
 [ext_resource type="AudioStream" uid="uid://cj0n6ckmw4qwe" path="res://Sounds/Drink.ogg" id="58_xwnx7"]
 [ext_resource type="AudioStream" uid="uid://dwya2nfeuem3x" path="res://Sounds/Eat and Drink.ogg" id="59_a56kt"]
 [ext_resource type="Texture2D" uid="uid://coc681f4afsgg" path="res://Graphics/Locations/MapHelp.png" id="69_3qtu0"]
+[ext_resource type="Script" path="res://addons/godot-flexbox/flex_container.gd" id="85_5kf1w"]
 [ext_resource type="Texture2D" uid="uid://bqu2m08s8yap" path="res://Graphics/UI/SkyDay.png" id="118_cj1s7"]
 [ext_resource type="Texture2D" uid="uid://df4ygufgpvcrl" path="res://Graphics/UI/Sky.png" id="119_tt18p"]
 [ext_resource type="Script" path="res://Scripts/Road.cs" id="120_k7nrc"]
@@ -1163,6 +1164,56 @@ offset_top = -278.0
 offset_bottom = -58.0
 grow_horizontal = 0
 grow_vertical = 0
+
+[node name="FlexContainer" type="Container" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel"]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+offset_left = -319.0
+offset_top = -16.0
+offset_right = 761.0
+offset_bottom = 240.0
+script = ExtResource("85_5kf1w")
+debug_draw = true
+flex_direction = 0
+flex_wrap = 1
+justify_content = 1
+align_items = 2
+align_content = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/FlexContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_ts308")
+
+[node name="TextureRect2" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/FlexContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("18_vxyhl")
+
+[node name="TextureRect3" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/FlexContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("211_xnrpg")
+
+[node name="TextureRect4" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/FlexContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("13_2c0jn")
+
+[node name="TextureRect5" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/FlexContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("15_584r5")
+
+[node name="TextureRect6" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/FlexContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("244_6wkte")
+
+[node name="TextureRect7" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/FlexContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("242_itd81")
 
 [node name="InventoryVBox" type="VBoxContainer" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel"]
 layout_mode = 1

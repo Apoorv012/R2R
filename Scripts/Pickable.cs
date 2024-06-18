@@ -19,6 +19,7 @@ public partial class Pickable : Node2D {
         PickableItem.Bone => 64,
         PickableItem.Carrot => 64,
         PickableItem.RotCarrot => 64,
+        PickableItem.CanFull => 64,
         _ => 64
       };
 
@@ -30,5 +31,5 @@ public partial class Pickable : Node2D {
 }
 
 public enum PickableItem {
-  Coin = 0, Banknote = 1, Bottle = 2, Can = 3, Poop = 4, Paper = 5, Bone = 6, Carrot = 7, RotCarrot = 8, AllTrash = 9, AllRecyclable = 10
+  Coin = 0, Banknote = 1, Bottle = 2, Can = 3, Poop = 4, Paper = 5, Bone = 6, Carrot = 7, RotCarrot = 8, AllTrash = 9, AllRecyclable = 10, CanFull = 11, FoodSnack = 12
 }

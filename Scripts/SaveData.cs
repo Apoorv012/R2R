@@ -1,11 +1,8 @@
-using Godot;
 using System.Collections.Generic;
 
 namespace R2R;
 
 public class SaveData {
-
-  public List<NPC> NPCs { get; set; }
   public int currentRoad { get; set; }
   public float roadXPos { get; set; }
   public bool firstStart { get; set; }
@@ -19,8 +16,6 @@ public class SaveData {
   public bool hospital { get; set; }
   public bool doingGym { get; set; }
   public double userGameSpeed { get; set; }
-  public double gameSpeed { get; set; }
-  public double speedFactor { get; set; }
   public int gameDifficulty { get; set; }
   public bool moving { get; set; }
   public double moveDelta { get; set; }
@@ -35,8 +30,6 @@ public class SaveData {
   public bool sleepingOnBench { get; set; }
   public bool jail { get; set; }
   public double globalMessageTimeout { get; set; }
-  public bool joyJustPressed { get; set; }
-  public bool wasPPressed { get; set; }
   public bool keepShiftPressedToRun { get; set; }
   public double food { get; set; }
   public double drink { get; set; }
@@ -51,16 +44,18 @@ public class SaveData {
   public int money { get; set; }
   public int investedMoney { get; set; }
   public bool hasATM { get; set; }
-  public bool hasRazor { get; set; }
+  public bool hasBag { get; set; }
+  public int hasRazor { get; set; }
   public int hasSoap { get; set; }
   public bool hasBroom { get; set; }
   public double broomLevel { get; set; }
   public bool isSweeping { get; set; }
-  public int broomItem { get; set; }
   public int numCoins { get; set; }
   public int numBanknotes { get; set; }
   public int numBottles { get; set; }
   public int numCans { get; set; }
+  public int numCansFull { get; set; }
+  public int numFoodSnacks { get; set; }
   public int numBones { get; set; }
   public int numPaper { get; set; }
   public int numPoop { get; set; }
@@ -88,14 +83,12 @@ public class SaveData {
   public bool playedMusic { get; set; }
   public int prevHour { get; set; }
   public int windowWidth { get; set; }
-  public int playerXPos { get; set; }
   public double lastSpawnMain { get; set; }
   public double lastSpawnSlum { get; set; }
   public double lastSpawnTop { get; set; }
   public double lastSpawnNorth { get; set; }
   public double lastSpawnSide { get; set; }
   public double lastSpawnSuburb { get; set; }
-  public int numNPCs { get; set; }
   public double spawnDelay { get; set; }
   public bool[] npcOrders { get; set; }
   public double enemyDelay { get; set; }
@@ -118,13 +111,16 @@ public class SaveData {
   public List<SaveNPC> npcs { get; set; }
 }
 
+[System.Serializable]
 public class SaveItem {
   public int itemType {get; set; }
   public float posX {get; set; }
   public float posY {get; set; }
 }
 
+[System.Serializable]
 public class SaveLocation {
+  public SaveLocation() { }
   public SaveLocation(Location l) {
     locationType = (int)l.type;
     price = l.price;
@@ -146,12 +142,12 @@ public class SaveLocation {
   public List<SaveGrowingCarrot> carrots {get; set; }
 }
 
-
+[System.Serializable]
 public class SaveGrowingCarrot {
   public float x { get; set; }
   public float y { get; set; }
 }
-
+[System.Serializable]
 public class SaveEnemy {
   public float X { get; set; }
   public float Y { get; set; }
@@ -163,10 +159,12 @@ public class SaveEnemy {
   public double catchTime { get; set; }
   public bool wasInsideCrossroad { get; set; }
 }
-
+[System.Serializable]
 public class SaveNPC {
   public float X { get; set; }
   public float Y { get; set; }
+  public float speed { get; set; }
+  public int npcPrefab { get; set; }
   public int minPos { get; set; }
   public int maxPos { get; set; }
   public int order { get; set; }
@@ -177,12 +175,21 @@ public class SaveNPC {
   public float dogY { get; set; }
   public int happiness { get; set; }
   public int emotion { get; set; }
-  public  bool checkedPlayer { get; set; }
-  public  bool giveToPlayer { get; set; }
-  public  double giveToPlayerDelay { get; set; }
-  public  bool giveToPlayerStopMovement { get; set; }
-  public  bool female { get; set; }
+  public bool checkedPlayer { get; set; }
+  public bool giveToPlayer { get; set; }
+  public double giveToPlayerDelay { get; set; }
+  public bool giveToPlayerStopMovement { get; set; }
+  public bool female { get; set; }
   public int road { get; set; }
   public bool stopForDogPoop { get; set; }
-
+  public string Hair { get; set; }
+  public string Dress { get; set; }
+  public string Skirt { get; set; }
+  public string Tie { get; set; }
+  public string Bag { get; set; }
+  public string Eyes { get; set; }
+  public string Hat { get; set; }
+  public bool hasGlasses { get; set; }
+  public string glasses { get; set; }
+  public int hair { get; set; }
 }

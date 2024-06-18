@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace R2R;
 
@@ -18,6 +19,20 @@ public partial class DogNPC : Sprite2D {
     Scale = (goingLeft ? Vector2.Left : Vector2.Right) + Vector2.Down;
     ZIndex = 60 + npc.order;
   }
+
+
+  public void Init(NPC npc, SaveNPC n) {
+    owner = npc;
+    owner.GetParent().AddChild(this);
+    goingLeft = npc.goingLeft;
+    direction = goingLeft ? Vector2.Left : Vector2.Right;
+    Position = new(n.dogX, n.dogY);
+    Scale = (goingLeft ? Vector2.Left : Vector2.Right) + Vector2.Down;
+    ZIndex = 60 + npc.order;
+    hasPooped = (PoopingStatus)n.dogPooped;
+  }
+
+
 
   Vector2 walkOffset = Vector2.Zero;
   Vector2 targetOffset = Vector2.Zero;
@@ -97,7 +112,6 @@ public partial class DogNPC : Sprite2D {
       }
     }
   }
-
 
   public enum PoopingStatus {
     NotPooped = 0, Pooping = 1, HasPooped = 2

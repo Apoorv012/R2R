@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 namespace R2R;
 public partial class Enemy : AnimatedSprite2D {
@@ -27,9 +28,26 @@ public partial class Enemy : AnimatedSprite2D {
 		else Speed = rnd.RandfRange(200f, 275f);
   }
 
+	internal void Spawn(IGame game, SaveEnemy data, EnemyType enemyType) {
+		this.game = game;
+		type = enemyType;
+		goingLeft = data.goingLeft;
+
+		Position = new(data.X, data.Y);
+		Scale = (goingLeft ? Vector2.Left : Vector2.Right) + Vector2.Down;
+		direction = goingLeft ? Vector2.Left : Vector2.Right;
+
+		Speed = data.Speed;
+
+		completedAction = data.completedAction;
+		fleeing = data.fleeing;
+		catchTime = data.catchTime;
+		wasInsideCrossroad = data.wasInsideCrossroad;
+	}
 
 
-	public void ProcessEnemy(double delta, Vector2[] crossroads, float streetX) {
+
+  public void ProcessEnemy(double delta, Vector2[] crossroads, float streetX) {
 		if (!completedAction) {
 			catchTime += delta;
 			if (catchTime > 30) StopAndFlee();
@@ -187,6 +205,7 @@ public partial class Enemy : AnimatedSprite2D {
 			wasInsideCrossroad = wasInsideCrossroad,
 		};
 	}
+
 }
 
 

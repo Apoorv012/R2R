@@ -18,6 +18,7 @@ public partial class Game : Node, IGame {
 	[Export] Sprite2D Hat;
 	[Export] Sprite2D Beard;
 	[Export] Sprite2D Legs;
+	[Export] Sprite2D Bag;
 	[Export] NinePatchRect Balloon;
 	[Export] Label BalloonTxt;
 	[Export] Sprite2D BroomPlayer;
@@ -30,21 +31,29 @@ public partial class Game : Node, IGame {
 
 
 	[ExportGroup("UI")]
-	[Export] Label DayNum, DayTime, TotalFunds;
+  [Export] Camera2D cam;
+  [Export] Label DayNum, DayTime, TotalFunds;
 	[Export] Label GlobalMessage;
 	[Export] ProgressBar pbFood, pbDrink, pbRest, pbSmellB, pbSmellC, pbBeard, pbEducation, pbFitness;
 	[Export] Label pbSmellL;
 	[Export] HBoxContainer ItemsHBox;
-	[Export] TextureRect ATMCard;
+  [Export] Control InventoryControl;
+  [Export] TextureRect ATMCard;
 	[Export] TextureRect[] Tickets;
 	[Export] TextureRect Soap;
 	[Export] TextureRect Razor;
 	[Export] TextureRect Broom;
 	[Export] ColorRect FadePanel;
 	[Export] Button SpeedButton0, SpeedButton1, SpeedButton2, SpeedButton3, OptionsPlayButton, OptionsContinueButton, OptionsSaveButton;
-  [Export] TextureRect[] HighlightIntro;
+	[Export] TextureRect[] HighlightIntro;
 	[Export] Panel PanelCredits;
 	[Export] Control CreditsMask;
+	[Export] CanvasLayer PopupCanvas;
+	[Export] CanvasLayer FileSaveCanvas;
+	[Export] Texture2D ButtonArrow, DeleteIcon;
+  [Export] Label PopupTitle;
+	[Export] Label PopupLabel;
+	[Export] VBoxContainer SaveGamesContainer;
 
 	[ExportGroup("Metro")]
 	[Export] Panel PanelMetro;
@@ -65,16 +74,14 @@ public partial class Game : Node, IGame {
 	[Export] Label EffetsVolValue;
 	[Export] Slider EffetsVolSlider;
 	[Export] OptionButton DropDownFullscreen, DropDownFPS;
-	[Export] Label GameSpeedValue;
-	[Export] Slider GameSpeedSlider;
 	[Export] Label GameDifficultyValue;
 	[Export] Slider GameDifficultySlider;
 	[Export] CheckButton UsePlayerHatCB;
 	[Export] CheckButton UseCustomMusicCB;
 	[Export] CheckButton RunModeCB;
-  [Export] TextureRect[] HighlightOpts;
+	[Export] TextureRect[] HighlightOpts;
 
-  [ExportGroup("Environment")]
+	[ExportGroup("Environment")]
 	[Export] Node2D City;
 	[Export] Sprite2D BackgroundStreet;
 	[Export] DirectionalLight2D Sun;
@@ -91,7 +98,7 @@ public partial class Game : Node, IGame {
 	[Export] TextureRect[] Coins;
 	[Export] TextureRect[] Banknotes;
 	[Export] HBoxContainer BanknotesContainer, CoinsContainer;
-	[Export] Texture2D[] ItemTexts; // 0 Bottle, 1 Can, 2 bone, 3 paper, 4 poop
+	[Export] Texture2D[] ItemTexts; // 0 Bottle, 1 Can, 2 bone, 3 paper, 4 poop, 5 carrot, 6 rot carrot, 7 can full, 8 food snack
 	[Export] PackedScene[] ItemPrefabs;
 	[Export] PackedScene GrowingCarrotPrefab;
 	[Export] Texture2D[] Soaps;
@@ -105,6 +112,8 @@ public partial class Game : Node, IGame {
 	const int PrefabBone = 6;
 	const int PrefabCarrot = 7;
 	const int PrefabRotCarrot = 8;
+	const int PrefabCanFull = 9;
+	const int PrefabFoodSnack = 10;
 
 	[ExportGroup("City")]
 	[Export] public Road SuburbAvenue;
@@ -120,6 +129,7 @@ public partial class Game : Node, IGame {
 	[Export] Location[] ApartmentList;
 	[Export] Location[] HotelList;
 	[Export] Location[] Gardens;
+	[Export] AnimatedSprite2D[] HotDogVendors;
 
 	[ExportGroup("NPCs")]
 	[Export] PackedScene NPCTemplateGirl1, NPCTemplateGirl2, NPCTemplateGirl3;
@@ -141,7 +151,7 @@ public partial class Game : Node, IGame {
 
 	[ExportGroup("Debug")]
 
-	readonly List<NPC> NPCs = new();
+  readonly List<NPC> NPCs = new();
 
 	public Road currentRoad;
 
@@ -164,8 +174,6 @@ public partial class Game : Node, IGame {
 	bool hospital = false;
 	bool doingGym = false;
 	double userGameSpeed = 1;
-	double gameSpeed = 5;
-  double speedFactor = 1;
 	int gameDifficulty = 5;
 	bool moving = false;
 	double moveDelta = 0;
@@ -178,17 +186,18 @@ public partial class Game : Node, IGame {
 	bool enableLights = true;
 	bool running = false;
 	bool pickup = false;
-	bool denial = false;
+  Vector2 savedDirection = Vector2.Zero;
+  bool denial = false;
 	bool goingUp = false;
 	bool restingOnBench = false;
 	public bool sleepingOnBench = false;
 	bool jail = false;
 	double globalMessageTimeout = 0;
-  bool joyJustPressed = false;
+	bool joyJustPressed = false;
 	bool wasPPressed = false;
 	bool keepShiftPressedToRun = true;
 
-  double food = 100;
+	double food = 100;
 	double drink = 100;
 	double rest = 100;
 	double bodySmell = 25;
@@ -200,8 +209,9 @@ public partial class Game : Node, IGame {
 	double education = 0; // 0-24 elem; 25-49 mid; 50-74 high; 75-100 college
 	int money = 0; // banknotes * 1 + coins, each coin is 1/10 of a banknote
 	int investedMoney = 0;
-	bool hasATM = true;
-	bool hasRazor = false;
+	bool hasBag = false;
+	bool hasATM = false;
+	int hasRazor = 0;
 	int hasSoap = 0;
 	bool hasBroom = false;
 	double broomLevel = 0;
@@ -211,6 +221,8 @@ public partial class Game : Node, IGame {
 	int numBanknotes = 0;
 	int numBottles = 0;
 	int numCans = 0;
+	int numCansFull = 0;
+	int numFoodSnacks = 0;
 	int numBones = 0;
 	int numPaper = 0;
 	int numPoop = 0;
@@ -285,23 +297,6 @@ public partial class Game : Node, IGame {
 				DisplayServer.WindowSetSize(new(winWidth, winHeight), 0);
 			}
 			DropDownFullscreen.Selected = DisplayServer.WindowGetMode() == DisplayServer.WindowMode.Windowed ? 1 : 0;
-			gameSpeed = (int)config.GetValue("Game", "Speed", 5);
-      speedFactor = 0.015625 * gameSpeed * gameSpeed + 0.03125 * gameSpeed + 0.453125;
-			if (gameSpeed == 0) speedFactor = .1;
-      GameSpeedSlider.SetValueNoSignal(gameSpeed);
-			GameSpeedValue.Text = gameSpeed switch {
-				0 => "Frozen",
-				1 => "Very slow",
-				2 => "Slow",
-				3 => "Chilly",
-				4 => "Normal",
-				5 => "Rush",
-				6 => "Speedy",
-				7 => "Fast",
-				8 => "Flash",
-				9 => "Insane",
-				_ => "Normal",
-			};
 			gameDifficulty = (int)config.GetValue("Game", "Difficulty", 5);
 			GameDifficultySlider.SetValueNoSignal(gameDifficulty);
 			GameDifficultyValue.Text = gameDifficulty switch {
@@ -320,7 +315,7 @@ public partial class Game : Node, IGame {
 
 			Hat.Visible = (bool)config.GetValue("Game", "UseHatForPlayer", true);
 			UsePlayerHatCB.SetPressedNoSignal(Hat.Visible);
-      keepShiftPressedToRun = (bool)config.GetValue("Game", "KeepShiftPressedToRun", true);
+			keepShiftPressedToRun = (bool)config.GetValue("Game", "KeepShiftPressedToRun", true);
 			RunModeCB.SetPressedNoSignal(keepShiftPressedToRun);
 			UseCustomMusicCB.SetPressedNoSignal((bool)config.GetValue("Game", "UseCustomMusic", false));
 		}
@@ -328,8 +323,11 @@ public partial class Game : Node, IGame {
 
 		foreach (var hl in HighlightOpts) hl.Visible = false;
 		PanelOptions.Visible = false;
+    if (enemy != null && enemy is AnimatedSprite2D aspr) aspr.SpeedScale = 1;
+    HotDogVendors[0].SpeedScale = 1;
+    HotDogVendors[1].SpeedScale = 1;
 
-		foreach (var item in Tickets) item.Visible = false;
+    foreach (var item in Tickets) item.Visible = false;
 		foreach (var item in Coins) item.Visible = false;
 		foreach (var item in Banknotes) item.Visible = false;
 		ATMCard.Visible = false;
@@ -340,10 +338,10 @@ public partial class Game : Node, IGame {
 		textForBaloon = null;
 		BackgroundStreet.Visible = true;
 		PanelCredits.Visible = false;
-    CreditsMask.Position = new(0, 716);
-    CreditsMask.SetDeferred("size", new Vector2(1920, 364));
+		CreditsMask.Position = new(0, 716);
+		CreditsMask.SetDeferred("size", new Vector2(1920, 364));
 
-    for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
+		for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
 
 		ResetAllValues();
 
@@ -352,14 +350,13 @@ public partial class Game : Node, IGame {
 		firstStart = false;
 		OptionsPlayButton.Text = "Start";
 		OptionsContinueButton.Disabled = true;
-    OptionsSaveButton.Disabled = true;
-    SetStatus(Status.Intro);
+		OptionsSaveButton.Disabled = true;
+		SetStatus(Status.Intro);
 
-    GetViewport().SizeChanged += ViewportResized;
+		GetViewport().SizeChanged += ViewportResized;
+	}
 
-  }
-
-  void SetStatus(Status s) {
+	void SetStatus(Status s) {
 		status = s;
 		switch (s) {
 			case Status.Intro:
@@ -369,18 +366,20 @@ public partial class Game : Node, IGame {
 				WinPanel.Visible = false;
 				WinAnim.Active = false;
 				doActionDelta = 1f;
-        MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
-        MusicPlayer.Stream = PickupSound;
+				MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
+				MusicPlayer.Stream = PickupSound;
 				MusicPlayer.Play();
 				IntroText.Text = IntroText.Text.Replace("<calc years ago>", (DateTime.Now.Year - 1985).ToString());
 				foreach (var h in HighlightIntro) h.Visible = false;
-        PanelCredits.Visible = false;
-        CreditsMask.Position = new(0, 716);
-        CreditsMask.SetDeferred("size", new Vector2(1920, 364));
-        introTextScrollPos = -700;
-        break;
+				PanelCredits.Visible = false;
+				CreditsMask.Position = new(0, 716);
+				CreditsMask.SetDeferred("size", new Vector2(1920, 364));
+				introTextScrollPos = -700;
+				PopupCanvas.Visible = false;
+				FileSaveCanvas.Visible = false;
+				break;
 			case Status.Starting:
-        IntroPanel.Visible = false;
+				IntroPanel.Visible = false;
 				introTextScrollPos = 400;
 				GameOverPanel.Visible = false;
 				GameOverAnim.Active = false;
@@ -389,8 +388,8 @@ public partial class Game : Node, IGame {
 				doActionDelta = .5f;
 				OptionsPlayButton.Text = "Restart";
 				OptionsContinueButton.Disabled = false;
-        OptionsSaveButton.Disabled = false;
-        break;
+				OptionsSaveButton.Disabled = false;
+				break;
 			case Status.Playing:
 				break;
 			case Status.Dying:
@@ -434,7 +433,7 @@ public partial class Game : Node, IGame {
 	}
 
 	public bool iSleepingOnBench => sleepingOnBench;
-  public Node2D iPlayer => Player;
+	public Node2D iPlayer => Player;
 	public AudioStream[] iFNo => FNo;
 	public AudioStream[] iMNo => MNo;
 	public AudioStream[] iFYes => FYes;
@@ -444,11 +443,11 @@ public partial class Game : Node, IGame {
 	public AudioStream[] iFApproval => FApproval;
 	public AudioStream[] iMApproval => MApproval;
 
-  private void ResetAllValues() {
+	private void ResetAllValues(bool clear = false) {
 		dayNum = 1;
 		dayTime = 8 / 24.0; // 0 .. 1
-    DayNum.Text = $"Day {dayNum}, week {dayNum / 7 + 1}";
-    waitUntil = -1;
+		DayNum.Text = $"Day {dayNum}, week {dayNum / 7 + 1}";
+		waitUntil = -1;
 		sleeping = false;
 		hospital = false;
 		doingGym = false;
@@ -477,18 +476,21 @@ public partial class Game : Node, IGame {
 		pbEducation.Value = 0;
 		money = 0;
 		investedMoney = 0;
-		hasATM = false;
-		hasRazor = false;
-    hasSoap = 0;
-    hasBroom = false;
+    hasBag = false;
+    hasATM = false;
+		hasRazor = 0;
+		hasSoap = 0;
+		hasBroom = false;
 		broomLevel = 0;
-    isSweeping = false;
+		isSweeping = false;
 		broomItem = null;
 		numCoins = 0;
 		numBanknotes = 0;
 		numBottles = 0;
 		numCans = 0;
-		numBones = 0;
+    numCansFull = 0;
+    numFoodSnacks = 0;
+    numBones = 0;
 		numPaper = 0;
 		numPoop = 0;
 		numCarrots = 0;
@@ -518,9 +520,9 @@ public partial class Game : Node, IGame {
 
 		currentHotel = null;
 
-    Soap.Visible = false;
+		Soap.Visible = false;
 		Razor.Visible = false;
-    Broom.Visible = false;
+		Broom.Visible = false;
 		BroomPlayer.Visible = false;
 		HandBrooming.Visible = false;
 		ATMCard.Visible = false;
@@ -540,6 +542,7 @@ public partial class Game : Node, IGame {
 		foreach (var a in ApartmentList) a.RentedDays = 0;
 		foreach (var g in Gardens) {
 			g.amount = 0;
+			g.price = 0;
 			foreach (var c in g.carrots) g.Free();
 			g.carrots.Clear();
 		}
@@ -548,60 +551,67 @@ public partial class Game : Node, IGame {
 		NPCs.Clear();
 		numNPCs = 0;
 		for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
-    if (enemy != null) {
+		if (enemy != null) {
 			enemy.Free();
 			enemy = null;
 		}
-    DrunkGuy.Visible = false;
-    drunkGuyBench = null;
-    enemyDelay = 10;
+		DrunkGuy.Visible = false;
+		drunkGuyBench = null;
+		enemyDelay = 10;
 		enemyType = EnemyType.None;
 		removeEnemy = false;
+    HotDogVendors[0].Visible = false;
+    HotDogVendors[1].Visible = false;
 
-		RemoveAllItems();
-    ArrangeWallet(0);
-    ResetPlayer();
+    RemoveAllItems();
+		ArrangeWallet(0);
+		ResetPlayer();
 		SetClothes(Clothes.Rags);
-		SetRoad(SlumStreet, 0);
-  }
+		SetRoad(SlumStreet, 0, clear);
+	}
 
-	[Export] Camera2D cam;
 
 	const float sixteenninth = 16f / 9f;
-  private void ViewportResized() {
-    window ??= GetWindow();
-    windowWidth = window.Size.X;
+	private void ViewportResized() {
+		window ??= GetWindow();
+		windowWidth = window.Size.X;
 		float ratio = window.Size.X * 1f / window.Size.Y;
-    if (ratio >= sixteenninth) {
-      cam.Zoom = Vector2.One;
-    }
+		if (ratio >= sixteenninth) {
+			cam.Zoom = Vector2.One;
+		}
 		else {
 			float zoom = (float)(1.18996 * ratio * ratio - 4.48298 * ratio + 5.19265);
 			cam.Zoom = new(zoom, zoom);
 		}
-  }
+	}
 
-  public override void _Process(double delta) {
+	public override void _Process(double delta) {
 		bool joyStart = Input.IsJoyButtonPressed(0, JoyButton.Start);
 		bool rb = Input.IsJoyButtonPressed(0, JoyButton.RightShoulder);
 		bool lb = Input.IsJoyButtonPressed(0, JoyButton.LeftShoulder);
 		bool joyBack = Input.IsJoyButtonPressed(0, JoyButton.Back);
 
-    if (Input.IsActionJustPressed("Z")) { // FIXME
-    }
+		if (Input.IsActionJustPressed("Z")) { // FIXME
+		}
+
+		if (Input.IsActionJustPressed("F11") || (joyBack && !joyJustPressed)) {
+			joyJustPressed = true;
+			SwitchFullscreen();
+			SaveOptions();
+		}
 
 
 		if (musicToSetDelay > 0) {
 			musicToSetDelay -= delta;
 			if (musicToSetDelay <= 0) {
-        MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
+				MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
 				MusicPlayer.Stream = musicToSet;
 				musicToSetDelay = 0;
 				musicToSet = null;
-      }
-    }
+			}
+		}
 
-    if (!rb && !lb && !joyStart && !joyBack) {
+		if (!rb && !lb && !joyStart && !joyBack) {
 			joyJustPressed = false;
 		}
 		if (status == Status.Intro) {
@@ -618,15 +628,15 @@ public partial class Game : Node, IGame {
 			SpawnNPC(delta);
 			ManageNPCs(delta);
 			HandleEnemies(delta);
-      HandleDrunkGuy(delta);
-      if (doActionDelta < 0 && (Input.IsKeyPressed(Key.Enter) || Input.IsPhysicalKeyPressed(Key.Ctrl) || Input.IsJoyButtonPressed(0, JoyButton.A))) {
+			HandleDrunkGuy(delta);
+			if (doActionDelta < 0 && (Input.IsKeyPressed(Key.Enter) || Input.IsPhysicalKeyPressed(Key.Ctrl) || Input.IsJoyButtonPressed(0, JoyButton.A))) {
 				SetStatus(Status.Intro);
 			}
 			return;
 		}
 
 
-    if (PanelOptions.Visible) {
+		if (PanelOptions.Visible) {
 			HandleMenuActions(joyStart, delta);
 			return;
 		}
@@ -634,18 +644,15 @@ public partial class Game : Node, IGame {
 		if (Input.IsActionJustPressed("Esc") || (joyStart && !joyJustPressed)) {
 			joyJustPressed = true;
 			PanelOptions.Visible = true;
-			foreach (var hl in HighlightOpts) hl.Visible = false;
-		}
-
-		if (Input.IsActionJustPressed("F11") || (joyBack && !joyJustPressed)) {
-			joyJustPressed = true;
-			SwitchFullscreen();
-			SaveOptions();
+      if (enemy != null && enemy is AnimatedSprite2D aspr) aspr.SpeedScale = 0;
+      HotDogVendors[0].SpeedScale = 0;
+      HotDogVendors[1].SpeedScale = 0;
+      foreach (var hl in HighlightOpts) hl.Visible = false;
 		}
 
 		if (globalMessageTimeout > 0) {
 			globalMessageTimeout -= delta;
-			if (globalMessageTimeout <= 0) GlobalMessage.Text = "Rags 2 Riches";
+			if (globalMessageTimeout <= 0) GlobalMessage.Text = "";
 		}
 
 
@@ -681,7 +688,7 @@ public partial class Game : Node, IGame {
 			}
 		}
 		else wasPPressed = false;
-    if (Input.IsKeyPressed(Key.Key1)) GameSpeed(1);
+		if (Input.IsKeyPressed(Key.Key1)) GameSpeed(1);
 		if (Input.IsKeyPressed(Key.Key2)) GameSpeed(2);
 		if (Input.IsKeyPressed(Key.Key3)) GameSpeed(3);
 
@@ -702,7 +709,7 @@ public partial class Game : Node, IGame {
 			NPCBalloon2.Size = lsize;
 		}
 
-    double d = delta * userGameSpeed * speedFactor;
+		double d = delta * userGameSpeed;
 
 		// gamespeed 0->*.1	1->*.5		5->*1		9->*2
 
@@ -717,8 +724,8 @@ public partial class Game : Node, IGame {
 
 		SpawnNPC(d);
 		HandleEnemies(d);
-    HandleDrunkGuy(d);
-    ManageNPCs(d);
+		HandleDrunkGuy(d);
+		ManageNPCs(d);
 
 		if (status == Status.Dying) {
 			Balloon.Visible = false;
@@ -736,7 +743,7 @@ public partial class Game : Node, IGame {
 		ProcessBaloons(delta); // Balloons time should not be affected by game speed
 
 
-    if (jail) {
+		if (jail) {
 			if (drink < 10) drink = 10;
 			if (food < 10) food = 10;
 			rest++; if (rest > 100) rest = 100;
@@ -765,7 +772,7 @@ public partial class Game : Node, IGame {
 	}
 
 
-  bool playedMusic = false;
+	bool playedMusic = false;
 
 	Color SunColor = Color.FromHtml("fcf2a7");
 
@@ -782,15 +789,15 @@ public partial class Game : Node, IGame {
 			dayNum++;
 			DayNum.Text = $"Day {dayNum}, week {dayNum / 7 + 1}";
 			isDogPacified = false;
-      throwBone = 0;
-      BoneForDog.Visible = false;
-      DumpDog.Visible = false;
-      DumpDog.Frame = 0;
-      currentHotel = null;
+			throwBone = 0;
+			BoneForDog.Visible = false;
+			DumpDog.Visible = false;
+			DumpDog.Frame = 0;
+			currentHotel = null;
 			if (prevWeek != dayNum / 7) {
 				money += (int)(investedMoney * .1);
-        TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
-      }
+				TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+			}
 			foreach (var a in ApartmentList) {
 				if (a.RentedDays > 0) a.RentedDays--;
 			}
@@ -815,10 +822,16 @@ public partial class Game : Node, IGame {
 			else {
 				DayTime.Text = $"{h}:{m:D2} AM ";
 			}
-		}
+
+      // HotDog vendors visibility
+      if (h == 12 && !HotDogVendors[0].Visible) { HotDogVendors[0].Visible = true; HotDogVendors[0].Play(); }
+      if (h == 0 && HotDogVendors[0].Visible) HotDogVendors[0].Visible = false;
+      if (h == 10 && !HotDogVendors[1].Visible) { HotDogVendors[1].Visible = true; HotDogVendors[1].Play(); }
+      if (h == 23 && HotDogVendors[1].Visible) HotDogVendors[1].Visible = false;
+    }
 		if (h == 7 && m == 0 && !playedMusic) {
-      MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
-      MusicPlayer.Play();
+			MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
+			MusicPlayer.Play();
 			playedMusic = true;
 		}
 		if (playedMusic && h == 8 && m == 0) {
@@ -939,26 +952,26 @@ public partial class Game : Node, IGame {
 		//		Debug.Text = $"TOUCH: {touch.Position.X:F0}, {touch.Position.Y:F0}";
 	}
 
-  public override void _Notification(int what) {
+	public override void _Notification(int what) {
 		if (what == NotificationApplicationFocusOut) {
 			GameSpeed(0);
-    }
+		}
 		else if (what == NotificationApplicationFocusIn) {
-      GameSpeed(1);
-    }
-  }
+			GameSpeed(1);
+		}
+	}
 
 
 	Window window = null;
 	int windowWidth = 1980;
 
 	const int playerXPos = 960;
-  public int PlayerPos => 960;
+	public int PlayerPos => 960;
 	public int WindowWidth => windowWidth;
 
-  #region movement *****************************************************************************************************************************      [movement]
+	#region movement *****************************************************************************************************************************      [movement]
 
-  bool wasUpPressed = false;
+	bool wasUpPressed = false;
 	bool wasDownPressed = false;
 	bool wasUsePressed = false;
 	bool wasLeftPressed = false;
@@ -1012,7 +1025,7 @@ public partial class Game : Node, IGame {
 				}
 			}
 			else wasShiftPressed = false;
-    }
+		}
 
 		if (up || down) {
 			left = false;
@@ -1055,8 +1068,10 @@ public partial class Game : Node, IGame {
 			// If we have the broom and there is a pickable just here, use the broom and remove it
 			if (use && hasBroom && SearchItems(true, out Pickable p)) {
 				isSweeping = true;
+				Bag.Visible = false;
 				doActionDelta = 1;
 				Body.Frame = 4 + GetFitnessLevel();
+				Bag.Visible = false;
 				BroomPlayer.Visible = true;
 				HandBrooming.Visible = true;
 				broomItem = p;
@@ -1104,7 +1119,7 @@ public partial class Game : Node, IGame {
 			// If possible walk up anim and then action
 			goingUp = true;
 			doActionDelta = 1;
-      Player.Scale = flipL; 
+			Player.Scale = flipL;
 			HideBalloon();
 			return;
 		}
@@ -1185,13 +1200,15 @@ public partial class Game : Node, IGame {
 
 		if (down) {
 			pickup = true;
-			doActionDelta = 1;
-			Player.Scale = flipL;
+      savedDirection = Player.Scale;
+      Player.Scale = flipL;
+      doActionDelta = .5;
 			Body.Frame = 1 + GetFitnessLevel();
 			Face.Frame = 1;
 			Hat.Frame = 3;
 			Legs.Frame = 4 + 9 * (int)clothes;
-			Beard.Frame = Beardlevel(BeardLevels.Pickup);
+      Bag.Visible = false;
+      Beard.Frame = Beardlevel(BeardLevels.Pickup);
 			HideBalloon();
 		}
 
@@ -1221,24 +1238,24 @@ public partial class Game : Node, IGame {
 	AudioStream musicToSet = null;
 	double musicToSetDelay = 0;
 
-  void SetRoad(Road road, float posX) {
+	void SetRoad(Road road, float posX, bool clean = false) {
 		Tween tween = GetTree().CreateTween();
 		tween.TweenProperty(MusicPlayer, "volume_db", -20, .5);
 
-    currentRoad = road;
+		currentRoad = road;
 		handlingCrossroads = true;
 		Crossroads = road.Crossroads;
 		handlingCrossroads = false;
 		currentRoad.Position = new(posX, currentRoad.Position.Y);
 		musicToSetDelay = 1;
-    switch (road.Name) {
+		switch (road.Name) {
 			case RoadName.Slum_Street:
 				City.Position = new(0, 0);
 				Sun.Position = new(395, 162);
 				Background0.Texture = Mountains;
 				Background1a.Texture = Hills;
 				Background1b.Texture = Hills;
-        musicToSet = GetMusic(MusicC64);
+				musicToSet = GetMusic(MusicC64);
 				break;
 
 			case RoadName.Main_Street:
@@ -1247,7 +1264,7 @@ public partial class Game : Node, IGame {
 				Background0.Texture = Skyscrapers;
 				Background1a.Texture = Buildings;
 				Background1b.Texture = Buildings;
-        musicToSet = GetMusic(MusicOrchestra);
+				musicToSet = GetMusic(MusicOrchestra);
 				break;
 
 			case RoadName.Side_Road:
@@ -1256,7 +1273,7 @@ public partial class Game : Node, IGame {
 				Background0.Texture = Mountains;
 				Background1a.Texture = Hills;
 				Background1b.Texture = Hills;
-        musicToSet = GetMusic(MusicDisco);
+				musicToSet = GetMusic(MusicDisco);
 				break;
 
 			case RoadName.North_Road:
@@ -1274,7 +1291,7 @@ public partial class Game : Node, IGame {
 				Background0.Texture = Skyscrapers;
 				Background1a.Texture = Buildings;
 				Background1b.Texture = Buildings;
-        musicToSet = GetMusic(MusicDance);
+				musicToSet = GetMusic(MusicDance);
 				break;
 
 			case RoadName.Suburb_Avenue:
@@ -1285,9 +1302,9 @@ public partial class Game : Node, IGame {
 				Background1b.Texture = Hills;
 				musicToSet = GetMusic(MusicBroken);
 				break;
-    }
+		}
 
-    Background0.Position = new(0.0890909090909091f * posX + 980, 306 - City.Position.Y);
+		Background0.Position = new(0.0890909090909091f * posX + 980, 306 - City.Position.Y);
 		if (posX > 0)
 			Background1.Position = new(0.1781818181818182f * posX, 306 - City.Position.Y);
 		else
@@ -1305,14 +1322,11 @@ public partial class Game : Node, IGame {
 				locations.Add(l);
 			}
 		}
-		foreach (var node in currentRoad.FrontItems.GetChildren()) {
-			if (node is Location l) locations.Add(l);
-		}
 
 		foreach (var npc in NPCs) npc.Delete();
 		NPCs.Clear();
-    numNPCs = 0;
-    for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
+		numNPCs = 0;
+		for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
 		if (enemy != null) {
 			enemy.Free();
 			enemy = null;
@@ -1320,12 +1334,12 @@ public partial class Game : Node, IGame {
 		npcForBalloon1 = null;
 		npcForBalloon2 = null;
 		Player.ZIndex = 75;
-		SpawnItems();
+		if (!clean) SpawnItems();
 		fitPosition = true;
 
-    // Set forcibly the lights
-    int now = (int)(dayTime * 24);
-    if (now < 5 || now > 21) {
+		// Set forcibly the lights
+		int now = (int)(dayTime * 24);
+		if (now < 5 || now > 21) {
 			enableLights = true;
 			foreach (var light in currentRoad.StreetLights.GetChildren()) {
 				if (light.GetChild(0) is PointLight2D l)
@@ -1341,17 +1355,17 @@ public partial class Game : Node, IGame {
 		}
 	}
 
-  private AudioStream GetMusic(AudioStream defaultMusic) {
+	private AudioStream GetMusic(AudioStream defaultMusic) {
 		if (!UseCustomMusicCB.ButtonPressed) return defaultMusic;
 
-    var exePath = OS.GetExecutablePath();
+		var exePath = OS.GetExecutablePath();
 		if (OS.IsDebugBuild()) {
-      exePath = "C:/Users/claud/Godot/R2R/";
-    }
-    int slashPos = exePath.LastIndexOf('/') + 1;
-    exePath = exePath[0..slashPos] + "Music/";
-    using var dir = DirAccess.Open(exePath);
-    List<string> foundMusics = new();
+			exePath = "C:/Users/claud/Godot/R2R/";
+		}
+		int slashPos = exePath.LastIndexOf('/') + 1;
+		exePath = exePath[0..slashPos] + "Music/";
+		using var dir = DirAccess.Open(exePath);
+		List<string> foundMusics = new();
 		foreach (var file in DirAccess.GetFilesAt(exePath)) {
 			if (file.EndsWith(".ogg", StringComparison.OrdinalIgnoreCase) || file.EndsWith(".mp3", StringComparison.OrdinalIgnoreCase)) {
 				foundMusics.Add(exePath + file);
@@ -1360,7 +1374,7 @@ public partial class Game : Node, IGame {
 		if (foundMusics.Count == 0) return defaultMusic;
 
 		string music = foundMusics[rnd.RandiRange(0, foundMusics.Count - 1)];
-    AudioStream sound;
+		AudioStream sound;
 		if (music[^1] == '3') {
 			using var musicFile = Godot.FileAccess.Open(music, Godot.FileAccess.ModeFlags.Read);
 			sound = new AudioStreamMP3 {
@@ -1370,10 +1384,10 @@ public partial class Game : Node, IGame {
 		else {
 			sound = AudioStreamOggVorbis.LoadFromFile(music);
 		}
-    return sound;
-  }
+		return sound;
+	}
 
-  Vector2[] Crossroads;
+	Vector2[] Crossroads;
 	bool handlingCrossroads = false;
 
 	void ShowMap(Vector2 pos) {
@@ -1396,25 +1410,25 @@ public partial class Game : Node, IGame {
 
 
 		bool whileWorking = (foundLocation != null && foundLocation.type == LocationType.Job);
-		double difficultyFactor = 0.9 * gameDifficulty + 0.3;
-		double difficultyFactorRest = 0.667 * gameDifficulty + 0.5;
+		double difficultyFactor = 0.45 * gameDifficulty + 0.3;
+		double difficultyFactorRest = 0.334 * gameDifficulty + 0.5;
 
-    double nFood = food - timeDiff * 75 * (running ? 1.5 : 1) * (whileWorking ? .5 : 1) * difficultyFactor;
-    if (nFood < 0) nFood = 0;
+		double nFood = food - timeDiff * 75 * (running ? 1.5 : 1) * (whileWorking ? .5 : 1) * difficultyFactor;
+		if (nFood < 0) nFood = 0;
 		double nDrink = drink - timeDiff * 150 * (running ? 1.25 : 1) * (whileWorking ? .5 : 1) * difficultyFactor;
-    if (nDrink < 0) nDrink = 0;
+		if (nDrink < 0) nDrink = 0;
 		double restSpeed = dayTime < 6 / 24.0 || dayTime > 22 / 24.0 ? 85 : 60; // During the night the rest decreases faster
 		double nRest = rest - timeDiff * restSpeed * (running ? 2 : 1) * (nFood == 0 && nDrink == 0 ? 10 : 1) * difficultyFactorRest;
-    if (nRest < 0) nRest = 0;
+		if (nRest < 0) nRest = 0;
 		double nBodySmell = bodySmell + timeDiff * 35 * (running ? 2 : 1) * difficultyFactor;
-    if (nBodySmell > 100) nBodySmell = 100;
+		if (nBodySmell > 100) nBodySmell = 100;
 		double nClothesSmell = dirtyClothes + timeDiff * 15 * difficultyFactor;
-    if (dirtyClothes > 100) dirtyClothes = 100;
+		if (dirtyClothes > 100) dirtyClothes = 100;
 		double nSmell = nBodySmell + nClothesSmell;
 		if (nSmell > 100) nSmell = 100;
 		totalSmell = nSmell;
 		double nBeard = beard + timeDiff * 25 * difficultyFactor;
-    if (nBeard > 100) nBeard = 100;
+		if (nBeard > 100) nBeard = 100;
 
 		if (restingOnBench) {
 			nRest += delta;
@@ -1439,8 +1453,25 @@ public partial class Game : Node, IGame {
 		beard = nBeard;
 		pbBeard.SetValueNoSignal(beard);
 
-    // Handle death and collapse
-    if (food == 0 && drink == 0 && rest == 0) {
+    // Handle full cans and snacks
+    if (drink == 0 && numCansFull > 0) {
+      drink = 50;
+      numCansFull--;
+      InventoryRemoveItem(PickableItem.CanFull, true);
+      Pickup(PickableItem.Can);
+      SoundPlayer.Stream = DrinkSound;
+      SoundPlayer.Play();
+    }
+    if (food == 0 && numFoodSnacks > 0) {
+      food = 50;
+      numFoodSnacks--;
+      InventoryRemoveItem(PickableItem.FoodSnack, true);
+      SoundPlayer.Stream = EatSound;
+      SoundPlayer.Play();
+    }
+
+		// Handle death and collapse
+		if (food == 0 && drink == 0 && rest == 0) {
 			if (foundLocation != null && foundLocation.type == LocationType.Job && HasMoney(100)) {
 				// If we working we will go to the Hospital
 				if (!hospital) {
@@ -1504,7 +1535,8 @@ public partial class Game : Node, IGame {
 		Player.Rotation = deathDelta * Mathf.Pi * .5f;
 		Eye.Visible = true;
 		Body.Frame = 0 + GetFitnessLevel();
-		Face.Frame = 0;
+    Bag.Visible = false;
+    Face.Frame = 0;
 		Legs.Frame = 3 + 9 * (int)clothes;
 		Beard.Frame = Beardlevel(BeardLevels.Walk);
 		Player.Position = new(playerXPos, 490 + deathDelta * 110);
@@ -1580,20 +1612,37 @@ public partial class Game : Node, IGame {
 
 	void InventoryRemoveItem(PickableItem itemType, bool onlyOne = false) {
 		List<Node> toDelete = new();
-		foreach (var item in ItemsHBox.GetChildren()) {
-			if (item is TypedTextureRect ttr && ttr.ItemType == itemType) {
-				toDelete.Add(item);
-				if (onlyOne) break;
+
+		if (hasBag) {
+      foreach (var item in InventoryControl.GetChildren()) {
+        if (item is TypedTextureRect ttr && ttr.ItemType == itemType) {
+          toDelete.Add(item);
+          if (onlyOne) break;
+        }
+      }
+    }
+    else {
+			foreach (var item in ItemsHBox.GetChildren()) {
+				if (item is TypedTextureRect ttr && ttr.ItemType == itemType) {
+					toDelete.Add(item);
+					if (onlyOne) break;
+				}
 			}
 		}
 		foreach (var node in toDelete) {
 			node.Free();
 		}
-	}
+		if (hasBag) ArrangeBag();
+  }
 	void RemoveAllItems() {
 		List<Node> toDelete = new();
 		foreach (var item in ItemsHBox.GetChildren()) {
 			if (item is TypedTextureRect _) {
+				toDelete.Add(item);
+			}
+		}
+    foreach (var item in InventoryControl.GetChildren()) {
+      if (item is TypedTextureRect _) {
 				toDelete.Add(item);
 			}
 		}
@@ -1602,7 +1651,9 @@ public partial class Game : Node, IGame {
 		}
 		numBottles = 0;
 		numCans = 0;
-		numBones = 0;
+    numCansFull = 0;
+    numFoodSnacks = 0;
+    numBones = 0;
 		numPaper = 0;
 		numPoop = 0;
 		numCarrots = 0;
@@ -1628,15 +1679,15 @@ public partial class Game : Node, IGame {
 				globalMessageTimeout = 5;
 			}
 		}
-    TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
-    if (money >= 10000000) {
-      SetStatus(Status.Win);
-    }
+		TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+		if (money >= 10000000) {
+			SetStatus(Status.Win);
+		}
 		SetWalletUI();
-    return earnedMoney;
-  }
+		return earnedMoney;
+	}
 
-  void SetWalletUI() {
+	void SetWalletUI() {
 		for (int i = 0; i < Coins.Length; i++) {
 			Coins[i].Visible = i < numCoins;
 		}
@@ -1657,34 +1708,57 @@ public partial class Game : Node, IGame {
 			_ => 0
 		};
 		BanknotesContainer.AddThemeConstantOverride("separation", separation);
-    separation = numCoins switch {
-      20 => 0,
-      21 => -3,
-      22 => -5,
-      23 => -7,
-      24 => -9,
-      25 => -11,
-      26 => -13,
-      27 => -14,
-      28 => -15,
-      29 => -17,
-      30 => -18,
-      _ => 0
-    };
-    CoinsContainer.AddThemeConstantOverride("separation", separation);
+		separation = numCoins switch {
+			20 => 0,
+			21 => -3,
+			22 => -5,
+			23 => -7,
+			24 => -9,
+			25 => -11,
+			26 => -13,
+			27 => -14,
+			28 => -15,
+			29 => -17,
+			30 => -18,
+			_ => 0
+		};
+		CoinsContainer.AddThemeConstantOverride("separation", separation);
 	}
 
 	int CalculateInvSize() {
 		return
 			numBottles * sizeBottle +
 			numCans * sizeCans +
+			numCansFull * sizeCans +
+      numFoodSnacks * sizeCans +
 			numBones * sizeBone +
 			numPaper * sizePaper +
 			numPoop * sizePoop +
-			4 * (numBottles + numCans + numBones + numPaper + numPoop);
+			4 * (numBottles + numCans + numCansFull + numBones + numPaper + numPoop);
 	}
 
-	double lastSpawnMain = -1;
+
+  public bool ArrangeBag() {
+    float w = InventoryControl.Size.X - 48;
+    float pos = 0;
+    int row = 0;
+    foreach (var c in InventoryControl.GetChildren()) {
+      var t = c as TextureRect;
+      t.Position = new(pos, row);
+      var iw = t.Size.X;
+      if (iw > 64) pos += t.Size.X * .5f;
+      else pos += t.Size.X * .85f;
+      if (pos > w) {
+        pos = 0;
+        if (row == 58) return true;
+        row += 58;
+      }
+    }
+    return false;
+  }
+
+
+  double lastSpawnMain = -1;
 	double lastSpawnSlum = -1;
 	double lastSpawnTop = -1;
 	double lastSpawnNorth = -1;
@@ -1726,9 +1800,9 @@ public partial class Game : Node, IGame {
 			node.Free();
 		}
 
-		float pos = currentRoad.MinX;
+		float pos = currentRoad.MinX + 150;
 		// Go from one end to the other end, the size will depend on the street
-		while (pos < currentRoad.MaxX) {
+		while (pos < currentRoad.MaxX - 150) {
 			// Check if we have an items very close, in case skip
 			bool tooClose = false;
 			foreach (var item in currentRoad.FrontItems.GetChildren()) {
@@ -1786,10 +1860,10 @@ public partial class Game : Node, IGame {
 			doActionDelta -= delta * 2;
 			int pos = (int)(doActionDelta * 4 + 1) % 4;
 			switch (pos) {
-				case 0: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup);		Hat.Frame = 3;	break; // Front
-				case 1: Face.Frame = 3; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialR);	Hat.Frame = 4;	break; // Right
-				case 2: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup);		Hat.Frame = 3;	break; // Front
-				case 3: Face.Frame = 4; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialL);	Hat.Frame = 5;	break; // Left
+				case 0: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); Hat.Frame = 3; break; // Front
+				case 1: Face.Frame = 3; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialR); Hat.Frame = 4; break; // Right
+				case 2: Face.Frame = 1; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.Pickup); Hat.Frame = 3; break; // Front
+				case 3: Face.Frame = 4; if (beard > 10) Beard.Frame = Beardlevel(BeardLevels.DenialL); Hat.Frame = 5; break; // Left
 			}
 			if (doActionDelta <= 0) {
 				denial = false;
@@ -1797,7 +1871,8 @@ public partial class Game : Node, IGame {
 				findAround = false;
 				doActionDelta = 0;
 				Body.Frame = 0 + GetFitnessLevel();
-				Face.Frame = 0;
+        Bag.Visible = hasBag;
+        Face.Frame = 0;
 				Hat.Frame = 0;
 				Legs.Frame = 0 + 9 * (int)clothes;
 				Beard.Frame = Beardlevel(BeardLevels.Walk);
@@ -1809,14 +1884,14 @@ public partial class Game : Node, IGame {
 			Eye.Visible = false;
 			EyesSitClosed.Visible = false;
 			doActionDelta -= delta;
-			if (doActionDelta <= .5 && !findAround) {
+			if (doActionDelta <= .25 && !findAround) {
 				findAround = true;
 				// Check all items around, if they are pickable and have a global X position close to the player position
 				bool foundOne = SearchItems(false, out Pickable p);
 				if (!foundOne) {
 					pickup = false;
 					doActionDelta = 0;
-				}
+        }
 				else {
 					if (Pickup(p.ItemType)) p.Free();
 				}
@@ -1824,9 +1899,11 @@ public partial class Game : Node, IGame {
 			if (doActionDelta <= 0) {
 				pickup = false;
 				findAround = false;
-				doActionDelta = 0;
+        Player.Scale = savedDirection;
+        doActionDelta = 0;
 				Body.Frame = 0 + GetFitnessLevel();
-				Face.Frame = 0;
+        Bag.Visible = hasBag;
+        Face.Frame = 0;
 				Hat.Frame = 0;
 				Legs.Frame = 0 + 9 * (int)clothes;
 				Beard.Frame = Beardlevel(BeardLevels.Walk);
@@ -1834,14 +1911,15 @@ public partial class Game : Node, IGame {
 		}
 
 		if (goingUp && doActionDelta > 0) {
-      Eye.Visible = false;
+			Eye.Visible = false;
 			EyesSitClosed.Visible = false;
 			doActionDelta -= delta;
 			Body.Frame = 2 + GetFitnessLevel();
 			Face.Frame = 2;
 			Beard.Visible = false;
-			Hat.Frame = 1;
-      int pos = (int)(doActionDelta * 9) % 4;
+      Bag.Visible = false;
+      Hat.Frame = 1;
+			int pos = (int)(doActionDelta * 9) % 4;
 			switch (pos) {
 				case 0: Legs.Frame = 6 + 9 * (int)clothes; break;
 				case 1: Legs.Frame = 5 + 9 * (int)clothes; break;
@@ -1862,8 +1940,9 @@ public partial class Game : Node, IGame {
 				Body.Frame = 0 + GetFitnessLevel();
 				Face.Frame = 0;
 				Hat.Frame = 0;
-        Legs.Frame = 0 + 9 * (int)clothes;
-				Player.Position = new(playerXPos, 490);
+				Legs.Frame = 0 + 9 * (int)clothes;
+        Bag.Visible = hasBag;
+        Player.Position = new(playerXPos, 490);
 				Beard.Visible = true;
 				Beard.Frame = Beardlevel(BeardLevels.Walk);
 				// Call the action here
@@ -1886,7 +1965,8 @@ public partial class Game : Node, IGame {
 			Face.Frame = 0;
 			Legs.Frame = 3 + 9 * (int)clothes;
 			Beard.Frame = Beardlevel(BeardLevels.Walk);
-			Player.Position = new(playerXPos, 490 + (1 - (float)doActionDelta) * 5);
+      Bag.Visible = false;
+      Player.Position = new(playerXPos, 490 + (1 - (float)doActionDelta) * 5);
 			Player.Scale = new(1 - (1 - (float)doActionDelta) * .4f, 1);
 		}
 
@@ -1921,6 +2001,7 @@ public partial class Game : Node, IGame {
 				}
 				broomItem = null;
 				isSweeping = false;
+				if (hasBag) Bag.Visible = true;
 				doActionDelta = 0;
 				ResetPlayer();
 				if (broomLevel <= 0) {
@@ -2061,9 +2142,9 @@ public partial class Game : Node, IGame {
 				}
 				Coins[numCoins].Visible = true;
 				numCoins++;
-        SetWalletUI();
-        TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
-        SoundPlayer.Stream = PickupSound;
+				SetWalletUI();
+				TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+				SoundPlayer.Stream = PickupSound;
 				SoundPlayer.Play();
 				return true;
 
@@ -2074,13 +2155,15 @@ public partial class Game : Node, IGame {
 				}
 				Banknotes[numBanknotes].Visible = true;
 				numBanknotes++;
-        SetWalletUI();
-        TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
-        SoundPlayer.Stream = PickupSound;
+				SetWalletUI();
+				TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+				SoundPlayer.Stream = PickupSound;
 				SoundPlayer.Play();
 				return true;
 
-			case PickableItem.Bottle:
+
+      // 0 Bottle, 1 Can, 2 bone, 3 paper, 4 poop, 5 carrot, 6 rot carrot, 7 can full
+      case PickableItem.Bottle:
 				itemTexture = ItemTexts[0];
 				objectSize = sizeBottle;
 				break;
@@ -2110,26 +2193,50 @@ public partial class Game : Node, IGame {
 				itemTexture = ItemTexts[6];
 				objectSize = sizeBone;
 				break;
-		}
+      case PickableItem.CanFull:
+        itemTexture = ItemTexts[7];
+        objectSize = sizeCans;
+        break;
+    }
 		if (itemTexture != null) {
-			int invSize = CalculateInvSize();
-			if (invSize + objectSize > 1080) {
-				PlayDenial();
-				return false;
+			if (hasBag) {
+				TypedTextureRect itemToAdd = new() {
+					ItemType = itemType,
+					Texture = itemTexture,
+					ExpandMode = TextureRect.ExpandModeEnum.KeepSize,
+					StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered
+				};
+				InventoryControl.AddChild(itemToAdd);
+				if (ArrangeBag()) {
+					itemToAdd.Free();
+					PlayDenial();
+					return false;
+				}
+				return true;
 			}
-			TypedTextureRect itemToAdd = new() {
-				ItemType = itemType,
-				Texture = itemTexture,
-				ExpandMode = TextureRect.ExpandModeEnum.KeepSize,
-				StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered
-			};
-			ItemsHBox.AddChild(itemToAdd);
+			else {
+				int invSize = CalculateInvSize();
+				if (invSize + objectSize > 1000) {
+					PlayDenial();
+					return false;
+				}
+				TypedTextureRect itemToAdd = new() {
+					ItemType = itemType,
+					Texture = itemTexture,
+					ExpandMode = TextureRect.ExpandModeEnum.KeepSize,
+					StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered
+				};
+				ItemsHBox.AddChild(itemToAdd);
+			}
 			switch (itemType) {
 				case PickableItem.Bottle:
 					numBottles++;
 					break;
 				case PickableItem.Can:
 					numCans++;
+					break;
+				case PickableItem.CanFull:
+					numCansFull++;
 					break;
 				case PickableItem.Poop:
 					numPoop++;
@@ -2145,6 +2252,9 @@ public partial class Game : Node, IGame {
 					break;
 				case PickableItem.RotCarrot:
 					numRotCarrots++;
+					break;
+				case PickableItem.FoodSnack:
+          numFoodSnacks++;
 					break;
 			}
 			SoundPlayer.Stream = PickupSound;
@@ -2225,11 +2335,11 @@ public partial class Game : Node, IGame {
 						money += numBanknotes * 10 + numCoins;
 						numBanknotes = 0;
 						numCoins = 0;
-            SetWalletUI();
-            foreach (var i in Coins) i.Visible = false;
+						SetWalletUI();
+						foreach (var i in Coins) i.Visible = false;
 						foreach (var i in Banknotes) i.Visible = false;
-            TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
-            StopEnemies();
+						TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+						StopEnemies();
 					}
 					else {
 						ShowBalloon("I need an ATM card...", 2);
@@ -2242,11 +2352,11 @@ public partial class Game : Node, IGame {
 						money += numBanknotes * 10 + numCoins;
 						numBanknotes = 0;
 						numCoins = 0;
-            SetWalletUI();
-            foreach (var i in Coins) i.Visible = false;
+						SetWalletUI();
+						foreach (var i in Coins) i.Visible = false;
 						foreach (var i in Banknotes) i.Visible = false;
-            TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
-            success = ResultSound.ATM;
+						TotalFunds.Text = $"Pocket  {FormatPocket()}            Bank  {FormatMoney(money)}";
+						success = ResultSound.ATM;
 						StopEnemies();
 					}
 					else if (HasMoneyInBank(10)) {
@@ -2254,7 +2364,7 @@ public partial class Game : Node, IGame {
 						ATMCard.Visible = true;
 						ShowBalloon("Got an ATM card", 4);
 						RemoveMoney(10);
-            success = ResultSound.GenericSuccess;
+						success = ResultSound.GenericSuccess;
 						StopEnemies();
 					}
 					else {
@@ -2300,10 +2410,10 @@ public partial class Game : Node, IGame {
 								break;
 
 							case ItemDelivered.Razor:
-								if (hasRazor) ShowBalloon("I already have a razor", 2);
+								if (hasRazor > 0) ShowBalloon("I already have a razor", 2);
 								else {
 									RemoveMoney(l.price);
-									hasRazor = true;
+									hasRazor = 4;
 									Razor.Visible = true;
 									success = ResultSound.GenericSuccess;
 									StopEnemies();
@@ -2401,12 +2511,30 @@ public partial class Game : Node, IGame {
 									ShowBalloon("I already have soap", 2);
 									break;
 								}
-                RemoveMoney(l.price);
-                hasSoap = 4;
+								RemoveMoney(l.price);
+								hasSoap = 4;
 								Soap.Texture = Soaps[0];
 								Soap.Visible = true;
-                success = ResultSound.GenericSuccess;
-                ShowBalloon("I have some soap now", 2);
+								success = ResultSound.GenericSuccess;
+								ShowBalloon("I have some soap now", 2);
+								break;
+
+							case ItemDelivered.Bag:
+								if (hasBag) {
+                  ShowBalloon("I already have a bag", 2);
+                  break;
+                }
+								RemoveMoney(l.price);
+								hasBag = true;
+								Bag.Visible = true;
+								break;
+
+              case ItemDelivered.CanFull:
+                if (!Pickup(PickableItem.CanFull)) {
+                  ShowBalloon("I do not have space to keep it", 2);
+                  break;
+                }
+                RemoveMoney(l.price);
                 break;
 						}
 
@@ -2597,12 +2725,12 @@ public partial class Game : Node, IGame {
 			case LocationType.Dump:
 				if (isDogPacified) {
 					if (!Pickup(PickableItem.Bottle)) {
-            GlobalMessage.Text = "I am already full!";
-            globalMessageTimeout = 2;
-            denial = false;
-            doActionDelta = 0;
-          }
-          else {
+						GlobalMessage.Text = "I am already full!";
+						globalMessageTimeout = 2;
+						denial = false;
+						doActionDelta = 0;
+					}
+					else {
 						success = ResultSound.GenericSuccess;
 						StopEnemies();
 					}
@@ -2685,7 +2813,7 @@ public partial class Game : Node, IGame {
 				break;
 
 			case LocationType.Bench: {
-					if (l.GetChildCount() > 0) {
+					if (l.GetChildCount() > 0 && (l.GetChild(0) as Node2D).Visible) {
 						ShowBalloon("I cannot sit here now, the bench is already used", 2);
 						resetPlayer = true;
 					}
@@ -2698,8 +2826,9 @@ public partial class Game : Node, IGame {
 						Face.Frame = 5;
 						Legs.Frame = 8 + 9 * (int)clothes;
 						Hat.Frame = 2;
-            Beard.Frame = Beardlevel(BeardLevels.Sit);
-						resetPlayer = false;
+						Beard.Frame = Beardlevel(BeardLevels.Sit);
+            Bag.Visible = false;
+            resetPlayer = false;
 					}
 				}
 				break;
@@ -2793,7 +2922,7 @@ public partial class Game : Node, IGame {
 				break;
 
 
-      case LocationType.Fountain:
+			case LocationType.Fountain:
 				if (bodySmell > 10 && hasSoap > 0) {
 					hasSoap--;
 					switch (hasSoap) {
@@ -2803,19 +2932,25 @@ public partial class Game : Node, IGame {
 						case 1: Soap.Texture = Soaps[3]; break;
 						default: Soap.Visible = false; break;
 					}
-          waitUntil = dayTime + .3 / 24.0;
-          if (waitUntil >= 1) waitUntil -= 1;
-          if (waitUntil < dayTime) {
-            waitUntilNextDay = waitUntil;
-            waitUntil = -1;
-          }
-          success = ResultSound.Wash;
+					waitUntil = dayTime + .3 / 24.0;
+					if (waitUntil >= 1) waitUntil -= 1;
+					if (waitUntil < dayTime) {
+						waitUntilNextDay = waitUntil;
+						waitUntil = -1;
+					}
+					success = ResultSound.Wash;
 					resetPlayer = false;
-          bodySmell = 0;
-          StopEnemies();
+					bodySmell -= 25;
+          if (bodySmell < 0) bodySmell = 0;
+          if (hasRazor > 0 && beard > 25) {
+            beard /= 4;
+            hasRazor--;
+            Razor.Visible = hasRazor > 0;
+          }
+					StopEnemies();
 					foundLocation = l;
-        }
-        else {
+				}
+				else {
 					drink += l.amount;
 					if (drink > 100) drink = 100;
 					ShowBalloon("Refreshing!", 1);
@@ -2823,11 +2958,11 @@ public partial class Game : Node, IGame {
 					success = ResultSound.Drink;
 					StopEnemies();
 				}
-        break;
+				break;
 
-    }
+		}
 
-    switch (success) {
+		switch (success) {
 			case ResultSound.None:
 				return resetPlayer;
 
@@ -2902,13 +3037,14 @@ public partial class Game : Node, IGame {
 		Body.Frame = 0 + GetFitnessLevel();
 		Face.Frame = 0;
 		Hat.Frame = 0;
-    Legs.Frame = 0 + 9 * (int)clothes;
+		Legs.Frame = 0 + 9 * (int)clothes;
 		Player.ZIndex = 30;
 		Player.Scale = Vector2.One;
 		Player.Rotation = 0;
 		Eye.Visible = false;
 		Legs.Visible = false;
-		jail = true;
+    Bag.Visible = false;
+    jail = true;
 		GlobalMessage.Text = msg;
 		globalMessageTimeout = 5;
 	}
@@ -2929,26 +3065,30 @@ public partial class Game : Node, IGame {
 			drink = 100;
 			bodySmell = 0;
 
-			while (numCarrots > 0 && food < 76) {
-				numCarrots--;
-        InventoryRemoveItem(PickableItem.Carrot, true);
-        food += foundLocation.type == LocationType.Hotel ? 25 : 50; // In apartment you gain more
+      if (foundLocation.type == LocationType.Hotel) { // Breakfast in hotel
+        food += 50;
         if (food > 100) food = 100;
       }
-			if (hasRazor) beard = 0;
-			hasRazor = false;
-			Razor.Visible = false;
+      while (numCarrots > 0 && food < 76) {
+				numCarrots--;
+				InventoryRemoveItem(PickableItem.Carrot, true);
+				food += foundLocation.type == LocationType.Hotel ? 25 : 50; // In apartment you gain more
+				if (food > 100) food = 100;
+			}
+			if (hasRazor > 0) beard = 0;
+			hasRazor--;
+      Razor.Visible = hasRazor > 0;
 			SoundPlayer.Stream = SuccessSound;
 			SoundPlayer.Play();
-			ShowBalloon("I feel rested!", 1);
+      ShowBalloon("I feel rested!", 1);
 			sleeping = false;
 		}
 		else if (foundLocation.type == LocationType.Shop && foundLocation.ItemDelivered == ItemDelivered.Toilet) {
 			bodySmell = 0;
-			if (hasRazor) beard = 0;
-			hasRazor = false;
-			Razor.Visible = false;
-			SoundPlayer.Stream = SuccessSound;
+			if (hasRazor > 0) beard = 0;
+			hasRazor--;
+      Razor.Visible = hasRazor > 0;
+      SoundPlayer.Stream = SuccessSound;
 			SoundPlayer.Play();
 			ShowBalloon("I am clean!", 1);
 		}
@@ -2960,7 +3100,7 @@ public partial class Game : Node, IGame {
 			bodySmell = 0;
 			if (dirtyClothes > 50) ShowBalloon("I am fresh and clean, but I should wash also my clothes in a laundry.", 1);
 			else ShowBalloon("I am fresh and clean!", 1);
-    }
+		}
 		else {
 			ArrangeWallet(foundLocation.price);
 			ShowBalloon($"I got {FormatMoney(foundLocation.price)}", 2);
@@ -2973,12 +3113,12 @@ public partial class Game : Node, IGame {
 	}
 
 	public bool IsPlayerReacheable() {
-    if (jail || sleeping || hospital || doingGym || restingOnBench || sleepingOnBench || fading) return false;
-    if (status != Status.Playing) return false;
+		if (jail || sleeping || hospital || doingGym || restingOnBench || sleepingOnBench || fading) return false;
+		if (status != Status.Playing) return false;
 
-    if (foundLocation == null ||
-      (foundLocation.type != LocationType.Bench && foundLocation.type != LocationType.Garden && waitUntil != -1 && waitUntilNextDay != -1 && doActionDelta <= 0)) return true;
-    return false;
+		if (foundLocation == null ||
+			(foundLocation.type != LocationType.Bench && foundLocation.type != LocationType.Garden && waitUntil != -1 && waitUntilNextDay != -1 && doActionDelta <= 0)) return true;
+		return false;
 	}
 
 	#endregion actions **************************************************************************     ^Actions^
@@ -2997,24 +3137,25 @@ public partial class Game : Node, IGame {
 		Body.Frame = 0 + GetFitnessLevel();
 		Face.Frame = 0;
 		Hat.Frame = 0;
-    Legs.Frame = 0 + 9 * (int)clothes;
+		Legs.Frame = 0 + 9 * (int)clothes;
 		if (wasInsideCrossroad) {
 			Player.Position = new(playerXPos, 520);
 		}
 		else {
 			Player.Position = new(playerXPos, 490);
 		}
-    Player.ZIndex = 75;
+		Player.ZIndex = 75;
 		Player.Scale = Vector2.One;
 		Player.Rotation = 0;
 		Eye.Visible = false;
 		Legs.Visible = true;
 		Beard.Frame = Beardlevel(BeardLevels.Walk);
-    Beard.Visible = true;
-    Player.Visible = true;
+		Beard.Visible = true;
+		Player.Visible = true;
 		BroomPlayer.Visible = false;
 		HandBrooming.Visible = false;
-	}
+    Bag.Visible = hasBag;
+  }
 
 	// Beard:  Walk = 0, Pickup = 1, DenialL = 3, DenialR = 2, Sit = 4
 
@@ -3052,14 +3193,17 @@ public partial class Game : Node, IGame {
 			case Clothes.Rags:
 				Body.Texture = Body1;
 				Hat.Texture = Hat1;
+				Bag.Frame = 0;
 				break;
 			case Clothes.Cheap:
-        Body.Texture = Body2;
-        Hat.Texture = Hat2;
+				Body.Texture = Body2;
+				Hat.Texture = Hat2;
+        Bag.Frame = 1;
         break;
 			case Clothes.Classy:
 				Body.Texture = Body3;
-        Hat.Texture = Hat3;
+				Hat.Texture = Hat3;
+        Bag.Frame = 2;
         break;
 		}
 	}
@@ -3152,46 +3296,46 @@ public partial class Game : Node, IGame {
 	}
 
 	void ProcessBaloons(double delta) {
-    if (textForBaloon != null && deltaBaloon > 0) {
-      if (BalloonTxt.Text.Length < textForBaloon.Length) {
-        BalloonTxt.Text += textForBaloon[BalloonTxt.Text.Length];
-      }
-      else if (!fixtBallonSize) fixtBallonSize = true;
-      deltaBaloon -= delta;
-      if (deltaBaloon <= 0) {
-        Balloon.Visible = false;
-        BalloonTxt.Text = "";
-        textForBaloon = null;
-      }
-    }
+		if (textForBaloon != null && deltaBaloon > 0) {
+			if (BalloonTxt.Text.Length < textForBaloon.Length) {
+				BalloonTxt.Text += textForBaloon[BalloonTxt.Text.Length];
+			}
+			else if (!fixtBallonSize) fixtBallonSize = true;
+			deltaBaloon -= delta;
+			if (deltaBaloon <= 0) {
+				Balloon.Visible = false;
+				BalloonTxt.Text = "";
+				textForBaloon = null;
+			}
+		}
 
-    if (npcBalloonDelay1 > 0) {
-      if (npcForBalloon1 == null) {
-        npcBalloonDelay1 = 0;
-        NPCBalloon1.Visible = false;
-      }
-      else {
-        npcBalloonDelay1 -= delta;
-        NPCBalloon1.Position = npcForBalloon1.GetGlobalTransformWithCanvas().Origin + NPCBalloonOffset;
-        if (npcBalloonDelay1 <= 0) {
-          NPCBalloon1.Visible = false;
-        }
-      }
-    }
-    if (npcBalloonDelay2 > 0) {
-      if (npcForBalloon2 == null) {
-        npcBalloonDelay2 = 0;
-        NPCBalloon2.Visible = false;
-      }
-      else {
-        npcBalloonDelay2 -= delta;
-        NPCBalloon2.Position = npcForBalloon2.GetGlobalTransformWithCanvas().Origin + NPCBalloonOffset;
-        if (npcBalloonDelay2 <= 0) {
-          NPCBalloon2.Visible = false;
-        }
-      }
-    }
-  }
+		if (npcBalloonDelay1 > 0) {
+			if (npcForBalloon1 == null) {
+				npcBalloonDelay1 = 0;
+				NPCBalloon1.Visible = false;
+			}
+			else {
+				npcBalloonDelay1 -= delta;
+				NPCBalloon1.Position = npcForBalloon1.GetGlobalTransformWithCanvas().Origin + NPCBalloonOffset;
+				if (npcBalloonDelay1 <= 0) {
+					NPCBalloon1.Visible = false;
+				}
+			}
+		}
+		if (npcBalloonDelay2 > 0) {
+			if (npcForBalloon2 == null) {
+				npcBalloonDelay2 = 0;
+				NPCBalloon2.Visible = false;
+			}
+			else {
+				npcBalloonDelay2 -= delta;
+				NPCBalloon2.Position = npcForBalloon2.GetGlobalTransformWithCanvas().Origin + NPCBalloonOffset;
+				if (npcBalloonDelay2 <= 0) {
+					NPCBalloon2.Visible = false;
+				}
+			}
+		}
+	}
 
 	void ShowMetroMenu() {
 		PanelMetro.Visible = true;
@@ -3348,10 +3492,10 @@ public partial class Game : Node, IGame {
 
 	void RemoveAllNPCs() {
 		foreach (var npc in NPCs) npc.Delete();
-    for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
-    NPCs.Clear();
-    numNPCs = 0;
-    if (enemy != null) {
+		for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = false;
+		NPCs.Clear();
+		numNPCs = 0;
+		if (enemy != null) {
 			enemy.Free();
 			enemy = null;
 		}
@@ -3379,17 +3523,18 @@ public partial class Game : Node, IGame {
 			var r = rnd.Randf();
 			PackedScene npcScene;
 			bool female = false;
-			if (r < .125) npcScene = NPCTemplateMan1;
-			else if (r < .25) npcScene = NPCTemplateMan2;
-			else if (r < .375) npcScene = NPCTemplateMan3;
-			else if (r < .5) npcScene = NPCTemplateMan4;
-			else if (r < .66) { npcScene = NPCTemplateGirl1; female = true; }
-			else if (r < .83) { npcScene = NPCTemplateGirl2; female = true; }
-			else { npcScene = NPCTemplateGirl3; female = true; }
+			int prefab = 0;
+			if (r < .125) { npcScene = NPCTemplateMan1; prefab = 0;}
+			else if (r < .25) {npcScene = NPCTemplateMan2; prefab = 1; }
+      else if (r < .375) {npcScene = NPCTemplateMan3; prefab = 2; }
+      else if (r < .5) {npcScene = NPCTemplateMan4; prefab = 3; }
+      else if (r < .66) { npcScene = NPCTemplateGirl1; female = true; prefab = 4; }
+      else if (r < .83) { npcScene = NPCTemplateGirl2; female = true; prefab = 5; }
+      else { npcScene = NPCTemplateGirl3; female = true; prefab = 6; }
 
-			var npc = npcScene.Instantiate() as NPC;
+      var npc = npcScene.Instantiate() as NPC;
 			NPCs.Add(npc);
-			npc.Spawn(this, currentRoad, pos, female);
+			npc.Spawn(this, currentRoad, pos, female, prefab);
 			numNPCs++;
 			spawnDelay = 1;
 		}
@@ -3423,35 +3568,35 @@ public partial class Game : Node, IGame {
 	EnemyType enemyType = EnemyType.None;
 	Enemy enemy = null;
 	bool removeEnemy = false;
-  Location drunkGuyBench = null;
+	Location drunkGuyBench = null;
 
-  void HandleDrunkGuy(double delta) {
-    if (drunkGuyBench != null || DrunkGuy.Visible) {
-      DrunkGuy.ProcessEnemy(delta, null, 0);
-      return;
-    }
+	void HandleDrunkGuy(double delta) {
+		if (drunkGuyBench != null || DrunkGuy.Visible) {
+			DrunkGuy.ProcessEnemy(delta, null, 0);
+			return;
+		}
 
-    // Pick a bench that is far away from the camera
-    bool good = false;
-    while (!good) {
-      drunkGuyBench = Benches[rnd.RandiRange(0, Benches.Length - 1)];
-      if (Player.GlobalPosition.DistanceTo(drunkGuyBench.GlobalPosition) > 1000) {
-        good = true;
-      }
-    }
-    DrunkGuy.Visible = true;
-    DrunkGuy.GetParent()?.RemoveChild(DrunkGuy);
-    drunkGuyBench.AddChild(DrunkGuy);
-    DrunkGuy.Position = new Vector2(0, -65);
-  }
+		// Pick a bench that is far away from the camera
+		bool good = false;
+		while (!good) {
+			drunkGuyBench = Benches[rnd.RandiRange(0, Benches.Length - 1)];
+			if (Player.GlobalPosition.DistanceTo(drunkGuyBench.GlobalPosition) > 1000) {
+				good = true;
+			}
+		}
+		DrunkGuy.Visible = true;
+		DrunkGuy.GetParent()?.RemoveChild(DrunkGuy);
+		drunkGuyBench.AddChild(DrunkGuy);
+		DrunkGuy.Position = new Vector2(0, -65);
+	}
 
 
-  void HandleEnemies(double delta) {
+	void HandleEnemies(double delta) {
 		// We can have only one enemy at time
 		if (enemy != null || status != Status.Playing) return;
 
 		// How much time between spawns?
-		enemyDelay -= delta;
+		enemyDelay -= delta * 10;
 		//		Debug.Text = $"{enemyDelay:F1}";
 		if (enemyDelay > 0) return;
 
@@ -3541,24 +3686,24 @@ public partial class Game : Node, IGame {
 		//		Debug.Text = $"{enemyDelay:F1}";
 	}
 
-  public void SpawnBottlesForDrunkGuy() {
-    var frontItems = drunkGuyBench.GetParent().GetParent().FindChild("*FrontItems", false, true);
-    float posX = drunkGuyBench.Position.X;
+	public void SpawnBottlesForDrunkGuy() {
+		var frontItems = drunkGuyBench.GetParent().GetParent().FindChild("*FrontItems", false, true);
+		float posX = drunkGuyBench.Position.X;
 
-    for (int i = 0; i < 3; i++) {
-      Pickable item;
-      if (rnd.RandfRange(0, 1f) < .3) item = ItemPrefabs[PrefabCan].Instantiate() as Pickable;
-      else item = ItemPrefabs[PrefabBottle].Instantiate() as Pickable;
-      frontItems.AddChild(item);
-      item.Position = new(posX + rnd.RandfRange(-25f, 25) + i * 75 - 150, rnd.RandfRange(728, 738));
-    }
-    drunkGuyBench = null;
-    DrunkGuy.Visible = false;
-    DrunkGuy.GetParent().RemoveChild(DrunkGuy);
-  }
+		for (int i = 0; i < 3; i++) {
+			Pickable item;
+			if (rnd.RandfRange(0, 1f) < .3) item = ItemPrefabs[PrefabCan].Instantiate() as Pickable;
+			else item = ItemPrefabs[PrefabBottle].Instantiate() as Pickable;
+			frontItems.AddChild(item);
+			item.Position = new(posX + rnd.RandfRange(-25f, 25) + i * 75 - 150, rnd.RandfRange(728, 738));
+		}
+		drunkGuyBench = null;
+		DrunkGuy.Visible = false;
+		DrunkGuy.GetParent().RemoveChild(DrunkGuy);
+	}
 
 
-  public void RobPlayer(EnemyType what) {
+	public void RobPlayer(EnemyType what) {
 		// 0 money
 		// 1 atm
 		// 2 clothes
@@ -3573,9 +3718,9 @@ public partial class Game : Node, IGame {
 					ShowBalloon($"I got robbed of {FormatMoney(numBanknotes * 10 + numCoins)}...", 1);
 					numBanknotes = 0;
 					numCoins = 0;
-          SetWalletUI();
+					SetWalletUI();
 					ArrangeWallet(0);
-        }
+				}
 				break;
 
 			case EnemyType.Maga: // steals 10% of education and ATM
@@ -3598,18 +3743,18 @@ public partial class Game : Node, IGame {
 				break;
 
 			case EnemyType.ZTurd:
-				if (hasBroom || hasRazor || numTickets > 0) {
+				if (hasBroom || hasRazor > 0 || numTickets > 0) {
 					string msg = "I got robbed of ";
 					if (hasBroom) {
 						msg += "broom";
 					}
-					if (hasRazor) {
+					if (hasRazor > 0) {
 						if (hasBroom) msg += ", razor";
 						else msg += "razor";
 					}
 					if (numTickets > 0) {
-						if (hasBroom && hasRazor) msg += ", and metro tickets";
-						else if (hasBroom || hasRazor) msg += " and metro tickets";
+						if (hasBroom && hasRazor > 0) msg += ", and metro tickets";
+						else if (hasBroom || hasRazor > 0) msg += " and metro tickets";
 						else msg += "metro tickets";
 					}
 					msg += "!\nWhat a primitive this guy was!";
@@ -3618,7 +3763,7 @@ public partial class Game : Node, IGame {
 				hasBroom = false;
 				broomLevel = 0;
 				Broom.Visible = false;
-				hasRazor = false;
+				hasRazor = 0;
 				Razor.Visible = false;
 				numTickets = 0;
 				for (int i = 0; i < 10; i++) Tickets[i].Visible = false;
@@ -3631,16 +3776,16 @@ public partial class Game : Node, IGame {
 				hasBroom = false;
 				broomLevel = 0;
 				Broom.Visible = false;
-				hasRazor = false;
+				hasRazor = 0;
 				Razor.Visible = false;
 				hasATM = false;
 				ATMCard.Visible = false;
 				numTickets = 0;
 				for (int i = 0; i < 10; i++) Tickets[i].Visible = false;
 				RemoveAllItems();
-        SetWalletUI();
-        ArrangeWallet(0);
-        break;
+				SetWalletUI();
+				ArrangeWallet(0);
+				break;
 		}
 	}
 
@@ -3661,12 +3806,11 @@ public partial class Game : Node, IGame {
 			ResetPlayer();
 			OptionsPlayButton.Text = "Restart";
 			OptionsContinueButton.Disabled = false;
-      OptionsSaveButton.Disabled = false;
-      SetStatus(Status.Starting);
+			OptionsSaveButton.Disabled = false;
+			SetStatus(Status.Starting);
 		}
 		else if (fromWhere == 1) { // Continue
-			if (status == Status.Playing) PanelOptions.Visible = false;
-			else {
+			if (status != Status.Playing) {
 				ResetAllValues();
 				ResetPlayer();
 				SetStatus(Status.Starting);
@@ -3677,22 +3821,305 @@ public partial class Game : Node, IGame {
 			ResetPlayer();
 			OptionsPlayButton.Text = "Restart";
 			OptionsContinueButton.Disabled = false;
-      OptionsSaveButton.Disabled = false;
-      SetStatus(Status.Intro);
+			OptionsSaveButton.Disabled = false;
+			SetStatus(Status.Intro);
 		}
-		PanelOptions.Visible = false;
+    PanelOptions.Visible = false;
+    if (enemy != null && enemy is AnimatedSprite2D aspr) aspr.SpeedScale = 1;
+    HotDogVendors[0].SpeedScale = 1;
+    HotDogVendors[1].SpeedScale = 1;
+  }
+
+  public void LoadGame() {
+		var savePath = OS.GetUserDataDir() + "/Saves/";
+		if (!DirAccess.DirExistsAbsolute(savePath)) {
+			PopupCanvas.Visible = true;
+			PopupTitle.Text = "No saves";
+			PopupLabel.Text = "No save games are available!\nLocation is: " + savePath;
+		}
+    while (SaveGamesContainer.GetChildCount() > 0) SaveGamesContainer.GetChild(0).Free();
+		var files = DirAccess.GetFilesAt(savePath);
+    // Read the first bytes, be sure it starts with R2Rs and then read the day number and total amount of money
+    List<string> saveFiles = new();
+    List<string> saveFileNames = new();
+		foreach (var f in files) {
+			if (!f.EndsWith(".save", StringComparison.OrdinalIgnoreCase)) continue; // Not a save file
+      var file = Godot.FileAccess.Open(savePath + f, Godot.FileAccess.ModeFlags.Read);
+			var buffer = file.GetBuffer(20).GetStringFromUtf8();
+			if (buffer.Length < 20) continue; // Cannot be a save file
+			if (buffer[0..4] != "R2Rs") continue; // Wrong magic number
+      _ = int.TryParse(buffer[4..5], out int mjv);
+      _ = int.TryParse(buffer[6..8], out int mnv);
+      _ = int.TryParse(buffer[8..12], out int dn);
+			_ = int.TryParse(buffer[12..], out int mn);
+			saveFileNames.Add($"{f[9..^5]}  (V{mjv}.{mnv}, day {dn}, ${mn / 10}.{mn % 10})");
+			saveFiles.Add(f);
+			file.Close();
+		}
+    if (saveFiles.Count == 0) {
+      PopupCanvas.Visible = true;
+      PopupTitle.Text = "No saves";
+      PopupLabel.Text = "No save games are available!\nLocation is: " + savePath;
+			return;
+    }
+		saveFiles.Sort((a, b) => b.CompareTo(a));
+		saveFileNames.Sort((a, b) => b.CompareTo(a));
+		for (int i = 0; i < saveFileNames.Count; i++) {
+			var name = saveFileNames[i];
+			var file = saveFiles[i];
+			var buttonContainer = new HBoxContainer();
+			var fileButton = new Button {
+				Text = name,
+				Icon = ButtonArrow
+			};
+      fileButton.ButtonUp += delegate() { LoadActualFile(file); };
+			var delButton = new Button {
+				Text = "Delete",
+				Icon = DeleteIcon
+			};
+      delButton.ButtonUp += delegate () { DeleteFile(file); };
+			buttonContainer.AddChild(fileButton);
+			buttonContainer.AddChild(delButton);
+      SaveGamesContainer.AddChild(buttonContainer);
+		}
+		FileSaveCanvas.Visible = true;
 	}
 
-	public void LoadGame() {
+	void DeleteFile(string file) {
+		try {
+			File.Delete(OS.GetUserDataDir() + "/Saves/" + file);
+		} catch (Exception ex) {
+			GD.PrintErr(ex.Message);
+			}
+    FileSaveCanvas.Visible = false;
+		CallDeferred("LoadGame");
 	}
 
-	public void SaveGame() {
-		var savePath = OS.GetExecutablePath();
-		if (OS.IsDebugBuild()) {
-			savePath = "C:/Users/claud/Godot/R2R/";
+	private void LoadActualFile(string fileName) {
+		var savePath = OS.GetUserDataDir() + "/Saves/";
+		var file = Godot.FileAccess.Open(savePath + fileName, Godot.FileAccess.ModeFlags.Read);
+
+		string json = file.GetBuffer((long)file.GetLength()).GetStringFromUtf8()[20..];
+		SaveData data;
+		try {
+			data = JsonSerializer.Deserialize<SaveData>(json);
 		}
-		int slashPos = savePath.LastIndexOf('/') + 1;
-		savePath = savePath[0..slashPos] + "Saves/";
+		catch (Exception ex) {
+			GD.Print(ex.Message);
+			return;
+		}
+
+		// Reset everything, fill all parameters with the valuers, adn spawn all items
+		ResetAllValues(true);
+		currentRoad = data.currentRoad switch {
+			(int)RoadName.Main_Street => MainStreet,
+			(int)RoadName.Slum_Street => SlumStreet,
+			(int)RoadName.Side_Road => SideRoad,
+			(int)RoadName.North_Road => NorthRoad,
+			(int)RoadName.Top_Boulevard => TopBoulevard,
+			(int)RoadName.Suburb_Avenue => SuburbAvenue,
+			_ => SlumStreet
+		};
+		SetRoad(currentRoad, data.roadXPos, true);
+
+		firstStart = data.firstStart;
+		status = data.status;
+		dayNum = data.dayNum;
+		dayTime = data.dayTime;
+		waitUntil = data.waitUntil;
+		waitUntilNextDay = data.waitUntilNextDay;
+		sleeping = data.sleeping;
+		sleepStartTime = data.sleepStartTime;
+		hospital = data.hospital;
+		doingGym = data.doingGym;
+		userGameSpeed = data.userGameSpeed;
+		gameDifficulty = data.gameDifficulty;
+		moving = data.moving;
+		moveDelta = data.moveDelta;
+		doActionDelta = data.doActionDelta;
+		blinkDelta = data.blinkDelta;
+		enableLights = data.enableLights;
+		running = data.running;
+		pickup = data.pickup;
+		denial = data.denial;
+		goingUp = data.goingUp;
+		restingOnBench = data.restingOnBench;
+		sleepingOnBench = data.sleepingOnBench;
+		jail = data.jail;
+		globalMessageTimeout = data.globalMessageTimeout;
+		keepShiftPressedToRun = data.keepShiftPressedToRun;
+		food = data.food;
+		drink = data.drink;
+		rest = data.rest;
+		bodySmell = data.bodySmell;
+		fitness = data.fitness;
+		SetClothes((Clothes)data.clothes);
+		dirtyClothes = data.dirtyClothes;
+		totalSmell = data.totalSmell;
+		beard = data.beard;
+		education = data.education;
+		money = data.money;
+		investedMoney = data.investedMoney;
+		hasATM = data.hasATM;
+    hasBag = data.hasBag;
+		hasRazor = data.hasRazor;
+		hasSoap = data.hasSoap;
+		hasBroom = data.hasBroom;
+		broomLevel = data.broomLevel;
+		isSweeping = data.isSweeping;
+		broomItem = null;
+		numCoins = data.numCoins;
+		numBanknotes = data.numBanknotes;
+		SetWalletUI();
+		while (data.numBottles > 0) { Pickup(PickableItem.Bottle); data.numBottles--; }
+		while (data.numCans > 0) { Pickup(PickableItem.Can); data.numCans--; }
+		while (data.numCansFull > 0) { Pickup(PickableItem.Can); data.numCansFull--; }
+		while (data.numFoodSnacks > 0) { Pickup(PickableItem.Can); data.numFoodSnacks--; }
+		while (data.numBones > 0) { Pickup(PickableItem.Bone); data.numBones--; }
+		while (data.numPaper > 0) { Pickup(PickableItem.Paper); data.numPaper--; }
+		while (data.numPoop > 0) { Pickup(PickableItem.Poop); data.numPoop--; }
+		while (data.numCarrots > 0) { Pickup(PickableItem.Carrot); data.numCarrots--; }
+		while (data.numRotCarrots > 0) { Pickup(PickableItem.RotCarrot); data.numRotCarrots--; }
+
+
+		numTickets = data.numTickets;
+		for (int i = 0; i < 10; i++) Tickets[i].Visible = i < numTickets;
+
+		textForBaloon = data.textForBaloon;
+		deltaBaloon = data.deltaBaloon;
+		findAround = data.findAround;
+		prevDayTime = data.prevDayTime;
+		deathDelta = data.deathDelta;
+		fading = data.fading;
+
+		roadToGo = (RoadName)data.roadToGo;
+		roadXToGo = data.roadXToGo;
+		isDogPacified = data.isDogPacified;
+		dogBark = data.dogBark;
+		throwBone = data.throwBone;
+		marketSpawn = data.marketSpawn;
+		barSpawn = data.barSpawn;
+		wasInsideCrossroad = data.wasInsideCrossroad;
+		playedMusic = data.playedMusic;
+		prevHour = data.prevHour;
+		windowWidth = data.windowWidth;
+
+		lastSpawnMain = data.lastSpawnMain;
+		lastSpawnSlum = data.lastSpawnSlum;
+		lastSpawnTop = data.lastSpawnTop;
+		lastSpawnNorth = data.lastSpawnNorth;
+		lastSpawnSide = data.lastSpawnSide;
+		lastSpawnSuburb = data.lastSpawnSuburb;
+		spawnDelay = data.spawnDelay;
+		enemyDelay = data.enemyDelay;
+		removeEnemy = data.removeEnemy;
+
+		for (int i = 0; i < npcOrders.Length; i++) npcOrders[i] = data.npcOrders[i];
+		numNPCs = data.npcs.Count;
+
+		// Spawn NPCs, we may want a specific way to spawn
+		foreach (var n in data.npcs) {
+			PackedScene npcScene = n.npcPrefab switch {
+				0 => NPCTemplateMan1,
+				1 => NPCTemplateMan2,
+				2 => NPCTemplateMan3,
+				3 => NPCTemplateMan4,
+				4 => NPCTemplateGirl1,
+				5 => NPCTemplateGirl2,
+				_ => NPCTemplateGirl3,
+			};
+			var npc = npcScene.Instantiate() as NPC;
+			NPCs.Add(npc);
+			npc.Spawn(this, n.road switch {
+				(int)RoadName.Main_Street => MainStreet,
+				(int)RoadName.Slum_Street => SlumStreet,
+				(int)RoadName.Side_Road => SideRoad,
+				(int)RoadName.North_Road => NorthRoad,
+				(int)RoadName.Top_Boulevard => TopBoulevard,
+				(int)RoadName.Suburb_Avenue => SuburbAvenue,
+				_ => SlumStreet
+			}, n);
+			numNPCs++;
+
+		}
+		if (data.enemy != null) {
+			enemyType = (EnemyType)data.enemy.type;
+			enemy = null;
+      switch (enemyType) {
+        case EnemyType.None:
+          break;
+        case EnemyType.Police:
+          enemy = NPCPolice.Instantiate() as Enemy;
+          break;
+        case EnemyType.DrunkGuy:
+          break;
+        case EnemyType.Robber:
+          enemy = NPCRobber.Instantiate() as Enemy;
+          break;
+        case EnemyType.Maga:
+          enemy = NPCMAGA.Instantiate() as Enemy;
+          break;
+        case EnemyType.ZTurd:
+          enemy = NPCZTurd.Instantiate() as Enemy;
+          break;
+        case EnemyType.Orban:
+          enemy = NPCOrban.Instantiate() as Enemy;
+          break;
+      }
+			enemy?.Spawn(this, data.enemy, enemyType);
+    }
+
+		if (data.drunkGuyBench != -1) drunkGuyBench = Benches[data.drunkGuyBench];
+
+    // Set the foundlocations
+    foundLocation = FindLocation(data.foundLocationRoad, data.foundLocationIndex);
+		currentHotel = FindLocation(data.currentHotelRoad, data.currentHotelIndex);
+
+    // Set all locations
+    LoadAllLocations(Gardens, data.gardens);
+    LoadAllLocations(HotelList, data.hotels);
+    LoadAllLocations(ApartmentList, data.apartments);
+
+		SetStatus(Status.Playing);
+
+    // Clean any possible remaining item
+    while (SlumStreet.FrontItems.GetChildCount() > 0) SlumStreet.FrontItems.GetChild(0).Free();
+    while (MainStreet.FrontItems.GetChildCount() > 0) MainStreet.FrontItems.GetChild(0).Free();
+    while (TopBoulevard.FrontItems.GetChildCount() > 0) TopBoulevard.FrontItems.GetChild(0).Free();
+    while (NorthRoad.FrontItems.GetChildCount() > 0) NorthRoad.FrontItems.GetChild(0).Free();
+    while (SideRoad.FrontItems.GetChildCount() > 0) SideRoad.FrontItems.GetChild(0).Free();
+    while (SuburbAvenue.FrontItems.GetChildCount() > 0) SuburbAvenue.FrontItems.GetChild(0).Free();
+
+    // Spawn all items
+    LoadAllStreetItems(SlumStreet, data.slumItems);
+    LoadAllStreetItems(MainStreet, data.mainItems);
+    LoadAllStreetItems(TopBoulevard, data.topItems);
+    LoadAllStreetItems(NorthRoad, data.northItems);
+    LoadAllStreetItems(SideRoad, data.sideItems);
+    LoadAllStreetItems(SuburbAvenue, data.suburbItems);
+
+
+    Balloon.Visible = false;
+    NPCBalloon1.Visible = false;
+    NPCBalloon2.Visible = false;
+    PanelOptions.Visible = false;
+    if (enemy != null && enemy is AnimatedSprite2D aspr) aspr.SpeedScale = 1;
+    HotDogVendors[0].SpeedScale = 1;
+    HotDogVendors[1].SpeedScale = 1;
+    FileSaveCanvas.Visible = false;
+		IntroPanel.Visible = false;
+		ArrangeWallet(0);
+  }
+
+	void CancelLoadGame() {
+    while (SaveGamesContainer.GetChildCount() > 0) SaveGamesContainer.GetChild(0).Free();
+    FileSaveCanvas.Visible = false;
+  }
+
+
+
+  public void SaveGame() {
+		var savePath = OS.GetUserDataDir() + "/Saves/";
 		if (!DirAccess.DirExistsAbsolute(savePath)) Directory.CreateDirectory(savePath);
 
     // Create a big Json file with all variables and instanciated objects
@@ -3711,8 +4138,6 @@ public partial class Game : Node, IGame {
       hospital = hospital,
       doingGym = doingGym,
       userGameSpeed = userGameSpeed,
-      gameSpeed = gameSpeed,
-      speedFactor = speedFactor,
       gameDifficulty = gameDifficulty,
       moving = moving,
       moveDelta = moveDelta,
@@ -3727,8 +4152,6 @@ public partial class Game : Node, IGame {
       sleepingOnBench = sleepingOnBench,
       jail = jail,
       globalMessageTimeout = globalMessageTimeout,
-      joyJustPressed = joyJustPressed,
-      wasPPressed = wasPPressed,
       keepShiftPressedToRun = keepShiftPressedToRun,
       food = food,
       drink = drink,
@@ -3743,16 +4166,18 @@ public partial class Game : Node, IGame {
       money = money,
       investedMoney = investedMoney,
       hasATM = hasATM,
+      hasBag = hasBag,
       hasRazor = hasRazor,
       hasSoap = hasSoap,
       hasBroom = hasBroom,
       broomLevel = broomLevel,
       isSweeping = isSweeping,
-      broomItem = broomItem == null ? -1 : (int)broomItem.ItemType,
       numCoins = numCoins,
       numBanknotes = numBanknotes,
       numBottles = numBottles,
       numCans = numCans,
+      numCansFull = numCansFull,
+      numFoodSnacks = numFoodSnacks,
       numBones = numBones,
       numPaper = numPaper,
       numPoop = numPoop,
@@ -3776,14 +4201,12 @@ public partial class Game : Node, IGame {
       playedMusic = playedMusic,
       prevHour = prevHour,
       windowWidth = windowWidth,
-      playerXPos = playerXPos,
       lastSpawnMain = lastSpawnMain,
       lastSpawnSlum = lastSpawnSlum,
       lastSpawnTop = lastSpawnTop,
       lastSpawnNorth = lastSpawnNorth,
       lastSpawnSide = lastSpawnSide,
       lastSpawnSuburb = lastSpawnSuburb,
-      numNPCs = numNPCs,
       spawnDelay = spawnDelay,
       npcOrders = new bool[npcOrders.Length],
       enemyDelay = enemyDelay,
@@ -3802,17 +4225,17 @@ public partial class Game : Node, IGame {
 		}
 
 		// We need to store all spawn items in all roads (position and type)
-		SaveAllStreetItems(SlumStreet, save.slumItems);
-		SaveAllStreetItems(MainStreet, save.mainItems);
-		SaveAllStreetItems(TopBoulevard, save.topItems);
-		SaveAllStreetItems(NorthRoad, save.northItems);
-		SaveAllStreetItems(SideRoad, save.sideItems);
-		SaveAllStreetItems(SuburbAvenue, save.suburbItems);
+		save.slumItems = SaveAllStreetItems(SlumStreet);
+		save.mainItems = SaveAllStreetItems(MainStreet);
+		save.topItems = SaveAllStreetItems(TopBoulevard);
+		save.northItems = SaveAllStreetItems(NorthRoad);
+		save.sideItems = SaveAllStreetItems(SideRoad);
+		save.suburbItems = SaveAllStreetItems(SuburbAvenue);
 
-		// Save all relevant locations with their statuses
-		SaveAllLocations(Gardens, save.gardens);
-		SaveAllLocations(HotelList, save.hotels);
-		SaveAllLocations(ApartmentList, save.apartments);
+    // Save all relevant locations with their statuses
+    save.gardens = SaveAllLocations(Gardens);
+    save.hotels = SaveAllLocations(HotelList);
+    save.apartments = SaveAllLocations(ApartmentList);
 
 		// Find the index of each of the required saved locations and save it as integer + road
 
@@ -3827,11 +4250,28 @@ public partial class Game : Node, IGame {
 		save.npcs = new();
 		foreach (var npc in NPCs) save.npcs.Add(npc.Save());
 
-		string fileName = $"R2R Save {DateTime.Now.Year:0000}-{DateTime.Now.Month:00}-{DateTime.Now.Day:00}-{DateTime.Now.Hour:00}-{DateTime.Now.Minute:00}-{DateTime.Now.Second:00}.save";
+		string fileName = $"R2R Save {DateTime.Now.Year:0000}-{DateTime.Now.Month:00}-{DateTime.Now.Day:00} {DateTime.Now.Hour:00}-{DateTime.Now.Minute:00}-{DateTime.Now.Second:00}.save";
 
 		var file = Godot.FileAccess.Open(savePath + fileName, Godot.FileAccess.ModeFlags.Write);
-		file.StoreString(JsonSerializer.Serialize(save));
+		string dn = $"{dayNum:0000}";
+		if (dn.Length > 4) dn = dn[^4..];
+		string mn = $"{(money + numBanknotes * 10 + numCoins):00000000}";
+		if (mn.Length > 8) mn = mn[^8..];
+		string data = "R2Rs" +  // Magic number
+			"0996" + // Version
+			dn +  // Number of days
+			mn +  // Money
+			JsonSerializer.Serialize(save); // Actual save data
+		file.StoreString(data);
+		file.Close();
+		PopupCanvas.Visible = true;
+    PopupTitle.Text = "Game saved!";
+    PopupLabel.Text = "Game saved in:\n" + savePath;
   }
+
+	void ClosePopup() {
+		PopupCanvas.Visible = false;
+	}
 
   private void FindLocation(Location l, out int foundLocationRoad, out int foundLocationIndex) {
     if (l == null) {
@@ -3849,6 +4289,26 @@ public partial class Game : Node, IGame {
 
     foundLocationIndex = -1;
     foundLocationRoad = -1;
+  }
+
+  private Location FindLocation(int road, int index) {
+		if (road == -1 || index == -1) return null;
+
+		Road r = road switch {
+			(int)RoadName.Main_Street => MainStreet,
+			(int)RoadName.Slum_Street => SlumStreet,
+			(int)RoadName.Side_Road => SideRoad,
+			(int)RoadName.North_Road => NorthRoad,
+			(int)RoadName.Top_Boulevard => TopBoulevard,
+			(int)RoadName.Suburb_Avenue => SuburbAvenue,
+			_ => null
+		};
+		if (r == null) return null;
+		int d = r.Doors.GetChildCount();
+		int b = r.BackItems.GetChildCount();
+		if (index < d) return r.Doors.GetChild(index) as Location;
+		if (index < d + b) return r.BackItems.GetChild(index - d) as Location;
+		return null;
   }
 
   private bool FindLocationByRoad(Road road, Location loc, out int foundLocationRoad, out int foundLocationIndex) {
@@ -3869,32 +4329,56 @@ public partial class Game : Node, IGame {
       }
       pos++;
     }
-    foreach (var node in road.FrontItems.GetChildren()) {
-      if (node is Location l && l == loc) {
-        foundLocationRoad = (int)road.Name;
-        foundLocationIndex = pos;
-        return true;
-      }
-      pos++;
-    }
     foundLocationRoad = -1;
     foundLocationIndex = -1;
     return false;
   }
 
-  void SaveAllStreetItems(Road road, List<SaveItem> saveItems) {
-		saveItems = new();
+  List<SaveItem> SaveAllStreetItems(Road road) {
+    List<SaveItem> saveItems = new();
 		foreach (var item in road.FrontItems.GetChildren()) {
 			if (item is Pickable n) {
-				saveItems.Add(new() { posX = n.Position.X, posY = n.Position.Y, itemType = (int)n.ItemType });
+				saveItems.Add(new() { posX = n.GlobalPosition.X, posY = n.GlobalPosition.Y, itemType = (int)n.ItemType });
 			}
 		}
+		return saveItems;
 	}
 
-	void SaveAllLocations(Location[] locs, List<SaveLocation> saveLocs) {
-    saveLocs = new();
+  List<SaveLocation> SaveAllLocations(Location[] locs) {
+    List<SaveLocation> saveLocs = new();
     foreach (var l in locs) {
       saveLocs.Add(new(l));
+    }
+		return saveLocs;
+	}
+
+  void LoadAllStreetItems(Road road, List<SaveItem> saveItems) {
+		if (saveItems == null) return;
+    foreach (var sitem in saveItems) {
+			int prefabIndex = (PickableItem)sitem.itemType switch {
+				PickableItem.Coin => PrefabCoin,
+				PickableItem.Banknote => PrefabBanknote,
+        PickableItem.Bottle => PrefabBottle,
+        PickableItem.Can => PrefabCan,
+        PickableItem.Poop => PrefabPoop,
+        PickableItem.Paper => PrefabPaper,
+        PickableItem.Bone => PrefabBone,
+        PickableItem.Carrot => PrefabCarrot,
+        PickableItem.RotCarrot => PrefabRotCarrot,
+        _ => -1
+      };
+			if (prefabIndex == -1) continue;
+      Pickable item = ItemPrefabs[prefabIndex].Instantiate() as Pickable;
+			road.FrontItems.AddChild(item);
+      item.GlobalPosition = new(sitem.posX, sitem.posY);
+    }
+	}
+
+	void LoadAllLocations(Location[] locs, List<SaveLocation> saveLocs) {
+		if (saveLocs == null || saveLocs.Count != locs.Length) return;
+    int pos = 0;
+    foreach (var l in locs) {
+      l.UpdateFrom(saveLocs[pos++], GrowingCarrotPrefab);
     }
 	}
 
@@ -3912,9 +4396,12 @@ public partial class Game : Node, IGame {
 
 	public void ShowOptions() {
 		PanelOptions.Visible = true;
-	}
+    if (enemy != null && enemy is AnimatedSprite2D aspr) aspr.SpeedScale = 0;
+    HotDogVendors[0].SpeedScale = 0;
+    HotDogVendors[1].SpeedScale = 0;
+  }
 
-	void MusicSliderChange(float _) {
+  void MusicSliderChange(float _) {
 		MusicVolValue.Text = $"{MusicVolSlider.Value:N0}%";
 		MusicPlayer.VolumeDb = (float)(.5 * MusicVolSlider.Value - 40);
 	}
@@ -3923,24 +4410,6 @@ public partial class Game : Node, IGame {
 		SoundPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
 		PlayerPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
 		NPCPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
-	}
-	void GameSpeedSliderChange(float _) {
-		GameSpeedValue.Text = (int)GameSpeedSlider.Value switch {
-			0 => "Frozen",
-			1 => "Very slow",
-			2 => "Slow",
-			3 => "Chilly",
-			4 => "Normal",
-			5 => "Rush",
-			6 => "Speedy",
-			7 => "Fast",
-			8 => "Flash",
-			9 => "Insane",
-			_ => "Normal",
-		};
-		gameSpeed = (int)GameSpeedSlider.Value;
-    speedFactor = 0.015625 * gameSpeed * gameSpeed + 0.03125 * gameSpeed + 0.453125;
-    if (gameSpeed == 0) speedFactor = .1;
 	}
 	void GameDifficultySliderChange(float _) {
 		gameDifficulty = (int)GameDifficultySlider.Value;
@@ -4013,7 +4482,6 @@ public partial class Game : Node, IGame {
 			30 => 4,
 			_ => 0
 		});
-    config.SetValue("Game", "Speed", gameSpeed);
 		config.SetValue("Game", "Difficulty", gameDifficulty);
 		config.SetValue("Game", "UseHatForPlayer", Hat.Visible);
 		config.SetValue("Game", "UseCustomMusic", UseCustomMusicCB.ButtonPressed);
@@ -4055,10 +4523,15 @@ public partial class Game : Node, IGame {
 				SpeedButton3.ButtonPressed = true;
 				break;
 		}
-	}
+
+    int animSpeed = userGameSpeed == 0 ? 0 : 1;
+    if (enemy != null && enemy is AnimatedSprite2D aspr) aspr.SpeedScale = animSpeed;
+    HotDogVendors[0].SpeedScale = animSpeed;
+    HotDogVendors[1].SpeedScale = animSpeed;
+  }
 
 
-	double optionsClickDelta = 0;
+  double optionsClickDelta = 0;
 
 	const int menuFullScreen = 0;
 	const int menuFPS = 1;
@@ -4067,23 +4540,25 @@ public partial class Game : Node, IGame {
 	const int menuEffectsVol = 3;
 	const int menuCustomMusic = 4;
 
-	const int menuTimeSpeed = 5;
-	const int menuDifficulty = 6;
-	const int menuHatForplayer = 7;
-	const int menuRunMode = 8;
+	const int menuDifficulty = 5;
+	const int menuHatForplayer = 6;
+	const int menuRunMode = 7;
 
-	const int menuRestart = 9;
-	const int menuLoad = 10;
-	const int menuSave = 11;
-	const int menuContinue = 12;
-	const int menuBackTitle = 13;
-	const int menuExit = 14;
+	const int menuRestart = 8;
+	const int menuLoad = 9;
+	const int menuSave = 10;
+	const int menuContinue = 11;
+	const int menuBackTitle = 12;
+	const int menuExit = 13;
 
 	void HandleMenuActions(bool joyStart, double delta) {
 		if (Input.IsActionJustPressed("Esc") || (joyStart && !joyJustPressed)) {
 			joyJustPressed = true;
 			PanelOptions.Visible = false;
-			return;
+      if (enemy != null && enemy is AnimatedSprite2D aspr) aspr.SpeedScale = 1;
+      HotDogVendors[0].SpeedScale = 1;
+      HotDogVendors[1].SpeedScale = 1;
+      return;
 		}
 
 		// Depending on the current selected node act accordingly
@@ -4107,7 +4582,7 @@ public partial class Game : Node, IGame {
 		double delay;
 		if (use) delay = .5;
 		else if (up || down) delay = .25;
-		else if (sel == menuMusicVol || sel == menuEffectsVol || sel == menuTimeSpeed || sel == menuDifficulty) delay = .05;
+		else if (sel == menuMusicVol || sel == menuEffectsVol || sel == menuDifficulty) delay = .05;
 		else delay = .4;
     if (optionsClickDelta < delay) return;
 
@@ -4158,24 +4633,6 @@ public partial class Game : Node, IGame {
 			else if (sel == menuCustomMusic) {
 				UseCustomMusicCB.SetPressedNoSignal(false);
 			}
-			else if (sel == menuTimeSpeed) {
-				GameSpeedSlider.SetValueNoSignal(GameSpeedSlider.Value - 1);
-        gameSpeed = (int)GameSpeedSlider.Value;
-        speedFactor = 0.015625 * gameSpeed * gameSpeed + 0.03125 * gameSpeed + 0.453125;
-				GameSpeedValue.Text = (int)GameSpeedSlider.Value switch {
-					0 => "Frozen",
-					1 => "Very slow",
-					2 => "Slow",
-					3 => "Chilly",
-					4 => "Normal",
-					5 => "Rush",
-					6 => "Speedy",
-					7 => "Fast",
-					8 => "Flash",
-					9 => "Insane",
-					_ => "Normal",
-				};
-			}
 			else if (sel == menuDifficulty) {
 				GameDifficultySlider.SetValueNoSignal(GameDifficultySlider.Value - 1);
 				gameDifficulty = (int)GameDifficultySlider.Value;
@@ -4225,24 +4682,6 @@ public partial class Game : Node, IGame {
 				SoundPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
 				PlayerPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
 				NPCPlayer.VolumeDb = (float)(.5 * EffetsVolSlider.Value - 40);
-			}
-			else if (sel == menuTimeSpeed) {
-				GameSpeedSlider.SetValueNoSignal(GameSpeedSlider.Value + 1);
-        gameSpeed = (int)GameSpeedSlider.Value;
-        speedFactor = 0.015625 * gameSpeed * gameSpeed + 0.03125 * gameSpeed + 0.453125;
-				GameSpeedValue.Text = (int)GameSpeedSlider.Value switch {
-					0 => "Frozen",
-					1 => "Very slow",
-					2 => "Slow",
-					3 => "Chilly",
-					4 => "Normal",
-					5 => "Rush",
-					6 => "Speedy",
-					7 => "Fast",
-					8 => "Flash",
-					9 => "Insane",
-					_ => "Normal",
-				};
 			}
 			else if (sel == menuDifficulty) {
 				GameDifficultySlider.SetValueNoSignal(GameDifficultySlider.Value + 1);

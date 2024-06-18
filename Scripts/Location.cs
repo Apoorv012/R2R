@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 
 namespace R2R;
@@ -84,19 +85,22 @@ public partial class Location : Sprite2D {
 
 				case LocationType.Shop:
 					string what = ItemDelivered switch {
-						ItemDelivered.Food => "Food for",
-						ItemDelivered.Drink => "Drinks for",
-						ItemDelivered.Toilet => "",
-						ItemDelivered.Razor => "I can buy a razor here for",
-						ItemDelivered.Clothes => "I can buy clothes here for ",
-						ItemDelivered.Suits => "",
-						ItemDelivered.Shaving => "I can shave here for",
-						ItemDelivered.Tickets => "I can buy metro tickets here, ",
-						ItemDelivered.Broom => "I can buy a broom here for",
-						ItemDelivered.FoodAndDrink => "Food and drinks for",
-						ItemDelivered.Laundry => "I can wash my clothes here for",
-						_ => "",
-					};
+            ItemDelivered.Food => "Food for",
+            ItemDelivered.Drink => "Drinks for",
+            ItemDelivered.Toilet => "",
+            ItemDelivered.Razor => "I can buy a razor here for",
+            ItemDelivered.Clothes => "I can buy clothes here for ",
+            ItemDelivered.Suits => "",
+            ItemDelivered.Shaving => "I can shave here for",
+            ItemDelivered.Tickets => "I can buy metro tickets here, ",
+            ItemDelivered.Broom => "I can buy a broom here for",
+            ItemDelivered.FoodAndDrink => "Food and drinks for",
+            ItemDelivered.Laundry => "I can wash my clothes here for",
+            ItemDelivered.Finance => "I can invest my money here:",
+            ItemDelivered.Soap => "I can buy some soap to wash myself for",
+            ItemDelivered.Bag => "I can get a bag for",
+            _ => "",
+          };
 
 					if (StartTime == 0 && EndTime == 0)
 						return $"{Name}\nAlways open\n{what} {priceTag}";
@@ -177,6 +181,21 @@ public partial class Location : Sprite2D {
   [Export] public Vector2 Pos; // Destination road position (and YouAreHere location for Map symbols)
   public int RentedDays = 0;
   public List<GrowingCarrot> carrots = new();
+
+  internal void UpdateFrom(SaveLocation save, PackedScene growingCarrotPrefab) {
+		price = save.price;
+		amount = save.amount;
+		RentedDays = save.rentedDays;
+		if (save.carrots == null) return;
+		carrots.Clear();
+    for (int i = 0; i < save.carrots.Count; i++) {
+      var gc = growingCarrotPrefab.Instantiate() as GrowingCarrot;
+      carrots.Add(gc);
+      AddChild(gc);
+      gc.Position = new(save.carrots[i].x, save.carrots[i].y);
+      gc.Scale = new(1f / Scale.X, 1f / Scale.Y);
+    }
+  }
 }
 
 public enum LocationType {
@@ -205,5 +224,5 @@ public enum RoadName { None=-1, Main_Street=0, Slum_Street=1, Side_Road=2, North
 
 public enum ItemDelivered {
   None,
-  Food, Drink, Toilet, Razor, Clothes, Suits, Shaving, Tickets, Broom, FoodAndDrink, Laundry, Finance, Soap
+  Food, Drink, Toilet, Razor, Clothes, Suits, Shaving, Tickets, Broom, FoodAndDrink, Laundry, Finance, Soap, Bag, CanFull, FoodSnack
 }

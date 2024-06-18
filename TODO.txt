@@ -6,14 +6,11 @@ So we can try to survive (sleeping on the bench)
 We need to have a comple of spots to eat cheap enough
 
 ******* TODO ************************TODO ************************
-	GAME: add bag to carry more items
-	GAME: impement save/load
 	INPUT: add ability to remap keys
 	
-	Be sure rented days for apartments is fully reset
-	Be sure price/amount of gardens is fully reset
-	Add arrays: gardens, apartments, hotels
-
+Test food vending machine
+	Gym sound is still playing for a while after you exit the gym.
+	Add background street sounds
 ********* BUGS ************************************
 
 
@@ -233,8 +230,23 @@ We need to have a comple of spots to eat cheap enough
 	OPTIONS: improvement of the UI of the options
 	UI: added tooltips
 	INTRO: added credits button, will show the scrolling maximized
-	
 	FIX: better management of Apartments, Hotels, and Gardens
 	FIX: better position of the player when the window is resized (thanks to Navi)
 	FIX: improved zoom of the camera in case of weird resolution
-	GAME: it is possible to save the current status of the game (not yet possible to load it and no visual confirmations)
+	GAME: it is possible to save and load the game
+	GAME: it is possible now to buy a bag to carry way more items than before
+	FIX: the items now do not spawn outside the city limits (bug reported by Homer)
+	FIX: improved speed and direction of picking up anim (requested by Homer)
+	FIX: enemies animation is now stopped when the game is paused (requested by Homer)
+	FIX: fixed the wrapping of long paths in the save game popup (bug reported by Navi)
+	FIX: removed the "Rags 2 Riches" label on the top-left (requested by Homer)
+	GAME: the game difficulty is greatly reduced. Not Zeenskyy level (max difficulty) is equivalent to Kamyshin (mid difficulty)
+	GAME: the razor now lasts 4 times
+	GAME: when you sleep in hotels you get some food bonus at the end (for hotel breakfast)
+	GAME: soap and razor on fountains are less effective than hotels, toilets, and apartments
+	GAME: removed game speed from the options, it was useless
+	GAME: the bank in North street does not require anymore good clothes to let you enter
+	GAME: now you can buy cans and food snacks from vending machines, they will be automatically consumed if case food or drink levels go to zero
+	FIX: fixed the recycler in suburb avenue
+	ENV: added an hot dog vendor in the two hot dogs stands
+	
