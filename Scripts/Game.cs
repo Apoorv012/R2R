@@ -2362,6 +2362,10 @@ public partial class Game : Node, IGame {
 				break;
 			case LocationType.Bank: {
 					if (hasATM) {
+            if (numBanknotes == 0 && numCoins == 0) {
+              ShowBalloon("I have no spare cash to deposit", 4);
+              break;
+            }
 						money += numBanknotes * 10 + numCoins;
 						numBanknotes = 0;
 						numCoins = 0;
@@ -2385,7 +2389,7 @@ public partial class Game : Node, IGame {
 						success = ResultSound.Failure;
 					}
 				}
-				break;
+        break;
 			case LocationType.Shop: {
 					if (HasMoney(l.price)) {
 						switch (l.ItemDelivered) {
@@ -4703,10 +4707,10 @@ public partial class Game : Node, IGame {
 	const int menuHatForplayer = 6;
 	const int menuRunMode = 7;
 
-	const int menuRestart = 8;
-	const int menuLoad = 9;
-	const int menuSave = 10;
-	const int menuContinue = 11;
+	const int menuContinue = 8;
+	const int menuRestart = 9;
+	const int menuLoad = 10;
+	const int menuSave = 11;
 	const int menuBackTitle = 12;
 	const int menuExit = 13;
 

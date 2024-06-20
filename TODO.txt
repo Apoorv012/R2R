@@ -268,4 +268,5 @@ We need to have a comple of spots to eat cheap enough
 	FIX: fixed visibility of hot god vendor in Slum Street (he was visible also if the shop was closed.)
 	FIX: fixed the message for the toilet of suburb street
 	SOUND: sounds now are paused and no more stopped, and many sounds that were not playing are now playing again
-	
+	BANK: added a message in case you have an ATM already and you just do not have any money to deposit
+	OPTIONS: continue is now the fist item in the options

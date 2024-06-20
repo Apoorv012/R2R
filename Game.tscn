@@ -9404,6 +9404,15 @@ offset_right = 1740.0
 offset_bottom = 1052.0
 theme_override_constants/separation = 32
 
+[node name="ContinueButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
+custom_minimum_size = Vector2(300, 64)
+layout_mode = 2
+tooltip_text = "Continue playing"
+theme_override_fonts/font = ExtResource("46_ge3pe")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
+text = "Continue"
+
 [node name="PlayButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
 custom_minimum_size = Vector2(300, 64)
 layout_mode = 2
@@ -9430,15 +9439,6 @@ theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
 text = "Save"
-
-[node name="ContinueButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
-custom_minimum_size = Vector2(300, 64)
-layout_mode = 2
-tooltip_text = "Continue playing"
-theme_override_fonts/font = ExtResource("46_ge3pe")
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
-text = "Continue"
 
 [node name="BackToIntroButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
 custom_minimum_size = Vector2(300, 64)
@@ -9775,9 +9775,9 @@ stretch_mode = 2
 [connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelDifficulty/VBoxContainer/HSlider" to="." method="GameDifficultySliderChange"]
 [connection signal="toggled" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelHat/HatCheckButton" to="." method="UseHatForPlayer"]
 [connection signal="toggled" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelRunMode/RunModeCheckButton" to="." method="RunModePlayer"]
+[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/ContinueButton" to="." method="PlayGame" binds= [1]]
 [connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/PlayButton" to="." method="PlayGame" binds= [0]]
 [connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/LoadButton" to="." method="LoadGame"]
 [connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/SaveButton" to="." method="SaveGame"]
-[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/ContinueButton" to="." method="PlayGame" binds= [1]]
 [connection signal="pressed" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/BackToIntroButton" to="." method="PlayGame" binds= [2]]
 [connection signal="pressed" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/ExitButton" to="." method="QuitGame"]
