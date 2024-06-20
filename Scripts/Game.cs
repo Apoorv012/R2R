@@ -1,4 +1,4 @@
-using Godot;
+﻿using Godot;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -48,12 +48,12 @@ public partial class Game : Node, IGame {
 	[Export] TextureRect[] HighlightIntro;
 	[Export] Panel PanelCredits;
 	[Export] Control CreditsMask;
-	[Export] CanvasLayer PopupCanvas;
-	[Export] CanvasLayer FileSaveCanvas;
+	[Export] CanvasLayer PopupCanvas, ConfirmCanvas, FileSaveCanvas;
 	[Export] Texture2D ButtonArrow, DeleteIcon;
   [Export] Label PopupTitle;
-	[Export] Label PopupLabel;
+	[Export] Label PopupLabel, ConfirmLabel;
 	[Export] VBoxContainer SaveGamesContainer;
+  [Export] StyleBoxFlat BadButton;
 
 	[ExportGroup("Metro")]
 	[Export] Panel PanelMetro;
@@ -376,7 +376,8 @@ public partial class Game : Node, IGame {
 				CreditsMask.SetDeferred("size", new Vector2(1920, 364));
 				introTextScrollPos = -700;
 				PopupCanvas.Visible = false;
-				FileSaveCanvas.Visible = false;
+        ConfirmCanvas.Visible = false;
+        FileSaveCanvas.Visible = false;
 				break;
 			case Status.Starting:
 				IntroPanel.Visible = false;
@@ -562,13 +563,15 @@ public partial class Game : Node, IGame {
 		removeEnemy = false;
     HotDogVendors[0].Visible = false;
     HotDogVendors[1].Visible = false;
+    CityMap.Visible = false;
 
     RemoveAllItems();
 		ArrangeWallet(0);
 		ResetPlayer();
 		SetClothes(Clothes.Rags);
 		SetRoad(SlumStreet, 0, clear);
-	}
+    lastSaveDate = DateTime.Now;
+  }
 
 
 	const float sixteenninth = 16f / 9f;
@@ -648,9 +651,12 @@ public partial class Game : Node, IGame {
       HotDogVendors[0].SpeedScale = 0;
       HotDogVendors[1].SpeedScale = 0;
       foreach (var hl in HighlightOpts) hl.Visible = false;
-		}
+      PlayerPlayer.StreamPaused = true;
+      SoundPlayer.StreamPaused = true;
+      NPCPlayer.StreamPaused = true;
+    }
 
-		if (globalMessageTimeout > 0) {
+    if (globalMessageTimeout > 0) {
 			globalMessageTimeout -= delta;
 			if (globalMessageTimeout <= 0) GlobalMessage.Text = "";
 		}
@@ -708,6 +714,9 @@ public partial class Game : Node, IGame {
 			lsize.Y += 36 * 2;
 			NPCBalloon2.Size = lsize;
 		}
+
+    if (numBanknotes < 0) numBanknotes = 0;
+    if (numCoins < 0) numCoins = 0;
 
 		double d = delta * userGameSpeed;
 
@@ -825,7 +834,7 @@ public partial class Game : Node, IGame {
 
       // HotDog vendors visibility
       if (h == 12 && !HotDogVendors[0].Visible) { HotDogVendors[0].Visible = true; HotDogVendors[0].Play(); }
-      if (h == 0 && HotDogVendors[0].Visible) HotDogVendors[0].Visible = false;
+      if (h == 20 && HotDogVendors[0].Visible) HotDogVendors[0].Visible = false;
       if (h == 10 && !HotDogVendors[1].Visible) { HotDogVendors[1].Visible = true; HotDogVendors[1].Play(); }
       if (h == 23 && HotDogVendors[1].Visible) HotDogVendors[1].Visible = false;
     }
@@ -981,7 +990,8 @@ public partial class Game : Node, IGame {
 
 	void HandleMovements(double delta) {
 		if (userGameSpeed == 0) return;
-		bool up = false;
+
+    bool up = false;
 		bool down = false;
 		bool left = false;
 		bool right = false;
@@ -1068,7 +1078,6 @@ public partial class Game : Node, IGame {
 			// If we have the broom and there is a pickable just here, use the broom and remove it
 			if (use && hasBroom && SearchItems(true, out Pickable p)) {
 				isSweeping = true;
-				Bag.Visible = false;
 				doActionDelta = 1;
 				Body.Frame = 4 + GetFitnessLevel();
 				Bag.Visible = false;
@@ -2001,7 +2010,7 @@ public partial class Game : Node, IGame {
 				}
 				broomItem = null;
 				isSweeping = false;
-				if (hasBag) Bag.Visible = true;
+        if (hasBag) Bag.Visible = true;
 				doActionDelta = 0;
 				ResetPlayer();
 				if (broomLevel <= 0) {
@@ -2197,6 +2206,10 @@ public partial class Game : Node, IGame {
         itemTexture = ItemTexts[7];
         objectSize = sizeCans;
         break;
+      case PickableItem.FoodSnack:
+        itemTexture = ItemTexts[8];
+        objectSize = sizeCans;
+        break;
     }
 		if (itemTexture != null) {
 			if (hasBag) {
@@ -2308,7 +2321,7 @@ public partial class Game : Node, IGame {
 			SoundPlayer.Play();
 			return true;
 		}
-		if (l.StartTime != 0 && l.EndTime != 0) {
+		if (l.StartTime != 0 || l.EndTime != 0) {
 			if (l.StartTime < l.EndTime) {
 				if (dayTime < l.StartTime / 24.0 || dayTime > l.EndTime / 24.0) {
 					if (l.type != LocationType.Job && l.type != LocationType.School) {
@@ -2527,10 +2540,19 @@ public partial class Game : Node, IGame {
 								RemoveMoney(l.price);
 								hasBag = true;
 								Bag.Visible = true;
+                SetClothes(clothes);
 								break;
 
               case ItemDelivered.CanFull:
                 if (!Pickup(PickableItem.CanFull)) {
+                  ShowBalloon("I do not have space to keep it", 2);
+                  break;
+                }
+                RemoveMoney(l.price);
+                break;
+
+              case ItemDelivered.FoodSnack:
+                if (!Pickup(PickableItem.FoodSnack)) {
                   ShowBalloon("I do not have space to keep it", 2);
                   break;
                 }
@@ -2866,14 +2888,33 @@ public partial class Game : Node, IGame {
 						success = ResultSound.Failure;
 						break;
 					}
-					// Can we get more edication here?
-					if ((l.amount == 0 && education > 24) ||
-					(l.amount == 1 && education > 24) ||
-					(l.amount == 2 && education > 24)) {
+          // Can we get more edication here?
+          if (l.amount == 0 && education >= 24) {
+            ShowBalloon($"I already learned all I need from this school", 2);
+            success = ResultSound.Failure;
+            break;
+          }
+          else if (l.amount == 1 && education < 24) {
+            ShowBalloon($"I need to finish the other school first", 2);
+            success = ResultSound.Failure;
+            break;
+          }
+          else if (l.amount == 1 && education >= 49) {
+            ShowBalloon($"I already learned all I need from this school", 2);
+            success = ResultSound.Failure;
+            break;
+          }
+          else if (l.amount == 2 && education < 50) {
+            ShowBalloon($"I need to finish the previous schools first", 2);
+            success = ResultSound.Failure;
+            break;
+          }
+          else if (l.amount == 2 && education >= 74) {
+            ShowBalloon($"I already learned all I need from this school", 2);
 						success = ResultSound.Failure;
 						break;
 					}
-					if (education >= 100) {
+					else if (education >= 100) {
 						ShowBalloon($"I already have a perfect education!", 2);
 						break;
 					}
@@ -3053,6 +3094,7 @@ public partial class Game : Node, IGame {
 		if (foundLocation == null) {
 			GlobalMessage.Text = $"Location is missing when ending the job!";
 			globalMessageTimeout = 5;
+      return;
 		}
 
 		if (foundLocation.type == LocationType.School) {
@@ -3106,10 +3148,9 @@ public partial class Game : Node, IGame {
 			ShowBalloon($"I got {FormatMoney(foundLocation.price)}", 2);
 		}
 		Player.Visible = true;
-		ResetPlayer();
+		ResetPlayer(true);
 		waitUntil = -1;
 		foundLocation = null;
-		SoundPlayer.Stop();
 	}
 
 	public bool IsPlayerReacheable() {
@@ -3125,7 +3166,7 @@ public partial class Game : Node, IGame {
 
 	#region Appearance ***************************************************************************************************************************      [Appearance]
 
-	void ResetPlayer() {
+	void ResetPlayer(bool stopSounds = false) {
 		restingOnBench = false;
 		sleepingOnBench = false;
 		pickup = false;
@@ -3155,6 +3196,12 @@ public partial class Game : Node, IGame {
 		BroomPlayer.Visible = false;
 		HandBrooming.Visible = false;
     Bag.Visible = hasBag;
+
+    if (stopSounds) {
+      PlayerPlayer.Stream = null;
+      SoundPlayer.Stream = null;
+      NPCPlayer.Stream = null;
+    }
   }
 
 	// Beard:  Walk = 0, Pickup = 1, DenialL = 3, DenialR = 2, Sit = 4
@@ -3193,17 +3240,17 @@ public partial class Game : Node, IGame {
 			case Clothes.Rags:
 				Body.Texture = Body1;
 				Hat.Texture = Hat1;
-				Bag.Frame = 0;
+				Bag.Frame = 0 + GetFitnessLevel() / 5;
 				break;
 			case Clothes.Cheap:
 				Body.Texture = Body2;
 				Hat.Texture = Hat2;
-        Bag.Frame = 1;
+        Bag.Frame = 3 + GetFitnessLevel() / 5;
         break;
 			case Clothes.Classy:
 				Body.Texture = Body3;
 				Hat.Texture = Hat3;
-        Bag.Frame = 2;
+        Bag.Frame = 6 + GetFitnessLevel() / 5;
         break;
 		}
 	}
@@ -3396,13 +3443,13 @@ public partial class Game : Node, IGame {
 			MetroClose.Theme = panelMetroSelectedButton == 6 ? SelectedButtonTheme : null;
 		}
 		else if (use) {
-			if (panelMetroSelectedButton == 0) JumpToRoad(0, RoadName.Main_Street, true);
-			else if (panelMetroSelectedButton == 1) JumpToRoad(0, RoadName.Slum_Street, true);
-			else if (panelMetroSelectedButton == 2) JumpToRoad(0, RoadName.Side_Road, true);
+			if (panelMetroSelectedButton == 0)      JumpToRoad(2320, RoadName.Main_Street, true);
+			else if (panelMetroSelectedButton == 1) JumpToRoad(1270, RoadName.Slum_Street, true);
+			else if (panelMetroSelectedButton == 2) JumpToRoad(-3750, RoadName.Side_Road, true);
 			else if (panelMetroSelectedButton == 3) JumpToRoad(0, RoadName.North_Road, true);
-			else if (panelMetroSelectedButton == 4) JumpToRoad(0, RoadName.Top_Boulevard, true);
-			else if (panelMetroSelectedButton == 5) JumpToRoad(0, RoadName.Suburb_Avenue, true);
-			else if (panelMetroSelectedButton == 6) PanelMetro.Visible = false;
+			else if (panelMetroSelectedButton == 4) JumpToRoad(2560, RoadName.Top_Boulevard, true);
+			else if (panelMetroSelectedButton == 5) JumpToRoad(1490, RoadName.Suburb_Avenue, true);
+      else if (panelMetroSelectedButton == 6) PanelMetro.Visible = false;
 		}
 	}
 
@@ -3421,12 +3468,12 @@ public partial class Game : Node, IGame {
 
 	// Called by the buttons in the UI
 	public void JumpToRoad(int rIndex) {
-		if (rIndex == 0) JumpToRoad(0, RoadName.Main_Street, true);
-		else if (rIndex == 1) JumpToRoad(0, RoadName.Slum_Street, true);
-		else if (rIndex == 2) JumpToRoad(0, RoadName.Side_Road, true);
+		if (rIndex == 0)      JumpToRoad(2320, RoadName.Main_Street, true);
+		else if (rIndex == 1) JumpToRoad(1270, RoadName.Slum_Street, true);
+		else if (rIndex == 2) JumpToRoad(-3750, RoadName.Side_Road, true);
 		else if (rIndex == 3) JumpToRoad(0, RoadName.North_Road, true);
-		else if (rIndex == 4) JumpToRoad(0, RoadName.Top_Boulevard, true);
-		else if (rIndex == 5) JumpToRoad(0, RoadName.Suburb_Avenue, true);
+		else if (rIndex == 4) JumpToRoad(2560, RoadName.Top_Boulevard, true);
+		else if (rIndex == 5) JumpToRoad(1490, RoadName.Suburb_Avenue, true);
 		else if (rIndex == 6) PanelMetro.Visible = false;
 	}
 
@@ -3789,14 +3836,56 @@ public partial class Game : Node, IGame {
 		}
 	}
 
-	#endregion NPCs ************************************************************************************************************************
+  #endregion NPCs ************************************************************************************************************************
 
-	#region Options ******************************************************************************************************************************      [Options]
-	public void QuitGame() {
+  #region Options ******************************************************************************************************************************      [Options]
+  public void QuitGame() {
+    if ((DateTime.Now - lastSaveDate).TotalSeconds > 30) {
+      ShowConfirm("Are you sure to quit the game?\nYou will lose the non saved progress.", 2);
+    }
+    else QuitGameConfirmed();
+  }
+  public void QuitGameConfirmed() {
 		SaveOptions();
 		GetTree().Quit();
 	}
-	public void PlayGame(int fromWhere) {
+
+  DateTime lastSaveDate = DateTime.MinValue;
+  public void RestartGame() {
+    if (OptionsPlayButton.Text == "Restart" && (DateTime.Now - lastSaveDate).TotalSeconds > 10) {
+      ShowConfirm("Are you sure to restart the game?\nYou will lose the non saved progress.", 0);
+    }
+    else PlayGame(0);
+  }
+  public void BackToIntro() {
+    if ((DateTime.Now - lastSaveDate).TotalSeconds > 10) {
+      ShowConfirm("Are you sure to go back to the title screen?\nYou will lose the non saved progress.", 1);
+    }
+    else PlayGame(2);
+  }
+
+  int postActionConfirm = -1;
+  private void ShowConfirm(string msg, int postAction) {
+    ConfirmLabel.Text = msg;
+    postActionConfirm = postAction;
+    ConfirmCanvas.Visible = true;
+  }
+
+  void CloseConfirm() {
+    ConfirmCanvas.Visible = false;
+  }
+
+  void AcceptConfirm() {
+    ConfirmCanvas.Visible = false;
+    switch (postActionConfirm) {
+      case 0: PlayGame(0); break;
+      case 1: PlayGame(2); break;
+      case 2: QuitGameConfirmed(); break;
+    }
+  }
+
+
+  public void PlayGame(int fromWhere) {
 		Balloon.Visible = false;
 		NPCBalloon1.Visible = false;
 		NPCBalloon2.Visible = false;
@@ -3825,12 +3914,22 @@ public partial class Game : Node, IGame {
 			SetStatus(Status.Intro);
 		}
     PanelOptions.Visible = false;
+    PlayerPlayer.StreamPaused = false;
+    SoundPlayer.StreamPaused = false;
+    NPCPlayer.StreamPaused = false;
     if (enemy != null && enemy is AnimatedSprite2D aspr) aspr.SpeedScale = 1;
     HotDogVendors[0].SpeedScale = 1;
     HotDogVendors[1].SpeedScale = 1;
   }
 
+  RegEx fileNameParts = null;
+
   public void LoadGame() {
+    if (fileNameParts == null) {
+      fileNameParts = new();
+      fileNameParts.Compile("(\\d{4}).(\\d{2}).(\\d{2})[^\\d]+(\\d{2}).(\\d{2}).(\\d{2})");
+    }
+
 		var savePath = OS.GetUserDataDir() + "/Saves/";
 		if (!DirAccess.DirExistsAbsolute(savePath)) {
 			PopupCanvas.Visible = true;
@@ -3840,8 +3939,7 @@ public partial class Game : Node, IGame {
     while (SaveGamesContainer.GetChildCount() > 0) SaveGamesContainer.GetChild(0).Free();
 		var files = DirAccess.GetFilesAt(savePath);
     // Read the first bytes, be sure it starts with R2Rs and then read the day number and total amount of money
-    List<string> saveFiles = new();
-    List<string> saveFileNames = new();
+    List<(string, string)> saveFiles = new();
 		foreach (var f in files) {
 			if (!f.EndsWith(".save", StringComparison.OrdinalIgnoreCase)) continue; // Not a save file
       var file = Godot.FileAccess.Open(savePath + f, Godot.FileAccess.ModeFlags.Read);
@@ -3849,11 +3947,19 @@ public partial class Game : Node, IGame {
 			if (buffer.Length < 20) continue; // Cannot be a save file
 			if (buffer[0..4] != "R2Rs") continue; // Wrong magic number
       _ = int.TryParse(buffer[4..5], out int mjv);
-      _ = int.TryParse(buffer[6..8], out int mnv);
+      _ = int.TryParse(buffer[5..8], out int mnv);
       _ = int.TryParse(buffer[8..12], out int dn);
 			_ = int.TryParse(buffer[12..], out int mn);
-			saveFileNames.Add($"{f[9..^5]}  (V{mjv}.{mnv}, day {dn}, ${mn / 10}.{mn % 10})");
-			saveFiles.Add(f);
+      var fileName = f.Length < 15 ? (f.Length < 5 ? f : f[..^5]) : f[9..^5];
+      var match = fileNameParts.Search(fileName);
+      string dateTime = match == null ? fileName : $"{match.GetString(1)}-{match.GetString(2)}-{match.GetString(3)} {match.GetString(4)}:{match.GetString(5)}:{match.GetString(6)}";
+
+      if (mjv != 0 || mnv < 996) {
+        saveFiles.Add(new("❌ " + f, $"❌ {dateTime}  (V{mjv}.{mnv}, day {dn}, ${mn / 10}.{mn % 10})"));
+      }
+      else {
+        saveFiles.Add(new(f, $"{dateTime}  (V{mjv}.{mnv}, day {dn}, ${mn / 10}.{mn % 10})"));
+      }
 			file.Close();
 		}
     if (saveFiles.Count == 0) {
@@ -3862,17 +3968,19 @@ public partial class Game : Node, IGame {
       PopupLabel.Text = "No save games are available!\nLocation is: " + savePath;
 			return;
     }
-		saveFiles.Sort((a, b) => b.CompareTo(a));
-		saveFileNames.Sort((a, b) => b.CompareTo(a));
-		for (int i = 0; i < saveFileNames.Count; i++) {
-			var name = saveFileNames[i];
-			var file = saveFiles[i];
+		saveFiles.Sort((a, b) => b.Item2.CompareTo(a.Item2));
+		for (int i = 0; i < saveFiles.Count; i++) {
+			var name = saveFiles[i].Item2;
+			var file = saveFiles[i].Item1;
 			var buttonContainer = new HBoxContainer();
 			var fileButton = new Button {
 				Text = name,
 				Icon = ButtonArrow
 			};
-      fileButton.ButtonUp += delegate() { LoadActualFile(file); };
+      if (file.StartsWith("❌ ")) 
+        fileButton.AddThemeStyleboxOverride("normal", BadButton);
+      else 
+        fileButton.ButtonUp += delegate() { LoadActualFile(file); };
 			var delButton = new Button {
 				Text = "Delete",
 				Icon = DeleteIcon
@@ -3886,11 +3994,13 @@ public partial class Game : Node, IGame {
 	}
 
 	void DeleteFile(string file) {
-		try {
-			File.Delete(OS.GetUserDataDir() + "/Saves/" + file);
-		} catch (Exception ex) {
-			GD.PrintErr(ex.Message);
-			}
+    try {
+      File.Delete(OS.GetUserDataDir() + "/Saves/" + file);
+    }
+    catch (Exception ex) {
+      GlobalMessage.Text = "Cannto delete save game! " + ex.Message;
+      globalMessageTimeout = 60;
+    }
     FileSaveCanvas.Visible = false;
 		CallDeferred("LoadGame");
 	}
@@ -3898,14 +4008,15 @@ public partial class Game : Node, IGame {
 	private void LoadActualFile(string fileName) {
 		var savePath = OS.GetUserDataDir() + "/Saves/";
 		var file = Godot.FileAccess.Open(savePath + fileName, Godot.FileAccess.ModeFlags.Read);
-
-		string json = file.GetBuffer((long)file.GetLength()).GetStringFromUtf8()[20..];
+    var buffer = file.GetBuffer((long)file.GetLength());
+    string json = System.Text.Encoding.UTF8.GetString(buffer, 20, buffer.Length - 20);
 		SaveData data;
 		try {
 			data = JsonSerializer.Deserialize<SaveData>(json);
 		}
 		catch (Exception ex) {
-			GD.Print(ex.Message);
+      GlobalMessage.Text = "Problem reading game file: " + ex.Message;
+      globalMessageTimeout = 60;
 			return;
 		}
 
@@ -3981,6 +4092,22 @@ public partial class Game : Node, IGame {
 		while (data.numCarrots > 0) { Pickup(PickableItem.Carrot); data.numCarrots--; }
 		while (data.numRotCarrots > 0) { Pickup(PickableItem.RotCarrot); data.numRotCarrots--; }
 
+
+    pbFood.SetValueNoSignal(food);
+    pbDrink.SetValueNoSignal(drink);
+    pbRest.SetValueNoSignal(rest);
+    pbSmellB.SetValueNoSignal(bodySmell);
+    pbSmellC.SetValueNoSignal(dirtyClothes);
+    pbBeard.SetValueNoSignal(beard);
+    pbEducation.SetValueNoSignal(education);
+    pbFitness.SetValueNoSignal(fitness);
+    totalSmell = bodySmell + dirtyClothes;
+    if (totalSmell > 100) totalSmell = 100;
+    pbSmellL.Text = $"{totalSmell:N0}%";
+
+    // Reset the player in case no action is performed
+    if (waitUntil == -1 && waitUntilNextDay == -1 && !sleeping && !hospital && !doingGym && doActionDelta <= 0 &&
+    !pickup && !denial && !goingUp && !restingOnBench && !sleepingOnBench && !jail && !isSweeping) ResetPlayer();
 
 		numTickets = data.numTickets;
 		for (int i = 0; i < 10; i++) Tickets[i].Visible = i < numTickets;
@@ -4109,9 +4236,25 @@ public partial class Game : Node, IGame {
     FileSaveCanvas.Visible = false;
 		IntroPanel.Visible = false;
 		ArrangeWallet(0);
+
+    // Update player UI
+    ATMCard.Visible = hasATM;
+    Soap.Visible = true;
+    switch (hasSoap) {
+      case 4: Soap.Texture = Soaps[0]; break;
+      case 3: Soap.Texture = Soaps[1]; break;
+      case 2: Soap.Texture = Soaps[2]; break;
+      case 1: Soap.Texture = Soaps[3]; break;
+      default: Soap.Visible = false; break;
+    }
+    Razor.Visible = hasRazor > 0;
+    Broom.Visible = hasBroom;
+    PlayerPlayer.StreamPaused = false;
+    SoundPlayer.StreamPaused = false;
+    NPCPlayer.StreamPaused = false;
   }
 
-	void CancelLoadGame() {
+  void CancelLoadGame() {
     while (SaveGamesContainer.GetChildCount() > 0) SaveGamesContainer.GetChild(0).Free();
     FileSaveCanvas.Visible = false;
   }
@@ -4258,7 +4401,7 @@ public partial class Game : Node, IGame {
 		string mn = $"{(money + numBanknotes * 10 + numCoins):00000000}";
 		if (mn.Length > 8) mn = mn[^8..];
 		string data = "R2Rs" +  // Magic number
-			"0996" + // Version
+			"0997" + // Version
 			dn +  // Number of days
 			mn +  // Money
 			JsonSerializer.Serialize(save); // Actual save data
@@ -4267,11 +4410,15 @@ public partial class Game : Node, IGame {
 		PopupCanvas.Visible = true;
     PopupTitle.Text = "Game saved!";
     PopupLabel.Text = "Game saved in:\n" + savePath;
+    lastSaveDate = DateTime.Now;
   }
 
 	void ClosePopup() {
 		PopupCanvas.Visible = false;
 	}
+
+
+
 
   private void FindLocation(Location l, out int foundLocationRoad, out int foundLocationIndex) {
     if (l == null) {
@@ -4503,25 +4650,37 @@ public partial class Game : Node, IGame {
 				SpeedButton1.ButtonPressed = false;
 				SpeedButton2.ButtonPressed = false;
 				SpeedButton3.ButtonPressed = false;
-				break;
+        PlayerPlayer.StreamPaused = true;
+        SoundPlayer.StreamPaused = true;
+        NPCPlayer.StreamPaused = true;
+        break;
 			case 1:
 				SpeedButton0.ButtonPressed = false;
 				SpeedButton1.ButtonPressed = true;
 				SpeedButton2.ButtonPressed = false;
 				SpeedButton3.ButtonPressed = false;
-				break;
+        PlayerPlayer.StreamPaused = false;
+        SoundPlayer.StreamPaused = false;
+        NPCPlayer.StreamPaused = false;
+        break;
 			case 2:
 				SpeedButton0.ButtonPressed = false;
 				SpeedButton1.ButtonPressed = false;
 				SpeedButton2.ButtonPressed = true;
 				SpeedButton3.ButtonPressed = false;
-				break;
+        PlayerPlayer.StreamPaused = false;
+        SoundPlayer.StreamPaused = false;
+        NPCPlayer.StreamPaused = false;
+        break;
 			case 5:
 				SpeedButton0.ButtonPressed = false;
 				SpeedButton1.ButtonPressed = false;
 				SpeedButton2.ButtonPressed = false;
 				SpeedButton3.ButtonPressed = true;
-				break;
+        PlayerPlayer.StreamPaused = false;
+        SoundPlayer.StreamPaused = false;
+        NPCPlayer.StreamPaused = false;
+        break;
 		}
 
     int animSpeed = userGameSpeed == 0 ? 0 : 1;
@@ -4555,6 +4714,9 @@ public partial class Game : Node, IGame {
 		if (Input.IsActionJustPressed("Esc") || (joyStart && !joyJustPressed)) {
 			joyJustPressed = true;
 			PanelOptions.Visible = false;
+      PlayerPlayer.StreamPaused = false;
+      SoundPlayer.StreamPaused = false;
+      NPCPlayer.StreamPaused = false;
       if (enemy != null && enemy is AnimatedSprite2D aspr) aspr.SpeedScale = 1;
       HotDogVendors[0].SpeedScale = 1;
       HotDogVendors[1].SpeedScale = 1;

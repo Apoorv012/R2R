@@ -1,4 +1,4 @@
-[gd_scene load_steps=350 format=3 uid="uid://bdflk6ud0jrdt"]
+[gd_scene load_steps=351 format=3 uid="uid://bdflk6ud0jrdt"]
 
 [ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="1_hj6uc"]
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_u838r"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://b15gwi1uvaqiu" path="res://Graphics/Items/Carrot.png" id="8_sj0xs"]
 [ext_resource type="AudioStream" uid="uid://hh1eo5uv75ci" path="res://Sounds/Step2.ogg" id="9_py6x6"]
 [ext_resource type="Texture2D" uid="uid://hvgdpty67ff3" path="res://Graphics/UI/ButtonDelete.png" id="9_qdoej"]
+[ext_resource type="StyleBox" uid="uid://bef4xye8wka60" path="res://Graphics/UI/BadButton.tres" id="10_76fay"]
 [ext_resource type="Texture2D" uid="uid://u2wkbamvfj65" path="res://Graphics/City/Doors/JailDoor.png" id="10_77fcg"]
 [ext_resource type="AudioStream" uid="uid://b1ps27vtawy0v" path="res://Sounds/Pickup.ogg" id="10_daiq6"]
 [ext_resource type="PackedScene" uid="uid://dsawbmnbixx2g" path="res://Prefabs/NPCs/NPCMan1.tscn" id="10_n5xn7"]
@@ -1162,7 +1163,7 @@ expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Bag", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "cam", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmellB", "pbSmellC", "pbBeard", "pbEducation", "pbFitness", "pbSmellL", "ItemsHBox", "InventoryControl", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "OptionsSaveButton", "HighlightIntro", "PanelCredits", "CreditsMask", "PopupCanvas", "FileSaveCanvas", "PopupTitle", "PopupLabel", "SaveGamesContainer", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "PanelTitle", "PanelSpark", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "RunModeCB", "HighlightOpts", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "BanknotesContainer", "CoinsContainer", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "ApartmentList", "HotelList", "Gardens", "HotDogVendors", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Bag", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "cam", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmellB", "pbSmellC", "pbBeard", "pbEducation", "pbFitness", "pbSmellL", "ItemsHBox", "InventoryControl", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "OptionsSaveButton", "HighlightIntro", "PanelCredits", "CreditsMask", "PopupCanvas", "ConfirmCanvas", "FileSaveCanvas", "PopupTitle", "PopupLabel", "ConfirmLabel", "SaveGamesContainer", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "PanelTitle", "PanelSpark", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "RunModeCB", "HighlightOpts", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "BanknotesContainer", "CoinsContainer", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "ApartmentList", "HotelList", "Gardens", "HotDogVendors", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
 script = ExtResource("1_u838r")
 Player = NodePath("Player and Camera/Player")
 Body = NodePath("Player and Camera/Player/Body")
@@ -1218,12 +1219,15 @@ HighlightIntro = [NodePath("UI/CanvasLayer Intro/Highlights/Highlight0"), NodePa
 PanelCredits = NodePath("UI/CanvasLayer Intro/Mask/IntroTextScrolling/Credits background")
 CreditsMask = NodePath("UI/CanvasLayer Intro/Mask")
 PopupCanvas = NodePath("UI/CanvasLayer Popup")
+ConfirmCanvas = NodePath("UI/CanvasLayer Confirm")
 FileSaveCanvas = NodePath("UI/CanvasLayer FileSelect")
 ButtonArrow = ExtResource("247_dstc6")
 DeleteIcon = ExtResource("9_qdoej")
 PopupTitle = NodePath("UI/CanvasLayer Popup/PopupPanelBorder/PopupPanel/PopupTitle")
 PopupLabel = NodePath("UI/CanvasLayer Popup/PopupPanelBorder/PopupPanel/PopupLabel")
+ConfirmLabel = NodePath("UI/CanvasLayer Confirm/PopupPanelBorder/PopupPanel/ConfirmLabel")
 SaveGamesContainer = NodePath("UI/CanvasLayer FileSelect/PopupPanel/SaveGamesScrollContainer/SaveGamesContainer")
+BadButton = ExtResource("10_76fay")
 PanelMetro = NodePath("UI/CanvasLayer UI/PanelMetro")
 MetroMain = NodePath("UI/CanvasLayer UI/PanelMetro/VBoxContainer/MainStreetButton")
 MetroSlum = NodePath("UI/CanvasLayer UI/PanelMetro/VBoxContainer/SlumStreetButton")
@@ -1916,7 +1920,7 @@ script = ExtResource("26_v2dtc")
 type = 2
 price = 10
 ItemDelivered = 3
-Message = "Public Toilet, I can have a shower here for $2"
+Message = "Public Toilet, I can have a shower here for $1"
 
 [node name="SB_BackItems" type="Node2D" parent="City/SuburbAvenue"]
 z_index = 40
@@ -2450,7 +2454,7 @@ StartTime = 9
 EndTime = 16
 price = 1000
 amount = 2
-maxSmell = 20
+maxSmell = 25
 maxBeard = 20
 minClothes = 2
 minEducation = 75
@@ -2544,6 +2548,7 @@ type = 2
 StartTime = 8
 EndTime = 20
 price = 50
+ItemDelivered = 11
 maxSmell = 60
 
 [node name="Fortunellis Bank" type="Sprite2D" parent="City/TopBoulevard/TS_Doors"]
@@ -2554,7 +2559,7 @@ type = 1
 StartTime = 9
 EndTime = 14
 ItemDelivered = 3
-maxSmell = 20
+maxSmell = 40
 maxBeard = 20
 minClothes = 1
 minEducation = 1
@@ -2568,7 +2573,7 @@ StartTime = 9
 EndTime = 18
 price = 3000
 amount = 2
-maxSmell = 10
+maxSmell = 20
 maxBeard = 10
 minClothes = 2
 minEducation = 100
@@ -3275,7 +3280,7 @@ type = 1
 StartTime = 9
 EndTime = 14
 ItemDelivered = 3
-maxSmell = 20
+maxSmell = 40
 maxBeard = 20
 minEducation = 1
 
@@ -5253,14 +5258,12 @@ ItemDelivered = 8
 amount = 1
 
 [node name="Drinks Vending Machine" type="Sprite2D" parent="City/MainStreet/MS_BackItems"]
-visible = false
 position = Vector2(3012, 454)
 texture = ExtResource("28_oiwha")
 script = ExtResource("26_v2dtc")
-type = 3
+type = 2
 price = 5
-ItemDelivered = 2
-amount = 75
+ItemDelivered = 15
 
 [node name="ATM" type="Sprite2D" parent="City/MainStreet/MS_BackItems"]
 position = Vector2(1040, 324)
@@ -6737,7 +6740,557 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("238_qokn0")
 
+[node name="Office" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 97.0
+offset_top = 64.0
+offset_right = 137.0
+offset_bottom = 87.0
+tooltip_text = "Office"
+mouse_filter = 0
+
+[node name="Office2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 685.0
+offset_top = 63.0
+offset_right = 725.0
+offset_bottom = 86.0
+tooltip_text = "Office"
+mouse_filter = 0
+
+[node name="Apartments_Hotel" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 167.0
+offset_top = 61.0
+offset_right = 207.0
+offset_bottom = 84.0
+tooltip_text = "Apartments / Hotels"
+mouse_filter = 0
+
+[node name="Apartments_Hotel2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 306.0
+offset_top = 283.0
+offset_right = 346.0
+offset_bottom = 306.0
+tooltip_text = "Apartments / Hotels"
+mouse_filter = 0
+
+[node name="Apartments_Hotel3" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1038.0
+offset_top = 282.0
+offset_right = 1078.0
+offset_bottom = 305.0
+tooltip_text = "Apartments / Hotels"
+mouse_filter = 0
+
+[node name="Apartments_Hotel4" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 359.0
+offset_top = 545.0
+offset_right = 399.0
+offset_bottom = 568.0
+tooltip_text = "Apartments / Hotels"
+mouse_filter = 0
+
+[node name="Apartments_Hotel5" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 808.0
+offset_top = 580.0
+offset_right = 848.0
+offset_bottom = 603.0
+tooltip_text = "Apartments / Hotels"
+mouse_filter = 0
+
+[node name="Apartments_Hotel6" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1252.0
+offset_top = 490.0
+offset_right = 1292.0
+offset_bottom = 513.0
+tooltip_text = "Apartments / Hotels"
+mouse_filter = 0
+
+[node name="Food" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 236.0
+offset_top = 61.0
+offset_right = 276.0
+offset_bottom = 84.0
+tooltip_text = "Food"
+mouse_filter = 0
+
+[node name="Food2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 362.0
+offset_top = 422.0
+offset_right = 402.0
+offset_bottom = 445.0
+tooltip_text = "Food"
+mouse_filter = 0
+
+[node name="Food3" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 349.0
+offset_top = 583.0
+offset_right = 389.0
+offset_bottom = 606.0
+tooltip_text = "Food"
+mouse_filter = 0
+
+[node name="Food4" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 660.0
+offset_top = 284.0
+offset_right = 700.0
+offset_bottom = 307.0
+tooltip_text = "Food"
+mouse_filter = 0
+
+[node name="Food5" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 973.0
+offset_top = 156.0
+offset_right = 1013.0
+offset_bottom = 179.0
+tooltip_text = "Food"
+mouse_filter = 0
+
+[node name="Food6" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1005.0
+offset_top = 581.0
+offset_right = 1045.0
+offset_bottom = 604.0
+tooltip_text = "Food"
+mouse_filter = 0
+
+[node name="Food7" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1255.0
+offset_top = 68.0
+offset_right = 1295.0
+offset_bottom = 91.0
+tooltip_text = "Food"
+mouse_filter = 0
+
+[node name="Food8" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1335.0
+offset_top = 301.0
+offset_right = 1375.0
+offset_bottom = 324.0
+tooltip_text = "Food"
+mouse_filter = 0
+
+[node name="Food9" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 382.0
+offset_top = 686.0
+offset_right = 422.0
+offset_bottom = 709.0
+tooltip_text = "Food"
+mouse_filter = 0
+
+[node name="Metro" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 309.0
+offset_top = 59.0
+offset_right = 349.0
+offset_bottom = 82.0
+tooltip_text = "Metro"
+mouse_filter = 0
+
+[node name="Metro2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 360.0
+offset_right = 400.0
+offset_bottom = 383.0
+tooltip_text = "Metro"
+mouse_filter = 0
+
+[node name="Metro3" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 732.0
+offset_top = 286.0
+offset_right = 772.0
+offset_bottom = 309.0
+tooltip_text = "Metro"
+mouse_filter = 0
+
+[node name="Metro4" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1248.0
+offset_top = 239.0
+offset_right = 1288.0
+offset_bottom = 262.0
+tooltip_text = "Metro"
+mouse_filter = 0
+
+[node name="Metro5" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 670.0
+offset_top = 583.0
+offset_right = 710.0
+offset_bottom = 606.0
+tooltip_text = "Metro"
+mouse_filter = 0
+
+[node name="Drinks" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 368.0
+offset_top = 61.0
+offset_right = 408.0
+offset_bottom = 84.0
+tooltip_text = "Drinks"
+mouse_filter = 0
+
+[node name="Drinks2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 363.0
+offset_top = 273.0
+offset_right = 403.0
+offset_bottom = 296.0
+tooltip_text = "Drinks"
+mouse_filter = 0
+
+[node name="Drinks3" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 974.0
+offset_top = 535.0
+offset_right = 1014.0
+offset_bottom = 558.0
+tooltip_text = "Drinks"
+mouse_filter = 0
+
+[node name="Drinks4" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 558.0
+offset_top = 597.0
+offset_right = 598.0
+offset_bottom = 620.0
+tooltip_text = "Drinks"
+mouse_filter = 0
+
+[node name="Drinks5" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1112.0
+offset_top = 285.0
+offset_right = 1152.0
+offset_bottom = 308.0
+tooltip_text = "Drinks"
+mouse_filter = 0
+
+[node name="Drinks6" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 946.0
+offset_top = 66.0
+offset_right = 986.0
+offset_bottom = 89.0
+tooltip_text = "Drinks"
+mouse_filter = 0
+
+[node name="Drinks7" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 186.0
+offset_right = 432.0
+offset_bottom = 209.0
+tooltip_text = "Drinks"
+mouse_filter = 0
+
+[node name="Fountain" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 366.0
+offset_top = 21.0
+offset_right = 406.0
+offset_bottom = 44.0
+tooltip_text = "Fountain"
+mouse_filter = 0
+
+[node name="Fountain2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1246.0
+offset_top = 201.0
+offset_right = 1286.0
+offset_bottom = 224.0
+tooltip_text = "Fountain"
+mouse_filter = 0
+
+[node name="Fountain3" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1102.0
+offset_top = 589.0
+offset_right = 1142.0
+offset_bottom = 612.0
+tooltip_text = "Fountain"
+mouse_filter = 0
+
+[node name="BarberShop" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 63.0
+offset_right = 491.0
+offset_bottom = 86.0
+tooltip_text = "Barber Shop"
+mouse_filter = 0
+
+[node name="BarberShop2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 365.0
+offset_top = 486.0
+offset_right = 405.0
+offset_bottom = 509.0
+tooltip_text = "Barber Shop"
+mouse_filter = 0
+
+[node name="Laundry" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 521.0
+offset_top = 65.0
+offset_right = 561.0
+offset_bottom = 88.0
+tooltip_text = "Laundry"
+mouse_filter = 0
+
+[node name="Laundry2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 971.0
+offset_top = 214.0
+offset_right = 1011.0
+offset_bottom = 237.0
+tooltip_text = "Laundry"
+mouse_filter = 0
+
+[node name="Bank" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 604.0
+offset_top = 65.0
+offset_right = 644.0
+offset_bottom = 88.0
+tooltip_text = "Bank"
+mouse_filter = 0
+
+[node name="Bank2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 524.0
+offset_top = 287.0
+offset_right = 564.0
+offset_bottom = 310.0
+tooltip_text = "Bank"
+mouse_filter = 0
+
+[node name="Shop" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 129.0
+offset_right = 401.0
+offset_bottom = 152.0
+tooltip_text = "Shop"
+mouse_filter = 0
+
+[node name="Shop2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 735.0
+offset_top = 580.0
+offset_right = 775.0
+offset_bottom = 603.0
+tooltip_text = "Shop"
+mouse_filter = 0
+
+[node name="Shop3" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 830.0
+offset_top = 288.0
+offset_right = 870.0
+offset_bottom = 311.0
+tooltip_text = "Shop"
+mouse_filter = 0
+
+[node name="Hospital" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 207.0
+offset_right = 357.0
+offset_bottom = 230.0
+tooltip_text = "Hospital"
+mouse_filter = 0
+
+[node name="School" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 358.0
+offset_top = 160.0
+offset_right = 398.0
+offset_bottom = 183.0
+tooltip_text = "School"
+mouse_filter = 0
+
+[node name="School2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 967.0
+offset_top = 475.0
+offset_right = 1007.0
+offset_bottom = 498.0
+tooltip_text = "School"
+mouse_filter = 0
+
+[node name="School3" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 595.0
+offset_top = 285.0
+offset_right = 635.0
+offset_bottom = 308.0
+tooltip_text = "School"
+mouse_filter = 0
+
+[node name="School4" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1250.0
+offset_top = 129.0
+offset_right = 1290.0
+offset_bottom = 152.0
+tooltip_text = "School"
+mouse_filter = 0
+
+[node name="ATM" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 379.0
+offset_top = 242.0
+offset_right = 419.0
+offset_bottom = 265.0
+tooltip_text = "ATM"
+mouse_filter = 0
+
+[node name="ATM2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 962.0
+offset_top = 98.0
+offset_right = 1002.0
+offset_bottom = 121.0
+tooltip_text = "ATM"
+mouse_filter = 0
+
+[node name="ATM3" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1235.0
+offset_top = 465.0
+offset_right = 1275.0
+offset_bottom = 488.0
+tooltip_text = "ATM"
+mouse_filter = 0
+
+[node name="ATM4" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 774.0
+offset_top = 605.0
+offset_right = 814.0
+offset_bottom = 628.0
+tooltip_text = "ATM"
+mouse_filter = 0
+
+[node name="Recycler" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 361.0
+offset_top = 654.0
+offset_right = 401.0
+offset_bottom = 677.0
+tooltip_text = "Recycler"
+mouse_filter = 0
+
+[node name="Recycler2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 972.0
+offset_top = 582.0
+offset_right = 1012.0
+offset_bottom = 605.0
+tooltip_text = "Recycler"
+mouse_filter = 0
+
+[node name="Recycler3" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 973.0
+offset_top = 658.0
+offset_right = 1013.0
+offset_bottom = 681.0
+tooltip_text = "Recycler"
+mouse_filter = 0
+
+[node name="Recycler4" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1251.0
+offset_top = 356.0
+offset_right = 1291.0
+offset_bottom = 379.0
+tooltip_text = "Recycler"
+mouse_filter = 0
+
+[node name="Jail" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 593.0
+offset_top = 582.0
+offset_right = 633.0
+offset_bottom = 605.0
+tooltip_text = "Jail"
+mouse_filter = 0
+
+[node name="Tailor" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 451.0
+offset_top = 289.0
+offset_right = 491.0
+offset_bottom = 312.0
+tooltip_text = "Tailor"
+mouse_filter = 0
+
+[node name="Gym" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 979.0
+offset_top = 415.0
+offset_right = 1019.0
+offset_bottom = 438.0
+tooltip_text = "Gym"
+mouse_filter = 0
+
+[node name="Toilet" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1273.0
+offset_top = 288.0
+offset_right = 1313.0
+offset_bottom = 311.0
+tooltip_text = "Toilet"
+mouse_filter = 0
+
+[node name="Toilet2" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1255.0
+offset_top = 550.0
+offset_right = 1295.0
+offset_bottom = 573.0
+tooltip_text = "Toilet"
+mouse_filter = 0
+
+[node name="Market" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 1261.0
+offset_top = 419.0
+offset_right = 1301.0
+offset_bottom = 442.0
+tooltip_text = "Market"
+mouse_filter = 0
+
+[node name="Clothes" type="Label" parent="MapLayer/MapControl/Map/Icons"]
+layout_mode = 0
+offset_left = 971.0
+offset_top = 351.0
+offset_right = 1011.0
+offset_bottom = 399.0
+tooltip_text = "Clothes"
+mouse_filter = 0
+
 [node name="YouAreHere" type="TextureRect" parent="MapLayer/MapControl/Map"]
+visible = false
 layout_mode = 0
 offset_left = 400.0
 offset_top = 560.0
@@ -6765,6 +7318,7 @@ texture = ExtResource("1_hj6uc")
 offset = Vector2(0, 24)
 hframes = 5
 vframes = 3
+frame = 10
 
 [node name="Head" type="Sprite2D" parent="Player and Camera/Player"]
 texture = ExtResource("2_xspdm")
@@ -6800,7 +7354,9 @@ vframes = 2
 position = Vector2(35, 94)
 texture = ExtResource("247_xyg0n")
 offset = Vector2(0, 40)
+hframes = 3
 vframes = 3
+frame = 5
 
 [node name="Broom" type="Sprite2D" parent="Player and Camera/Player"]
 visible = false
@@ -6895,6 +7451,90 @@ grow_vertical = 0
 size_flags_vertical = 8
 text = "OK!"
 
+[node name="CanvasLayer Confirm" type="CanvasLayer" parent="UI"]
+layer = 128
+visible = false
+
+[node name="PopupPanelBorder" type="ColorRect" parent="UI/CanvasLayer Confirm"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -324.0
+offset_top = -299.0
+offset_right = 324.0
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("246_7wek8")
+color = Color(0.0807833, 0.0807833, 0.0807833, 1)
+
+[node name="PopupPanel" type="ColorRect" parent="UI/CanvasLayer Confirm/PopupPanelBorder"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -320.0
+offset_top = -200.0
+offset_right = 320.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.210058, 0.192581, 0.14175, 1)
+
+[node name="ConfirmTitle" type="Label" parent="UI/CanvasLayer Confirm/PopupPanelBorder/PopupPanel"]
+layout_mode = 2
+offset_right = 640.0
+offset_bottom = 81.0
+size_flags_vertical = 1
+theme_override_colors/font_color = Color(0.456669, 0.570676, 0.980316, 1)
+theme_override_font_sizes/font_size = 68
+text = "Are you sure?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ConfirmLabel" type="Label" parent="UI/CanvasLayer Confirm/PopupPanelBorder/PopupPanel"]
+layout_mode = 2
+offset_top = 92.0
+offset_right = 640.0
+offset_bottom = 353.0
+size_flags_vertical = 1
+text = "Do you confirm to abandon the game?"
+autowrap_mode = 2
+
+[node name="ButtonYes" type="Button" parent="UI/CanvasLayer Confirm/PopupPanelBorder/PopupPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -310.0
+offset_top = -50.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+text = "Yes"
+
+[node name="ButtonNo" type="Button" parent="UI/CanvasLayer Confirm/PopupPanelBorder/PopupPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = -50.0
+offset_right = 310.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+text = "No"
+
 [node name="CanvasLayer FileSelect" type="CanvasLayer" parent="UI"]
 layer = 120
 visible = false
@@ -6943,6 +7583,7 @@ layout_mode = 2
 
 [node name="Button" type="Button" parent="UI/CanvasLayer FileSelect/PopupPanel/SaveGamesScrollContainer/SaveGamesContainer"]
 layout_mode = 2
+theme_override_styles/normal = ExtResource("10_76fay")
 text = "File to load"
 icon = ExtResource("247_dstc6")
 
@@ -7760,6 +8401,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("133_xr7yn")
+
+[node name="Version" type="Label" parent="UI/CanvasLayer Intro"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -51.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "V0.997"
 
 [node name="Title" type="TextureRect" parent="UI/CanvasLayer Intro"]
 offset_right = 1286.0
@@ -9097,6 +9747,8 @@ texture = ExtResource("96_ohcu5")
 stretch_mode = 2
 
 [connection signal="button_down" from="UI/CanvasLayer Popup/PopupPanelBorder/PopupPanel/Button" to="." method="ClosePopup"]
+[connection signal="button_down" from="UI/CanvasLayer Confirm/PopupPanelBorder/PopupPanel/ButtonYes" to="." method="AcceptConfirm"]
+[connection signal="button_down" from="UI/CanvasLayer Confirm/PopupPanelBorder/PopupPanel/ButtonNo" to="." method="CloseConfirm"]
 [connection signal="button_down" from="UI/CanvasLayer FileSelect/PopupPanel/CancelButton" to="." method="CancelLoadGame"]
 [connection signal="button_down" from="UI/CanvasLayer UI/SpeedHBox/SpeedButton 0" to="." method="GameSpeed" binds= [0]]
 [connection signal="button_down" from="UI/CanvasLayer UI/SpeedHBox/SpeedButton 1" to="." method="GameSpeed" binds= [1]]

@@ -34,7 +34,7 @@ project/assembly_name="R2R"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-flexbox/plugin.cfg")
+enabled=PackedStringArray()
 
 [input]
 

@@ -7,10 +7,10 @@ We need to have a comple of spots to eat cheap enough
 
 ******* TODO ************************TODO ************************
 	INPUT: add ability to remap keys
+	GAME: add quests
+	HELP: improve help
 	
-Test food vending machine
-	Gym sound is still playing for a while after you exit the gym.
-	Add background street sounds
+	
 ********* BUGS ************************************
 
 
@@ -249,4 +249,23 @@ Test food vending machine
 	GAME: now you can buy cans and food snacks from vending machines, they will be automatically consumed if case food or drink levels go to zero
 	FIX: fixed the recycler in suburb avenue
 	ENV: added an hot dog vendor in the two hot dogs stands
+	GAME: Now the metro will move you to the corresponding selected destination metro station
+	GAME: fixed the problem of opening time for locations having start time or end time to 0 (midnight) (bug reported by Apoorv)
+	GAME: made sure it is not possible to go to negative money
+	FIX: fixed the Laundry in Top street (bug reported by Apoorv)
+	GAME: increased a little the max smell for Banks and top level offices
+	GAME: the map has now tooltips
+	LOAD: Now the incompatible old saves are marked as such
+	SOUNDS: All sounds are reset when completing an action (gym, laundry, etc.)
+	GAME: Added confirmation dialog, for actions that may lose the game content
+	FIX: Fixed a serious problem on loading games
+	PLAYER: the bag is now better aligned in case the player is more fit
+	SOUND: now the sounds are stopped when pausing the game or opening the options
+	
+	FIX: the bag sprite was wrong depending on the fitness level
+	FIX: now the school have a clear message in case you cannto enter one of them (thanks to Apoorv)
+	FIX: fixed the food vending machine
+	FIX: fixed visibility of hot god vendor in Slum Street (he was visible also if the shop was closed.)
+	FIX: fixed the message for the toilet of suburb street
+	SOUND: sounds now are paused and no more stopped, and many sounds that were not playing are now playing again
 	

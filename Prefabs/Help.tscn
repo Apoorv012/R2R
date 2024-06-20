@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://bdxp57b2cmofb"]
+[gd_scene load_steps=116 format=3 uid="uid://bdxp57b2cmofb"]
 
 [ext_resource type="Script" path="res://Scripts/Help.cs" id="1_b67vp"]
 [ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="2_gwmqf"]
@@ -49,7 +49,6 @@
 [ext_resource type="AudioStream" uid="uid://cj0n6ckmw4qwe" path="res://Sounds/Drink.ogg" id="58_xwnx7"]
 [ext_resource type="AudioStream" uid="uid://dwya2nfeuem3x" path="res://Sounds/Eat and Drink.ogg" id="59_a56kt"]
 [ext_resource type="Texture2D" uid="uid://coc681f4afsgg" path="res://Graphics/Locations/MapHelp.png" id="69_3qtu0"]
-[ext_resource type="Script" path="res://addons/godot-flexbox/flex_container.gd" id="85_5kf1w"]
 [ext_resource type="Texture2D" uid="uid://bqu2m08s8yap" path="res://Graphics/UI/SkyDay.png" id="118_cj1s7"]
 [ext_resource type="Texture2D" uid="uid://df4ygufgpvcrl" path="res://Graphics/UI/Sky.png" id="119_tt18p"]
 [ext_resource type="Script" path="res://Scripts/Road.cs" id="120_k7nrc"]
@@ -1172,13 +1171,6 @@ offset_left = -319.0
 offset_top = -16.0
 offset_right = 761.0
 offset_bottom = 240.0
-script = ExtResource("85_5kf1w")
-debug_draw = true
-flex_direction = 0
-flex_wrap = 1
-justify_content = 1
-align_items = 2
-align_content = 2
 
 [node name="TextureRect" type="TextureRect" parent="UI/CanvasLayer UI/PanelBackground/InventoryPanel/FlexContainer"]
 custom_minimum_size = Vector2(64, 64)
