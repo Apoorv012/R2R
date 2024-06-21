@@ -5,7 +5,6 @@ namespace R2R;
 public class SaveData {
   public int currentRoad { get; set; }
   public float roadXPos { get; set; }
-  public bool firstStart { get; set; }
   public Game.Status status { get; set; }
   public int dayNum { get; set; }
   public double dayTime { get; set; }
@@ -30,7 +29,6 @@ public class SaveData {
   public bool sleepingOnBench { get; set; }
   public bool jail { get; set; }
   public double globalMessageTimeout { get; set; }
-  public bool keepShiftPressedToRun { get; set; }
   public double food { get; set; }
   public double drink { get; set; }
   public double rest { get; set; }

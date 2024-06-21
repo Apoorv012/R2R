@@ -269,4 +269,9 @@ We need to have a comple of spots to eat cheap enough
 	FIX: fixed the message for the toilet of suburb street
 	SOUND: sounds now are paused and no more stopped, and many sounds that were not playing are now playing again
 	BANK: added a message in case you have an ATM already and you just do not have any money to deposit
-	OPTIONS: continue is now the fist item in the options
+	OPTIONS: continue is now the first item in the options
+	SAVE: improved a little bit the savegame (still compatible with previous versions)
+	GAME: carrots, full cans, and snaks are no more thrown away in the trashcans
+	INTRO: Added the ability to load the game directly from the intro page
+	GAME: It is possible to remap the keys
+	FIX: fixed the problem of items not being counted when added to the bag. (Fixes the problem of not drinking cans and eating snacks)

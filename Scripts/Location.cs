@@ -149,10 +149,10 @@ public partial class Location : Sprite2D {
 				case LocationType.Map:
 					return "A map showing where I am in the city.";
 				case LocationType.School:
-					if (amount == 0) return "An elementary school to study and learn.";
-					else if (amount == 1) return "A middle school to study and learn.";
-					else if (amount == 2) return "A high school to study and learn.";
-					else return "A college to study and learn.";
+					if (amount == 0) return $"An elementary school to study and learn.\nlessons are from {start} to {end} and cost {priceTag}";
+					else if (amount == 1) return $"A middle school to study and learn.\nlessons are from {start} to {end} and cost {priceTag}";
+					else if (amount == 2) return $"A high school to study and learn.\nlessons are from {start} to {end} and cost {priceTag}";
+					else return $"A college to study and learn.\nlessons are from {start} to {end} and cost {priceTag}";
 				case LocationType.Gym:
 					return $"It is a gym, it costs {priceTag}.";
 				case LocationType.Fountain:

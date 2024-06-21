@@ -1,4 +1,4 @@
-[gd_scene load_steps=351 format=3 uid="uid://bdflk6ud0jrdt"]
+[gd_scene load_steps=358 format=3 uid="uid://bdflk6ud0jrdt"]
 
 [ext_resource type="Texture2D" uid="uid://gv7cbn8nwpr6" path="res://Graphics/Player/Body1.png" id="1_hj6uc"]
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_u838r"]
@@ -296,6 +296,12 @@
 [ext_resource type="Texture2D" uid="uid://db6yg2dcriey4" path="res://Graphics/Intro/CheekyCommodoreGamer.png" id="274_sxkv6"]
 [ext_resource type="Texture2D" uid="uid://bgggvhi154s0u" path="res://Graphics/Intro/Navi.png" id="275_w70h7"]
 [ext_resource type="Texture2D" uid="uid://beoivrskwm7yl" path="res://Graphics/Intro/Apoorv.png" id="276_y5wu3"]
+[ext_resource type="Texture2D" uid="uid://l3tqwnktd6ld" path="res://Graphics/UI/ButtonArrowR.png" id="295_auwrp"]
+[ext_resource type="Texture2D" uid="uid://drrtpxwlndkxk" path="res://Graphics/UI/OK.png" id="295_imyo3"]
+[ext_resource type="Texture2D" uid="uid://bwm8v427jwkny" path="res://Graphics/UI/ButtonArrowU.png" id="296_5ch1g"]
+[ext_resource type="Texture2D" uid="uid://bbkc3283i5r4v" path="res://Graphics/UI/ButtonArrowD.png" id="297_02pfe"]
+[ext_resource type="Texture2D" uid="uid://basrt6nbcrh44" path="res://Graphics/UI/ButtonArrowCL.png" id="298_vvs7l"]
+[ext_resource type="Texture2D" uid="uid://bvuebcsw8xqom" path="res://Graphics/UI/ButtonArrowSP.png" id="299_fhxm7"]
 
 [sub_resource type="Gradient" id="Gradient_vjce0"]
 interpolation_mode = 2
@@ -1163,7 +1169,10 @@ expand_margin_top = 3.0
 expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Bag", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "cam", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmellB", "pbSmellC", "pbBeard", "pbEducation", "pbFitness", "pbSmellL", "ItemsHBox", "InventoryControl", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "OptionsSaveButton", "HighlightIntro", "PanelCredits", "CreditsMask", "PopupCanvas", "ConfirmCanvas", "FileSaveCanvas", "PopupTitle", "PopupLabel", "ConfirmLabel", "SaveGamesContainer", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "PanelTitle", "PanelSpark", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "RunModeCB", "HighlightOpts", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "BanknotesContainer", "CoinsContainer", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "ApartmentList", "HotelList", "Gardens", "HotDogVendors", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3m41"]
+bg_color = Color(0.0705882, 0.0705882, 0.0705882, 0.992157)
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("Player", "Body", "Face", "Eye", "EyesSitClosed", "Hat", "Beard", "Legs", "Bag", "Balloon", "BalloonTxt", "BroomPlayer", "HandBrooming", "cam", "DayNum", "DayTime", "TotalFunds", "GlobalMessage", "pbFood", "pbDrink", "pbRest", "pbSmellB", "pbSmellC", "pbBeard", "pbEducation", "pbFitness", "pbSmellL", "ItemsHBox", "InventoryControl", "ATMCard", "Tickets", "Soap", "Razor", "Broom", "FadePanel", "SpeedButton0", "SpeedButton1", "SpeedButton2", "SpeedButton3", "OptionsPlayButton", "OptionsContinueButton", "OptionsSaveButton", "HighlightIntro", "PanelCredits", "CreditsMask", "PopupCanvas", "ConfirmCanvas", "FileSaveCanvas", "PopupTitle", "PopupLabel", "ConfirmLabel", "SaveGamesContainer", "PanelMetro", "MetroMain", "MetroSlum", "MetroSide", "MetroNorth", "MetroTop", "MetroSuburb", "MetroClose", "PanelOptions", "RemapCanvas", "PanelTitle", "PanelSpark", "RemapMessage", "MusicVolValue", "MusicVolSlider", "EffetsVolValue", "EffetsVolSlider", "DropDownFullscreen", "DropDownFPS", "GameDifficultyValue", "GameDifficultySlider", "UsePlayerHatCB", "UseCustomMusicCB", "RunModeCB", "HighlightOpts", "RemapLeft", "RemapRight", "RemapUp", "RemapDown", "RemapClick", "RemapSpeed", "City", "BackgroundStreet", "Sun", "SkyDay", "SkyNight", "Background0", "Background1", "Background1a", "Background1b", "CityMap", "YouAreHere", "Coins", "Banknotes", "BanknotesContainer", "CoinsContainer", "SuburbAvenue", "TopBoulevard", "NorthRoad", "SideRoad", "MainStreet", "SlumStreet", "Slum_MarketDoor", "Side_SportBarDoor", "Benches", "ApartmentList", "HotelList", "Gardens", "HotDogVendors", "DumpDog", "BoneForDog", "NPCBalloon1", "NPCBalloon2", "NPCBalloonTxt1", "NPCBalloonTxt2", "DrunkGuy", "MusicPlayer", "SoundPlayer", "PlayerPlayer", "NPCPlayer", "IntroPanel", "GameOverPanel", "WinPanel", "GameOverAnim", "WinAnim", "IntroText")]
 script = ExtResource("1_u838r")
 Player = NodePath("Player and Camera/Player")
 Body = NodePath("Player and Camera/Player/Body")
@@ -1212,10 +1221,10 @@ SpeedButton0 = NodePath("UI/CanvasLayer UI/SpeedHBox/SpeedButton 0")
 SpeedButton1 = NodePath("UI/CanvasLayer UI/SpeedHBox/SpeedButton 1")
 SpeedButton2 = NodePath("UI/CanvasLayer UI/SpeedHBox/SpeedButton 2")
 SpeedButton3 = NodePath("UI/CanvasLayer UI/SpeedHBox/SpeedButton 3")
-OptionsPlayButton = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxButtons/PlayButton")
-OptionsContinueButton = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxButtons/ContinueButton")
-OptionsSaveButton = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxButtons/SaveButton")
-HighlightIntro = [NodePath("UI/CanvasLayer Intro/Highlights/Highlight0"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight1"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight2"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight3"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight4")]
+OptionsPlayButton = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxButtons/MarginPlay/PlayButton")
+OptionsContinueButton = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxButtons/MarginContinue/ContinueButton")
+OptionsSaveButton = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxButtons/HBoxLoadSave/SaveButton")
+HighlightIntro = [NodePath("UI/CanvasLayer Intro/Highlights/Highlight0"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight1"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight2"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight3"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight4"), NodePath("UI/CanvasLayer Intro/Highlights/Highlight5")]
 PanelCredits = NodePath("UI/CanvasLayer Intro/Mask/IntroTextScrolling/Credits background")
 CreditsMask = NodePath("UI/CanvasLayer Intro/Mask")
 PopupCanvas = NodePath("UI/CanvasLayer Popup")
@@ -1238,8 +1247,10 @@ MetroSuburb = NodePath("UI/CanvasLayer UI/PanelMetro/VBoxContainer/SuburbAvenueB
 MetroClose = NodePath("UI/CanvasLayer UI/PanelMetro/VBoxContainer/CloseButton")
 SelectedButtonTheme = ExtResource("90_geyvj")
 PanelOptions = NodePath("UI/CanvasLayer Options")
+RemapCanvas = NodePath("UI/CanvasLayer Remap")
 PanelTitle = NodePath("UI/CanvasLayer Options/PanelOptions/Title")
 PanelSpark = NodePath("UI/CanvasLayer Options/PanelOptions/Title/Sparkle")
+RemapMessage = NodePath("UI/CanvasLayer Remap/Panel/RemapMessage")
 MusicVolValue = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer/MusicValue")
 MusicVolSlider = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelMusic/VBoxContainer/MusicHSlider")
 EffetsVolValue = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelEffects/VBoxContainer/EffectsValue")
@@ -1251,7 +1262,13 @@ GameDifficultySlider = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders
 UsePlayerHatCB = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelHat/HatCheckButton")
 UseCustomMusicCB = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelCustomMusic/CustomMusicCheckButton")
 RunModeCB = NodePath("UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelRunMode/RunModeCheckButton")
-HighlightOpts = [NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight0"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight1"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight2"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight3"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight4"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight5"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight6"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight7"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight8"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight9"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight10"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight11"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight12"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight13")]
+HighlightOpts = [NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight0"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight1"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight2"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight3"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight4"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight5"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight6"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight7"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight8"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight9"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight10"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight11"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight12"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight13"), NodePath("UI/CanvasLayer Options/PanelOptions/Highligts/Highlight14")]
+RemapLeft = NodePath("UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/LeftButton")
+RemapRight = NodePath("UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/RightButton")
+RemapUp = NodePath("UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/UpButton")
+RemapDown = NodePath("UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/DownButton")
+RemapClick = NodePath("UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/ClickButton")
+RemapSpeed = NodePath("UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/SpeedButton")
 City = NodePath("City")
 BackgroundStreet = NodePath("BackgroundStreet")
 Sun = NodePath("City/Sun")
@@ -7290,7 +7307,6 @@ tooltip_text = "Clothes"
 mouse_filter = 0
 
 [node name="YouAreHere" type="TextureRect" parent="MapLayer/MapControl/Map"]
-visible = false
 layout_mode = 0
 offset_left = 400.0
 offset_top = 560.0
@@ -8392,7 +8408,6 @@ rotation = 0.0872665
 color = Color(0, 0, 0, 1)
 
 [node name="CanvasLayer Intro" type="CanvasLayer" parent="UI"]
-visible = false
 
 [node name="Background" type="TextureRect" parent="UI/CanvasLayer Intro"]
 anchors_preset = 15
@@ -8699,9 +8714,9 @@ offset_bottom = 44.0
 custom_minimum_size = Vector2(0, 57)
 layout_mode = 0
 offset_left = 1730.0
-offset_top = 753.0
+offset_top = 693.0
 offset_right = 1896.0
-offset_bottom = 810.0
+offset_bottom = 750.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
@@ -8709,9 +8724,9 @@ expand_mode = 1
 custom_minimum_size = Vector2(0, 57)
 layout_mode = 0
 offset_left = 1730.0
-offset_top = 814.0
+offset_top = 754.0
 offset_right = 1896.0
-offset_bottom = 871.0
+offset_bottom = 811.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
@@ -8719,9 +8734,9 @@ expand_mode = 1
 custom_minimum_size = Vector2(0, 57)
 layout_mode = 0
 offset_left = 1730.0
-offset_top = 875.0
+offset_top = 815.0
 offset_right = 1896.0
-offset_bottom = 932.0
+offset_bottom = 872.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
@@ -8729,13 +8744,23 @@ expand_mode = 1
 custom_minimum_size = Vector2(0, 57)
 layout_mode = 0
 offset_left = 1730.0
-offset_top = 936.0
+offset_top = 876.0
 offset_right = 1896.0
-offset_bottom = 993.0
+offset_bottom = 933.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight4" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
+custom_minimum_size = Vector2(0, 57)
+layout_mode = 0
+offset_left = 1730.0
+offset_top = 937.0
+offset_right = 1896.0
+offset_bottom = 994.0
+texture = ExtResource("101_md2s6")
+expand_mode = 1
+
+[node name="Highlight5" type="TextureRect" parent="UI/CanvasLayer Intro/Highlights"]
 custom_minimum_size = Vector2(0, 57)
 layout_mode = 0
 offset_left = 1730.0
@@ -8768,6 +8793,15 @@ theme_override_fonts/font = ExtResource("46_ge3pe")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_uclcx")
 text = "Play"
+
+[node name="LoadButton" type="Button" parent="UI/CanvasLayer Intro/IntroButtons"]
+custom_minimum_size = Vector2(150, 40)
+layout_mode = 2
+tooltip_text = "Start the game"
+theme_override_fonts/font = ExtResource("46_ge3pe")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_uclcx")
+text = "Load"
 
 [node name="OptionsButton" type="Button" parent="UI/CanvasLayer Intro/IntroButtons"]
 custom_minimum_size = Vector2(150, 40)
@@ -9114,56 +9148,72 @@ texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight8" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
-layout_mode = 0
-offset_left = 1419.0
-offset_top = 496.0
-offset_right = 1760.0
-offset_bottom = 587.0
+custom_minimum_size = Vector2(282, 80)
+layout_mode = 2
+offset_left = 1342.0
+offset_top = 558.0
+offset_right = 1624.0
+offset_bottom = 638.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight9" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
-layout_mode = 0
-offset_left = 1419.0
-offset_top = 592.0
-offset_right = 1760.0
-offset_bottom = 683.0
+custom_minimum_size = Vector2(282, 80)
+layout_mode = 2
+offset_left = 1342.0
+offset_top = 654.0
+offset_right = 1624.0
+offset_bottom = 734.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight10" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
-layout_mode = 0
-offset_left = 1419.0
-offset_top = 688.0
-offset_right = 1760.0
-offset_bottom = 779.0
+custom_minimum_size = Vector2(256, 80)
+layout_mode = 2
+offset_left = 1342.0
+offset_top = 750.0
+offset_right = 1598.0
+offset_bottom = 830.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight11" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
-layout_mode = 0
-offset_left = 1419.0
-offset_top = 784.0
-offset_right = 1760.0
-offset_bottom = 875.0
+custom_minimum_size = Vector2(256, 80)
+layout_mode = 2
+offset_left = 1598.0
+offset_top = 750.0
+offset_right = 1854.0
+offset_bottom = 830.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight12" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
-layout_mode = 0
-offset_left = 1419.0
-offset_top = 880.0
-offset_right = 1760.0
-offset_bottom = 971.0
+custom_minimum_size = Vector2(282, 80)
+layout_mode = 2
+offset_left = 1342.0
+offset_top = 846.0
+offset_right = 1624.0
+offset_bottom = 926.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
 [node name="Highlight13" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
-layout_mode = 0
-offset_left = 1419.0
-offset_top = 976.0
-offset_right = 1760.0
-offset_bottom = 1067.0
+custom_minimum_size = Vector2(256, 80)
+layout_mode = 2
+offset_left = 1342.0
+offset_top = 941.0
+offset_right = 1598.0
+offset_bottom = 1021.0
+texture = ExtResource("101_md2s6")
+expand_mode = 1
+
+[node name="Highlight14" type="TextureRect" parent="UI/CanvasLayer Options/PanelOptions/Highligts"]
+custom_minimum_size = Vector2(256, 80)
+layout_mode = 2
+offset_left = 1598.0
+offset_top = 941.0
+offset_right = 1854.0
+offset_bottom = 1021.0
 texture = ExtResource("101_md2s6")
 expand_mode = 1
 
@@ -9398,14 +9448,19 @@ text = "Keep Shift pressed to run"
 
 [node name="VBoxButtons" type="VBoxContainer" parent="UI/CanvasLayer Options/PanelOptions"]
 layout_mode = 0
-offset_left = 1440.0
-offset_top = 508.0
-offset_right = 1740.0
-offset_bottom = 1052.0
+offset_left = 1350.0
+offset_top = 565.0
+offset_right = 1838.0
+offset_bottom = 1013.0
 theme_override_constants/separation = 32
 
-[node name="ContinueButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
-custom_minimum_size = Vector2(300, 64)
+[node name="MarginContinue" type="MarginContainer" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 230
+
+[node name="ContinueButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons/MarginContinue"]
+custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 tooltip_text = "Continue playing"
 theme_override_fonts/font = ExtResource("46_ge3pe")
@@ -9413,8 +9468,13 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
 text = "Continue"
 
-[node name="PlayButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
-custom_minimum_size = Vector2(300, 64)
+[node name="MarginPlay" type="MarginContainer" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 230
+
+[node name="PlayButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons/MarginPlay"]
+custom_minimum_size = Vector2(200, 64)
 layout_mode = 2
 tooltip_text = "Start the game from the begin"
 theme_override_fonts/font = ExtResource("46_ge3pe")
@@ -9422,8 +9482,12 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
 text = "Restart"
 
-[node name="LoadButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
-custom_minimum_size = Vector2(300, 64)
+[node name="HBoxLoadSave" type="HBoxContainer" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="LoadButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons/HBoxLoadSave"]
+custom_minimum_size = Vector2(240, 64)
 layout_mode = 2
 tooltip_text = "Load an existing game"
 theme_override_fonts/font = ExtResource("46_ge3pe")
@@ -9431,8 +9495,8 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
 text = "Load"
 
-[node name="SaveButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
-custom_minimum_size = Vector2(300, 64)
+[node name="SaveButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons/HBoxLoadSave"]
+custom_minimum_size = Vector2(240, 64)
 layout_mode = 2
 tooltip_text = "Save the current game"
 theme_override_fonts/font = ExtResource("46_ge3pe")
@@ -9440,8 +9504,26 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
 text = "Save"
 
-[node name="BackToIntroButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
-custom_minimum_size = Vector2(300, 64)
+[node name="MarginRemap" type="MarginContainer" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_right = 230
+
+[node name="MapKeysButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons/MarginRemap"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+tooltip_text = "Start the game from the begin"
+theme_override_fonts/font = ExtResource("46_ge3pe")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
+text = "Remap Keys"
+
+[node name="HBoxExit" type="HBoxContainer" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="BackToIntroButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons/HBoxExit"]
+custom_minimum_size = Vector2(240, 64)
 layout_mode = 2
 tooltip_text = "Go back to the main screen"
 theme_override_fonts/font = ExtResource("46_ge3pe")
@@ -9449,8 +9531,8 @@ theme_override_font_sizes/font_size = 40
 theme_override_styles/normal = SubResource("StyleBoxFlat_s6stv")
 text = "Back to Title"
 
-[node name="ExitButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons"]
-custom_minimum_size = Vector2(300, 64)
+[node name="ExitButton" type="Button" parent="UI/CanvasLayer Options/PanelOptions/VBoxButtons/HBoxExit"]
+custom_minimum_size = Vector2(240, 64)
 layout_mode = 2
 tooltip_text = "Exit the game and go back to the OS"
 theme_override_fonts/font = ExtResource("46_ge3pe")
@@ -9545,6 +9627,198 @@ offset_right = 208.0
 offset_bottom = 133.0
 texture = ExtResource("2_7ghn5")
 expand_mode = 1
+
+[node name="CanvasLayer Remap" type="CanvasLayer" parent="UI"]
+layer = 5
+visible = false
+
+[node name="Panel" type="Panel" parent="UI/CanvasLayer Remap"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("246_7wek8")
+theme_override_styles/panel = SubResource("StyleBoxFlat_i3m41")
+
+[node name="Label" type="Label" parent="UI/CanvasLayer Remap/Panel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 102.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0.870588, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "Remap Keys"
+horizontal_alignment = 1
+
+[node name="RemapMessage" type="Label" parent="UI/CanvasLayer Remap/Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -176.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0.870588, 0, 1)
+theme_override_font_sizes/font_size = 80
+text = "Press the key to add to the action..."
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/CanvasLayer Remap/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -661.0
+offset_top = -311.0
+offset_right = 661.0
+offset_bottom = 311.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/CanvasLayer Remap/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="LeftButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "    LEFT:      A, Left                          "
+icon = ExtResource("247_dstc6")
+alignment = 0
+
+[node name="RightButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "    RIGHT:   D, Right                    "
+icon = ExtResource("295_auwrp")
+alignment = 0
+
+[node name="UpButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "    UP:         W, Up                              "
+icon = ExtResource("296_5ch1g")
+alignment = 0
+
+[node name="DownButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "    DOWN:  S, Down                   "
+icon = ExtResource("297_02pfe")
+alignment = 0
+
+[node name="ClickButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "    USE:       Ctrl, Space, Enter"
+icon = ExtResource("298_vvs7l")
+alignment = 0
+
+[node name="SpeedButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "    SPEED:   Shift                          "
+icon = ExtResource("299_fhxm7")
+alignment = 0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/CanvasLayer Remap/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="LeftButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Clean "
+icon = ExtResource("91_xed2o")
+alignment = 2
+
+[node name="RightButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Clean "
+icon = ExtResource("91_xed2o")
+alignment = 2
+
+[node name="UpButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Clean "
+icon = ExtResource("91_xed2o")
+alignment = 2
+
+[node name="DownButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Clean "
+icon = ExtResource("91_xed2o")
+alignment = 2
+
+[node name="ClickButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Clean "
+icon = ExtResource("91_xed2o")
+alignment = 2
+
+[node name="SpeedButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Clean "
+icon = ExtResource("91_xed2o")
+alignment = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="UI/CanvasLayer Remap/Panel/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="LeftButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Default"
+icon = ExtResource("295_imyo3")
+
+[node name="RightButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Default"
+icon = ExtResource("295_imyo3")
+
+[node name="UpButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Default"
+icon = ExtResource("295_imyo3")
+
+[node name="DownButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Default"
+icon = ExtResource("295_imyo3")
+
+[node name="ClickButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Default"
+icon = ExtResource("295_imyo3")
+
+[node name="SpeedButton" type="Button" parent="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Default"
+icon = ExtResource("295_imyo3")
+
+[node name="ExitButton" type="Button" parent="UI/CanvasLayer Remap/Panel"]
+offset_left = 1627.0
+offset_top = 1002.0
+offset_right = 1886.0
+offset_bottom = 1052.0
+text = "Exit"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="UI"]
 bus = &"Music"
@@ -9762,6 +10036,7 @@ stretch_mode = 2
 [connection signal="button_down" from="UI/CanvasLayer UI/PanelMetro/VBoxContainer/SuburbAvenueButton" to="." method="JumpToRoad" binds= [5]]
 [connection signal="button_down" from="UI/CanvasLayer UI/PanelMetro/VBoxContainer/CloseButton" to="." method="JumpToRoad" binds= [6]]
 [connection signal="button_down" from="UI/CanvasLayer Intro/IntroButtons/PlayButton" to="." method="PlayGame" binds= [0]]
+[connection signal="button_down" from="UI/CanvasLayer Intro/IntroButtons/LoadButton" to="." method="LoadGame"]
 [connection signal="button_down" from="UI/CanvasLayer Intro/IntroButtons/OptionsButton" to="." method="ShowOptions"]
 [connection signal="button_up" from="UI/CanvasLayer Intro/IntroButtons/TutorialButton" to="." method="StartHelp"]
 [connection signal="button_up" from="UI/CanvasLayer Intro/IntroButtons/CreditsButton" to="." method="Credits"]
@@ -9775,9 +10050,29 @@ stretch_mode = 2
 [connection signal="value_changed" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelDifficulty/VBoxContainer/HSlider" to="." method="GameDifficultySliderChange"]
 [connection signal="toggled" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelHat/HatCheckButton" to="." method="UseHatForPlayer"]
 [connection signal="toggled" from="UI/CanvasLayer Options/PanelOptions/VBoxSliders/PanelRunMode/RunModeCheckButton" to="." method="RunModePlayer"]
-[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/ContinueButton" to="." method="PlayGame" binds= [1]]
-[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/PlayButton" to="." method="PlayGame" binds= [0]]
-[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/LoadButton" to="." method="LoadGame"]
-[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/SaveButton" to="." method="SaveGame"]
-[connection signal="pressed" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/BackToIntroButton" to="." method="PlayGame" binds= [2]]
-[connection signal="pressed" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/ExitButton" to="." method="QuitGame"]
+[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/MarginContinue/ContinueButton" to="." method="PlayGame" binds= [1]]
+[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/MarginPlay/PlayButton" to="." method="PlayGame" binds= [0]]
+[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/HBoxLoadSave/LoadButton" to="." method="LoadGame"]
+[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/HBoxLoadSave/SaveButton" to="." method="SaveGame"]
+[connection signal="button_down" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/MarginRemap/MapKeysButton" to="." method="RemapKeys"]
+[connection signal="pressed" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/HBoxExit/BackToIntroButton" to="." method="PlayGame" binds= [2]]
+[connection signal="pressed" from="UI/CanvasLayer Options/PanelOptions/VBoxButtons/HBoxExit/ExitButton" to="." method="QuitGame"]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/LeftButton" to="." method="DoRemap" binds= [0]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/RightButton" to="." method="DoRemap" binds= [1]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/UpButton" to="." method="DoRemap" binds= [2]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/DownButton" to="." method="DoRemap" binds= [3]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/ClickButton" to="." method="DoRemap" binds= [4]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer/SpeedButton" to="." method="DoRemap" binds= [5]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2/LeftButton" to="." method="CleanRemap" binds= [0]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2/RightButton" to="." method="CleanRemap" binds= [1]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2/UpButton" to="." method="CleanRemap" binds= [2]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2/DownButton" to="." method="CleanRemap" binds= [3]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2/ClickButton" to="." method="CleanRemap" binds= [4]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer2/SpeedButton" to="." method="CleanRemap" binds= [5]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3/LeftButton" to="." method="ResetRemap" binds= [0]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3/RightButton" to="." method="ResetRemap" binds= [1]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3/UpButton" to="." method="ResetRemap" binds= [2]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3/DownButton" to="." method="ResetRemap" binds= [3]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3/ClickButton" to="." method="ResetRemap" binds= [4]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/HBoxContainer/VBoxContainer3/SpeedButton" to="." method="ResetRemap" binds= [5]]
+[connection signal="button_up" from="UI/CanvasLayer Remap/Panel/ExitButton" to="." method="CloseRemapKeys"]
